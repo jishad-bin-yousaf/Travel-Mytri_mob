@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
@@ -6,6 +7,8 @@ import 'package:travel_mytri_mobile_v1/Screens/Home/home_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/My%20Trips/my_trips_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -33,7 +36,12 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(1000, name: DESKTOP),
         ],
       ),
-      home: const SplashScreen(),
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => LaunchScreen(),
+      },
+      initialRoute: '/',
+      // home: const SplashScreen(),
     );
   }
 }
@@ -50,11 +58,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => LaunchScreen()),
-            ));
+      const Duration(seconds: 3),
+      () => Navigator.pushNamed(context, '/home'),
+    );
   }
 
   @override
@@ -100,6 +106,7 @@ class LaunchScreen extends StatelessWidget {
   final _pages = [
     const ScreenHome(),
     const ScreenHome(),
+    const ScreenMyTrips(),
     const ScreenMyTrips(),
   ];
 }

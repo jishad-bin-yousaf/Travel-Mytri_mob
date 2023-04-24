@@ -17,6 +17,7 @@ class BottomNavigation extends StatelessWidget {
           child: CustomNavigationBar(
             elevation: 0,
             iconSize: 30.0,
+
             selectedColor: primaryColor,
             strokeColor: tertiaryColor,
             unSelectedColor: Colors.black,
