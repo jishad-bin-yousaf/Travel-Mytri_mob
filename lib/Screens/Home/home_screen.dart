@@ -38,7 +38,7 @@ class ScreenHome extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: height * 0.75,
+                margin: const EdgeInsets.only(top: 60),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -48,499 +48,499 @@ class ScreenHome extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: [
-                SizedBox(
-                    //        width: MediaQuery.of(context).,
-                    height: width / height <= 0.67
-                        ? height - (height * 0.75) - (width * 0.23) - 65
-                        : (width / height > 0.67) && (width / height <= 0.92)
-                            ? height - (height * 0.75) - (width * 0.23)
-                            : width - (width * 0.75) - (height * 0.23)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: width * 0.25,
-                        height: width * 0.23,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              //  offset: const Offset(0, 7), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
-                          Icon(Icons.flight_takeoff, size: 35),
-                          Text("Flights", style: TextStyle(fontSize: 18)),
-                        ]),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: width * 0.25,
-                        height: width * 0.23,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              //  offset: const Offset(0, 7), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
-                          Icon(Icons.bed_outlined, size: 35),
-                          Text("Hotels", style: TextStyle(fontSize: 18)),
-                        ]),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: width * 0.25,
-                        height: width * 0.23,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              //  offset: const Offset(0, 7), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
-                          Icon(Icons.health_and_safety_outlined, size: 35),
-                          Text("Insurance", style: TextStyle(fontSize: 18)),
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: ListView(
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 32, left: 10, bottom: 10),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Top Flight Deals",
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: width * 0.25,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                //  offset: const Offset(0, 7), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.flight_takeoff, size: 35),
+                            Text("Flights", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: width * 0.35,
-                          viewportFraction: 0.5,
-                          //  enlargeCenterPage: true,
-                          //     autoPlay: true,
-                          //     pauseAutoPlayOnManualNavigate: true,
-                          animateToClosest: true,
-                          autoPlayCurve: Curves.easeInOutCubicEmphasized,
-                          autoPlayInterval: const Duration(seconds: 3),
-                        ),
-                        items: [
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          topFlightDealsCard(width),
-                          // Add more items to the list if you need to display multiple containers
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          top: 30,
-                          left: 15,
-                        ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Best Airline Deals",
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: width * 0.25,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                //  offset: const Offset(0, 7), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.bed_outlined, size: 35),
+                            Text("Hotels", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: width * 0.35,
-                          viewportFraction: 0.5 /*,  enlargeCenterPage: true */,
-                          // autoPlay: true,
-                          //  pauseAutoPlayOnManualNavigate: true,
-                          animateToClosest: true,
-                          autoPlayCurve: Curves.easeInOutCubicEmphasized,
-                          autoPlayInterval: const Duration(seconds: 3),
-                        ),
-                        items: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: Image.asset('assets/airline_deals/Air11.png'),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: width * 0.25,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                //  offset: const Offset(0, 7), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: Image.asset('assets/airline_deals/Air21.png'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: Image.asset('assets/airline_deals/Air31.png'),
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          top: 15,
-                          left: 15,
-                          bottom: 15,
-                        ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Discover our best hotels to stay",
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                          ),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.health_and_safety_outlined, size: 35),
+                            Text("Insurance", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: width * 0.5,
-                          viewportFraction: 0.5,
-                          //     enlargeCenterPage: true,
-                          //     autoPlay: true,
-                          //     pauseAutoPlayOnManualNavigate: true,
-                          animateToClosest: true,
-                          autoPlayCurve: Curves.easeInOutCubicEmphasized,
-                          autoPlayInterval: const Duration(seconds: 3),
-                        ),
-                        items: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                      child: Image.asset('assets/hotels/Hotel11.png'),
-                                    ),
-                                    Positioned(
-                                      top: 5,
-                                      left: 5,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: secondaryColor,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        child: const Text(
-                                          " 18% off!",
-                                          style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 10, bottom: 2.0),
-                                          child: Text(
-                                            "Marriott Hotel",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.location_on_outlined),
-                                            Text(
-                                              "Kochi",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      "19,983",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                      child: Image.asset('assets/hotels/Hotel21.png'),
-                                    ),
-                                    Positioned(
-                                      top: 5,
-                                      left: 5,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: secondaryColor,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        child: const Text(
-                                          " 18% off!",
-                                          style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 10, bottom: 2.0),
-                                          child: Text(
-                                            "Marriott Hotel",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.location_on_outlined),
-                                            Text(
-                                              "Kochi",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      "12,983",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                      child: Image.asset('assets/hotels/Hotel31.png'),
-                                    ),
-                                    Positioned(
-                                      top: 5,
-                                      left: 5,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: secondaryColor,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        child: const Text(
-                                          " 18% off!",
-                                          style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 10, bottom: 2.0),
-                                          child: Text(
-                                            "Marriott Hotel",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.location_on_outlined),
-                                            Text(
-                                              "Kochi",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      "14,983",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(4),
-                              ),
-                              color: white,
-                              border: Border.all(
-                                color: Color.fromRGBO(186, 186, 186, 1),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  "Assured best fares",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(Icons.payments_outlined)
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(4),
-                              ),
-                              color: white,
-                              border: Border.all(
-                                color: Color.fromRGBO(186, 186, 186, 1),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  "Easy Booking",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(Icons.security_update_good_rounded)
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(4),
-                              ),
-                              color: white,
-                              border: Border.all(
-                                color: Color.fromRGBO(186, 186, 186, 1),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  "Safe & secure",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(Icons.security_rounded)
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 32, left: 10, bottom: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Top Flight Deals",
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 170,
+                            viewportFraction: 0.5,
+                            //  enlargeCenterPage: true,
+                            //     autoPlay: true,
+                            //     pauseAutoPlayOnManualNavigate: true,
+                            animateToClosest: true,
+                            autoPlayCurve: Curves.easeInOutCubicEmphasized,
+                            autoPlayInterval: const Duration(seconds: 3),
+                          ),
+                          items: [
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            topFlightDealsCard(width),
+                            // Add more items to the list if you need to display multiple containers
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            top: 15,
+                            left: 15,
+                            bottom: 15,
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Best Airline Deals",
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 130,
+
+                            viewportFraction: 0.5 /*,  enlargeCenterPage: true */,
+                            // autoPlay: true,
+                            //  pauseAutoPlayOnManualNavigate: true,
+                            animateToClosest: true,
+                            autoPlayCurve: Curves.easeInOutCubicEmphasized,
+                            autoPlayInterval: const Duration(seconds: 3),
+                          ),
+                          items: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air11.png'),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air21.png'),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air31.png'),
+                            ),
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            top: 15,
+                            left: 15,
+                            bottom: 15,
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Discover our best hotels to stay",
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            viewportFraction: 0.5,
+                            //     enlargeCenterPage: true,
+                            //     autoPlay: true,
+                            //     pauseAutoPlayOnManualNavigate: true,
+                            animateToClosest: true,
+                            autoPlayCurve: Curves.easeInOutCubicEmphasized,
+                            autoPlayInterval: const Duration(seconds: 3),
+                          ),
+                          items: [
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel11.png'),
+                                      ),
+                                      Positioned(
+                                        top: 5,
+                                        left: 5,
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: secondaryColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
+                                            " 18% off!",
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
+                                            child: Text(
+                                              "Marriott Hotel",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.location_on_outlined),
+                                              Text(
+                                                "Kochi",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const Text(
+                                        "19,983",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel21.png'),
+                                      ),
+                                      Positioned(
+                                        top: 5,
+                                        left: 5,
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: secondaryColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
+                                            " 18% off!",
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
+                                            child: Text(
+                                              "Marriott Hotel",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.location_on_outlined),
+                                              Text(
+                                                "Kochi",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const Text(
+                                        "12,983",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel31.png'),
+                                      ),
+                                      Positioned(
+                                        top: 5,
+                                        left: 5,
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: secondaryColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
+                                            " 18% off!",
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
+                                            child: Text(
+                                              "Marriott Hotel",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.location_on_outlined),
+                                              Text(
+                                                "Kochi",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const Text(
+                                        "14,983",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4),
+                                  ),
+                                  color: white,
+                                  border: Border.all(
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Text(
+                                      "Assured best fares",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.payments_outlined)
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4),
+                                  ),
+                                  color: white,
+                                  border: Border.all(
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Text(
+                                      "Easy Booking",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.security_update_good_rounded)
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4),
+                                  ),
+                                  color: white,
+                                  border: Border.all(
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Text(
+                                      "Safe & secure",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.security_rounded)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -572,7 +572,9 @@ class ScreenHome extends StatelessWidget {
             child: Text(
               "Flat 15% Off!",
               style: TextStyle(
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
