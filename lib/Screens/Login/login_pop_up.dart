@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
+import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 loginBottomSheet(BuildContext context, double width) {
   return showModalBottomSheet(
     context: context,
     builder: (context) {
+      TextEditingController phoneNoController = TextEditingController();
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 50),
         child: Column(
@@ -17,10 +19,17 @@ loginBottomSheet(BuildContext context, double width) {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.0),
-              child: TextField(
-                decoration: InputDecoration(
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: TextFormField(
+                controller: phoneNoController,
+                keyboardType: TextInputType.phone,
+                onEditingComplete: () {
+                  if ((phoneNoController.text.length != 10)) {
+                    Helper().toastMessage("Enter Valid Phone No");
+                  }
+                },
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text(
                     "Enter your mobile number",
@@ -30,7 +39,19 @@ loginBottomSheet(BuildContext context, double width) {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                if ((phoneNoController.text.length != 10)) {
+                  Helper().toastMessage("Enter Valid Phone No");
+                } else {
+                  print(phoneNoController.text);
+                  final resp = await AuthenticationApi().authenticate(mobileNo: phoneNoController.text);
+                  if (resp?.status == true) {
+                    Navigator.of(context).pushNamed('/otp', arguments: phoneNoController.text);
+                  } else {
+                    Helper().toastMessage(resp?.responseMessage);
+                  }
+                }
+              },
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(width, 50),
                 backgroundColor: secondaryColor,

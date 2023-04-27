@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 
+import '../../data/api.dart';
+
 enum TripType { flights, hotels }
 
 class ScreenMyTrips extends StatefulWidget {
@@ -147,16 +149,8 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(10), boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(
-                        0,
-                        6,
-                      ),
-                      blurRadius: 6)
-                ]),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -166,6 +160,9 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                     return TextButton(
                       onPressed: () {
                         selectedTrip = tripType;
+                        //      getMyTripAirline();
+                        //  sendRequest();
+                        //DB().getAccountStatementResp();
                         setState(() {});
                       },
                       style: ButtonStyle(

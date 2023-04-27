@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
-import 'package:travel_mytri_mobile_v1/Screens/widgets/login_pop_up.dart';
+import 'package:travel_mytri_mobile_v1/Screens/Login/login_pop_up.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 
 class ScreenHome extends StatelessWidget {
@@ -478,7 +478,7 @@ class ScreenHome extends StatelessWidget {
                                   children: const [
                                     Text(
                                       "Assured best fares",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.payments_outlined)
@@ -486,6 +486,7 @@ class ScreenHome extends StatelessWidget {
                                 ),
                               ),
                               Container(
+                                width: width / 3 - 10,
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
@@ -502,7 +503,7 @@ class ScreenHome extends StatelessWidget {
                                   children: const [
                                     Text(
                                       "Easy Booking",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.security_update_good_rounded)
@@ -526,7 +527,7 @@ class ScreenHome extends StatelessWidget {
                                   children: const [
                                     Text(
                                       "Safe & secure",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.security_rounded)

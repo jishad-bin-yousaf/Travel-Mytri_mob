@@ -4,7 +4,11 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Home/home_screen.dart';
+import 'package:travel_mytri_mobile_v1/Screens/Login/otp_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/My%20Trips/my_trips_screen.dart';
+
+import 'Config/routes.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +29,7 @@ class MyApp extends StatelessWidget {
         canvasColor: tertiaryColor,
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: secondaryColor, primary: primaryColor),
       ),
+      debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveWrapper.builder(
         child,
         maxWidth: 1200,
@@ -36,10 +41,7 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(1000, name: DESKTOP),
         ],
       ),
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/home': (context) => LaunchScreen(),
-      },
+      routes: routes,
       initialRoute: '/',
       // home: const SplashScreen(),
     );
@@ -59,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushNamed(context, '/home'),
+      () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
     );
   }
 
@@ -101,11 +103,12 @@ class LaunchScreen extends StatelessWidget {
     );
   }
 
-  static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(2);
+  static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
   final _pages = [
     const ScreenHome(),
     const ScreenHome(),
+    // const ScreenProfile(),
     ScreenMyTrips(),
     ScreenMyTrips(),
   ];
