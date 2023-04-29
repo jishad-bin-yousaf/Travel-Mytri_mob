@@ -3,6 +3,6 @@ class AirlineUrl {
 }
 
 class AuthenticationUrl {
-  String authenticate = "api/Account/Authenticate";
+  String authenticate = "/api/Account/Authenticate";
   String otpSubmit = "/api/Account/OtpSubmitForAuthentication";
 }

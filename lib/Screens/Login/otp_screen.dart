@@ -18,6 +18,7 @@ class ScreenOtp extends StatelessWidget {
     TextEditingController otpController4 = TextEditingController();
     TextEditingController otpController5 = TextEditingController();
     TextEditingController otpController6 = TextEditingController();
+    String phoneNo = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       // appBar: AppBar(),
       body: SafeArea(
@@ -55,10 +56,10 @@ class ScreenOtp extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
                   child: Text(
-                    "+91 ${9807392792}",
+                    "+91 $phoneNo",
                     style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                   ),
                 ),
@@ -76,7 +77,9 @@ class ScreenOtp extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await AuthenticationApi().authenticate(mobileNo: phoneNo);
+                      },
                       child: Text(
                         "Resend OTP",
                         style: TextStyle(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w400),
@@ -88,8 +91,9 @@ class ScreenOtp extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       final otp = int.parse("${otpController1.text}${otpController2.text}${otpController3.text}${otpController4.text}${otpController5.text}${otpController6.text}");
-                      final resp = await AuthenticationApi().otpSubmit(mobileNo: "7736982537", otp: otp);
-                      if (resp?.status == true) {
+                      final resp = await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: otp);
+                      if (resp?.status == true && resp?.token != null) {
+                        gToken = resp!.token!;
                         Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
                       } else {
                         Helper().toastMessage(resp?.responseMessage ?? "");

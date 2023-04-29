@@ -56,7 +56,9 @@ class ScreenHome extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/flights');
+                        },
                         child: Container(
                           width: width * 0.25,
                           height: 100,
