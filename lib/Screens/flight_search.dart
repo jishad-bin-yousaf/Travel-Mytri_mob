@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
-
-import '../bottom_navigation.dart';
 
 class FlightSearchScreen extends StatelessWidget {
   const FlightSearchScreen({super.key});
@@ -138,14 +134,7 @@ class FlightSearchScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.all(30),
-                      children: [
-                        const TripTypeSelect(),
-                      ],
-                    ),
-                  ),
+                  const TripTypes(),
                 ],
               ),
             )
@@ -156,16 +145,16 @@ class FlightSearchScreen extends StatelessWidget {
   }
 }
 
-class TripTypeSelect extends StatefulWidget {
-  const TripTypeSelect({
+class TripTypes extends StatefulWidget {
+  const TripTypes({
     super.key,
   });
 
   @override
-  State<TripTypeSelect> createState() => _TripTypeSelectState();
+  State<TripTypes> createState() => _TripTypesState();
 }
 
-class _TripTypeSelectState extends State<TripTypeSelect> {
+class _TripTypesState extends State<TripTypes> {
   late bool oneWay;
   late bool roundTrip;
   late bool multiCity;
@@ -179,6 +168,25 @@ class _TripTypeSelectState extends State<TripTypeSelect> {
 
   @override
   Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+          selectTripType(),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.0),
+            child: Text("\t\tWhere are you going ?",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row selectTripType() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
