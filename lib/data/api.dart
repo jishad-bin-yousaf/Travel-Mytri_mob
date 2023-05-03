@@ -5,15 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import '../Constants/urls.dart';
+import 'model/airport_list.dart';
 
-String gToken = "";
+String gToken = "pJwR9rg5VOIqriYYZ3ikMJYdqg23yI94aoRRyTbqaUZQP15boKof1MQeDZrvcjN3";
 String baseUrl = "https://uattm.jameer.xyz";
-AuthenticationUrl authUrl = AuthenticationUrl();
 
 class AuthenticationApi {
+  AuthenticationUrl urls = AuthenticationUrl();
   Future<GeneralReponseModel?> authenticate({required String mobileNo}) async {
     try {
-      final url = Uri.parse(baseUrl + authUrl.authenticate);
+      final url = Uri.parse(baseUrl + urls.authenticate);
       print(url);
       final result = await http.post(
         url,
@@ -39,7 +40,7 @@ class AuthenticationApi {
       	CERTIFICATE_VERIFY_FAILED: Hostname mismatch(handshake.cc:393)) */
   Future<ResponseWithToken?> otpSubmit({required String mobileNo, required int otp}) async {
     try {
-      final url = Uri.parse(baseUrl + authUrl.otpSubmit);
+      final url = Uri.parse(baseUrl + urls.otpSubmit);
       print({"mobileNumber": mobileNo, "otp": otp});
       print(url);
       final result = await http.post(
@@ -53,6 +54,32 @@ class AuthenticationApi {
       final responseModel = ResponseWithToken.fromJson(resultAsJson);
       Helper().toastMessage(responseModel.responseMessage);
       return responseModel;
+    } on http.ClientException catch (e) {
+      log("${e.message}+++++");
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class AirlineApi {
+  AirlineUrl urls = AirlineUrl();
+  Future<List<AirportData>?> getAirport() async {
+    try {
+      final url = Uri.parse(baseUrl + urls.airport);
+      print(url);
+      final result = await http.post(
+        url,
+        body: jsonEncode({}),
+        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+      );
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = AirportList.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel.objAirportList;
     } on http.ClientException catch (e) {
       log(e.message.toString() + "+++++");
     } catch (e) {
