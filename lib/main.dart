@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
+      () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
     );
   }
 
