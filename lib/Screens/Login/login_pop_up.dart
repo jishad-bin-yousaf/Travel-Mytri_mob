@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 loginBottomSheet(BuildContext context, double width) {
+  TextEditingController phoneNoController = TextEditingController();
   return showModalBottomSheet(
     context: context,
     builder: (context) {
-      TextEditingController phoneNoController = TextEditingController();
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 50),
         child: Column(
@@ -24,9 +25,19 @@ loginBottomSheet(BuildContext context, double width) {
               child: TextFormField(
                 controller: phoneNoController,
                 keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                onChanged: (newValue) {
+                  phoneNoController.text.length == 10 ? FocusScope.of(context).unfocus() : null;
+                },
                 onEditingComplete: () {
                   if ((phoneNoController.text.length != 10)) {
                     Helper().toastMessage("Enter Valid Phone No");
+                  } else {
+                    // Hide keyboard when editing is complete
+                    FocusScope.of(context).unfocus();
                   }
                 },
                 decoration: const InputDecoration(

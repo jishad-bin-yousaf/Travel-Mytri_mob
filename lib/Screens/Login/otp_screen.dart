@@ -8,16 +8,16 @@ import 'dart:async';
 import '../../Constants/colors.dart';
 
 class ScreenOtp extends StatelessWidget {
-  const ScreenOtp({super.key});
+  ScreenOtp({super.key});
+  TextEditingController otpController1 = TextEditingController();
+  TextEditingController otpController2 = TextEditingController();
+  TextEditingController otpController3 = TextEditingController();
+  TextEditingController otpController4 = TextEditingController();
+  TextEditingController otpController5 = TextEditingController();
+  TextEditingController otpController6 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController otpController1 = TextEditingController();
-    TextEditingController otpController2 = TextEditingController();
-    TextEditingController otpController3 = TextEditingController();
-    TextEditingController otpController4 = TextEditingController();
-    TextEditingController otpController5 = TextEditingController();
-    TextEditingController otpController6 = TextEditingController();
     String phoneNo = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       // appBar: AppBar(),
@@ -121,7 +121,7 @@ class ScreenOtp extends StatelessWidget {
     return SizedBox(
         width: 50,
         height: 50,
-        child: TextFormField(
+        child: TextField(
           controller: otpController,
           style: Theme.of(context).textTheme.headlineSmall,
           textAlign: TextAlign.center,
@@ -131,6 +131,7 @@ class ScreenOtp extends StatelessWidget {
             FilteringTextInputFormatter.digitsOnly,
           ],
           onChanged: (value) {
+            otpController.text = value;
             if (value.length == 1) {
               FocusScope.of(context).nextFocus();
             }

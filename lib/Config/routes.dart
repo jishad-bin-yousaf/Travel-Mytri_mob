@@ -7,7 +7,7 @@ import '../Screens/search/search.dart';
 Map<String, Widget Function(BuildContext)> routes = {
   '/': (context) => const SplashScreen(),
   '/home': (context) => LaunchScreen(),
-  '/otp': (context) => const ScreenOtp(),
+  '/otp': (context) => ScreenOtp(),
   '/flights': (context) => const FlightSearchScreen(),
   '/FlightSearchResult': (context) => const ScreenFlightSearchResult(),
 };
