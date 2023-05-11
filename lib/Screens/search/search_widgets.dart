@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
+import '../../data/model/Search/flight_search_model.dart';
 
-flightSearchAppBar(BuildContext context) {
+flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
   return AppBar(
     actions: [IconButton(onPressed: () => Navigator.of(context).pop(), icon: const Icon(Icons.edit_outlined))],
     title: Container(
@@ -14,9 +15,9 @@ flightSearchAppBar(BuildContext context) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: const [
+          Row(children: [
             Text(
-              'DEL\t',
+              '${data.origin ?? "N/A"}\t',
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black),
             ),
             Icon(
@@ -24,20 +25,20 @@ flightSearchAppBar(BuildContext context) {
               color: Colors.black,
             ),
             Text(
-              '\tBOM',
+              '\t${data.destination ?? "N/A"}',
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black),
             ),
           ]),
-          const Text(
-            "5 April",
+          Text(
+            '${data.departureDate ?? "Date"}',
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black),
           ),
-          const Text(
-            "1 Traveller",
+          Text(
+            "${data.passengers ?? "0"} Traveller",
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black),
           ),
-          const Text(
-            "Economy",
+          Text(
+            data.airlineClass ?? "airline Class",
             style: TextStyle(fontSize: 14, color: Colors.black),
           ),
         ],

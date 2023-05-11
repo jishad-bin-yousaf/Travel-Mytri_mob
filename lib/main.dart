@@ -12,7 +12,8 @@ import 'Config/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
 }
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         primaryColorDark: primaryColor,
         canvasColor: tertiaryColor,
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: secondaryColor, primary: primaryColor),
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: secondaryColor, primary: primaryColor),
       ),
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveWrapper.builder(
@@ -62,8 +64,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
-      //   () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+      () => Navigator.pushNamedAndRemoveUntil(
+          context, '/home', ModalRoute.withName('/home')),
+      //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
     );
   }
 

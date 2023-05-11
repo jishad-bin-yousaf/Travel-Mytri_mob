@@ -3,6 +3,10 @@ class AirlineUrl {
   String airport = "/api/ControlPanel/GetAirport";
 }
 
+class SearchUrl {
+  String search = "/api/AirlineSearch/GetAirlineAvailability";
+}
+
 class AuthenticationUrl {
   String authenticate = "/api/Account/Authenticate";
   String otpSubmit = "/api/Account/OtpSubmitForAuthentication";

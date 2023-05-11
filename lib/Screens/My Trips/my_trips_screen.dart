@@ -52,8 +52,14 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          selectedTrip == TripType.flights ? flightsTabView(true) : const Center(child: Text("Sorry Hotel ippol illa")),
-                          selectedTrip == TripType.flights ? flightsTabView(false) : const Center(child: Text("Sorry Hotel ippol illa")),
+                          selectedTrip == TripType.flights
+                              ? flightsTabView(true)
+                              : const Center(
+                                  child: Text("Sorry Hotel ippol illa")),
+                          selectedTrip == TripType.flights
+                              ? flightsTabView(false)
+                              : const Center(
+                                  child: Text("Sorry Hotel ippol illa")),
                         ],
                       ),
                     ),
@@ -70,7 +76,9 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
       itemCount: 80,
       itemBuilder: (context, index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(10)),
         height: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,9 +113,13 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Calicut", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                            Text("Calicut",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500)),
                             Icon(Icons.arrow_forward),
-                            Text("Sharjah", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                            Text("Sharjah",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500)),
                           ],
                         ),
                       ),
@@ -125,7 +137,8 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                             Icons.brightness_1,
                             size: 10,
                           ),
-                          Text("6E 3435", style: TextStyle(fontWeight: FontWeight.w600)),
+                          Text("6E 3435",
+                              style: TextStyle(fontWeight: FontWeight.w600)),
                         ],
                       ),
                     ),
@@ -149,8 +162,11 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -166,9 +182,12 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                         setState(() {});
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(isSelected ? white : Colors.transparent),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              isSelected ? white : Colors.transparent),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
                           )),
                       child: Text(
                         tripTypes[tripType]!,

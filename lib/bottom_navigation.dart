@@ -28,19 +28,23 @@ class BottomNavigation extends StatelessWidget {
             items: [
               CustomNavigationBarItem(
                 icon: const Icon(Icons.home_outlined),
-                title: const Text("Home", style: TextStyle(fontWeight: FontWeight.w600)),
+                title: const Text("Home",
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Icons.person_2_outlined),
-                title: const Text("Profile", style: TextStyle(fontWeight: FontWeight.w600)),
+                title: const Text("Profile",
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Icons.card_travel_rounded),
-                title: const Text("My Trips", style: TextStyle(fontWeight: FontWeight.w600)),
+                title: const Text("My Trips",
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Icons.notifications_active_outlined),
-                title: const Text("Notification", style: TextStyle(fontWeight: FontWeight.w600)),
+                title: const Text("Notification",
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
             ],
             currentIndex: updatedIndex,

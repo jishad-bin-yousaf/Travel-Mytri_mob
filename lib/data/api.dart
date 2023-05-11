@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import '../Constants/urls.dart';
+import 'model/Search/flight_search_model.dart';
 import 'model/airport_list.dart';
 
 String gToken = "pJwR9rg5VOIqriYYZ3ikMJYdqg23yI94aoRRyTbqaUZQP15boKof1MQeDZrvcjN3";
@@ -12,13 +13,13 @@ String baseUrl = "https://uattm.jameer.xyz";
 
 class AuthenticationApi {
   AuthenticationUrl urls = AuthenticationUrl();
-  Future<GeneralReponseModel?> authenticate({required String mobileNo}) async {
+  Future<GeneralReponseModel?> authenticate({required String mobileNo, required String appSignature}) async {
     try {
       final url = Uri.parse(baseUrl + urls.authenticate);
       print(url);
       final result = await http.post(
         url,
-        body: jsonEncode({"mobileNumber": mobileNo}),
+        body: jsonEncode({"mobileNumber": mobileNo, "appSignatureID": appSignature}),
         headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
       );
       log(result.statusCode.toString());
@@ -36,9 +37,7 @@ class AuthenticationApi {
     return null;
   }
 
-/* Error :HandshakeException: Handshake error in client (OS Error: 
-      	CERTIFICATE_VERIFY_FAILED: Hostname mismatch(handshake.cc:393)) */
-  Future<ResponseWithToken?> otpSubmit({required String mobileNo, required int otp}) async {
+  Future<ResponseWithToken?> otpSubmit({required String mobileNo, required otp}) async {
     try {
       final url = Uri.parse(baseUrl + urls.otpSubmit);
       print({"mobileNumber": mobileNo, "otp": otp});
@@ -80,6 +79,34 @@ class AirlineApi {
       final responseModel = AirportList.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel.objAirportList;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class SearchApi {
+  SearchUrl urls = SearchUrl();
+  Future<AirlineSearchResponse?> getSearch(FlightSearchReqModel data) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.search);
+      print(url);
+      log(jsonEncode(data).toString() + "++++");
+      final result = await http.post(
+        url,
+        body: jsonEncode(data),
+        //  body: data.toJson(),
+        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M"},
+      );
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = AirlineSearchResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
     } on http.ClientException catch (e) {
       log(e.message.toString() + "+++++");
     } catch (e) {

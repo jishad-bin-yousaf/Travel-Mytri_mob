@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_mytri_mobile_v1/Screens/search/review_flight.dart';
 import '../Screens/Login/otp_screen.dart';
 import '../Screens/search/flight_search.dart';
 import '../main.dart';
@@ -10,4 +11,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/otp': (context) => ScreenOtp(),
   '/flights': (context) => const FlightSearchScreen(),
   '/FlightSearchResult': (context) => const ScreenFlightSearchResult(),
+  '/ReviewFlight': (context) => const ScreenReviewFlight(),
 };

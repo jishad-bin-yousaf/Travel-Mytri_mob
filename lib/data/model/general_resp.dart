@@ -10,7 +10,8 @@ class GeneralReponseModel with _$GeneralReponseModel {
     String? responseMessage,
   }) = _GeneralResponceModel;
 
-  factory GeneralReponseModel.fromJson(Map<String, dynamic> json) => _$GeneralReponseModelFromJson(json);
+  factory GeneralReponseModel.fromJson(Map<String, dynamic> json) =>
+      _$GeneralReponseModelFromJson(json);
 }
 
 @freezed
@@ -21,5 +22,6 @@ class ResponseWithToken with _$ResponseWithToken {
     String? token,
   }) = _ResponseWithToken;
 
-  factory ResponseWithToken.fromJson(Map<String, dynamic> json) => _$ResponseWithTokenFromJson(json);
+  factory ResponseWithToken.fromJson(Map<String, dynamic> json) =>
+      _$ResponseWithTokenFromJson(json);
 }

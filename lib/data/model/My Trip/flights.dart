@@ -11,7 +11,8 @@ class AirlineTicketHistoryResponse with _$AirlineTicketHistoryResponse {
     String? statusType,
   }) = _AirlineTicketHistoryResponse;
 
-  factory AirlineTicketHistoryResponse.fromJson(Map<String, dynamic> json) => _$AirlineTicketHistoryResponseFromJson(json);
+  factory AirlineTicketHistoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$AirlineTicketHistoryResponseFromJson(json);
 }
 
 @freezed
@@ -37,5 +38,6 @@ class AirlineTicketHistory with _$AirlineTicketHistory {
     String? endTerminal,
   }) = _AirlineTicketHistory;
 
-  factory AirlineTicketHistory.fromJson(Map<String, dynamic> json) => _$AirlineTicketHistoryFromJson(json);
+  factory AirlineTicketHistory.fromJson(Map<String, dynamic> json) =>
+      _$AirlineTicketHistoryFromJson(json);
 }

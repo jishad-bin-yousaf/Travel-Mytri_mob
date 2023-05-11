@@ -9,7 +9,8 @@ class AirportList with _$AirportList {
     List<AirportData>? objAirportList,
   }) = _AirportList;
 
-  factory AirportList.fromJson(Map<String, dynamic> json) => _$AirportListFromJson(json);
+  factory AirportList.fromJson(Map<String, dynamic> json) =>
+      _$AirportListFromJson(json);
 }
 
 @freezed
@@ -24,5 +25,6 @@ class AirportData with _$AirportData {
     String? timeZone,
   }) = _AirportData;
 
-  factory AirportData.fromJson(Map<String, dynamic> json) => _$AirportDataFromJson(json);
+  factory AirportData.fromJson(Map<String, dynamic> json) =>
+      _$AirportDataFromJson(json);
 }

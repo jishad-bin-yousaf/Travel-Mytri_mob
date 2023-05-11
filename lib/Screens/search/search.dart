@@ -6,6 +6,7 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
+import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
 import 'package:travel_mytri_mobile_v1/data/model/airport_list.dart';
 
 class FlightSearchScreen extends StatelessWidget {
@@ -173,6 +174,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   late bool premiumEconomy;
   late bool businessClass;
   late bool firstClass;
+
   bool showDepTypeField = true;
   bool showArrTypeField = true;
 
@@ -188,6 +190,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   String departure = '';
   String arrival = '';
   String travelClass = '';
+  //String travelType = '';
 
   int adultCount = 1;
   int childCount = 0;
@@ -195,6 +198,20 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   int totalPassengerCount = 1;
 
   List<AirportData> airportList = [];
+  FlightSearchReqModel searchReq = FlightSearchReqModel();
+  Objsectorlist onwardSector = Objsectorlist();
+  AirlineSearchResponse data = const AirlineSearchResponse();
+
+  String originCode = '';
+
+  String originCountry = '';
+
+  String destinationCode = '';
+  String destinationCountry = '';
+
+  DateTime? departureDate;
+
+  DateTime? returnDate;
 
   @override
   void initState() {
@@ -206,6 +223,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
     passengerController.text = '1 Passenger';
     classController.text = 'Economy';
+    //travelType = 'oneWay';
     oneWay = true;
     roundTrip = false;
     multiCity = false;
@@ -276,6 +294,45 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton(
               onPressed: () async {
+                searchReq.adult = adultCount;
+                searchReq.child = childCount;
+                searchReq.infant = infantCount;
+                searchReq.airlineClass = classController.text;
+                searchReq.traveltype = "";
+                searchReq.prefferedCarriers = "";
+                searchReq.prefferedProviders = "";
+                searchReq.fareType = "";
+                searchReq.isdirect = false;
+                searchReq.objsectorlist = [];
+                /////////////////////////////////
+                onwardSector.origin = originCode;
+                onwardSector.origincountry = originCountry;
+                onwardSector.destination = destinationCode;
+                onwardSector.destinationcountry = destinationCountry;
+                onwardSector.departureDate = departureDate;
+                onwardSector.departureDate = departureDate;
+                onwardSector.tripmode = "";
+                searchReq.objsectorlist?.add(onwardSector);
+
+                if (roundTrip) {
+                  Objsectorlist returnSector = Objsectorlist();
+                  returnSector.origin = destinationCode;
+                  returnSector.origincountry = destinationCountry;
+                  returnSector.destination = originCode;
+                  returnSector.destinationcountry = originCountry;
+                  returnSector.departureDate = departureDate;
+                  returnSector.departureDate = departureDate;
+                  returnSector.tripmode = "";
+
+                  searchReq.objsectorlist?.add(returnSector);
+                }
+                print(searchReq);
+                SearchApi().getSearch(searchReq).then((value) {
+                  data = value ?? const AirlineSearchResponse();
+                  dev.log(value.toString());
+                  data.status != null && data.status! ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: data) : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                });
+
                 Navigator.of(context).pushNamed('/FlightSearchResult');
               },
               style: ElevatedButton.styleFrom(
@@ -659,6 +716,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                   firstDate: DateTime.now(), //DateTime.now() - not to allow to choose before today.
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                 );
+                departureDate = pickedFromDate;
                 pickedFromDate != null ? departureDateController.text = "${pickedFromDate.year}-${pickedFromDate.month.toString().padLeft(2, '0')}-${pickedFromDate.day.toString().padLeft(2, '0')}" : '';
 
                 //   value.notify();
@@ -686,6 +744,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                   onTap: () async {
                     oneWay = false;
                     roundTrip = true;
+                    // travelType = "roundTrip";
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       currentDate: DateTime.now(),
@@ -694,9 +753,12 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                       lastDate: DateTime.now().add(const Duration(days: 365)),
                     );
                     pickedDate != null ? returnDateController.text = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}" : '';
+                    returnDate = pickedDate;
+
                     if (returnDateController.text.isEmpty) {
                       oneWay = true;
                       roundTrip = false;
+                      //   travelType = "oneWay";
                     }
                     setState(() {});
                   },
@@ -708,6 +770,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                         child: IconButton(
                           onPressed: () {
                             oneWay = true;
+                            //    travelType = "oneWay";
                             roundTrip = false;
                             returnDateController.text = '';
                             setState(() {});
@@ -795,6 +858,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           child: Center(child: Text("No Airports Found")),
                         ),
                     onSuggestionSelected: (suggestion) {
+                      originCode = suggestion.cityCode ?? '';
+                      originCountry = suggestion.countryCode ?? '';
                       departureController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
                       departure = departureController.text;
                       deptAirportName = suggestion.airportName ?? '';
@@ -869,6 +934,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                         child: Center(child: Text("No Airports Found")),
                       ),
                   onSuggestionSelected: (suggestion) {
+                    destinationCode = suggestion.cityCode ?? '';
+                    destinationCountry = suggestion.countryCode ?? '';
                     arrivalController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
                     arrival = arrivalController.text;
                     arrAirportName = suggestion.airportName ?? '';
@@ -921,6 +988,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
             returnDateController.text = '';
             setState(() {
               oneWay = true;
+              //   travelType = "oneWay";
               roundTrip = false;
               multiCity = false;
             });
@@ -951,6 +1019,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
             setState(() {
               oneWay = false;
               roundTrip = true;
+
+              //    travelType = "roundTrip";
               multiCity = false;
             });
           },
@@ -981,6 +1051,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               oneWay = false;
               roundTrip = false;
               multiCity = true;
+              //    travelType = "multiCity";
             });
           },
           child: Container(
