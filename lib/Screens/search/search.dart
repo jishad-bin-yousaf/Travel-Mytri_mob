@@ -339,17 +339,55 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                   searchReq.objsectorlist?.add(returnSector);
                 }
                 print(searchReq);
-                SearchApi().getSearch(searchReq).then((value) {
-                  data = value ?? const AirlineSearchResponse();
-                  dev.log(value.toString());
-                  data.status != null && data.status!
-                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": internationalTrip,
-                        })
-                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                });
+                if (oneWay) {
+                  SearchApi().oneWay(searchReq).then((value) {
+                    data = value ?? const AirlineSearchResponse();
+                    dev.log(value.toString());
+                    data.status != null && data.status!
+                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          })
+                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                  });
+                } else if (roundTrip && internationalTrip) {
+                  SearchApi().combinedRoundTrip(searchReq).then((value) {
+                    data = value ?? const AirlineSearchResponse();
+                    dev.log(value.toString());
+                    data.status != null && data.status!
+                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          })
+                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                  });
+                } else if (roundTrip && !internationalTrip) {
+                  SearchApi().individualRoundTrip(searchReq).then((value) {
+                    data = value ?? const AirlineSearchResponse();
+                    dev.log(value.toString());
+                    data.status != null && data.status!
+                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          })
+                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                  });
+                } else if (multiCity) {
+                  SearchApi().oneWay(searchReq).then((value) {
+                    data = value ?? const AirlineSearchResponse();
+                    dev.log(value.toString());
+                    data.status != null && data.status!
+                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          })
+                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                  });
+                }
 
                 //    Navigator.of(context).pushNamed('/FlightSearchResult');
               },
