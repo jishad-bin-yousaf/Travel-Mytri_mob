@@ -10,6 +10,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/home': (context) => LaunchScreen(),
   '/otp': (context) => ScreenOtp(),
   '/flights': (context) => const FlightSearchScreen(),
-  '/FlightSearchResult': (context) => const ScreenFlightSearchResult(),
+  '/FlightSearchResult': (context) => ScreenFlightSearchResult(),
   '/ReviewFlight': (context) => const ScreenReviewFlight(),
 };

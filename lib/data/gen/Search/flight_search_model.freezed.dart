@@ -1251,6 +1251,7 @@ AvailableAirline _$AvailableAirlineFromJson(Map<String, dynamic> json) {
 mixin _$AvailableAirline {
   String? get airlineCode => throw _privateConstructorUsedError;
   String? get airlineName => throw _privateConstructorUsedError;
+  String? get minAmount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1264,7 +1265,7 @@ abstract class $AvailableAirlineCopyWith<$Res> {
           AvailableAirline value, $Res Function(AvailableAirline) then) =
       _$AvailableAirlineCopyWithImpl<$Res, AvailableAirline>;
   @useResult
-  $Res call({String? airlineCode, String? airlineName});
+  $Res call({String? airlineCode, String? airlineName, String? minAmount});
 }
 
 /// @nodoc
@@ -1282,6 +1283,7 @@ class _$AvailableAirlineCopyWithImpl<$Res, $Val extends AvailableAirline>
   $Res call({
     Object? airlineCode = freezed,
     Object? airlineName = freezed,
+    Object? minAmount = freezed,
   }) {
     return _then(_value.copyWith(
       airlineCode: freezed == airlineCode
@@ -1291,6 +1293,10 @@ class _$AvailableAirlineCopyWithImpl<$Res, $Val extends AvailableAirline>
       airlineName: freezed == airlineName
           ? _value.airlineName
           : airlineName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minAmount: freezed == minAmount
+          ? _value.minAmount
+          : minAmount // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -1304,7 +1310,7 @@ abstract class _$$_AvailableAirlineCopyWith<$Res>
       __$$_AvailableAirlineCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? airlineCode, String? airlineName});
+  $Res call({String? airlineCode, String? airlineName, String? minAmount});
 }
 
 /// @nodoc
@@ -1320,6 +1326,7 @@ class __$$_AvailableAirlineCopyWithImpl<$Res>
   $Res call({
     Object? airlineCode = freezed,
     Object? airlineName = freezed,
+    Object? minAmount = freezed,
   }) {
     return _then(_$_AvailableAirline(
       airlineCode: freezed == airlineCode
@@ -1330,6 +1337,10 @@ class __$$_AvailableAirlineCopyWithImpl<$Res>
           ? _value.airlineName
           : airlineName // ignore: cast_nullable_to_non_nullable
               as String?,
+      minAmount: freezed == minAmount
+          ? _value.minAmount
+          : minAmount // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1337,7 +1348,8 @@ class __$$_AvailableAirlineCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AvailableAirline implements _AvailableAirline {
-  const _$_AvailableAirline({this.airlineCode, this.airlineName});
+  const _$_AvailableAirline(
+      {this.airlineCode, this.airlineName, this.minAmount});
 
   factory _$_AvailableAirline.fromJson(Map<String, dynamic> json) =>
       _$$_AvailableAirlineFromJson(json);
@@ -1346,10 +1358,12 @@ class _$_AvailableAirline implements _AvailableAirline {
   final String? airlineCode;
   @override
   final String? airlineName;
+  @override
+  final String? minAmount;
 
   @override
   String toString() {
-    return 'AvailableAirline(airlineCode: $airlineCode, airlineName: $airlineName)';
+    return 'AvailableAirline(airlineCode: $airlineCode, airlineName: $airlineName, minAmount: $minAmount)';
   }
 
   @override
@@ -1360,12 +1374,15 @@ class _$_AvailableAirline implements _AvailableAirline {
             (identical(other.airlineCode, airlineCode) ||
                 other.airlineCode == airlineCode) &&
             (identical(other.airlineName, airlineName) ||
-                other.airlineName == airlineName));
+                other.airlineName == airlineName) &&
+            (identical(other.minAmount, minAmount) ||
+                other.minAmount == minAmount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, airlineCode, airlineName);
+  int get hashCode =>
+      Object.hash(runtimeType, airlineCode, airlineName, minAmount);
 
   @JsonKey(ignore: true)
   @override
@@ -1384,7 +1401,8 @@ class _$_AvailableAirline implements _AvailableAirline {
 abstract class _AvailableAirline implements AvailableAirline {
   const factory _AvailableAirline(
       {final String? airlineCode,
-      final String? airlineName}) = _$_AvailableAirline;
+      final String? airlineName,
+      final String? minAmount}) = _$_AvailableAirline;
 
   factory _AvailableAirline.fromJson(Map<String, dynamic> json) =
       _$_AvailableAirline.fromJson;
@@ -1393,6 +1411,8 @@ abstract class _AvailableAirline implements AvailableAirline {
   String? get airlineCode;
   @override
   String? get airlineName;
+  @override
+  String? get minAmount;
   @override
   @JsonKey(ignore: true)
   _$$_AvailableAirlineCopyWith<_$_AvailableAirline> get copyWith =>
@@ -2043,6 +2063,12 @@ mixin _$PricingBasic {
   String? get fareName => throw _privateConstructorUsedError;
   double? get netAmount => throw _privateConstructorUsedError;
   double? get discount => throw _privateConstructorUsedError;
+  String? get cabinBaggage => throw _privateConstructorUsedError;
+  String? get checkinBaggage => throw _privateConstructorUsedError;
+  String? get meal => throw _privateConstructorUsedError;
+  String? get seat => throw _privateConstructorUsedError;
+  String? get cancellation => throw _privateConstructorUsedError;
+  String? get dateChange => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2057,7 +2083,16 @@ abstract class $PricingBasicCopyWith<$Res> {
       _$PricingBasicCopyWithImpl<$Res, PricingBasic>;
   @useResult
   $Res call(
-      {int? fareId, String? fareName, double? netAmount, double? discount});
+      {int? fareId,
+      String? fareName,
+      double? netAmount,
+      double? discount,
+      String? cabinBaggage,
+      String? checkinBaggage,
+      String? meal,
+      String? seat,
+      String? cancellation,
+      String? dateChange});
 }
 
 /// @nodoc
@@ -2077,6 +2112,12 @@ class _$PricingBasicCopyWithImpl<$Res, $Val extends PricingBasic>
     Object? fareName = freezed,
     Object? netAmount = freezed,
     Object? discount = freezed,
+    Object? cabinBaggage = freezed,
+    Object? checkinBaggage = freezed,
+    Object? meal = freezed,
+    Object? seat = freezed,
+    Object? cancellation = freezed,
+    Object? dateChange = freezed,
   }) {
     return _then(_value.copyWith(
       fareId: freezed == fareId
@@ -2095,6 +2136,30 @@ class _$PricingBasicCopyWithImpl<$Res, $Val extends PricingBasic>
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as double?,
+      cabinBaggage: freezed == cabinBaggage
+          ? _value.cabinBaggage
+          : cabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      checkinBaggage: freezed == checkinBaggage
+          ? _value.checkinBaggage
+          : checkinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      meal: freezed == meal
+          ? _value.meal
+          : meal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      seat: freezed == seat
+          ? _value.seat
+          : seat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellation: freezed == cancellation
+          ? _value.cancellation
+          : cancellation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateChange: freezed == dateChange
+          ? _value.dateChange
+          : dateChange // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -2108,7 +2173,16 @@ abstract class _$$_PricingBasicCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? fareId, String? fareName, double? netAmount, double? discount});
+      {int? fareId,
+      String? fareName,
+      double? netAmount,
+      double? discount,
+      String? cabinBaggage,
+      String? checkinBaggage,
+      String? meal,
+      String? seat,
+      String? cancellation,
+      String? dateChange});
 }
 
 /// @nodoc
@@ -2126,6 +2200,12 @@ class __$$_PricingBasicCopyWithImpl<$Res>
     Object? fareName = freezed,
     Object? netAmount = freezed,
     Object? discount = freezed,
+    Object? cabinBaggage = freezed,
+    Object? checkinBaggage = freezed,
+    Object? meal = freezed,
+    Object? seat = freezed,
+    Object? cancellation = freezed,
+    Object? dateChange = freezed,
   }) {
     return _then(_$_PricingBasic(
       fareId: freezed == fareId
@@ -2144,6 +2224,30 @@ class __$$_PricingBasicCopyWithImpl<$Res>
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as double?,
+      cabinBaggage: freezed == cabinBaggage
+          ? _value.cabinBaggage
+          : cabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      checkinBaggage: freezed == checkinBaggage
+          ? _value.checkinBaggage
+          : checkinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      meal: freezed == meal
+          ? _value.meal
+          : meal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      seat: freezed == seat
+          ? _value.seat
+          : seat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellation: freezed == cancellation
+          ? _value.cancellation
+          : cancellation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateChange: freezed == dateChange
+          ? _value.dateChange
+          : dateChange // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -2152,7 +2256,16 @@ class __$$_PricingBasicCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PricingBasic implements _PricingBasic {
   const _$_PricingBasic(
-      {this.fareId, this.fareName, this.netAmount, this.discount});
+      {this.fareId,
+      this.fareName,
+      this.netAmount,
+      this.discount,
+      this.cabinBaggage,
+      this.checkinBaggage,
+      this.meal,
+      this.seat,
+      this.cancellation,
+      this.dateChange});
 
   factory _$_PricingBasic.fromJson(Map<String, dynamic> json) =>
       _$$_PricingBasicFromJson(json);
@@ -2165,10 +2278,22 @@ class _$_PricingBasic implements _PricingBasic {
   final double? netAmount;
   @override
   final double? discount;
+  @override
+  final String? cabinBaggage;
+  @override
+  final String? checkinBaggage;
+  @override
+  final String? meal;
+  @override
+  final String? seat;
+  @override
+  final String? cancellation;
+  @override
+  final String? dateChange;
 
   @override
   String toString() {
-    return 'PricingBasic(fareId: $fareId, fareName: $fareName, netAmount: $netAmount, discount: $discount)';
+    return 'PricingBasic(fareId: $fareId, fareName: $fareName, netAmount: $netAmount, discount: $discount, cabinBaggage: $cabinBaggage, checkinBaggage: $checkinBaggage, meal: $meal, seat: $seat, cancellation: $cancellation, dateChange: $dateChange)';
   }
 
   @override
@@ -2182,13 +2307,33 @@ class _$_PricingBasic implements _PricingBasic {
             (identical(other.netAmount, netAmount) ||
                 other.netAmount == netAmount) &&
             (identical(other.discount, discount) ||
-                other.discount == discount));
+                other.discount == discount) &&
+            (identical(other.cabinBaggage, cabinBaggage) ||
+                other.cabinBaggage == cabinBaggage) &&
+            (identical(other.checkinBaggage, checkinBaggage) ||
+                other.checkinBaggage == checkinBaggage) &&
+            (identical(other.meal, meal) || other.meal == meal) &&
+            (identical(other.seat, seat) || other.seat == seat) &&
+            (identical(other.cancellation, cancellation) ||
+                other.cancellation == cancellation) &&
+            (identical(other.dateChange, dateChange) ||
+                other.dateChange == dateChange));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, fareId, fareName, netAmount, discount);
+  int get hashCode => Object.hash(
+      runtimeType,
+      fareId,
+      fareName,
+      netAmount,
+      discount,
+      cabinBaggage,
+      checkinBaggage,
+      meal,
+      seat,
+      cancellation,
+      dateChange);
 
   @JsonKey(ignore: true)
   @override
@@ -2209,7 +2354,13 @@ abstract class _PricingBasic implements PricingBasic {
       {final int? fareId,
       final String? fareName,
       final double? netAmount,
-      final double? discount}) = _$_PricingBasic;
+      final double? discount,
+      final String? cabinBaggage,
+      final String? checkinBaggage,
+      final String? meal,
+      final String? seat,
+      final String? cancellation,
+      final String? dateChange}) = _$_PricingBasic;
 
   factory _PricingBasic.fromJson(Map<String, dynamic> json) =
       _$_PricingBasic.fromJson;
@@ -2223,7 +2374,1856 @@ abstract class _PricingBasic implements PricingBasic {
   @override
   double? get discount;
   @override
+  String? get cabinBaggage;
+  @override
+  String? get checkinBaggage;
+  @override
+  String? get meal;
+  @override
+  String? get seat;
+  @override
+  String? get cancellation;
+  @override
+  String? get dateChange;
+  @override
   @JsonKey(ignore: true)
   _$$_PricingBasicCopyWith<_$_PricingBasic> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+IRAirlineSearchResponse _$IRAirlineSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return _IRAirlineSearchResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$IRAirlineSearchResponse {
+//individual Round Trip(Domestic)
+  bool? get status => throw _privateConstructorUsedError;
+  String? get responseMessage => throw _privateConstructorUsedError;
+  String? get airlineClass => throw _privateConstructorUsedError;
+  String? get origin => throw _privateConstructorUsedError;
+  String? get destination => throw _privateConstructorUsedError;
+  DateTime? get departureDate => throw _privateConstructorUsedError;
+  String? get originR => throw _privateConstructorUsedError;
+  String? get destinationR => throw _privateConstructorUsedError;
+  DateTime? get returnDate => throw _privateConstructorUsedError;
+  int? get adult => throw _privateConstructorUsedError;
+  int? get child => throw _privateConstructorUsedError;
+  int? get infant => throw _privateConstructorUsedError;
+  double? get minimumFare => throw _privateConstructorUsedError;
+  double? get maximumFare => throw _privateConstructorUsedError;
+  double? get minimumFareR => throw _privateConstructorUsedError;
+  double? get maximumFareR => throw _privateConstructorUsedError;
+  List<AvailableAirline>? get objAvlairlineList =>
+      throw _privateConstructorUsedError;
+  List<Apisearchresponse>? get objItinList =>
+      throw _privateConstructorUsedError;
+  List<Apisearchresponse>? get objItinListR =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $IRAirlineSearchResponseCopyWith<IRAirlineSearchResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IRAirlineSearchResponseCopyWith<$Res> {
+  factory $IRAirlineSearchResponseCopyWith(IRAirlineSearchResponse value,
+          $Res Function(IRAirlineSearchResponse) then) =
+      _$IRAirlineSearchResponseCopyWithImpl<$Res, IRAirlineSearchResponse>;
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? airlineClass,
+      String? origin,
+      String? destination,
+      DateTime? departureDate,
+      String? originR,
+      String? destinationR,
+      DateTime? returnDate,
+      int? adult,
+      int? child,
+      int? infant,
+      double? minimumFare,
+      double? maximumFare,
+      double? minimumFareR,
+      double? maximumFareR,
+      List<AvailableAirline>? objAvlairlineList,
+      List<Apisearchresponse>? objItinList,
+      List<Apisearchresponse>? objItinListR});
+}
+
+/// @nodoc
+class _$IRAirlineSearchResponseCopyWithImpl<$Res,
+        $Val extends IRAirlineSearchResponse>
+    implements $IRAirlineSearchResponseCopyWith<$Res> {
+  _$IRAirlineSearchResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? airlineClass = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? originR = freezed,
+    Object? destinationR = freezed,
+    Object? returnDate = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? minimumFare = freezed,
+    Object? maximumFare = freezed,
+    Object? minimumFareR = freezed,
+    Object? maximumFareR = freezed,
+    Object? objAvlairlineList = freezed,
+    Object? objItinList = freezed,
+    Object? objItinListR = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineClass: freezed == airlineClass
+          ? _value.airlineClass
+          : airlineClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: freezed == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      originR: freezed == originR
+          ? _value.originR
+          : originR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationR: freezed == destinationR
+          ? _value.destinationR
+          : destinationR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      returnDate: freezed == returnDate
+          ? _value.returnDate
+          : returnDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minimumFare: freezed == minimumFare
+          ? _value.minimumFare
+          : minimumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFare: freezed == maximumFare
+          ? _value.maximumFare
+          : maximumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      minimumFareR: freezed == minimumFareR
+          ? _value.minimumFareR
+          : minimumFareR // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFareR: freezed == maximumFareR
+          ? _value.maximumFareR
+          : maximumFareR // ignore: cast_nullable_to_non_nullable
+              as double?,
+      objAvlairlineList: freezed == objAvlairlineList
+          ? _value.objAvlairlineList
+          : objAvlairlineList // ignore: cast_nullable_to_non_nullable
+              as List<AvailableAirline>?,
+      objItinList: freezed == objItinList
+          ? _value.objItinList
+          : objItinList // ignore: cast_nullable_to_non_nullable
+              as List<Apisearchresponse>?,
+      objItinListR: freezed == objItinListR
+          ? _value.objItinListR
+          : objItinListR // ignore: cast_nullable_to_non_nullable
+              as List<Apisearchresponse>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_IRAirlineSearchResponseCopyWith<$Res>
+    implements $IRAirlineSearchResponseCopyWith<$Res> {
+  factory _$$_IRAirlineSearchResponseCopyWith(_$_IRAirlineSearchResponse value,
+          $Res Function(_$_IRAirlineSearchResponse) then) =
+      __$$_IRAirlineSearchResponseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? airlineClass,
+      String? origin,
+      String? destination,
+      DateTime? departureDate,
+      String? originR,
+      String? destinationR,
+      DateTime? returnDate,
+      int? adult,
+      int? child,
+      int? infant,
+      double? minimumFare,
+      double? maximumFare,
+      double? minimumFareR,
+      double? maximumFareR,
+      List<AvailableAirline>? objAvlairlineList,
+      List<Apisearchresponse>? objItinList,
+      List<Apisearchresponse>? objItinListR});
+}
+
+/// @nodoc
+class __$$_IRAirlineSearchResponseCopyWithImpl<$Res>
+    extends _$IRAirlineSearchResponseCopyWithImpl<$Res,
+        _$_IRAirlineSearchResponse>
+    implements _$$_IRAirlineSearchResponseCopyWith<$Res> {
+  __$$_IRAirlineSearchResponseCopyWithImpl(_$_IRAirlineSearchResponse _value,
+      $Res Function(_$_IRAirlineSearchResponse) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? airlineClass = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? originR = freezed,
+    Object? destinationR = freezed,
+    Object? returnDate = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? minimumFare = freezed,
+    Object? maximumFare = freezed,
+    Object? minimumFareR = freezed,
+    Object? maximumFareR = freezed,
+    Object? objAvlairlineList = freezed,
+    Object? objItinList = freezed,
+    Object? objItinListR = freezed,
+  }) {
+    return _then(_$_IRAirlineSearchResponse(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineClass: freezed == airlineClass
+          ? _value.airlineClass
+          : airlineClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: freezed == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      originR: freezed == originR
+          ? _value.originR
+          : originR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationR: freezed == destinationR
+          ? _value.destinationR
+          : destinationR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      returnDate: freezed == returnDate
+          ? _value.returnDate
+          : returnDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minimumFare: freezed == minimumFare
+          ? _value.minimumFare
+          : minimumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFare: freezed == maximumFare
+          ? _value.maximumFare
+          : maximumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      minimumFareR: freezed == minimumFareR
+          ? _value.minimumFareR
+          : minimumFareR // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFareR: freezed == maximumFareR
+          ? _value.maximumFareR
+          : maximumFareR // ignore: cast_nullable_to_non_nullable
+              as double?,
+      objAvlairlineList: freezed == objAvlairlineList
+          ? _value._objAvlairlineList
+          : objAvlairlineList // ignore: cast_nullable_to_non_nullable
+              as List<AvailableAirline>?,
+      objItinList: freezed == objItinList
+          ? _value._objItinList
+          : objItinList // ignore: cast_nullable_to_non_nullable
+              as List<Apisearchresponse>?,
+      objItinListR: freezed == objItinListR
+          ? _value._objItinListR
+          : objItinListR // ignore: cast_nullable_to_non_nullable
+              as List<Apisearchresponse>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$_IRAirlineSearchResponse implements _IRAirlineSearchResponse {
+  const _$_IRAirlineSearchResponse(
+      {this.status,
+      this.responseMessage,
+      this.airlineClass,
+      this.origin,
+      this.destination,
+      this.departureDate,
+      this.originR,
+      this.destinationR,
+      this.returnDate,
+      this.adult,
+      this.child,
+      this.infant,
+      this.minimumFare,
+      this.maximumFare,
+      this.minimumFareR,
+      this.maximumFareR,
+      final List<AvailableAirline>? objAvlairlineList,
+      final List<Apisearchresponse>? objItinList,
+      final List<Apisearchresponse>? objItinListR})
+      : _objAvlairlineList = objAvlairlineList,
+        _objItinList = objItinList,
+        _objItinListR = objItinListR;
+
+  factory _$_IRAirlineSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_IRAirlineSearchResponseFromJson(json);
+
+//individual Round Trip(Domestic)
+  @override
+  final bool? status;
+  @override
+  final String? responseMessage;
+  @override
+  final String? airlineClass;
+  @override
+  final String? origin;
+  @override
+  final String? destination;
+  @override
+  final DateTime? departureDate;
+  @override
+  final String? originR;
+  @override
+  final String? destinationR;
+  @override
+  final DateTime? returnDate;
+  @override
+  final int? adult;
+  @override
+  final int? child;
+  @override
+  final int? infant;
+  @override
+  final double? minimumFare;
+  @override
+  final double? maximumFare;
+  @override
+  final double? minimumFareR;
+  @override
+  final double? maximumFareR;
+  final List<AvailableAirline>? _objAvlairlineList;
+  @override
+  List<AvailableAirline>? get objAvlairlineList {
+    final value = _objAvlairlineList;
+    if (value == null) return null;
+    if (_objAvlairlineList is EqualUnmodifiableListView)
+      return _objAvlairlineList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Apisearchresponse>? _objItinList;
+  @override
+  List<Apisearchresponse>? get objItinList {
+    final value = _objItinList;
+    if (value == null) return null;
+    if (_objItinList is EqualUnmodifiableListView) return _objItinList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Apisearchresponse>? _objItinListR;
+  @override
+  List<Apisearchresponse>? get objItinListR {
+    final value = _objItinListR;
+    if (value == null) return null;
+    if (_objItinListR is EqualUnmodifiableListView) return _objItinListR;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'IRAirlineSearchResponse(status: $status, responseMessage: $responseMessage, airlineClass: $airlineClass, origin: $origin, destination: $destination, departureDate: $departureDate, originR: $originR, destinationR: $destinationR, returnDate: $returnDate, adult: $adult, child: $child, infant: $infant, minimumFare: $minimumFare, maximumFare: $maximumFare, minimumFareR: $minimumFareR, maximumFareR: $maximumFareR, objAvlairlineList: $objAvlairlineList, objItinList: $objItinList, objItinListR: $objItinListR)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_IRAirlineSearchResponse &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.responseMessage, responseMessage) ||
+                other.responseMessage == responseMessage) &&
+            (identical(other.airlineClass, airlineClass) ||
+                other.airlineClass == airlineClass) &&
+            (identical(other.origin, origin) || other.origin == origin) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.departureDate, departureDate) ||
+                other.departureDate == departureDate) &&
+            (identical(other.originR, originR) || other.originR == originR) &&
+            (identical(other.destinationR, destinationR) ||
+                other.destinationR == destinationR) &&
+            (identical(other.returnDate, returnDate) ||
+                other.returnDate == returnDate) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.infant, infant) || other.infant == infant) &&
+            (identical(other.minimumFare, minimumFare) ||
+                other.minimumFare == minimumFare) &&
+            (identical(other.maximumFare, maximumFare) ||
+                other.maximumFare == maximumFare) &&
+            (identical(other.minimumFareR, minimumFareR) ||
+                other.minimumFareR == minimumFareR) &&
+            (identical(other.maximumFareR, maximumFareR) ||
+                other.maximumFareR == maximumFareR) &&
+            const DeepCollectionEquality()
+                .equals(other._objAvlairlineList, _objAvlairlineList) &&
+            const DeepCollectionEquality()
+                .equals(other._objItinList, _objItinList) &&
+            const DeepCollectionEquality()
+                .equals(other._objItinListR, _objItinListR));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        status,
+        responseMessage,
+        airlineClass,
+        origin,
+        destination,
+        departureDate,
+        originR,
+        destinationR,
+        returnDate,
+        adult,
+        child,
+        infant,
+        minimumFare,
+        maximumFare,
+        minimumFareR,
+        maximumFareR,
+        const DeepCollectionEquality().hash(_objAvlairlineList),
+        const DeepCollectionEquality().hash(_objItinList),
+        const DeepCollectionEquality().hash(_objItinListR)
+      ]);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_IRAirlineSearchResponseCopyWith<_$_IRAirlineSearchResponse>
+      get copyWith =>
+          __$$_IRAirlineSearchResponseCopyWithImpl<_$_IRAirlineSearchResponse>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_IRAirlineSearchResponseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _IRAirlineSearchResponse implements IRAirlineSearchResponse {
+  const factory _IRAirlineSearchResponse(
+          {final bool? status,
+          final String? responseMessage,
+          final String? airlineClass,
+          final String? origin,
+          final String? destination,
+          final DateTime? departureDate,
+          final String? originR,
+          final String? destinationR,
+          final DateTime? returnDate,
+          final int? adult,
+          final int? child,
+          final int? infant,
+          final double? minimumFare,
+          final double? maximumFare,
+          final double? minimumFareR,
+          final double? maximumFareR,
+          final List<AvailableAirline>? objAvlairlineList,
+          final List<Apisearchresponse>? objItinList,
+          final List<Apisearchresponse>? objItinListR}) =
+      _$_IRAirlineSearchResponse;
+
+  factory _IRAirlineSearchResponse.fromJson(Map<String, dynamic> json) =
+      _$_IRAirlineSearchResponse.fromJson;
+
+  @override //individual Round Trip(Domestic)
+  bool? get status;
+  @override
+  String? get responseMessage;
+  @override
+  String? get airlineClass;
+  @override
+  String? get origin;
+  @override
+  String? get destination;
+  @override
+  DateTime? get departureDate;
+  @override
+  String? get originR;
+  @override
+  String? get destinationR;
+  @override
+  DateTime? get returnDate;
+  @override
+  int? get adult;
+  @override
+  int? get child;
+  @override
+  int? get infant;
+  @override
+  double? get minimumFare;
+  @override
+  double? get maximumFare;
+  @override
+  double? get minimumFareR;
+  @override
+  double? get maximumFareR;
+  @override
+  List<AvailableAirline>? get objAvlairlineList;
+  @override
+  List<Apisearchresponse>? get objItinList;
+  @override
+  List<Apisearchresponse>? get objItinListR;
+  @override
+  @JsonKey(ignore: true)
+  _$$_IRAirlineSearchResponseCopyWith<_$_IRAirlineSearchResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+RAirlineSearchResponse _$RAirlineSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return _RAirlineSearchResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RAirlineSearchResponse {
+//Combined Round trip(International)
+  bool? get status => throw _privateConstructorUsedError;
+  String? get responseMessage => throw _privateConstructorUsedError;
+  String? get airlineClass => throw _privateConstructorUsedError;
+  String? get origin => throw _privateConstructorUsedError;
+  String? get destination => throw _privateConstructorUsedError;
+  DateTime? get departureDate => throw _privateConstructorUsedError;
+  DateTime? get returnDate => throw _privateConstructorUsedError;
+  int? get adult => throw _privateConstructorUsedError;
+  int? get child => throw _privateConstructorUsedError;
+  int? get infant => throw _privateConstructorUsedError;
+  double? get minimumFare => throw _privateConstructorUsedError;
+  double? get maximumFare => throw _privateConstructorUsedError;
+  List<AvailableAirline>? get objAvlairlineList =>
+      throw _privateConstructorUsedError;
+  List<RApisearchresponse>? get objItinList =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RAirlineSearchResponseCopyWith<RAirlineSearchResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RAirlineSearchResponseCopyWith<$Res> {
+  factory $RAirlineSearchResponseCopyWith(RAirlineSearchResponse value,
+          $Res Function(RAirlineSearchResponse) then) =
+      _$RAirlineSearchResponseCopyWithImpl<$Res, RAirlineSearchResponse>;
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? airlineClass,
+      String? origin,
+      String? destination,
+      DateTime? departureDate,
+      DateTime? returnDate,
+      int? adult,
+      int? child,
+      int? infant,
+      double? minimumFare,
+      double? maximumFare,
+      List<AvailableAirline>? objAvlairlineList,
+      List<RApisearchresponse>? objItinList});
+}
+
+/// @nodoc
+class _$RAirlineSearchResponseCopyWithImpl<$Res,
+        $Val extends RAirlineSearchResponse>
+    implements $RAirlineSearchResponseCopyWith<$Res> {
+  _$RAirlineSearchResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? airlineClass = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? returnDate = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? minimumFare = freezed,
+    Object? maximumFare = freezed,
+    Object? objAvlairlineList = freezed,
+    Object? objItinList = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineClass: freezed == airlineClass
+          ? _value.airlineClass
+          : airlineClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: freezed == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      returnDate: freezed == returnDate
+          ? _value.returnDate
+          : returnDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minimumFare: freezed == minimumFare
+          ? _value.minimumFare
+          : minimumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFare: freezed == maximumFare
+          ? _value.maximumFare
+          : maximumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      objAvlairlineList: freezed == objAvlairlineList
+          ? _value.objAvlairlineList
+          : objAvlairlineList // ignore: cast_nullable_to_non_nullable
+              as List<AvailableAirline>?,
+      objItinList: freezed == objItinList
+          ? _value.objItinList
+          : objItinList // ignore: cast_nullable_to_non_nullable
+              as List<RApisearchresponse>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_RAirlineSearchResponseCopyWith<$Res>
+    implements $RAirlineSearchResponseCopyWith<$Res> {
+  factory _$$_RAirlineSearchResponseCopyWith(_$_RAirlineSearchResponse value,
+          $Res Function(_$_RAirlineSearchResponse) then) =
+      __$$_RAirlineSearchResponseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? airlineClass,
+      String? origin,
+      String? destination,
+      DateTime? departureDate,
+      DateTime? returnDate,
+      int? adult,
+      int? child,
+      int? infant,
+      double? minimumFare,
+      double? maximumFare,
+      List<AvailableAirline>? objAvlairlineList,
+      List<RApisearchresponse>? objItinList});
+}
+
+/// @nodoc
+class __$$_RAirlineSearchResponseCopyWithImpl<$Res>
+    extends _$RAirlineSearchResponseCopyWithImpl<$Res,
+        _$_RAirlineSearchResponse>
+    implements _$$_RAirlineSearchResponseCopyWith<$Res> {
+  __$$_RAirlineSearchResponseCopyWithImpl(_$_RAirlineSearchResponse _value,
+      $Res Function(_$_RAirlineSearchResponse) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? airlineClass = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? returnDate = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? minimumFare = freezed,
+    Object? maximumFare = freezed,
+    Object? objAvlairlineList = freezed,
+    Object? objItinList = freezed,
+  }) {
+    return _then(_$_RAirlineSearchResponse(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineClass: freezed == airlineClass
+          ? _value.airlineClass
+          : airlineClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      origin: freezed == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      returnDate: freezed == returnDate
+          ? _value.returnDate
+          : returnDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minimumFare: freezed == minimumFare
+          ? _value.minimumFare
+          : minimumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximumFare: freezed == maximumFare
+          ? _value.maximumFare
+          : maximumFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      objAvlairlineList: freezed == objAvlairlineList
+          ? _value._objAvlairlineList
+          : objAvlairlineList // ignore: cast_nullable_to_non_nullable
+              as List<AvailableAirline>?,
+      objItinList: freezed == objItinList
+          ? _value._objItinList
+          : objItinList // ignore: cast_nullable_to_non_nullable
+              as List<RApisearchresponse>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$_RAirlineSearchResponse implements _RAirlineSearchResponse {
+  const _$_RAirlineSearchResponse(
+      {this.status,
+      this.responseMessage,
+      this.airlineClass,
+      this.origin,
+      this.destination,
+      this.departureDate,
+      this.returnDate,
+      this.adult,
+      this.child,
+      this.infant,
+      this.minimumFare,
+      this.maximumFare,
+      final List<AvailableAirline>? objAvlairlineList,
+      final List<RApisearchresponse>? objItinList})
+      : _objAvlairlineList = objAvlairlineList,
+        _objItinList = objItinList;
+
+  factory _$_RAirlineSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_RAirlineSearchResponseFromJson(json);
+
+//Combined Round trip(International)
+  @override
+  final bool? status;
+  @override
+  final String? responseMessage;
+  @override
+  final String? airlineClass;
+  @override
+  final String? origin;
+  @override
+  final String? destination;
+  @override
+  final DateTime? departureDate;
+  @override
+  final DateTime? returnDate;
+  @override
+  final int? adult;
+  @override
+  final int? child;
+  @override
+  final int? infant;
+  @override
+  final double? minimumFare;
+  @override
+  final double? maximumFare;
+  final List<AvailableAirline>? _objAvlairlineList;
+  @override
+  List<AvailableAirline>? get objAvlairlineList {
+    final value = _objAvlairlineList;
+    if (value == null) return null;
+    if (_objAvlairlineList is EqualUnmodifiableListView)
+      return _objAvlairlineList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<RApisearchresponse>? _objItinList;
+  @override
+  List<RApisearchresponse>? get objItinList {
+    final value = _objItinList;
+    if (value == null) return null;
+    if (_objItinList is EqualUnmodifiableListView) return _objItinList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'RAirlineSearchResponse(status: $status, responseMessage: $responseMessage, airlineClass: $airlineClass, origin: $origin, destination: $destination, departureDate: $departureDate, returnDate: $returnDate, adult: $adult, child: $child, infant: $infant, minimumFare: $minimumFare, maximumFare: $maximumFare, objAvlairlineList: $objAvlairlineList, objItinList: $objItinList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RAirlineSearchResponse &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.responseMessage, responseMessage) ||
+                other.responseMessage == responseMessage) &&
+            (identical(other.airlineClass, airlineClass) ||
+                other.airlineClass == airlineClass) &&
+            (identical(other.origin, origin) || other.origin == origin) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.departureDate, departureDate) ||
+                other.departureDate == departureDate) &&
+            (identical(other.returnDate, returnDate) ||
+                other.returnDate == returnDate) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.infant, infant) || other.infant == infant) &&
+            (identical(other.minimumFare, minimumFare) ||
+                other.minimumFare == minimumFare) &&
+            (identical(other.maximumFare, maximumFare) ||
+                other.maximumFare == maximumFare) &&
+            const DeepCollectionEquality()
+                .equals(other._objAvlairlineList, _objAvlairlineList) &&
+            const DeepCollectionEquality()
+                .equals(other._objItinList, _objItinList));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      responseMessage,
+      airlineClass,
+      origin,
+      destination,
+      departureDate,
+      returnDate,
+      adult,
+      child,
+      infant,
+      minimumFare,
+      maximumFare,
+      const DeepCollectionEquality().hash(_objAvlairlineList),
+      const DeepCollectionEquality().hash(_objItinList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RAirlineSearchResponseCopyWith<_$_RAirlineSearchResponse> get copyWith =>
+      __$$_RAirlineSearchResponseCopyWithImpl<_$_RAirlineSearchResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_RAirlineSearchResponseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RAirlineSearchResponse implements RAirlineSearchResponse {
+  const factory _RAirlineSearchResponse(
+      {final bool? status,
+      final String? responseMessage,
+      final String? airlineClass,
+      final String? origin,
+      final String? destination,
+      final DateTime? departureDate,
+      final DateTime? returnDate,
+      final int? adult,
+      final int? child,
+      final int? infant,
+      final double? minimumFare,
+      final double? maximumFare,
+      final List<AvailableAirline>? objAvlairlineList,
+      final List<RApisearchresponse>? objItinList}) = _$_RAirlineSearchResponse;
+
+  factory _RAirlineSearchResponse.fromJson(Map<String, dynamic> json) =
+      _$_RAirlineSearchResponse.fromJson;
+
+  @override //Combined Round trip(International)
+  bool? get status;
+  @override
+  String? get responseMessage;
+  @override
+  String? get airlineClass;
+  @override
+  String? get origin;
+  @override
+  String? get destination;
+  @override
+  DateTime? get departureDate;
+  @override
+  DateTime? get returnDate;
+  @override
+  int? get adult;
+  @override
+  int? get child;
+  @override
+  int? get infant;
+  @override
+  double? get minimumFare;
+  @override
+  double? get maximumFare;
+  @override
+  List<AvailableAirline>? get objAvlairlineList;
+  @override
+  List<RApisearchresponse>? get objItinList;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RAirlineSearchResponseCopyWith<_$_RAirlineSearchResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RApisearchresponse _$RApisearchresponseFromJson(Map<String, dynamic> json) {
+  return _RApisearchresponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RApisearchresponse {
+  int? get itinId => throw _privateConstructorUsedError;
+  Apisearchresponse? get onwardDetails => throw _privateConstructorUsedError;
+  Apisearchresponse? get returnDetails => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
+  double? get discount => throw _privateConstructorUsedError;
+  double? get netAmount => throw _privateConstructorUsedError;
+  List<PricingBasic>? get pricingList => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RApisearchresponseCopyWith<RApisearchresponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RApisearchresponseCopyWith<$Res> {
+  factory $RApisearchresponseCopyWith(
+          RApisearchresponse value, $Res Function(RApisearchresponse) then) =
+      _$RApisearchresponseCopyWithImpl<$Res, RApisearchresponse>;
+  @useResult
+  $Res call(
+      {int? itinId,
+      Apisearchresponse? onwardDetails,
+      Apisearchresponse? returnDetails,
+      double? amount,
+      double? discount,
+      double? netAmount,
+      List<PricingBasic>? pricingList});
+
+  $ApisearchresponseCopyWith<$Res>? get onwardDetails;
+  $ApisearchresponseCopyWith<$Res>? get returnDetails;
+}
+
+/// @nodoc
+class _$RApisearchresponseCopyWithImpl<$Res, $Val extends RApisearchresponse>
+    implements $RApisearchresponseCopyWith<$Res> {
+  _$RApisearchresponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itinId = freezed,
+    Object? onwardDetails = freezed,
+    Object? returnDetails = freezed,
+    Object? amount = freezed,
+    Object? discount = freezed,
+    Object? netAmount = freezed,
+    Object? pricingList = freezed,
+  }) {
+    return _then(_value.copyWith(
+      itinId: freezed == itinId
+          ? _value.itinId
+          : itinId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      onwardDetails: freezed == onwardDetails
+          ? _value.onwardDetails
+          : onwardDetails // ignore: cast_nullable_to_non_nullable
+              as Apisearchresponse?,
+      returnDetails: freezed == returnDetails
+          ? _value.returnDetails
+          : returnDetails // ignore: cast_nullable_to_non_nullable
+              as Apisearchresponse?,
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      netAmount: freezed == netAmount
+          ? _value.netAmount
+          : netAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pricingList: freezed == pricingList
+          ? _value.pricingList
+          : pricingList // ignore: cast_nullable_to_non_nullable
+              as List<PricingBasic>?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApisearchresponseCopyWith<$Res>? get onwardDetails {
+    if (_value.onwardDetails == null) {
+      return null;
+    }
+
+    return $ApisearchresponseCopyWith<$Res>(_value.onwardDetails!, (value) {
+      return _then(_value.copyWith(onwardDetails: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApisearchresponseCopyWith<$Res>? get returnDetails {
+    if (_value.returnDetails == null) {
+      return null;
+    }
+
+    return $ApisearchresponseCopyWith<$Res>(_value.returnDetails!, (value) {
+      return _then(_value.copyWith(returnDetails: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_RApisearchresponseCopyWith<$Res>
+    implements $RApisearchresponseCopyWith<$Res> {
+  factory _$$_RApisearchresponseCopyWith(_$_RApisearchresponse value,
+          $Res Function(_$_RApisearchresponse) then) =
+      __$$_RApisearchresponseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? itinId,
+      Apisearchresponse? onwardDetails,
+      Apisearchresponse? returnDetails,
+      double? amount,
+      double? discount,
+      double? netAmount,
+      List<PricingBasic>? pricingList});
+
+  @override
+  $ApisearchresponseCopyWith<$Res>? get onwardDetails;
+  @override
+  $ApisearchresponseCopyWith<$Res>? get returnDetails;
+}
+
+/// @nodoc
+class __$$_RApisearchresponseCopyWithImpl<$Res>
+    extends _$RApisearchresponseCopyWithImpl<$Res, _$_RApisearchresponse>
+    implements _$$_RApisearchresponseCopyWith<$Res> {
+  __$$_RApisearchresponseCopyWithImpl(
+      _$_RApisearchresponse _value, $Res Function(_$_RApisearchresponse) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? itinId = freezed,
+    Object? onwardDetails = freezed,
+    Object? returnDetails = freezed,
+    Object? amount = freezed,
+    Object? discount = freezed,
+    Object? netAmount = freezed,
+    Object? pricingList = freezed,
+  }) {
+    return _then(_$_RApisearchresponse(
+      itinId: freezed == itinId
+          ? _value.itinId
+          : itinId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      onwardDetails: freezed == onwardDetails
+          ? _value.onwardDetails
+          : onwardDetails // ignore: cast_nullable_to_non_nullable
+              as Apisearchresponse?,
+      returnDetails: freezed == returnDetails
+          ? _value.returnDetails
+          : returnDetails // ignore: cast_nullable_to_non_nullable
+              as Apisearchresponse?,
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      netAmount: freezed == netAmount
+          ? _value.netAmount
+          : netAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pricingList: freezed == pricingList
+          ? _value._pricingList
+          : pricingList // ignore: cast_nullable_to_non_nullable
+              as List<PricingBasic>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RApisearchresponse implements _RApisearchresponse {
+  const _$_RApisearchresponse(
+      {this.itinId,
+      this.onwardDetails,
+      this.returnDetails,
+      this.amount,
+      this.discount,
+      this.netAmount,
+      final List<PricingBasic>? pricingList})
+      : _pricingList = pricingList;
+
+  factory _$_RApisearchresponse.fromJson(Map<String, dynamic> json) =>
+      _$$_RApisearchresponseFromJson(json);
+
+  @override
+  final int? itinId;
+  @override
+  final Apisearchresponse? onwardDetails;
+  @override
+  final Apisearchresponse? returnDetails;
+  @override
+  final double? amount;
+  @override
+  final double? discount;
+  @override
+  final double? netAmount;
+  final List<PricingBasic>? _pricingList;
+  @override
+  List<PricingBasic>? get pricingList {
+    final value = _pricingList;
+    if (value == null) return null;
+    if (_pricingList is EqualUnmodifiableListView) return _pricingList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'RApisearchresponse(itinId: $itinId, onwardDetails: $onwardDetails, returnDetails: $returnDetails, amount: $amount, discount: $discount, netAmount: $netAmount, pricingList: $pricingList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RApisearchresponse &&
+            (identical(other.itinId, itinId) || other.itinId == itinId) &&
+            (identical(other.onwardDetails, onwardDetails) ||
+                other.onwardDetails == onwardDetails) &&
+            (identical(other.returnDetails, returnDetails) ||
+                other.returnDetails == returnDetails) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.netAmount, netAmount) ||
+                other.netAmount == netAmount) &&
+            const DeepCollectionEquality()
+                .equals(other._pricingList, _pricingList));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      itinId,
+      onwardDetails,
+      returnDetails,
+      amount,
+      discount,
+      netAmount,
+      const DeepCollectionEquality().hash(_pricingList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RApisearchresponseCopyWith<_$_RApisearchresponse> get copyWith =>
+      __$$_RApisearchresponseCopyWithImpl<_$_RApisearchresponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_RApisearchresponseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RApisearchresponse implements RApisearchresponse {
+  const factory _RApisearchresponse(
+      {final int? itinId,
+      final Apisearchresponse? onwardDetails,
+      final Apisearchresponse? returnDetails,
+      final double? amount,
+      final double? discount,
+      final double? netAmount,
+      final List<PricingBasic>? pricingList}) = _$_RApisearchresponse;
+
+  factory _RApisearchresponse.fromJson(Map<String, dynamic> json) =
+      _$_RApisearchresponse.fromJson;
+
+  @override
+  int? get itinId;
+  @override
+  Apisearchresponse? get onwardDetails;
+  @override
+  Apisearchresponse? get returnDetails;
+  @override
+  double? get amount;
+  @override
+  double? get discount;
+  @override
+  double? get netAmount;
+  @override
+  List<PricingBasic>? get pricingList;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RApisearchresponseCopyWith<_$_RApisearchresponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Apisearchresponsedetails _$ApisearchresponsedetailsFromJson(
+    Map<String, dynamic> json) {
+  return _Apisearchresponsedetails.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Apisearchresponsedetails {
+  String? get airlineCode => throw _privateConstructorUsedError;
+  String? get airlineName => throw _privateConstructorUsedError;
+  String? get flightDetails => throw _privateConstructorUsedError;
+  String? get source => throw _privateConstructorUsedError;
+  String? get destination => throw _privateConstructorUsedError;
+  String? get departureDate => throw _privateConstructorUsedError;
+  String? get arrivalDate => throw _privateConstructorUsedError;
+  String? get departureTime => throw _privateConstructorUsedError;
+  String? get arrivalTime => throw _privateConstructorUsedError;
+  String? get duration => throw _privateConstructorUsedError;
+  String? get freeBaggage => throw _privateConstructorUsedError;
+  String? get refundable => throw _privateConstructorUsedError;
+  String? get sourceAirport => throw _privateConstructorUsedError;
+  String? get destinationAirport => throw _privateConstructorUsedError;
+  int? get noofSeat => throw _privateConstructorUsedError;
+  int? get noofStop => throw _privateConstructorUsedError;
+  String? get segmentDetails => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ApisearchresponsedetailsCopyWith<Apisearchresponsedetails> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ApisearchresponsedetailsCopyWith<$Res> {
+  factory $ApisearchresponsedetailsCopyWith(Apisearchresponsedetails value,
+          $Res Function(Apisearchresponsedetails) then) =
+      _$ApisearchresponsedetailsCopyWithImpl<$Res, Apisearchresponsedetails>;
+  @useResult
+  $Res call(
+      {String? airlineCode,
+      String? airlineName,
+      String? flightDetails,
+      String? source,
+      String? destination,
+      String? departureDate,
+      String? arrivalDate,
+      String? departureTime,
+      String? arrivalTime,
+      String? duration,
+      String? freeBaggage,
+      String? refundable,
+      String? sourceAirport,
+      String? destinationAirport,
+      int? noofSeat,
+      int? noofStop,
+      String? segmentDetails});
+}
+
+/// @nodoc
+class _$ApisearchresponsedetailsCopyWithImpl<$Res,
+        $Val extends Apisearchresponsedetails>
+    implements $ApisearchresponsedetailsCopyWith<$Res> {
+  _$ApisearchresponsedetailsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? airlineCode = freezed,
+    Object? airlineName = freezed,
+    Object? flightDetails = freezed,
+    Object? source = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? arrivalDate = freezed,
+    Object? departureTime = freezed,
+    Object? arrivalTime = freezed,
+    Object? duration = freezed,
+    Object? freeBaggage = freezed,
+    Object? refundable = freezed,
+    Object? sourceAirport = freezed,
+    Object? destinationAirport = freezed,
+    Object? noofSeat = freezed,
+    Object? noofStop = freezed,
+    Object? segmentDetails = freezed,
+  }) {
+    return _then(_value.copyWith(
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineName: freezed == airlineName
+          ? _value.airlineName
+          : airlineName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      flightDetails: freezed == flightDetails
+          ? _value.flightDetails
+          : flightDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalDate: freezed == arrivalDate
+          ? _value.arrivalDate
+          : arrivalDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureTime: freezed == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalTime: freezed == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freeBaggage: freezed == freeBaggage
+          ? _value.freeBaggage
+          : freeBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      refundable: freezed == refundable
+          ? _value.refundable
+          : refundable // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sourceAirport: freezed == sourceAirport
+          ? _value.sourceAirport
+          : sourceAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationAirport: freezed == destinationAirport
+          ? _value.destinationAirport
+          : destinationAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noofSeat: freezed == noofSeat
+          ? _value.noofSeat
+          : noofSeat // ignore: cast_nullable_to_non_nullable
+              as int?,
+      noofStop: freezed == noofStop
+          ? _value.noofStop
+          : noofStop // ignore: cast_nullable_to_non_nullable
+              as int?,
+      segmentDetails: freezed == segmentDetails
+          ? _value.segmentDetails
+          : segmentDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ApisearchresponsedetailsCopyWith<$Res>
+    implements $ApisearchresponsedetailsCopyWith<$Res> {
+  factory _$$_ApisearchresponsedetailsCopyWith(
+          _$_Apisearchresponsedetails value,
+          $Res Function(_$_Apisearchresponsedetails) then) =
+      __$$_ApisearchresponsedetailsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? airlineCode,
+      String? airlineName,
+      String? flightDetails,
+      String? source,
+      String? destination,
+      String? departureDate,
+      String? arrivalDate,
+      String? departureTime,
+      String? arrivalTime,
+      String? duration,
+      String? freeBaggage,
+      String? refundable,
+      String? sourceAirport,
+      String? destinationAirport,
+      int? noofSeat,
+      int? noofStop,
+      String? segmentDetails});
+}
+
+/// @nodoc
+class __$$_ApisearchresponsedetailsCopyWithImpl<$Res>
+    extends _$ApisearchresponsedetailsCopyWithImpl<$Res,
+        _$_Apisearchresponsedetails>
+    implements _$$_ApisearchresponsedetailsCopyWith<$Res> {
+  __$$_ApisearchresponsedetailsCopyWithImpl(_$_Apisearchresponsedetails _value,
+      $Res Function(_$_Apisearchresponsedetails) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? airlineCode = freezed,
+    Object? airlineName = freezed,
+    Object? flightDetails = freezed,
+    Object? source = freezed,
+    Object? destination = freezed,
+    Object? departureDate = freezed,
+    Object? arrivalDate = freezed,
+    Object? departureTime = freezed,
+    Object? arrivalTime = freezed,
+    Object? duration = freezed,
+    Object? freeBaggage = freezed,
+    Object? refundable = freezed,
+    Object? sourceAirport = freezed,
+    Object? destinationAirport = freezed,
+    Object? noofSeat = freezed,
+    Object? noofStop = freezed,
+    Object? segmentDetails = freezed,
+  }) {
+    return _then(_$_Apisearchresponsedetails(
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineName: freezed == airlineName
+          ? _value.airlineName
+          : airlineName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      flightDetails: freezed == flightDetails
+          ? _value.flightDetails
+          : flightDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalDate: freezed == arrivalDate
+          ? _value.arrivalDate
+          : arrivalDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureTime: freezed == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalTime: freezed == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freeBaggage: freezed == freeBaggage
+          ? _value.freeBaggage
+          : freeBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      refundable: freezed == refundable
+          ? _value.refundable
+          : refundable // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sourceAirport: freezed == sourceAirport
+          ? _value.sourceAirport
+          : sourceAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationAirport: freezed == destinationAirport
+          ? _value.destinationAirport
+          : destinationAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noofSeat: freezed == noofSeat
+          ? _value.noofSeat
+          : noofSeat // ignore: cast_nullable_to_non_nullable
+              as int?,
+      noofStop: freezed == noofStop
+          ? _value.noofStop
+          : noofStop // ignore: cast_nullable_to_non_nullable
+              as int?,
+      segmentDetails: freezed == segmentDetails
+          ? _value.segmentDetails
+          : segmentDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Apisearchresponsedetails implements _Apisearchresponsedetails {
+  const _$_Apisearchresponsedetails(
+      {this.airlineCode,
+      this.airlineName,
+      this.flightDetails,
+      this.source,
+      this.destination,
+      this.departureDate,
+      this.arrivalDate,
+      this.departureTime,
+      this.arrivalTime,
+      this.duration,
+      this.freeBaggage,
+      this.refundable,
+      this.sourceAirport,
+      this.destinationAirport,
+      this.noofSeat,
+      this.noofStop,
+      this.segmentDetails});
+
+  factory _$_Apisearchresponsedetails.fromJson(Map<String, dynamic> json) =>
+      _$$_ApisearchresponsedetailsFromJson(json);
+
+  @override
+  final String? airlineCode;
+  @override
+  final String? airlineName;
+  @override
+  final String? flightDetails;
+  @override
+  final String? source;
+  @override
+  final String? destination;
+  @override
+  final String? departureDate;
+  @override
+  final String? arrivalDate;
+  @override
+  final String? departureTime;
+  @override
+  final String? arrivalTime;
+  @override
+  final String? duration;
+  @override
+  final String? freeBaggage;
+  @override
+  final String? refundable;
+  @override
+  final String? sourceAirport;
+  @override
+  final String? destinationAirport;
+  @override
+  final int? noofSeat;
+  @override
+  final int? noofStop;
+  @override
+  final String? segmentDetails;
+
+  @override
+  String toString() {
+    return 'Apisearchresponsedetails(airlineCode: $airlineCode, airlineName: $airlineName, flightDetails: $flightDetails, source: $source, destination: $destination, departureDate: $departureDate, arrivalDate: $arrivalDate, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, freeBaggage: $freeBaggage, refundable: $refundable, sourceAirport: $sourceAirport, destinationAirport: $destinationAirport, noofSeat: $noofSeat, noofStop: $noofStop, segmentDetails: $segmentDetails)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Apisearchresponsedetails &&
+            (identical(other.airlineCode, airlineCode) ||
+                other.airlineCode == airlineCode) &&
+            (identical(other.airlineName, airlineName) ||
+                other.airlineName == airlineName) &&
+            (identical(other.flightDetails, flightDetails) ||
+                other.flightDetails == flightDetails) &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.departureDate, departureDate) ||
+                other.departureDate == departureDate) &&
+            (identical(other.arrivalDate, arrivalDate) ||
+                other.arrivalDate == arrivalDate) &&
+            (identical(other.departureTime, departureTime) ||
+                other.departureTime == departureTime) &&
+            (identical(other.arrivalTime, arrivalTime) ||
+                other.arrivalTime == arrivalTime) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.freeBaggage, freeBaggage) ||
+                other.freeBaggage == freeBaggage) &&
+            (identical(other.refundable, refundable) ||
+                other.refundable == refundable) &&
+            (identical(other.sourceAirport, sourceAirport) ||
+                other.sourceAirport == sourceAirport) &&
+            (identical(other.destinationAirport, destinationAirport) ||
+                other.destinationAirport == destinationAirport) &&
+            (identical(other.noofSeat, noofSeat) ||
+                other.noofSeat == noofSeat) &&
+            (identical(other.noofStop, noofStop) ||
+                other.noofStop == noofStop) &&
+            (identical(other.segmentDetails, segmentDetails) ||
+                other.segmentDetails == segmentDetails));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      airlineCode,
+      airlineName,
+      flightDetails,
+      source,
+      destination,
+      departureDate,
+      arrivalDate,
+      departureTime,
+      arrivalTime,
+      duration,
+      freeBaggage,
+      refundable,
+      sourceAirport,
+      destinationAirport,
+      noofSeat,
+      noofStop,
+      segmentDetails);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ApisearchresponsedetailsCopyWith<_$_Apisearchresponsedetails>
+      get copyWith => __$$_ApisearchresponsedetailsCopyWithImpl<
+          _$_Apisearchresponsedetails>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ApisearchresponsedetailsToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Apisearchresponsedetails implements Apisearchresponsedetails {
+  const factory _Apisearchresponsedetails(
+      {final String? airlineCode,
+      final String? airlineName,
+      final String? flightDetails,
+      final String? source,
+      final String? destination,
+      final String? departureDate,
+      final String? arrivalDate,
+      final String? departureTime,
+      final String? arrivalTime,
+      final String? duration,
+      final String? freeBaggage,
+      final String? refundable,
+      final String? sourceAirport,
+      final String? destinationAirport,
+      final int? noofSeat,
+      final int? noofStop,
+      final String? segmentDetails}) = _$_Apisearchresponsedetails;
+
+  factory _Apisearchresponsedetails.fromJson(Map<String, dynamic> json) =
+      _$_Apisearchresponsedetails.fromJson;
+
+  @override
+  String? get airlineCode;
+  @override
+  String? get airlineName;
+  @override
+  String? get flightDetails;
+  @override
+  String? get source;
+  @override
+  String? get destination;
+  @override
+  String? get departureDate;
+  @override
+  String? get arrivalDate;
+  @override
+  String? get departureTime;
+  @override
+  String? get arrivalTime;
+  @override
+  String? get duration;
+  @override
+  String? get freeBaggage;
+  @override
+  String? get refundable;
+  @override
+  String? get sourceAirport;
+  @override
+  String? get destinationAirport;
+  @override
+  int? get noofSeat;
+  @override
+  int? get noofStop;
+  @override
+  String? get segmentDetails;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ApisearchresponsedetailsCopyWith<_$_Apisearchresponsedetails>
+      get copyWith => throw _privateConstructorUsedError;
 }

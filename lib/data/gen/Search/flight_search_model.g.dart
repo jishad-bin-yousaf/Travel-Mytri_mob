@@ -125,12 +125,14 @@ _$_AvailableAirline _$$_AvailableAirlineFromJson(Map<String, dynamic> json) =>
     _$_AvailableAirline(
       airlineCode: json['airlineCode'] as String?,
       airlineName: json['airlineName'] as String?,
+      minAmount: json['minAmount'] as String?,
     );
 
 Map<String, dynamic> _$$_AvailableAirlineToJson(_$_AvailableAirline instance) =>
     <String, dynamic>{
       'airlineCode': instance.airlineCode,
       'airlineName': instance.airlineName,
+      'minAmount': instance.minAmount,
     };
 
 _$_Apisearchresponse _$$_ApisearchresponseFromJson(Map<String, dynamic> json) =>
@@ -196,6 +198,12 @@ _$_PricingBasic _$$_PricingBasicFromJson(Map<String, dynamic> json) =>
       fareName: json['fareName'] as String?,
       netAmount: (json['netAmount'] as num?)?.toDouble(),
       discount: (json['discount'] as num?)?.toDouble(),
+      cabinBaggage: json['cabinBaggage'] as String?,
+      checkinBaggage: json['checkinBaggage'] as String?,
+      meal: json['meal'] as String?,
+      seat: json['seat'] as String?,
+      cancellation: json['cancellation'] as String?,
+      dateChange: json['dateChange'] as String?,
     );
 
 Map<String, dynamic> _$$_PricingBasicToJson(_$_PricingBasic instance) =>
@@ -204,4 +212,192 @@ Map<String, dynamic> _$$_PricingBasicToJson(_$_PricingBasic instance) =>
       'fareName': instance.fareName,
       'netAmount': instance.netAmount,
       'discount': instance.discount,
+      'cabinBaggage': instance.cabinBaggage,
+      'checkinBaggage': instance.checkinBaggage,
+      'meal': instance.meal,
+      'seat': instance.seat,
+      'cancellation': instance.cancellation,
+      'dateChange': instance.dateChange,
+    };
+
+_$_IRAirlineSearchResponse _$$_IRAirlineSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_IRAirlineSearchResponse(
+      status: json['status'] as bool?,
+      responseMessage: json['responseMessage'] as String?,
+      airlineClass: json['airlineClass'] as String?,
+      origin: json['origin'] as String?,
+      destination: json['destination'] as String?,
+      departureDate: json['departureDate'] == null
+          ? null
+          : DateTime.parse(json['departureDate'] as String),
+      originR: json['originR'] as String?,
+      destinationR: json['destinationR'] as String?,
+      returnDate: json['returnDate'] == null
+          ? null
+          : DateTime.parse(json['returnDate'] as String),
+      adult: json['adult'] as int?,
+      child: json['child'] as int?,
+      infant: json['infant'] as int?,
+      minimumFare: (json['minimumFare'] as num?)?.toDouble(),
+      maximumFare: (json['maximumFare'] as num?)?.toDouble(),
+      minimumFareR: (json['minimumFareR'] as num?)?.toDouble(),
+      maximumFareR: (json['maximumFareR'] as num?)?.toDouble(),
+      objAvlairlineList: (json['objAvlairlineList'] as List<dynamic>?)
+          ?.map((e) => AvailableAirline.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      objItinList: (json['objItinList'] as List<dynamic>?)
+          ?.map((e) => Apisearchresponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      objItinListR: (json['objItinListR'] as List<dynamic>?)
+          ?.map((e) => Apisearchresponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_IRAirlineSearchResponseToJson(
+        _$_IRAirlineSearchResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'responseMessage': instance.responseMessage,
+      'airlineClass': instance.airlineClass,
+      'origin': instance.origin,
+      'destination': instance.destination,
+      'departureDate': instance.departureDate?.toIso8601String(),
+      'originR': instance.originR,
+      'destinationR': instance.destinationR,
+      'returnDate': instance.returnDate?.toIso8601String(),
+      'adult': instance.adult,
+      'child': instance.child,
+      'infant': instance.infant,
+      'minimumFare': instance.minimumFare,
+      'maximumFare': instance.maximumFare,
+      'minimumFareR': instance.minimumFareR,
+      'maximumFareR': instance.maximumFareR,
+      'objAvlairlineList':
+          instance.objAvlairlineList?.map((e) => e.toJson()).toList(),
+      'objItinList': instance.objItinList?.map((e) => e.toJson()).toList(),
+      'objItinListR': instance.objItinListR?.map((e) => e.toJson()).toList(),
+    };
+
+_$_RAirlineSearchResponse _$$_RAirlineSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_RAirlineSearchResponse(
+      status: json['status'] as bool?,
+      responseMessage: json['responseMessage'] as String?,
+      airlineClass: json['airlineClass'] as String?,
+      origin: json['origin'] as String?,
+      destination: json['destination'] as String?,
+      departureDate: json['departureDate'] == null
+          ? null
+          : DateTime.parse(json['departureDate'] as String),
+      returnDate: json['returnDate'] == null
+          ? null
+          : DateTime.parse(json['returnDate'] as String),
+      adult: json['adult'] as int?,
+      child: json['child'] as int?,
+      infant: json['infant'] as int?,
+      minimumFare: (json['minimumFare'] as num?)?.toDouble(),
+      maximumFare: (json['maximumFare'] as num?)?.toDouble(),
+      objAvlairlineList: (json['objAvlairlineList'] as List<dynamic>?)
+          ?.map((e) => AvailableAirline.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      objItinList: (json['objItinList'] as List<dynamic>?)
+          ?.map((e) => RApisearchresponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_RAirlineSearchResponseToJson(
+        _$_RAirlineSearchResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'responseMessage': instance.responseMessage,
+      'airlineClass': instance.airlineClass,
+      'origin': instance.origin,
+      'destination': instance.destination,
+      'departureDate': instance.departureDate?.toIso8601String(),
+      'returnDate': instance.returnDate?.toIso8601String(),
+      'adult': instance.adult,
+      'child': instance.child,
+      'infant': instance.infant,
+      'minimumFare': instance.minimumFare,
+      'maximumFare': instance.maximumFare,
+      'objAvlairlineList':
+          instance.objAvlairlineList?.map((e) => e.toJson()).toList(),
+      'objItinList': instance.objItinList?.map((e) => e.toJson()).toList(),
+    };
+
+_$_RApisearchresponse _$$_RApisearchresponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_RApisearchresponse(
+      itinId: json['itinId'] as int?,
+      onwardDetails: json['onwardDetails'] == null
+          ? null
+          : Apisearchresponse.fromJson(
+              json['onwardDetails'] as Map<String, dynamic>),
+      returnDetails: json['returnDetails'] == null
+          ? null
+          : Apisearchresponse.fromJson(
+              json['returnDetails'] as Map<String, dynamic>),
+      amount: (json['amount'] as num?)?.toDouble(),
+      discount: (json['discount'] as num?)?.toDouble(),
+      netAmount: (json['netAmount'] as num?)?.toDouble(),
+      pricingList: (json['pricingList'] as List<dynamic>?)
+          ?.map((e) => PricingBasic.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_RApisearchresponseToJson(
+        _$_RApisearchresponse instance) =>
+    <String, dynamic>{
+      'itinId': instance.itinId,
+      'onwardDetails': instance.onwardDetails,
+      'returnDetails': instance.returnDetails,
+      'amount': instance.amount,
+      'discount': instance.discount,
+      'netAmount': instance.netAmount,
+      'pricingList': instance.pricingList,
+    };
+
+_$_Apisearchresponsedetails _$$_ApisearchresponsedetailsFromJson(
+        Map<String, dynamic> json) =>
+    _$_Apisearchresponsedetails(
+      airlineCode: json['airlineCode'] as String?,
+      airlineName: json['airlineName'] as String?,
+      flightDetails: json['flightDetails'] as String?,
+      source: json['source'] as String?,
+      destination: json['destination'] as String?,
+      departureDate: json['departureDate'] as String?,
+      arrivalDate: json['arrivalDate'] as String?,
+      departureTime: json['departureTime'] as String?,
+      arrivalTime: json['arrivalTime'] as String?,
+      duration: json['duration'] as String?,
+      freeBaggage: json['freeBaggage'] as String?,
+      refundable: json['refundable'] as String?,
+      sourceAirport: json['sourceAirport'] as String?,
+      destinationAirport: json['destinationAirport'] as String?,
+      noofSeat: json['noofSeat'] as int?,
+      noofStop: json['noofStop'] as int?,
+      segmentDetails: json['segmentDetails'] as String?,
+    );
+
+Map<String, dynamic> _$$_ApisearchresponsedetailsToJson(
+        _$_Apisearchresponsedetails instance) =>
+    <String, dynamic>{
+      'airlineCode': instance.airlineCode,
+      'airlineName': instance.airlineName,
+      'flightDetails': instance.flightDetails,
+      'source': instance.source,
+      'destination': instance.destination,
+      'departureDate': instance.departureDate,
+      'arrivalDate': instance.arrivalDate,
+      'departureTime': instance.departureTime,
+      'arrivalTime': instance.arrivalTime,
+      'duration': instance.duration,
+      'freeBaggage': instance.freeBaggage,
+      'refundable': instance.refundable,
+      'sourceAirport': instance.sourceAirport,
+      'destinationAirport': instance.destinationAirport,
+      'noofSeat': instance.noofSeat,
+      'noofStop': instance.noofStop,
+      'segmentDetails': instance.segmentDetails,
     };

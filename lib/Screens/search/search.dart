@@ -190,7 +190,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   String departure = '';
   String arrival = '';
   String travelClass = '';
-  //String travelType = '';
+  String travelType = '';
+  bool internationalTrip = false;
 
   int adultCount = 1;
   int childCount = 0;
@@ -305,14 +306,20 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 searchReq.isdirect = false;
                 searchReq.objsectorlist = [];
                 /////////////////////////////////
-                onwardSector.origin = originCode;
-                onwardSector.origincountry = originCountry;
-                onwardSector.destination = destinationCode;
-                onwardSector.destinationcountry = destinationCountry;
-                onwardSector.departureDate = departureDate;
-                onwardSector.departureDate = departureDate;
-                onwardSector.tripmode = "";
-                searchReq.objsectorlist?.add(onwardSector);
+                if (oneWay || roundTrip) {
+                  onwardSector.origin = originCode;
+                  onwardSector.origincountry = originCountry;
+                  onwardSector.destination = destinationCode;
+                  onwardSector.destinationcountry = destinationCountry;
+                  onwardSector.departureDate = departureDate;
+                  onwardSector.departureDate = departureDate;
+                  onwardSector.tripmode = "";
+                  searchReq.objsectorlist?.add(onwardSector);
+                  travelType = "O";
+                  if (originCountry != "IN" || destinationCountry != "IN") {
+                    internationalTrip = true;
+                  }
+                }
 
                 if (roundTrip) {
                   Objsectorlist returnSector = Objsectorlist();
@@ -323,6 +330,11 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                   returnSector.departureDate = departureDate;
                   returnSector.departureDate = departureDate;
                   returnSector.tripmode = "";
+                  if (originCountry != "IN" || destinationCountry != "IN") {
+                    internationalTrip = true;
+                  }
+
+                  travelType = "R";
 
                   searchReq.objsectorlist?.add(returnSector);
                 }
@@ -330,10 +342,16 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 SearchApi().getSearch(searchReq).then((value) {
                   data = value ?? const AirlineSearchResponse();
                   dev.log(value.toString());
-                  data.status != null && data.status! ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: data) : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                  data.status != null && data.status!
+                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                          "data": data,
+                          "tripType": travelType,
+                          "internationalTrip": internationalTrip,
+                        })
+                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
                 });
 
-                Navigator.of(context).pushNamed('/FlightSearchResult');
+                //    Navigator.of(context).pushNamed('/FlightSearchResult');
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(MediaQuery.of(context).size.width, 50),

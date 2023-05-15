@@ -8,19 +8,26 @@ import '../Constants/urls.dart';
 import 'model/Search/flight_search_model.dart';
 import 'model/airport_list.dart';
 
-String gToken = "pJwR9rg5VOIqriYYZ3ikMJYdqg23yI94aoRRyTbqaUZQP15boKof1MQeDZrvcjN3";
+String gToken =
+    "pJwR9rg5VOIqriYYZ3ikMJYdqg23yI94aoRRyTbqaUZQP15boKof1MQeDZrvcjN3";
 String baseUrl = "https://uattm.jameer.xyz";
 
 class AuthenticationApi {
   AuthenticationUrl urls = AuthenticationUrl();
-  Future<GeneralReponseModel?> authenticate({required String mobileNo, required String appSignature}) async {
+  Future<GeneralReponseModel?> authenticate(
+      {required String mobileNo, required String appSignature}) async {
     try {
       final url = Uri.parse(baseUrl + urls.authenticate);
       print(url);
       final result = await http.post(
         url,
-        body: jsonEncode({"mobileNumber": mobileNo, "appSignatureID": appSignature}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+        body: jsonEncode(
+            {"mobileNumber": mobileNo, "appSignatureID": appSignature}),
+        headers: {
+          "Authorization": "Bearer $gToken",
+          "DeviceCode": "M",
+          "content-type": "application/json"
+        },
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -37,7 +44,8 @@ class AuthenticationApi {
     return null;
   }
 
-  Future<ResponseWithToken?> otpSubmit({required String mobileNo, required otp}) async {
+  Future<ResponseWithToken?> otpSubmit(
+      {required String mobileNo, required otp}) async {
     try {
       final url = Uri.parse(baseUrl + urls.otpSubmit);
       print({"mobileNumber": mobileNo, "otp": otp});
@@ -45,7 +53,11 @@ class AuthenticationApi {
       final result = await http.post(
         url,
         body: jsonEncode({"mobileNumber": mobileNo, "otp": otp}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+        headers: {
+          "Authorization": "Bearer $gToken",
+          "DeviceCode": "M",
+          "content-type": "application/json"
+        },
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -71,7 +83,11 @@ class AirlineApi {
       final result = await http.post(
         url,
         body: jsonEncode({}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+        headers: {
+          "Authorization": "Bearer $gToken",
+          "DeviceCode": "M",
+          "content-type": "application/json"
+        },
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -93,13 +109,18 @@ class SearchApi {
   Future<AirlineSearchResponse?> getSearch(FlightSearchReqModel data) async {
     try {
       final url = Uri.parse(baseUrl + urls.search);
+      log("Token:$gToken");
       print(url);
       log(jsonEncode(data).toString() + "++++");
       final result = await http.post(
         url,
         body: jsonEncode(data),
         //  body: data.toJson(),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M"},
+        headers: {
+          "Authorization": "Bearer $gToken",
+          "DeviceCode": "M",
+          "content-type": "application/json"
+        },
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -109,6 +130,7 @@ class SearchApi {
       return responseModel;
     } on http.ClientException catch (e) {
       log(e.message.toString() + "+++++");
+      throw Exception();
     } catch (e) {
       log("Error :$e");
     }

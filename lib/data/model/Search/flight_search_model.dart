@@ -75,6 +75,7 @@ class AvailableAirline with _$AvailableAirline {
   const factory AvailableAirline({
     String? airlineCode,
     String? airlineName,
+    String? minAmount,
   }) = _AvailableAirline;
 
   factory AvailableAirline.fromJson(Map<String, dynamic> json) => _$AvailableAirlineFromJson(json);
@@ -118,7 +119,106 @@ class PricingBasic with _$PricingBasic {
     String? fareName,
     double? netAmount,
     double? discount,
+    String? cabinBaggage,
+    String? checkinBaggage,
+    String? meal,
+    String? seat,
+    String? cancellation,
+    String? dateChange,
   }) = _PricingBasic;
 
   factory PricingBasic.fromJson(Map<String, dynamic> json) => _$PricingBasicFromJson(json);
+}
+
+@freezed
+class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
+  @JsonSerializable(explicitToJson: true)
+  const factory IRAirlineSearchResponse({
+    //individual Round Trip(Domestic)
+    bool? status,
+    String? responseMessage,
+    String? airlineClass,
+    String? origin,
+    String? destination,
+    DateTime? departureDate,
+    String? originR,
+    String? destinationR,
+    DateTime? returnDate,
+    int? adult,
+    int? child,
+    int? infant,
+    double? minimumFare,
+    double? maximumFare,
+    double? minimumFareR,
+    double? maximumFareR,
+    List<AvailableAirline>? objAvlairlineList,
+    List<Apisearchresponse>? objItinList,
+    List<Apisearchresponse>? objItinListR,
+  }) = _IRAirlineSearchResponse;
+
+  factory IRAirlineSearchResponse.fromJson(Map<String, dynamic> json) => _$IRAirlineSearchResponseFromJson(json);
+}
+
+@freezed
+class RAirlineSearchResponse with _$RAirlineSearchResponse {
+  @JsonSerializable(explicitToJson: true)
+  const factory RAirlineSearchResponse({
+    //Combined Round trip(International)
+
+    bool? status,
+    String? responseMessage,
+    String? airlineClass,
+    String? origin,
+    String? destination,
+    DateTime? departureDate,
+    DateTime? returnDate,
+    int? adult,
+    int? child,
+    int? infant,
+    double? minimumFare,
+    double? maximumFare,
+    List<AvailableAirline>? objAvlairlineList,
+    List<RApisearchresponse>? objItinList,
+  }) = _RAirlineSearchResponse;
+
+  factory RAirlineSearchResponse.fromJson(Map<String, dynamic> json) => _$RAirlineSearchResponseFromJson(json);
+}
+
+@freezed
+class RApisearchresponse with _$RApisearchresponse {
+  const factory RApisearchresponse({
+    int? itinId,
+    Apisearchresponse? onwardDetails,
+    Apisearchresponse? returnDetails,
+    double? amount,
+    double? discount,
+    double? netAmount,
+    List<PricingBasic>? pricingList,
+  }) = _RApisearchresponse;
+
+  factory RApisearchresponse.fromJson(Map<String, dynamic> json) => _$RApisearchresponseFromJson(json);
+}
+
+@freezed
+class Apisearchresponsedetails with _$Apisearchresponsedetails {
+  const factory Apisearchresponsedetails({
+    String? airlineCode,
+    String? airlineName,
+    String? flightDetails,
+    String? source,
+    String? destination,
+    String? departureDate,
+    String? arrivalDate,
+    String? departureTime,
+    String? arrivalTime,
+    String? duration,
+    String? freeBaggage,
+    String? refundable,
+    String? sourceAirport,
+    String? destinationAirport,
+    int? noofSeat,
+    int? noofStop,
+    String? segmentDetails,
+  }) = _Apisearchresponsedetails;
+  factory Apisearchresponsedetails.fromJson(Map<String, dynamic> json) => _$ApisearchresponsedetailsFromJson(json);
 }
