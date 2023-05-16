@@ -11,5 +11,6 @@ class SearchUrl {
 
 class AuthenticationUrl {
   String authenticate = "/api/Account/Authenticate";
+  String startingApi = "/api/Account/DefaultAuthenticate";
   String otpSubmit = "/api/Account/OtpSubmitForAuthentication";
 }

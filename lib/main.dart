@@ -6,14 +6,14 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Home/home_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Login/otp_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/My%20Trips/my_trips_screen.dart';
+import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 import 'Config/routes.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
 }
@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         primaryColorDark: primaryColor,
         canvasColor: tertiaryColor,
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: secondaryColor, primary: primaryColor),
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: secondaryColor, primary: primaryColor),
       ),
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveWrapper.builder(
@@ -64,8 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushNamedAndRemoveUntil(
-          context, '/home', ModalRoute.withName('/home')),
+      () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
       //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
     );
   }

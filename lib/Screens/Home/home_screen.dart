@@ -4,6 +4,8 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Login/login_pop_up.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 
+import '../../data/api.dart';
+
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
 
@@ -21,16 +23,14 @@ class ScreenHome extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: TextButton.icon(
             onPressed: () {
+              AuthenticationApi().noUserLogin().then((value) => print(value?.responseMessage ?? "Null"));
+
               loginBottomSheet(context, width);
             },
-            icon:
-                const Icon(Icons.account_circle_outlined, color: Colors.white),
+            icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
             label: const Text(
               "Hi User !",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 25),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
             ),
           ),
         ),
@@ -80,12 +80,10 @@ class ScreenHome extends StatelessWidget {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(Icons.flight_takeoff, size: 35),
-                                Text("Flights", style: TextStyle(fontSize: 18)),
-                              ]),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.flight_takeoff, size: 35),
+                            Text("Flights", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
                       InkWell(
@@ -107,12 +105,10 @@ class ScreenHome extends StatelessWidget {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(Icons.bed_outlined, size: 35),
-                                Text("Hotels", style: TextStyle(fontSize: 18)),
-                              ]),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.bed_outlined, size: 35),
+                            Text("Hotels", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
                       InkWell(
@@ -134,14 +130,10 @@ class ScreenHome extends StatelessWidget {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(Icons.health_and_safety_outlined,
-                                    size: 35),
-                                Text("Insurance",
-                                    style: TextStyle(fontSize: 18)),
-                              ]),
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                            Icon(Icons.health_and_safety_outlined, size: 35),
+                            Text("Insurance", style: TextStyle(fontSize: 18)),
+                          ]),
                         ),
                       ),
                     ],
@@ -150,14 +142,12 @@ class ScreenHome extends StatelessWidget {
                     child: ListView(
                       children: [
                         const Padding(
-                          padding:
-                              EdgeInsets.only(top: 32, left: 10, bottom: 10),
+                          padding: EdgeInsets.only(top: 32, left: 10, bottom: 10),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Top Flight Deals",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -193,8 +183,7 @@ class ScreenHome extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Best Airline Deals",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -202,8 +191,7 @@ class ScreenHome extends StatelessWidget {
                           options: CarouselOptions(
                             height: 130,
 
-                            viewportFraction:
-                                0.5 /*,  enlargeCenterPage: true */,
+                            viewportFraction: 0.5 /*,  enlargeCenterPage: true */,
                             // autoPlay: true,
                             //  pauseAutoPlayOnManualNavigate: true,
                             animateToClosest: true,
@@ -212,22 +200,16 @@ class ScreenHome extends StatelessWidget {
                           ),
                           items: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3.0),
-                              child:
-                                  Image.asset('assets/airline_deals/Air11.png'),
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air11.png'),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3.0),
-                              child:
-                                  Image.asset('assets/airline_deals/Air21.png'),
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air21.png'),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3.0),
-                              child:
-                                  Image.asset('assets/airline_deals/Air31.png'),
+                              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Image.asset('assets/airline_deals/Air31.png'),
                             ),
                           ],
                         ),
@@ -241,8 +223,7 @@ class ScreenHome extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Discover our best hotels to stay",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -264,10 +245,8 @@ class ScreenHome extends StatelessWidget {
                                   Stack(
                                     children: [
                                       ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: Image.asset(
-                                            'assets/hotels/Hotel11.png'),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel11.png'),
                                       ),
                                       Positioned(
                                         top: 5,
@@ -283,28 +262,21 @@ class ScreenHome extends StatelessWidget {
                                           padding: const EdgeInsets.all(5),
                                           child: const Text(
                                             " 18% off!",
-                                            style: TextStyle(
-                                                color: white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
                                           ),
                                         ),
                                       )
                                     ],
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10, bottom: 2.0),
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
                                               style: TextStyle(
@@ -347,10 +319,8 @@ class ScreenHome extends StatelessWidget {
                                   Stack(
                                     children: [
                                       ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: Image.asset(
-                                            'assets/hotels/Hotel21.png'),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel21.png'),
                                       ),
                                       Positioned(
                                         top: 5,
@@ -366,28 +336,21 @@ class ScreenHome extends StatelessWidget {
                                           padding: const EdgeInsets.all(5),
                                           child: const Text(
                                             " 18% off!",
-                                            style: TextStyle(
-                                                color: white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
                                           ),
                                         ),
                                       )
                                     ],
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10, bottom: 2.0),
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
                                               style: TextStyle(
@@ -430,10 +393,8 @@ class ScreenHome extends StatelessWidget {
                                   Stack(
                                     children: [
                                       ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: Image.asset(
-                                            'assets/hotels/Hotel31.png'),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        child: Image.asset('assets/hotels/Hotel31.png'),
                                       ),
                                       Positioned(
                                         top: 5,
@@ -449,28 +410,21 @@ class ScreenHome extends StatelessWidget {
                                           padding: const EdgeInsets.all(5),
                                           child: const Text(
                                             " 18% off!",
-                                            style: TextStyle(
-                                                color: white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
+                                            style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
                                           ),
                                         ),
                                       )
                                     ],
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10, bottom: 2.0),
+                                            padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
                                               style: TextStyle(
@@ -521,20 +475,16 @@ class ScreenHome extends StatelessWidget {
                                   ),
                                   color: white,
                                   border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(186, 186, 186, 1),
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
                                     width: 1,
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: const [
                                     Text(
                                       "Assured best fares",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.payments_outlined)
@@ -550,20 +500,16 @@ class ScreenHome extends StatelessWidget {
                                   ),
                                   color: white,
                                   border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(186, 186, 186, 1),
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
                                     width: 1,
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: const [
                                     Text(
                                       "Easy Booking",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.security_update_good_rounded)
@@ -578,20 +524,16 @@ class ScreenHome extends StatelessWidget {
                                   ),
                                   color: white,
                                   border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(186, 186, 186, 1),
+                                    color: const Color.fromRGBO(186, 186, 186, 1),
                                     width: 1,
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: const [
                                     Text(
                                       "Safe & secure",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                     ),
                                     SizedBox(width: 5),
                                     Icon(Icons.security_rounded)
@@ -668,8 +610,7 @@ class ScreenHome extends StatelessWidget {
                                 )),
                             Text(
                               "Trivandrum",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
                               textAlign: TextAlign.left,
                             ),
                           ],
@@ -677,8 +618,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       Transform.rotate(
                         angle: 90 * 3.14 / 180, // 90 degrees in radians
-                        child: Icon(Icons.airplanemode_active,
-                            color: Colors.grey.shade600),
+                        child: Icon(Icons.airplanemode_active, color: Colors.grey.shade600),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -694,8 +634,7 @@ class ScreenHome extends StatelessWidget {
                                 )),
                             Text(
                               "Abudhabi",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
                               textAlign: TextAlign.left,
                             ),
                           ],
@@ -711,17 +650,13 @@ class ScreenHome extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       "Mar 15,Tue - Apr 1,Wed",
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 3, horizontal: 50),
+                      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 50),
                       decoration: const BoxDecoration(
                         color: primaryColor,
                         borderRadius: BorderRadius.only(
@@ -731,10 +666,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       child: const Text(
                         "87779",
-                        style: TextStyle(
-                            color: white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
