@@ -85,8 +85,9 @@ class AvailableAirline with _$AvailableAirline {
 class Apisearchresponse with _$Apisearchresponse {
   const factory Apisearchresponse({
     int? itin_id,
+    String? providerCode,
     String? airlineName, //
-    String? airlineCOde,
+    String? airlineCode,
     String? flightDetails,
     String? source,
     String? destination,
@@ -132,7 +133,6 @@ class PricingBasic with _$PricingBasic {
 
 @freezed
 class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
-  @JsonSerializable(explicitToJson: true)
   const factory IRAirlineSearchResponse({
     //individual Round Trip(Domestic)
     bool? status,
@@ -161,7 +161,6 @@ class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
 
 @freezed
 class RAirlineSearchResponse with _$RAirlineSearchResponse {
-  @JsonSerializable(explicitToJson: true)
   const factory RAirlineSearchResponse({
     //Combined Round trip(International)
 

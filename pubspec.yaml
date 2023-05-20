@@ -48,6 +48,9 @@ dependencies:
   flutter_typeahead: ^4.3.8
   sms_autofill: ^2.3.0
   device_info: ^2.0.3
+  intl: ^0.18.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   
 
 dev_dependencies:
@@ -63,6 +66,8 @@ dev_dependencies:
   freezed: ^2.3.2
   json_serializable: ^6.5.4
   build_runner: ^2.3.2
+  hive_generator: 
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

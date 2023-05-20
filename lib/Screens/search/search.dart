@@ -4,6 +4,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
@@ -201,7 +202,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   List<AirportData> airportList = [];
   FlightSearchReqModel searchReq = FlightSearchReqModel();
   Objsectorlist onwardSector = Objsectorlist();
-  AirlineSearchResponse data = const AirlineSearchResponse();
 
   String originCode = '';
 
@@ -241,168 +241,193 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
         padding: const EdgeInsets.all(30),
         children: [
           selectTripType(),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
-            child: Text("\t\tWhere are you going ?", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          ),
-          departureAndArrival(context),
-          departureAndReturnDate(context),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
-                  child: TextField(
-                    readOnly: true,
-                    controller: passengerController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.account_circle_outlined),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: primaryColor,
-                      )),
-                      label: Text("Passenger"),
-                    ),
-                    onTap: () async {
-                      passengerCountAndTravelClass(context);
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
-                  child: TextField(
-                    readOnly: true,
-                    controller: classController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.flight_class_outlined),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: primaryColor,
-                      )),
-                      label: Text("Class"),
-                    ),
-                    onTap: () async {
-                      passengerCountAndTravelClass(context);
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                searchReq.adult = adultCount;
-                searchReq.child = childCount;
-                searchReq.infant = infantCount;
-                searchReq.airlineClass = classController.text;
-                searchReq.traveltype = "";
-                searchReq.prefferedCarriers = "";
-                searchReq.prefferedProviders = "";
-                searchReq.fareType = "";
-                searchReq.isdirect = false;
-                searchReq.objsectorlist = [];
-                /////////////////////////////////
-                if (oneWay || roundTrip) {
-                  onwardSector.origin = originCode;
-                  onwardSector.origincountry = originCountry;
-                  onwardSector.destination = destinationCode;
-                  onwardSector.destinationcountry = destinationCountry;
-                  onwardSector.departureDate = departureDate;
-                  onwardSector.departureDate = departureDate;
-                  onwardSector.tripmode = "";
-                  searchReq.objsectorlist?.add(onwardSector);
-                  travelType = "O";
-                  if (originCountry != "IN" || destinationCountry != "IN") {
-                    internationalTrip = true;
-                  }
-                }
-
-                if (roundTrip) {
-                  Objsectorlist returnSector = Objsectorlist();
-                  returnSector.origin = destinationCode;
-                  returnSector.origincountry = destinationCountry;
-                  returnSector.destination = originCode;
-                  returnSector.destinationcountry = originCountry;
-                  returnSector.departureDate = departureDate;
-                  returnSector.departureDate = departureDate;
-                  returnSector.tripmode = "";
-                  if (originCountry != "IN" || destinationCountry != "IN") {
-                    internationalTrip = true;
-                  }
-
-                  travelType = "R";
-
-                  searchReq.objsectorlist?.add(returnSector);
-                }
-                print(searchReq);
-                if (oneWay) {
-                  SearchApi().oneWay(searchReq).then((value) {
-                    data = value ?? const AirlineSearchResponse();
-                    dev.log(value.toString());
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (roundTrip && internationalTrip) {
-                  SearchApi().combinedRoundTrip(searchReq).then((value) {
-                    data = value ?? const AirlineSearchResponse();
-                    dev.log(value.toString());
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (roundTrip && !internationalTrip) {
-                  SearchApi().individualRoundTrip(searchReq).then((value) {
-                    data = value ?? const AirlineSearchResponse();
-                    dev.log(value.toString());
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (multiCity) {
-                  SearchApi().oneWay(searchReq).then((value) {
-                    data = value ?? const AirlineSearchResponse();
-                    dev.log(value.toString());
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                }
-
-                //    Navigator.of(context).pushNamed('/FlightSearchResult');
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(MediaQuery.of(context).size.width, 50),
-                backgroundColor: secondaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: const Text("SEARCH FLIGHTS", style: TextStyle(fontSize: 20)),
-            ),
-          ),
+          multiCity ? MultiCity() : oneWayAndRoundTrip(context),
         ],
       ),
+    );
+  }
+
+  Column oneWayAndRoundTrip(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Text("\t\tWhere are you going ?", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        ),
+        departureAndArrival(context),
+        departureAndReturnDate(context),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+                child: TextField(
+                  readOnly: true,
+                  controller: passengerController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.account_circle_outlined),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                      color: primaryColor,
+                    )),
+                    label: Text("Passenger"),
+                  ),
+                  onTap: () async {
+                    passengerCountAndTravelClass(context);
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+                child: TextField(
+                  readOnly: true,
+                  controller: classController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.flight_class_outlined),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                      color: primaryColor,
+                    )),
+                    label: Text("Class"),
+                  ),
+                  onTap: () async {
+                    passengerCountAndTravelClass(context);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ElevatedButton(
+            onPressed: () async {
+              searchReq.adult = adultCount;
+              searchReq.child = childCount;
+              searchReq.infant = infantCount;
+              searchReq.airlineClass = classController.text;
+              searchReq.traveltype = "";
+              searchReq.prefferedCarriers = "";
+              searchReq.prefferedProviders = "";
+              searchReq.fareType = "";
+              searchReq.isdirect = false;
+              searchReq.objsectorlist = [];
+              /////////////////////////////////
+
+              if (oneWay || roundTrip) {
+                onwardSector.origin = originCode;
+                onwardSector.origincountry = originCountry;
+                onwardSector.destination = destinationCode;
+                onwardSector.destinationcountry = destinationCountry;
+                onwardSector.departureDate = departureDate;
+                onwardSector.departureDate = departureDate;
+                onwardSector.tripmode = "";
+                searchReq.objsectorlist?.add(onwardSector);
+                travelType = "O";
+              }
+
+              if (roundTrip) {
+                Objsectorlist returnSector = Objsectorlist();
+                returnSector.origin = destinationCode;
+                returnSector.origincountry = destinationCountry;
+                returnSector.destination = originCode;
+                returnSector.destinationcountry = originCountry;
+                returnSector.departureDate = departureDate;
+                returnSector.departureDate = departureDate;
+                returnSector.tripmode = "";
+
+                travelType = "R";
+
+                searchReq.objsectorlist?.add(returnSector);
+              }
+
+              print(searchReq);
+              print(internationalTrip);
+              if (originCountry != "IN" || destinationCountry != "IN") {
+                internationalTrip = true;
+                print("If statement works");
+              } else {
+                internationalTrip = false;
+                print("else statement works");
+              }
+              print(internationalTrip);
+
+              if (oneWay) {
+                SearchApi().oneWay(searchReq).then((value) {
+                  final data = value ?? const AirlineSearchResponse();
+
+                  data.status != null && data.status!
+                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                          "data": data,
+                          "tripType": travelType,
+                          "internationalTrip": internationalTrip,
+                        })
+                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                });
+              } else if (roundTrip && internationalTrip) {
+                SearchApi().combinedRoundTrip(searchReq).then((value) {
+                  final data = value ?? const RAirlineSearchResponse();
+                  dev.log({
+                        "data": data,
+                        "tripType": travelType,
+                        "internationalTrip": internationalTrip,
+                      }.toString() +
+                      "  => Passing combinedRoundTrip");
+                  data.status != null && data.status!
+                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                          "data": data,
+                          "tripType": travelType,
+                          "internationalTrip": true,
+                        })
+                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                });
+              } else if (roundTrip && internationalTrip == false) {
+                SearchApi().individualRoundTrip(searchReq).then((value) {
+                  final data = value ?? const IRAirlineSearchResponse();
+                  dev.log({
+                        "data": data,
+                        "tripType": travelType,
+                        "internationalTrip": internationalTrip,
+                      }.toString() +
+                      "  => Passing individualRoundTrip");
+                  data.status != null && data.status!
+                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                          "data": data,
+                          "tripType": travelType,
+                          "internationalTrip": false,
+                        })
+                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                });
+              } else if (multiCity) {
+                SearchApi().oneWay(searchReq).then((value) {
+                  final data = value ?? const AirlineSearchResponse();
+
+                  data.status != null && data.status!
+                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                          "data": data,
+                          "tripType": travelType,
+                          "internationalTrip": internationalTrip,
+                        })
+                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                });
+              }
+
+              //    Navigator.of(context).pushNamed('/FlightSearchResult');
+            },
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(MediaQuery.of(context).size.width, 50),
+              backgroundColor: secondaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: const Text("SEARCH FLIGHTS", style: TextStyle(fontSize: 20)),
+          ),
+        ),
+      ],
     );
   }
 

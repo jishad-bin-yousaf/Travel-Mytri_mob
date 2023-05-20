@@ -5,13 +5,12 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
+import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../Constants/urls.dart';
 import 'model/Search/flight_search_model.dart';
 import 'model/airport_list.dart';
 import 'package:device_info/device_info.dart';
-import 'package:flutter/services.dart';
 
-String gToken = "pJwR9rg5VOIqriYYZ3ikMJYdqg23yI94aoRRyTbqaUZQP15boKof1MQeDZrvcjN3";
 String baseUrl = "https://uattm.jameer.xyz";
 
 class AuthenticationApi {
@@ -19,11 +18,43 @@ class AuthenticationApi {
   Future<GeneralReponseModel?> authenticate({required String mobileNo, required String appSignature}) async {
     try {
       final url = Uri.parse(baseUrl + urls.authenticate);
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
       final result = await http.post(
         url,
         body: jsonEncode({"mobileNumber": mobileNo, "appSignatureID": appSignature}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+        headers: header,
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -44,12 +75,44 @@ class AuthenticationApi {
     try {
       final url = Uri.parse(baseUrl + urls.otpSubmit);
       print({"mobileNumber": mobileNo, "otp": otp});
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
 
       final result = await http.post(
         url,
         body: jsonEncode({"mobileNumber": mobileNo, "otp": otp}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
+        headers: header,
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -67,8 +130,11 @@ class AuthenticationApi {
 
   Future<ResponseWithToken?> noUserLogin() async {
     try {
+      final url = Uri.parse(baseUrl + urls.startingApi);
+
       var deviceInfo = DeviceInfoPlugin();
       String deviceId = '';
+      Map<String, String> header = {};
 
       if (Platform.isAndroid) {
         var androidInfo = await deviceInfo.androidInfo;
@@ -77,30 +143,32 @@ class AuthenticationApi {
         var iosInfo = await deviceInfo.iosInfo;
         deviceId = iosInfo.identifierForVendor;
       }
-      final url = Uri.parse(baseUrl + urls.startingApi);
+      final gToken = await getToken();
 
-      print(url);
       if (Platform.isAndroid) {
         log("Android");
       } else if (Platform.isIOS) {
         log("iOS");
       }
 
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
+      print(url);
       final result = await http.post(
         url,
-        body: {},
-        headers: {
-          "Authorization": "Bearer $gToken",
-          "DeviceCode": "M",
-          "content-type": "application/json",
-          "os": Platform.isAndroid
-              ? "Android"
-              : Platform.isIOS
-                  ? "iOS"
-                  : "",
-          "deviceId": deviceId,
-          "appVersion": "1.0.0"
-        },
+        body: jsonEncode({}),
+        headers: header,
       );
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
@@ -122,12 +190,41 @@ class AirlineApi {
   Future<List<AirportData>?> getAirport() async {
     try {
       final url = Uri.parse(baseUrl + urls.airport);
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
-      final result = await http.post(
-        url,
-        body: jsonEncode({}),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
-      );
+
+      final result = await http.post(url, body: jsonEncode({}), headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
@@ -148,15 +245,44 @@ class SearchApi {
   Future<AirlineSearchResponse?> oneWay(FlightSearchReqModel data) async {
     try {
       final url = Uri.parse(baseUrl + urls.search);
-      log("Token:$gToken");
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
       log(jsonEncode(data).toString() + "++++");
-      final result = await http.post(
-        url,
-        body: jsonEncode(data),
-        //  body: data.toJson(),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
-      );
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
@@ -172,22 +298,51 @@ class SearchApi {
     return null;
   }
 
-  Future<AirlineSearchResponse?> combinedRoundTrip(FlightSearchReqModel data) async {
+  Future<RAirlineSearchResponse?> combinedRoundTrip(FlightSearchReqModel data) async {
     try {
       final url = Uri.parse(baseUrl + urls.combinedRoundTrip);
-      log("Token:$gToken");
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
       log(jsonEncode(data).toString() + "++++");
-      final result = await http.post(
-        url,
-        body: jsonEncode(data),
-        //  body: data.toJson(),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
-      );
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
-      final responseModel = AirlineSearchResponse.fromJson(resultAsJson);
+      final responseModel = RAirlineSearchResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {
@@ -199,22 +354,51 @@ class SearchApi {
     return null;
   }
 
-  Future<AirlineSearchResponse?> individualRoundTrip(FlightSearchReqModel data) async {
+  Future<IRAirlineSearchResponse?> individualRoundTrip(FlightSearchReqModel data) async {
     try {
       final url = Uri.parse(baseUrl + urls.individualRoundTrip);
-      log("Token:$gToken");
+      var deviceInfo = DeviceInfoPlugin();
+      String deviceId = '';
+      Map<String, String> header = {};
+
+      if (Platform.isAndroid) {
+        var androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.androidId;
+      } else if (Platform.isIOS) {
+        var iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      }
+      final gToken = await getToken();
+
+      if (Platform.isAndroid) {
+        log("Android");
+      } else if (Platform.isIOS) {
+        log("iOS");
+      }
+
+      header = {
+        "Authorization": "Bearer $gToken",
+        "DeviceCode": "M",
+        "content-type": "application/json",
+        "os": Platform.isAndroid
+            ? "Android"
+            : Platform.isIOS
+                ? "iOS"
+                : "",
+        "deviceId": deviceId,
+        "appVersion": "1.0.0"
+      };
+      print(header);
       print(url);
       log(jsonEncode(data).toString() + "++++");
-      final result = await http.post(
-        url,
-        body: jsonEncode(data),
-        //  body: data.toJson(),
-        headers: {"Authorization": "Bearer $gToken", "DeviceCode": "M", "content-type": "application/json"},
-      );
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
-      final responseModel = AirlineSearchResponse.fromJson(resultAsJson);
+      final responseModel = IRAirlineSearchResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {

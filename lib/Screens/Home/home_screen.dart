@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Login/login_pop_up.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
+import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
 import '../../data/api.dart';
 
@@ -11,7 +12,6 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(

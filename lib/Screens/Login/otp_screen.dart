@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
+import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import 'dart:async';
 import '../../Constants/colors.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -74,92 +75,86 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
             Container(
               // height: double.infinity    ,
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //    const SizedBox(height: 50),
-                    Material(
-                      shape: const CircleBorder(),
-                      color: Colors.transparent,
-                      child: Ink(
-                        decoration: const ShapeDecoration(
-                          shape: CircleBorder(
-                            side: BorderSide(color: Colors.grey, width: 3),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.phone_android_sharp,
-                            size: 60,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
+              padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                //    const SizedBox(height: 50),
+                Material(
+                  shape: const CircleBorder(),
+                  color: Colors.transparent,
+                  child: Ink(
+                    decoration: const ShapeDecoration(
+                      shape: CircleBorder(
+                        side: BorderSide(color: Colors.grey, width: 3),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 30.0),
-                      child: Text(
-                        "We have send you an OTP on your Mobile",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.phone_android_sharp,
+                        size: 60,
+                        color: Colors.grey.shade700,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0),
-                      child: Text(
-                        "+91 $phoneNo",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 20),
-                      ),
-                    ),
-                    Center(
-                      child: PinFieldAutoFill(
-                        currentCode: codeValue,
-                        codeLength: 6,
-                        onCodeChanged: (code) {
-                          print("onCodeChanged $code");
-                          setState(() {
-                            codeValue = code.toString();
-                          });
-                        },
-                        onCodeSubmitted: (val) {
-                          print("onCodeSubmitted $val");
-                        },
-                      ),
-                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 30.0),
+                  child: Text(
+                    "We have send you an OTP on your Mobile",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: Text(
+                    "+91 $phoneNo",
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                  ),
+                ),
+                Center(
+                  child: PinFieldAutoFill(
+                    currentCode: codeValue,
+                    codeLength: 6,
+                    onCodeChanged: (code) {
+                      print("onCodeChanged $code");
+                      setState(() {
+                        codeValue = code.toString();
+                      });
+                    },
+                    onCodeSubmitted: (val) {
+                      print("onCodeSubmitted $val");
+                    },
+                  ),
+                ),
 
-                    TimerScreen(phoneNo: phoneNo),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          log(codeValue);
-                          final resp = await AuthenticationApi()
-                              .otpSubmit(mobileNo: phoneNo, otp: codeValue);
-                          if (resp?.status == true && resp?.token != null) {
-                            gToken = resp!.token!;
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/home', ModalRoute.withName('/home'));
-                          } else {
-                            Helper().toastMessage(resp?.responseMessage ?? "");
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize:
-                              Size(MediaQuery.of(context).size.width, 50),
-                          backgroundColor: secondaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text("Submit",
-                            style: TextStyle(fontSize: 20)),
+                TimerScreen(phoneNo: phoneNo),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      log(codeValue);
+                      await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) {
+                        if (resp?.status == true && resp?.token != null) {
+                          Token toc = Token();
+                          toc.token = resp?.token ?? "";
+                          setToken(toc);
+                          Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                        } else {
+                          Helper().toastMessage(resp?.responseMessage ?? "");
+                        }
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                      backgroundColor: secondaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                  ]),
+                    child: const Text("Submit", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+              ]),
             ),
           ],
         ),
@@ -196,15 +191,16 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
   void submitOtp(phoneNo) async {
     // dispose();
     log(codeValue);
-    final resp =
-        await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue);
-    if (resp?.status == true && resp?.token != null) {
-      gToken = resp!.token!;
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/home', ModalRoute.withName('/home'));
-    } else {
-      Helper().toastMessage(resp?.responseMessage ?? "");
-    }
+    await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) {
+      if (resp?.status == true && resp?.token != null) {
+        Token toc = Token();
+        toc.token = resp?.token ?? "";
+        setToken(toc);
+        Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+      } else {
+        Helper().toastMessage(resp?.responseMessage ?? "");
+      }
+    });
   }
 }
 
@@ -268,32 +264,24 @@ class TimerScreenState extends State<TimerScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "Resend OTP",
-                    style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w400),
                   ),
                 )
               : TextButton(
                   onPressed: () async {
-                    final String appSignatureID =
-                        await SmsAutoFill().getAppSignature.then((value) {
+                    final String appSignatureID = await SmsAutoFill().getAppSignature.then((value) {
                       log("++++++");
                       log((value == '') ? "empty" : value);
                       return value;
                     });
                     log("${widget.phoneNo} ,$appSignatureID");
 
-                    await AuthenticationApi().authenticate(
-                        mobileNo: widget.phoneNo, appSignature: appSignatureID);
+                    await AuthenticationApi().authenticate(mobileNo: widget.phoneNo, appSignature: appSignatureID);
                     _secondsRemaining = 600;
                   },
                   child: Text(
                     "Resend OTP",
-                    style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
+                    style: TextStyle(color: primaryColor, fontSize: 16, fontWeight: FontWeight.w400),
                   )),
         ),
         Text(

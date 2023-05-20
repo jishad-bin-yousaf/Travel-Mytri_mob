@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
@@ -7,12 +8,17 @@ import 'package:travel_mytri_mobile_v1/Screens/Home/home_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Login/otp_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/My%20Trips/my_trips_screen.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
+import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
 import 'Config/routes.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(TokenAdapter().typeId)) {
+    Hive.registerAdapter(TokenAdapter());
+  }
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
@@ -61,11 +67,21 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
-      //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
-    );
+
+    AuthenticationApi().noUserLogin().then((value) {
+      Token toc = Token();
+      if (value?.token != null) {
+        toc.token = value?.token ?? '';
+        setToken(toc);
+      }
+      (value?.status ?? false)
+          ? Future.delayed(
+              const Duration(seconds: 2),
+              () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
+              //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+            )
+          : Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+    });
   }
 
   @override

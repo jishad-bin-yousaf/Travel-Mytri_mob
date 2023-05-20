@@ -1426,8 +1426,9 @@ Apisearchresponse _$ApisearchresponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Apisearchresponse {
   int? get itin_id => throw _privateConstructorUsedError;
+  String? get providerCode => throw _privateConstructorUsedError;
   String? get airlineName => throw _privateConstructorUsedError; //
-  String? get airlineCOde => throw _privateConstructorUsedError;
+  String? get airlineCode => throw _privateConstructorUsedError;
   String? get flightDetails => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
   String? get destination => throw _privateConstructorUsedError;
@@ -1463,8 +1464,9 @@ abstract class $ApisearchresponseCopyWith<$Res> {
   @useResult
   $Res call(
       {int? itin_id,
+      String? providerCode,
       String? airlineName,
-      String? airlineCOde,
+      String? airlineCode,
       String? flightDetails,
       String? source,
       String? destination,
@@ -1501,8 +1503,9 @@ class _$ApisearchresponseCopyWithImpl<$Res, $Val extends Apisearchresponse>
   @override
   $Res call({
     Object? itin_id = freezed,
+    Object? providerCode = freezed,
     Object? airlineName = freezed,
-    Object? airlineCOde = freezed,
+    Object? airlineCode = freezed,
     Object? flightDetails = freezed,
     Object? source = freezed,
     Object? destination = freezed,
@@ -1529,13 +1532,17 @@ class _$ApisearchresponseCopyWithImpl<$Res, $Val extends Apisearchresponse>
           ? _value.itin_id
           : itin_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      providerCode: freezed == providerCode
+          ? _value.providerCode
+          : providerCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       airlineName: freezed == airlineName
           ? _value.airlineName
           : airlineName // ignore: cast_nullable_to_non_nullable
               as String?,
-      airlineCOde: freezed == airlineCOde
-          ? _value.airlineCOde
-          : airlineCOde // ignore: cast_nullable_to_non_nullable
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
               as String?,
       flightDetails: freezed == flightDetails
           ? _value.flightDetails
@@ -1631,8 +1638,9 @@ abstract class _$$_ApisearchresponseCopyWith<$Res>
   @useResult
   $Res call(
       {int? itin_id,
+      String? providerCode,
       String? airlineName,
-      String? airlineCOde,
+      String? airlineCode,
       String? flightDetails,
       String? source,
       String? destination,
@@ -1667,8 +1675,9 @@ class __$$_ApisearchresponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? itin_id = freezed,
+    Object? providerCode = freezed,
     Object? airlineName = freezed,
-    Object? airlineCOde = freezed,
+    Object? airlineCode = freezed,
     Object? flightDetails = freezed,
     Object? source = freezed,
     Object? destination = freezed,
@@ -1695,13 +1704,17 @@ class __$$_ApisearchresponseCopyWithImpl<$Res>
           ? _value.itin_id
           : itin_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      providerCode: freezed == providerCode
+          ? _value.providerCode
+          : providerCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       airlineName: freezed == airlineName
           ? _value.airlineName
           : airlineName // ignore: cast_nullable_to_non_nullable
               as String?,
-      airlineCOde: freezed == airlineCOde
-          ? _value.airlineCOde
-          : airlineCOde // ignore: cast_nullable_to_non_nullable
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
               as String?,
       flightDetails: freezed == flightDetails
           ? _value.flightDetails
@@ -1792,8 +1805,9 @@ class __$$_ApisearchresponseCopyWithImpl<$Res>
 class _$_Apisearchresponse implements _Apisearchresponse {
   const _$_Apisearchresponse(
       {this.itin_id,
+      this.providerCode,
       this.airlineName,
-      this.airlineCOde,
+      this.airlineCode,
       this.flightDetails,
       this.source,
       this.destination,
@@ -1822,10 +1836,12 @@ class _$_Apisearchresponse implements _Apisearchresponse {
   @override
   final int? itin_id;
   @override
+  final String? providerCode;
+  @override
   final String? airlineName;
 //
   @override
-  final String? airlineCOde;
+  final String? airlineCode;
   @override
   final String? flightDetails;
   @override
@@ -1876,7 +1892,7 @@ class _$_Apisearchresponse implements _Apisearchresponse {
 
   @override
   String toString() {
-    return 'Apisearchresponse(itin_id: $itin_id, airlineName: $airlineName, airlineCOde: $airlineCOde, flightDetails: $flightDetails, source: $source, destination: $destination, origin: $origin, departureDate: $departureDate, arrivalDate: $arrivalDate, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, freeBaggage: $freeBaggage, refundable: $refundable, sourceAirport: $sourceAirport, destinationAirport: $destinationAirport, noofSeat: $noofSeat, amount: $amount, discount: $discount, netAmount: $netAmount, noofStop: $noofStop, segmentDetails: $segmentDetails, pricngList: $pricngList)';
+    return 'Apisearchresponse(itin_id: $itin_id, providerCode: $providerCode, airlineName: $airlineName, airlineCode: $airlineCode, flightDetails: $flightDetails, source: $source, destination: $destination, origin: $origin, departureDate: $departureDate, arrivalDate: $arrivalDate, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, freeBaggage: $freeBaggage, refundable: $refundable, sourceAirport: $sourceAirport, destinationAirport: $destinationAirport, noofSeat: $noofSeat, amount: $amount, discount: $discount, netAmount: $netAmount, noofStop: $noofStop, segmentDetails: $segmentDetails, pricngList: $pricngList)';
   }
 
   @override
@@ -1885,10 +1901,12 @@ class _$_Apisearchresponse implements _Apisearchresponse {
         (other.runtimeType == runtimeType &&
             other is _$_Apisearchresponse &&
             (identical(other.itin_id, itin_id) || other.itin_id == itin_id) &&
+            (identical(other.providerCode, providerCode) ||
+                other.providerCode == providerCode) &&
             (identical(other.airlineName, airlineName) ||
                 other.airlineName == airlineName) &&
-            (identical(other.airlineCOde, airlineCOde) ||
-                other.airlineCOde == airlineCOde) &&
+            (identical(other.airlineCode, airlineCode) ||
+                other.airlineCode == airlineCode) &&
             (identical(other.flightDetails, flightDetails) ||
                 other.flightDetails == flightDetails) &&
             (identical(other.source, source) || other.source == source) &&
@@ -1933,8 +1951,9 @@ class _$_Apisearchresponse implements _Apisearchresponse {
   int get hashCode => Object.hashAll([
         runtimeType,
         itin_id,
+        providerCode,
         airlineName,
-        airlineCOde,
+        airlineCode,
         flightDetails,
         source,
         destination,
@@ -1975,8 +1994,9 @@ class _$_Apisearchresponse implements _Apisearchresponse {
 abstract class _Apisearchresponse implements Apisearchresponse {
   const factory _Apisearchresponse(
       {final int? itin_id,
+      final String? providerCode,
       final String? airlineName,
-      final String? airlineCOde,
+      final String? airlineCode,
       final String? flightDetails,
       final String? source,
       final String? destination,
@@ -2004,9 +2024,11 @@ abstract class _Apisearchresponse implements Apisearchresponse {
   @override
   int? get itin_id;
   @override
+  String? get providerCode;
+  @override
   String? get airlineName;
   @override //
-  String? get airlineCOde;
+  String? get airlineCode;
   @override
   String? get flightDetails;
   @override
@@ -2715,8 +2737,7 @@ class __$$_IRAirlineSearchResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_IRAirlineSearchResponse implements _IRAirlineSearchResponse {
   const _$_IRAirlineSearchResponse(
       {this.status,
@@ -3222,8 +3243,7 @@ class __$$_RAirlineSearchResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_RAirlineSearchResponse implements _RAirlineSearchResponse {
   const _$_RAirlineSearchResponse(
       {this.status,

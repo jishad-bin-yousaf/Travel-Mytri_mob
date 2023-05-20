@@ -138,8 +138,9 @@ Map<String, dynamic> _$$_AvailableAirlineToJson(_$_AvailableAirline instance) =>
 _$_Apisearchresponse _$$_ApisearchresponseFromJson(Map<String, dynamic> json) =>
     _$_Apisearchresponse(
       itin_id: json['itin_id'] as int?,
+      providerCode: json['providerCode'] as String?,
       airlineName: json['airlineName'] as String?,
-      airlineCOde: json['airlineCOde'] as String?,
+      airlineCode: json['airlineCode'] as String?,
       flightDetails: json['flightDetails'] as String?,
       source: json['source'] as String?,
       destination: json['destination'] as String?,
@@ -168,8 +169,9 @@ Map<String, dynamic> _$$_ApisearchresponseToJson(
         _$_Apisearchresponse instance) =>
     <String, dynamic>{
       'itin_id': instance.itin_id,
+      'providerCode': instance.providerCode,
       'airlineName': instance.airlineName,
-      'airlineCOde': instance.airlineCOde,
+      'airlineCode': instance.airlineCode,
       'flightDetails': instance.flightDetails,
       'source': instance.source,
       'destination': instance.destination,
@@ -273,10 +275,9 @@ Map<String, dynamic> _$$_IRAirlineSearchResponseToJson(
       'maximumFare': instance.maximumFare,
       'minimumFareR': instance.minimumFareR,
       'maximumFareR': instance.maximumFareR,
-      'objAvlairlineList':
-          instance.objAvlairlineList?.map((e) => e.toJson()).toList(),
-      'objItinList': instance.objItinList?.map((e) => e.toJson()).toList(),
-      'objItinListR': instance.objItinListR?.map((e) => e.toJson()).toList(),
+      'objAvlairlineList': instance.objAvlairlineList,
+      'objItinList': instance.objItinList,
+      'objItinListR': instance.objItinListR,
     };
 
 _$_RAirlineSearchResponse _$$_RAirlineSearchResponseFromJson(
@@ -321,9 +322,8 @@ Map<String, dynamic> _$$_RAirlineSearchResponseToJson(
       'infant': instance.infant,
       'minimumFare': instance.minimumFare,
       'maximumFare': instance.maximumFare,
-      'objAvlairlineList':
-          instance.objAvlairlineList?.map((e) => e.toJson()).toList(),
-      'objItinList': instance.objItinList?.map((e) => e.toJson()).toList(),
+      'objAvlairlineList': instance.objAvlairlineList,
+      'objItinList': instance.objItinList,
     };
 
 _$_RApisearchresponse _$$_RApisearchresponseFromJson(
