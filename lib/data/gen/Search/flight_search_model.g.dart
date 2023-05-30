@@ -125,7 +125,7 @@ _$_AvailableAirline _$$_AvailableAirlineFromJson(Map<String, dynamic> json) =>
     _$_AvailableAirline(
       airlineCode: json['airlineCode'] as String?,
       airlineName: json['airlineName'] as String?,
-      minAmount: json['minAmount'] as String?,
+      minAmount: (json['minAmount'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$_AvailableAirlineToJson(_$_AvailableAirline instance) =>
@@ -137,7 +137,7 @@ Map<String, dynamic> _$$_AvailableAirlineToJson(_$_AvailableAirline instance) =>
 
 _$_Apisearchresponse _$$_ApisearchresponseFromJson(Map<String, dynamic> json) =>
     _$_Apisearchresponse(
-      itin_id: json['itin_id'] as int?,
+      itinId: json['itinId'] as int?,
       providerCode: json['providerCode'] as String?,
       airlineName: json['airlineName'] as String?,
       airlineCode: json['airlineCode'] as String?,
@@ -160,7 +160,7 @@ _$_Apisearchresponse _$$_ApisearchresponseFromJson(Map<String, dynamic> json) =>
       netAmount: (json['netAmount'] as num?)?.toDouble(),
       noofStop: json['noofStop'] as int?,
       segmentDetails: json['segmentDetails'] as String?,
-      pricngList: (json['pricngList'] as List<dynamic>?)
+      pricingList: (json['pricingList'] as List<dynamic>?)
           ?.map((e) => PricingBasic.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -168,7 +168,7 @@ _$_Apisearchresponse _$$_ApisearchresponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_ApisearchresponseToJson(
         _$_Apisearchresponse instance) =>
     <String, dynamic>{
-      'itin_id': instance.itin_id,
+      'itinId': instance.itinId,
       'providerCode': instance.providerCode,
       'airlineName': instance.airlineName,
       'airlineCode': instance.airlineCode,
@@ -191,7 +191,7 @@ Map<String, dynamic> _$$_ApisearchresponseToJson(
       'netAmount': instance.netAmount,
       'noofStop': instance.noofStop,
       'segmentDetails': instance.segmentDetails,
-      'pricngList': instance.pricngList,
+      'pricingList': instance.pricingList,
     };
 
 _$_PricingBasic _$$_PricingBasicFromJson(Map<String, dynamic> json) =>
@@ -330,6 +330,7 @@ _$_RApisearchresponse _$$_RApisearchresponseFromJson(
         Map<String, dynamic> json) =>
     _$_RApisearchresponse(
       itinId: json['itinId'] as int?,
+      providerCode: json['providerCode'] as String?,
       onwardDetails: json['onwardDetails'] == null
           ? null
           : Apisearchresponse.fromJson(
@@ -350,6 +351,7 @@ Map<String, dynamic> _$$_RApisearchresponseToJson(
         _$_RApisearchresponse instance) =>
     <String, dynamic>{
       'itinId': instance.itinId,
+      'providerCode': instance.providerCode,
       'onwardDetails': instance.onwardDetails,
       'returnDetails': instance.returnDetails,
       'amount': instance.amount,
@@ -400,4 +402,233 @@ Map<String, dynamic> _$$_ApisearchresponsedetailsToJson(
       'noofSeat': instance.noofSeat,
       'noofStop': instance.noofStop,
       'segmentDetails': instance.segmentDetails,
+    };
+
+_$_FlightDetailsResponse _$$_FlightDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_FlightDetailsResponse(
+      status: json['status'] as bool?,
+      responseMessage: json['responseMessage'] as String?,
+      originCity: json['originCity'] as String?,
+      destinationCity: json['destinationCity'] as String?,
+      departureDate: json['departureDate'] as String?,
+      objseglist: (json['objseglist'] as List<dynamic>?)
+          ?.map((e) => FlightDetailsList.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      adultCheckinBaggage: json['adultCheckinBaggage'] as String?,
+      adultCabinBaggage: json['adultCabinBaggage'] as String?,
+      childCheckinBaggage: json['childCheckinBaggage'] as String?,
+      childCabinBaggage: json['childCabinBaggage'] as String?,
+      infantCheckinBaggage: json['infantCheckinBaggage'] as String?,
+      infantCabinBaggage: json['infantCabinBaggage'] as String?,
+      adult: json['adult'] as int?,
+      child: json['child'] as int?,
+      infant: json['infant'] as int?,
+      adtBasic: (json['adtBasic'] as num?)?.toDouble(),
+      adtTax: (json['adtTax'] as num?)?.toDouble(),
+      chdBasic: (json['chdBasic'] as num?)?.toDouble(),
+      chdTax: (json['chdTax'] as num?)?.toDouble(),
+      infBasic: (json['infBasic'] as num?)?.toDouble(),
+      infTax: (json['infTax'] as num?)?.toDouble(),
+      totalFare: (json['totalFare'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$_FlightDetailsResponseToJson(
+        _$_FlightDetailsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'responseMessage': instance.responseMessage,
+      'originCity': instance.originCity,
+      'destinationCity': instance.destinationCity,
+      'departureDate': instance.departureDate,
+      'objseglist': instance.objseglist,
+      'adultCheckinBaggage': instance.adultCheckinBaggage,
+      'adultCabinBaggage': instance.adultCabinBaggage,
+      'childCheckinBaggage': instance.childCheckinBaggage,
+      'childCabinBaggage': instance.childCabinBaggage,
+      'infantCheckinBaggage': instance.infantCheckinBaggage,
+      'infantCabinBaggage': instance.infantCabinBaggage,
+      'adult': instance.adult,
+      'child': instance.child,
+      'infant': instance.infant,
+      'adtBasic': instance.adtBasic,
+      'adtTax': instance.adtTax,
+      'chdBasic': instance.chdBasic,
+      'chdTax': instance.chdTax,
+      'infBasic': instance.infBasic,
+      'infTax': instance.infTax,
+      'totalFare': instance.totalFare,
+    };
+
+_$_FlightDetailsList _$$_FlightDetailsListFromJson(Map<String, dynamic> json) =>
+    _$_FlightDetailsList(
+      airlineCode: json['airlineCode'] as String?,
+      airlineName: json['airlineName'] as String?,
+      airlineFlightClass: json['airlineFlightClass'] as String?,
+      departureAirportCode: json['departureAirportCode'] as String?,
+      departureTime: json['departureTime'] as String?,
+      departureDate: json['departureDate'] as String?,
+      departureAirport: json['departureAirport'] as String?,
+      departureCity: json['departureCity'] as String?,
+      arrivalAirportCode: json['arrivalAirportCode'] as String?,
+      arrivalTime: json['arrivalTime'] as String?,
+      arrivalDate: json['arrivalDate'] as String?,
+      arrivalAirport: json['arrivalAirport'] as String?,
+      arrivalCity: json['arrivalCity'] as String?,
+      travelDuration: json['travelDuration'] as String?,
+      layoverTime: json['layoverTime'] as String?,
+    );
+
+Map<String, dynamic> _$$_FlightDetailsListToJson(
+        _$_FlightDetailsList instance) =>
+    <String, dynamic>{
+      'airlineCode': instance.airlineCode,
+      'airlineName': instance.airlineName,
+      'airlineFlightClass': instance.airlineFlightClass,
+      'departureAirportCode': instance.departureAirportCode,
+      'departureTime': instance.departureTime,
+      'departureDate': instance.departureDate,
+      'departureAirport': instance.departureAirport,
+      'departureCity': instance.departureCity,
+      'arrivalAirportCode': instance.arrivalAirportCode,
+      'arrivalTime': instance.arrivalTime,
+      'arrivalDate': instance.arrivalDate,
+      'arrivalAirport': instance.arrivalAirport,
+      'arrivalCity': instance.arrivalCity,
+      'travelDuration': instance.travelDuration,
+      'layoverTime': instance.layoverTime,
+    };
+
+_$_PricingResponse _$$_PricingResponseFromJson(Map<String, dynamic> json) =>
+    _$_PricingResponse(
+      status: json['status'] as bool?,
+      responseMessage: json['responseMessage'] as String?,
+      objSegList: (json['objSegList'] as List<dynamic>?)
+          ?.map((e) => PricingDetailsList.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      adultBasic: (json['adultBasic'] as num?)?.toDouble(),
+      childBasic: (json['childBasic'] as num?)?.toDouble(),
+      infantBasic: (json['infantBasic'] as num?)?.toDouble(),
+      taxList: (json['taxList'] as List<dynamic>?)
+          ?.map((e) => TaxSplitup.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      adult: json['adult'] as int?,
+      child: json['child'] as int?,
+      infant: json['infant'] as int?,
+      adultTotal: (json['adultTotal'] as num?)?.toDouble(),
+      childTotal: (json['childTotal'] as num?)?.toDouble(),
+      infantTotal: (json['infantTotal'] as num?)?.toDouble(),
+      discountAmount: (json['discountAmount'] as num?)?.toDouble(),
+      finalAmount: (json['finalAmount'] as num?)?.toDouble(),
+      objmealList: (json['objmealList'] as List<dynamic>?)
+          ?.map((e) => MealSearchResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      objbaggageList: (json['objbaggageList'] as List<dynamic>?)
+          ?.map((e) => BaggageSearchResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_PricingResponseToJson(_$_PricingResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'responseMessage': instance.responseMessage,
+      'objSegList': instance.objSegList,
+      'adultBasic': instance.adultBasic,
+      'childBasic': instance.childBasic,
+      'infantBasic': instance.infantBasic,
+      'taxList': instance.taxList,
+      'adult': instance.adult,
+      'child': instance.child,
+      'infant': instance.infant,
+      'adultTotal': instance.adultTotal,
+      'childTotal': instance.childTotal,
+      'infantTotal': instance.infantTotal,
+      'discountAmount': instance.discountAmount,
+      'finalAmount': instance.finalAmount,
+      'objmealList': instance.objmealList,
+      'objbaggageList': instance.objbaggageList,
+    };
+
+_$_TaxSplitup _$$_TaxSplitupFromJson(Map<String, dynamic> json) =>
+    _$_TaxSplitup(
+      taxCode: json['taxCode'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$_TaxSplitupToJson(_$_TaxSplitup instance) =>
+    <String, dynamic>{
+      'taxCode': instance.taxCode,
+      'amount': instance.amount,
+    };
+
+_$_PricingDetailsList _$$_PricingDetailsListFromJson(
+        Map<String, dynamic> json) =>
+    _$_PricingDetailsList(
+      airlineCode: json['airlineCode'] as String?,
+      airlineName: json['airlineName'] as String?,
+      flightdetails: json['flightdetails'] as String?,
+      departureAirportCode: json['departureAirportCode'] as String?,
+      departureTime: json['departureTime'] as String?,
+      departureDate: json['departureDate'] as String?,
+      departureCity: json['departureCity'] as String?,
+      arrivalAirportCode: json['arrivalAirportCode'] as String?,
+      arrivalTime: json['arrivalTime'] as String?,
+      arrivalDate: json['arrivalDate'] as String?,
+      arrivalCity: json['arrivalCity'] as String?,
+      travelDuration: json['travelDuration'] as String?,
+      layoverTime: json['layoverTime'] as String?,
+      airlineFlightClass: json['airlineFlightClass'] as String?,
+      cabinBaggage: json['cabinBaggage'] as String?,
+    );
+
+Map<String, dynamic> _$$_PricingDetailsListToJson(
+        _$_PricingDetailsList instance) =>
+    <String, dynamic>{
+      'airlineCode': instance.airlineCode,
+      'airlineName': instance.airlineName,
+      'flightdetails': instance.flightdetails,
+      'departureAirportCode': instance.departureAirportCode,
+      'departureTime': instance.departureTime,
+      'departureDate': instance.departureDate,
+      'departureCity': instance.departureCity,
+      'arrivalAirportCode': instance.arrivalAirportCode,
+      'arrivalTime': instance.arrivalTime,
+      'arrivalDate': instance.arrivalDate,
+      'arrivalCity': instance.arrivalCity,
+      'travelDuration': instance.travelDuration,
+      'layoverTime': instance.layoverTime,
+      'airlineFlightClass': instance.airlineFlightClass,
+      'cabinBaggage': instance.cabinBaggage,
+    };
+
+_$_MealSearchResult _$$_MealSearchResultFromJson(Map<String, dynamic> json) =>
+    _$_MealSearchResult(
+      mealUrl: json['mealUrl'] as String?,
+      code: json['code'] as String?,
+      name: json['name'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$_MealSearchResultToJson(_$_MealSearchResult instance) =>
+    <String, dynamic>{
+      'mealUrl': instance.mealUrl,
+      'code': instance.code,
+      'name': instance.name,
+      'amount': instance.amount,
+    };
+
+_$_BaggageSearchResult _$$_BaggageSearchResultFromJson(
+        Map<String, dynamic> json) =>
+    _$_BaggageSearchResult(
+      code: json['code'] as String?,
+      name: json['name'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$_BaggageSearchResultToJson(
+        _$_BaggageSearchResult instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+      'amount': instance.amount,
     };

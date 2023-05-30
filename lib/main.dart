@@ -75,11 +75,13 @@ class _SplashScreenState extends State<SplashScreen> {
         setToken(toc);
       }
       (value?.status ?? false)
-          ? Future.delayed(
-              const Duration(seconds: 2),
-              () => Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home')),
+          ? Future.delayed(const Duration(seconds: 2), () {
+              getToken().then((value) {
+                Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+              });
+            }
               //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
-            )
+              )
           : Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
     });
   }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 
-import '../../data/api.dart';
-
 enum TripType { flights, hotels }
 
 class ScreenMyTrips extends StatefulWidget {
@@ -52,14 +50,8 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          selectedTrip == TripType.flights
-                              ? flightsTabView(true)
-                              : const Center(
-                                  child: Text("Sorry Hotel ippol illa")),
-                          selectedTrip == TripType.flights
-                              ? flightsTabView(false)
-                              : const Center(
-                                  child: Text("Sorry Hotel ippol illa")),
+                          selectedTrip == TripType.flights ? flightsTabView(true) : const Center(child: Text("Sorry Hotel ippol illa")),
+                          selectedTrip == TripType.flights ? flightsTabView(false) : const Center(child: Text("Sorry Hotel ippol illa")),
                         ],
                       ),
                     ),
@@ -82,9 +74,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
               return Container(
                 margin: EdgeInsets.all(30),
                 padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade500),
-                    borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     Row(
@@ -92,8 +82,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                       children: [
                         Text(
                           "Calicut",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -101,17 +90,13 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                         ),
                         Text(
                           "Sharjah",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         Card(
                           color: Color.fromARGB(255, 23, 212, 9),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 8),
-                            child: Text("Booked",
-                                style: TextStyle(
-                                    color: white, fontWeight: FontWeight.bold)),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                            child: Text("Booked", style: TextStyle(color: white, fontWeight: FontWeight.bold)),
                           ),
                         )
                       ],
@@ -127,13 +112,11 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                           ),
                           Text(
                             "Booking ID :51545",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                           Text(
                             "PNR :87898",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -150,15 +133,12 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                                 padding: const EdgeInsets.only(bottom: 15.0),
                                 child: Text(
                                   "Departure",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                                 ),
                               ),
                               Text(
                                 "Fri 29 Oct 13:22",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "CCJ Calicut",
@@ -204,15 +184,12 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                                 padding: const EdgeInsets.only(bottom: 15.0),
                                 child: Text(
                                   "Arrival",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                                 ),
                               ),
                               Text(
                                 "Fri 29 Oct 13:22",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "COK Cochin",
@@ -235,9 +212,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(10)),
           height: 90,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,15 +247,9 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Calicut",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500)),
+                              Text("Calicut", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                               Icon(Icons.arrow_forward),
-                              Text("Sharjah",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500)),
+                              Text("Sharjah", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                             ],
                           ),
                         ),
@@ -298,8 +267,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                               Icons.brightness_1,
                               size: 10,
                             ),
-                            Text("6E 3435",
-                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            Text("6E 3435", style: TextStyle(fontWeight: FontWeight.w600)),
                           ],
                         ),
                       ),
@@ -324,11 +292,8 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
           child: Column(
             children: <Widget>[
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -344,12 +309,9 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                         setState(() {});
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              isSelected ? white : Colors.transparent),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: MaterialStateProperty.all<Color>(isSelected ? white : Colors.transparent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           )),
                       child: Text(
                         tripTypes[tripType]!,

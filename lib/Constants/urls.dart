@@ -7,6 +7,8 @@ class SearchUrl {
   String search = "/api/AirlineSearch/GetAirlineAvailability";
   String combinedRoundTrip = "/api/AirlineSearch/GetAirlineAvailabilityCRT";
   String individualRoundTrip = "/api/AirlineSearch/GetAirlineAvailabilityIRT";
+  String getFlightDetails = "/api/AirlineSearch/GetFlightDetails";
+  String getPricingDetails = "/api/AirlineSearch/GetPricingDetails";
 }
 
 class AuthenticationUrl {

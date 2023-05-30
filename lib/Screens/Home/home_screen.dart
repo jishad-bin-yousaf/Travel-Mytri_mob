@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Login/login_pop_up.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
-import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
-
-import '../../data/api.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -23,8 +20,6 @@ class ScreenHome extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: TextButton.icon(
             onPressed: () {
-              AuthenticationApi().noUserLogin().then((value) => print(value?.responseMessage ?? "Null"));
-
               loginBottomSheet(context, width);
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),

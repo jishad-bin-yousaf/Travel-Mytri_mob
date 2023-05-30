@@ -133,14 +133,15 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
                   child: ElevatedButton(
                     onPressed: () async {
                       log(codeValue);
-                      await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) {
+                      await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) async {
                         if (resp?.status == true && resp?.token != null) {
                           Token toc = Token();
                           toc.token = resp?.token ?? "";
-                          setToken(toc);
-                          Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                          await setToken(toc).then((value) {
+                            if (value.isNotEmpty && value != ' ') Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                          });
                         } else {
-                          Helper().toastMessage(resp?.responseMessage ?? "");
+                          Helper().toastMessage(resp?.responseMessage ?? "Go Back & Try Again");
                         }
                       });
                     },
@@ -191,14 +192,15 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
   void submitOtp(phoneNo) async {
     // dispose();
     log(codeValue);
-    await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) {
+    await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) async {
       if (resp?.status == true && resp?.token != null) {
         Token toc = Token();
         toc.token = resp?.token ?? "";
-        setToken(toc);
-        Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+        await setToken(toc).then((value) {
+          if (value.isNotEmpty && value != ' ') Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+        });
       } else {
-        Helper().toastMessage(resp?.responseMessage ?? "");
+        Helper().toastMessage(resp?.responseMessage ?? "Go Back & Try Again");
       }
     });
   }
