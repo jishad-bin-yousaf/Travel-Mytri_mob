@@ -4,23 +4,36 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
+import 'package:travel_mytri_mobile_v1/Screens/search/filter.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/error.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../data/api.dart';
 import '../../data/model/Search/flight_search_model.dart';
 
-class ScreenFlightSearchResult extends StatelessWidget {
+class ScreenFlightSearchResult extends StatefulWidget {
+  ScreenFlightSearchResult({super.key});
+
+  @override
+  State<ScreenFlightSearchResult> createState() => _ScreenFlightSearchResultState();
+}
+
+class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
   //ScreenFlightSearchResult({super.key});
   AirlineSearchResponse airlineSearchResponse = const AirlineSearchResponse();
+
   IRAirlineSearchResponse irAirlineSearchResponse = const IRAirlineSearchResponse();
+
   RAirlineSearchResponse rAirlineSearchResponse = const RAirlineSearchResponse();
+
   late String travelType;
+
   late bool internationalTrip;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Map<String, dynamic> arguments;
+
   @override
   Widget build(BuildContext context) {
     // try {
@@ -39,7 +52,13 @@ class ScreenFlightSearchResult extends StatelessWidget {
         backgroundColor: white,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        drawer: filterDrawer(context),
+        drawer: FlightFilterDrawer(
+          airlineSearchResponse: airlineSearchResponse,
+          callBack: (p0) {
+            setState(() {});
+            log(p0.toString());
+          },
+        ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: FloatingActionButton(
@@ -250,208 +269,6 @@ class ScreenFlightSearchResult extends StatelessWidget {
     }
   }
 
-  Drawer filterDrawer(BuildContext context) {
-    return Drawer(
-      width: MediaQuery.of(context).size.width * 3.5 / 4,
-      child: ListView(
-        //    crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.all(30),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade500),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Airlines",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: (airlineSearchResponse.objAvlairlineList?.length ?? 0) * 50,
-                  child: ListView.builder(
-                    itemCount: airlineSearchResponse.objAvlairlineList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      final val = airlineSearchResponse.objAvlairlineList?[0];
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.network(
-                              "https://agents.alhind.com/images/logos/${val?.airlineCode}.gif",
-                              height: 40,
-                              fit: BoxFit.fitHeight,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Text("No logo");
-                              },
-                            ),
-                            Text(
-                              val?.airlineName ?? '',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              "${val?.minAmount ?? 0}",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade500),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Stop",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Non-stop",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      '1 stop',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "2 stop",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Refundable",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Switch(
-                  value: true,
-                  onChanged: (value) {},
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Departure time",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Early Mng"),
-                      Text(" Mng"),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("After noon "),
-                    Text(" Night"),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Arrival time",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Early Mng"),
-                      Text(" Mng"),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("After noon "),
-                    Text(" Night"),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Slider(
-            min: 0,
-            max: airlineSearchResponse.maximumFare ?? 10,
-            value: 2,
-            onChanged: (value) {},
-          )
-          // RangeSlider(
-          //   min: airlineSearchResponse.minimumFare ?? 0,
-          //   max: airlineSearchResponse.minimumFare ?? 10,
-          //   values: RangeValues(
-          //     /* airlineSearchResponse.minimumFare ?? */ 4,
-          //     /* airlineSearchResponse.maximumFare ?? */ 8,
-          //   ),
-          //  onChanged: (value) {},
-          //    )
-        ],
-      ),
-    );
-  }
-
   Padding moreDetails(BuildContext context, FlightDetailsResponse data) {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -463,7 +280,7 @@ class ScreenFlightSearchResult extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("${data.originCity ?? ''}-${data.destinationCity ?? ''}"), Text("${data.departureDate ?? ''}")],
+              children: [Text("${data.objitin?.originCity ?? ''}-${data.objitin?.destinationCity ?? ''}"), Text("${data.objitin?.departureDate ?? ''}")],
             ),
           ),
           Text("Flight Information".toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -471,9 +288,9 @@ class ScreenFlightSearchResult extends StatelessWidget {
             height: 320,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: data.objseglist?.length ?? 0,
+              itemCount: data.objitin?.objseglist?.length ?? 0,
               itemBuilder: (context, index) {
-                final val = data.objseglist?[index];
+                final val = data.objitin?.objseglist?[index];
                 return Column(
                   children: [
                     Padding(
@@ -483,7 +300,6 @@ class ScreenFlightSearchResult extends StatelessWidget {
                         children: [
                           Image.network(
                             "https://agents.alhind.com/images/logos/${val?.airlineCode ?? ""}.gif",
-                            height: 25,
                             fit: BoxFit.fitHeight,
                             errorBuilder: (context, error, stackTrace) {
                               return const Text("No logo");
@@ -506,14 +322,14 @@ class ScreenFlightSearchResult extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(Icons.business_center_outlined),
-                                Text("\t${data.adultCabinBaggage ?? ''}"),
+                                Text("\t${data.objitin?.adultCabinBaggage ?? ''}"),
                               ],
                             ),
                           ),
                           Row(
                             children: [
                               const Icon(Icons.luggage_outlined),
-                              Text("\t${data.adultCheckinBaggage ?? ''}"),
+                              Text("\t${data.objitin?.adultCheckinBaggage ?? ''}"),
                             ],
                           ),
                         ],
@@ -671,7 +487,6 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
       return const Text("No data");
     }
   }
-  //TODO: induvidual round trip design
 
   individualRoundTripWidget(BuildContext context, Apisearchresponse? data, bool isSelected, int index, {required bool onward}) {
     return InkWell(
@@ -705,7 +520,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       child: Image.network(
                         "https://agents.alhind.com/images/logos/${data?.airlineCode ?? ''}.gif",
                         /*${data.airlineName}.*/
-                        width: 40,
+
                         fit: BoxFit.fitHeight,
                         errorBuilder: (context, error, stackTrace) {
                           return const Text("No logo");
@@ -1132,7 +947,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("${data.originCity ?? ''}-${data.destinationCity ?? ''}"), Text("${data.departureDate ?? ''}")],
+              children: [Text("${data.objitin?.originCity ?? ''}-${data.objitin?.destinationCity ?? ''}"), Text("${data.objitin?.departureDate ?? ''}")],
             ),
           ),
           Text("Flight Information".toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -1140,9 +955,9 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
             height: 320,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: data.objseglist?.length ?? 0,
+              itemCount: data.objitin?.objseglist?.length ?? 0,
               itemBuilder: (context, index) {
-                final val = data.objseglist?[index];
+                final val = data.objitin?.objseglist?[index];
                 return Column(
                   children: [
                     Padding(
@@ -1152,7 +967,6 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                         children: [
                           Image.network(
                             "https://agents.alhind.com/images/logos/${val?.airlineCode ?? ""}.gif",
-                            height: 25,
                             fit: BoxFit.fitHeight,
                             errorBuilder: (context, error, stackTrace) {
                               return const Text("No logo");
@@ -1175,14 +989,14 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                             child: Row(
                               children: [
                                 Icon(Icons.business_center_outlined),
-                                Text("\t${data.adultCabinBaggage ?? ''}"),
+                                Text("\t${data.objitin?.adultCabinBaggage ?? ''}"),
                               ],
                             ),
                           ),
                           Row(
                             children: [
                               const Icon(Icons.luggage_outlined),
-                              Text("\t${data.adultCheckinBaggage ?? ''}"),
+                              Text("\t${data.objitin?.adultCheckinBaggage ?? ''}"),
                             ],
                           ),
                         ],
@@ -1282,8 +1096,8 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   child: Image.network(
                                     "https://agents.alhind.com/images/logos/${data?.airlineCode ?? ''}.gif",
                                     /*${data.airlineName}.*/
-                                    height: 40,
-                                    fit: BoxFit.fitHeight,
+
+                                    fit: BoxFit.fill,
                                     errorBuilder: (context, error, stackTrace) {
                                       return const Text("No logo");
                                     },
@@ -1325,11 +1139,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 4.0),
                                         child: Text(
-                                          data?.origin ?? 'DEL',
+                                          data?.origin ?? 'N/A',
                                           style: const TextStyle(fontSize: 17),
                                         ),
                                       ),
-                                      Text(data?.departureTime ?? '11:11', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                      Text(data?.departureTime ?? '99:99', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                     ],
                                   ),
                                   Padding(
@@ -1337,7 +1151,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          data?.duration ?? '2 hr',
+                                          data?.duration ?? '2 pi',
                                         ),
                                         SizedBox(
                                           width: 40,
@@ -1372,7 +1186,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 4.0),
                                         child: Text(
-                                          data?.destination ?? 'DOH',
+                                          data?.destination ?? 'N/A',
                                           style: const TextStyle(fontSize: 17),
                                         ),
                                       ),

@@ -2,5 +2,8 @@
     "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.enableFiletypes": [
         "dart"
+    ],
+    "cSpell.words": [
+        "Apisearchresponse"
     ]
 }

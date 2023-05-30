@@ -82,7 +82,13 @@ class _SplashScreenState extends State<SplashScreen> {
             }
               //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
               )
-          : Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+          : Future.delayed(const Duration(seconds: 5), () {
+              getToken().then((value) {
+                Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+              });
+            }
+              //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+              );
     });
   }
 

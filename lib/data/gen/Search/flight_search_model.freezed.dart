@@ -4270,1069 +4270,6 @@ abstract class _Apisearchresponsedetails implements Apisearchresponsedetails {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-FlightDetailsResponse _$FlightDetailsResponseFromJson(
-    Map<String, dynamic> json) {
-  return _FlightDetailsResponse.fromJson(json);
-}
-
-/// @nodoc
-mixin _$FlightDetailsResponse {
-  bool? get status => throw _privateConstructorUsedError;
-  String? get responseMessage => throw _privateConstructorUsedError;
-  String? get originCity => throw _privateConstructorUsedError;
-  String? get destinationCity => throw _privateConstructorUsedError;
-  String? get departureDate => throw _privateConstructorUsedError;
-  List<FlightDetailsList>? get objseglist => throw _privateConstructorUsedError;
-  String? get adultCheckinBaggage => throw _privateConstructorUsedError;
-  String? get adultCabinBaggage => throw _privateConstructorUsedError;
-  String? get childCheckinBaggage => throw _privateConstructorUsedError;
-  String? get childCabinBaggage => throw _privateConstructorUsedError;
-  String? get infantCheckinBaggage => throw _privateConstructorUsedError;
-  String? get infantCabinBaggage => throw _privateConstructorUsedError;
-  int? get adult => throw _privateConstructorUsedError;
-  int? get child => throw _privateConstructorUsedError;
-  int? get infant => throw _privateConstructorUsedError;
-  double? get adtBasic => throw _privateConstructorUsedError;
-  double? get adtTax => throw _privateConstructorUsedError;
-  double? get chdBasic => throw _privateConstructorUsedError;
-  double? get chdTax => throw _privateConstructorUsedError;
-  double? get infBasic => throw _privateConstructorUsedError;
-  double? get infTax => throw _privateConstructorUsedError;
-  double? get totalFare => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $FlightDetailsResponseCopyWith<FlightDetailsResponse> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FlightDetailsResponseCopyWith<$Res> {
-  factory $FlightDetailsResponseCopyWith(FlightDetailsResponse value,
-          $Res Function(FlightDetailsResponse) then) =
-      _$FlightDetailsResponseCopyWithImpl<$Res, FlightDetailsResponse>;
-  @useResult
-  $Res call(
-      {bool? status,
-      String? responseMessage,
-      String? originCity,
-      String? destinationCity,
-      String? departureDate,
-      List<FlightDetailsList>? objseglist,
-      String? adultCheckinBaggage,
-      String? adultCabinBaggage,
-      String? childCheckinBaggage,
-      String? childCabinBaggage,
-      String? infantCheckinBaggage,
-      String? infantCabinBaggage,
-      int? adult,
-      int? child,
-      int? infant,
-      double? adtBasic,
-      double? adtTax,
-      double? chdBasic,
-      double? chdTax,
-      double? infBasic,
-      double? infTax,
-      double? totalFare});
-}
-
-/// @nodoc
-class _$FlightDetailsResponseCopyWithImpl<$Res,
-        $Val extends FlightDetailsResponse>
-    implements $FlightDetailsResponseCopyWith<$Res> {
-  _$FlightDetailsResponseCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? responseMessage = freezed,
-    Object? originCity = freezed,
-    Object? destinationCity = freezed,
-    Object? departureDate = freezed,
-    Object? objseglist = freezed,
-    Object? adultCheckinBaggage = freezed,
-    Object? adultCabinBaggage = freezed,
-    Object? childCheckinBaggage = freezed,
-    Object? childCabinBaggage = freezed,
-    Object? infantCheckinBaggage = freezed,
-    Object? infantCabinBaggage = freezed,
-    Object? adult = freezed,
-    Object? child = freezed,
-    Object? infant = freezed,
-    Object? adtBasic = freezed,
-    Object? adtTax = freezed,
-    Object? chdBasic = freezed,
-    Object? chdTax = freezed,
-    Object? infBasic = freezed,
-    Object? infTax = freezed,
-    Object? totalFare = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      responseMessage: freezed == responseMessage
-          ? _value.responseMessage
-          : responseMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originCity: freezed == originCity
-          ? _value.originCity
-          : originCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      destinationCity: freezed == destinationCity
-          ? _value.destinationCity
-          : destinationCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureDate: freezed == departureDate
-          ? _value.departureDate
-          : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      objseglist: freezed == objseglist
-          ? _value.objseglist
-          : objseglist // ignore: cast_nullable_to_non_nullable
-              as List<FlightDetailsList>?,
-      adultCheckinBaggage: freezed == adultCheckinBaggage
-          ? _value.adultCheckinBaggage
-          : adultCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      adultCabinBaggage: freezed == adultCabinBaggage
-          ? _value.adultCabinBaggage
-          : adultCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      childCheckinBaggage: freezed == childCheckinBaggage
-          ? _value.childCheckinBaggage
-          : childCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      childCabinBaggage: freezed == childCabinBaggage
-          ? _value.childCabinBaggage
-          : childCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      infantCheckinBaggage: freezed == infantCheckinBaggage
-          ? _value.infantCheckinBaggage
-          : infantCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      infantCabinBaggage: freezed == infantCabinBaggage
-          ? _value.infantCabinBaggage
-          : infantCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      adult: freezed == adult
-          ? _value.adult
-          : adult // ignore: cast_nullable_to_non_nullable
-              as int?,
-      child: freezed == child
-          ? _value.child
-          : child // ignore: cast_nullable_to_non_nullable
-              as int?,
-      infant: freezed == infant
-          ? _value.infant
-          : infant // ignore: cast_nullable_to_non_nullable
-              as int?,
-      adtBasic: freezed == adtBasic
-          ? _value.adtBasic
-          : adtBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      adtTax: freezed == adtTax
-          ? _value.adtTax
-          : adtTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      chdBasic: freezed == chdBasic
-          ? _value.chdBasic
-          : chdBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      chdTax: freezed == chdTax
-          ? _value.chdTax
-          : chdTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      infBasic: freezed == infBasic
-          ? _value.infBasic
-          : infBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      infTax: freezed == infTax
-          ? _value.infTax
-          : infTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      totalFare: freezed == totalFare
-          ? _value.totalFare
-          : totalFare // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_FlightDetailsResponseCopyWith<$Res>
-    implements $FlightDetailsResponseCopyWith<$Res> {
-  factory _$$_FlightDetailsResponseCopyWith(_$_FlightDetailsResponse value,
-          $Res Function(_$_FlightDetailsResponse) then) =
-      __$$_FlightDetailsResponseCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool? status,
-      String? responseMessage,
-      String? originCity,
-      String? destinationCity,
-      String? departureDate,
-      List<FlightDetailsList>? objseglist,
-      String? adultCheckinBaggage,
-      String? adultCabinBaggage,
-      String? childCheckinBaggage,
-      String? childCabinBaggage,
-      String? infantCheckinBaggage,
-      String? infantCabinBaggage,
-      int? adult,
-      int? child,
-      int? infant,
-      double? adtBasic,
-      double? adtTax,
-      double? chdBasic,
-      double? chdTax,
-      double? infBasic,
-      double? infTax,
-      double? totalFare});
-}
-
-/// @nodoc
-class __$$_FlightDetailsResponseCopyWithImpl<$Res>
-    extends _$FlightDetailsResponseCopyWithImpl<$Res, _$_FlightDetailsResponse>
-    implements _$$_FlightDetailsResponseCopyWith<$Res> {
-  __$$_FlightDetailsResponseCopyWithImpl(_$_FlightDetailsResponse _value,
-      $Res Function(_$_FlightDetailsResponse) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? responseMessage = freezed,
-    Object? originCity = freezed,
-    Object? destinationCity = freezed,
-    Object? departureDate = freezed,
-    Object? objseglist = freezed,
-    Object? adultCheckinBaggage = freezed,
-    Object? adultCabinBaggage = freezed,
-    Object? childCheckinBaggage = freezed,
-    Object? childCabinBaggage = freezed,
-    Object? infantCheckinBaggage = freezed,
-    Object? infantCabinBaggage = freezed,
-    Object? adult = freezed,
-    Object? child = freezed,
-    Object? infant = freezed,
-    Object? adtBasic = freezed,
-    Object? adtTax = freezed,
-    Object? chdBasic = freezed,
-    Object? chdTax = freezed,
-    Object? infBasic = freezed,
-    Object? infTax = freezed,
-    Object? totalFare = freezed,
-  }) {
-    return _then(_$_FlightDetailsResponse(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      responseMessage: freezed == responseMessage
-          ? _value.responseMessage
-          : responseMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originCity: freezed == originCity
-          ? _value.originCity
-          : originCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      destinationCity: freezed == destinationCity
-          ? _value.destinationCity
-          : destinationCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureDate: freezed == departureDate
-          ? _value.departureDate
-          : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      objseglist: freezed == objseglist
-          ? _value._objseglist
-          : objseglist // ignore: cast_nullable_to_non_nullable
-              as List<FlightDetailsList>?,
-      adultCheckinBaggage: freezed == adultCheckinBaggage
-          ? _value.adultCheckinBaggage
-          : adultCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      adultCabinBaggage: freezed == adultCabinBaggage
-          ? _value.adultCabinBaggage
-          : adultCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      childCheckinBaggage: freezed == childCheckinBaggage
-          ? _value.childCheckinBaggage
-          : childCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      childCabinBaggage: freezed == childCabinBaggage
-          ? _value.childCabinBaggage
-          : childCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      infantCheckinBaggage: freezed == infantCheckinBaggage
-          ? _value.infantCheckinBaggage
-          : infantCheckinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      infantCabinBaggage: freezed == infantCabinBaggage
-          ? _value.infantCabinBaggage
-          : infantCabinBaggage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      adult: freezed == adult
-          ? _value.adult
-          : adult // ignore: cast_nullable_to_non_nullable
-              as int?,
-      child: freezed == child
-          ? _value.child
-          : child // ignore: cast_nullable_to_non_nullable
-              as int?,
-      infant: freezed == infant
-          ? _value.infant
-          : infant // ignore: cast_nullable_to_non_nullable
-              as int?,
-      adtBasic: freezed == adtBasic
-          ? _value.adtBasic
-          : adtBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      adtTax: freezed == adtTax
-          ? _value.adtTax
-          : adtTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      chdBasic: freezed == chdBasic
-          ? _value.chdBasic
-          : chdBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      chdTax: freezed == chdTax
-          ? _value.chdTax
-          : chdTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      infBasic: freezed == infBasic
-          ? _value.infBasic
-          : infBasic // ignore: cast_nullable_to_non_nullable
-              as double?,
-      infTax: freezed == infTax
-          ? _value.infTax
-          : infTax // ignore: cast_nullable_to_non_nullable
-              as double?,
-      totalFare: freezed == totalFare
-          ? _value.totalFare
-          : totalFare // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_FlightDetailsResponse implements _FlightDetailsResponse {
-  const _$_FlightDetailsResponse(
-      {this.status,
-      this.responseMessage,
-      this.originCity,
-      this.destinationCity,
-      this.departureDate,
-      final List<FlightDetailsList>? objseglist,
-      this.adultCheckinBaggage,
-      this.adultCabinBaggage,
-      this.childCheckinBaggage,
-      this.childCabinBaggage,
-      this.infantCheckinBaggage,
-      this.infantCabinBaggage,
-      this.adult,
-      this.child,
-      this.infant,
-      this.adtBasic,
-      this.adtTax,
-      this.chdBasic,
-      this.chdTax,
-      this.infBasic,
-      this.infTax,
-      this.totalFare})
-      : _objseglist = objseglist;
-
-  factory _$_FlightDetailsResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_FlightDetailsResponseFromJson(json);
-
-  @override
-  final bool? status;
-  @override
-  final String? responseMessage;
-  @override
-  final String? originCity;
-  @override
-  final String? destinationCity;
-  @override
-  final String? departureDate;
-  final List<FlightDetailsList>? _objseglist;
-  @override
-  List<FlightDetailsList>? get objseglist {
-    final value = _objseglist;
-    if (value == null) return null;
-    if (_objseglist is EqualUnmodifiableListView) return _objseglist;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final String? adultCheckinBaggage;
-  @override
-  final String? adultCabinBaggage;
-  @override
-  final String? childCheckinBaggage;
-  @override
-  final String? childCabinBaggage;
-  @override
-  final String? infantCheckinBaggage;
-  @override
-  final String? infantCabinBaggage;
-  @override
-  final int? adult;
-  @override
-  final int? child;
-  @override
-  final int? infant;
-  @override
-  final double? adtBasic;
-  @override
-  final double? adtTax;
-  @override
-  final double? chdBasic;
-  @override
-  final double? chdTax;
-  @override
-  final double? infBasic;
-  @override
-  final double? infTax;
-  @override
-  final double? totalFare;
-
-  @override
-  String toString() {
-    return 'FlightDetailsResponse(status: $status, responseMessage: $responseMessage, originCity: $originCity, destinationCity: $destinationCity, departureDate: $departureDate, objseglist: $objseglist, adultCheckinBaggage: $adultCheckinBaggage, adultCabinBaggage: $adultCabinBaggage, childCheckinBaggage: $childCheckinBaggage, childCabinBaggage: $childCabinBaggage, infantCheckinBaggage: $infantCheckinBaggage, infantCabinBaggage: $infantCabinBaggage, adult: $adult, child: $child, infant: $infant, adtBasic: $adtBasic, adtTax: $adtTax, chdBasic: $chdBasic, chdTax: $chdTax, infBasic: $infBasic, infTax: $infTax, totalFare: $totalFare)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_FlightDetailsResponse &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.responseMessage, responseMessage) ||
-                other.responseMessage == responseMessage) &&
-            (identical(other.originCity, originCity) ||
-                other.originCity == originCity) &&
-            (identical(other.destinationCity, destinationCity) ||
-                other.destinationCity == destinationCity) &&
-            (identical(other.departureDate, departureDate) ||
-                other.departureDate == departureDate) &&
-            const DeepCollectionEquality()
-                .equals(other._objseglist, _objseglist) &&
-            (identical(other.adultCheckinBaggage, adultCheckinBaggage) ||
-                other.adultCheckinBaggage == adultCheckinBaggage) &&
-            (identical(other.adultCabinBaggage, adultCabinBaggage) ||
-                other.adultCabinBaggage == adultCabinBaggage) &&
-            (identical(other.childCheckinBaggage, childCheckinBaggage) ||
-                other.childCheckinBaggage == childCheckinBaggage) &&
-            (identical(other.childCabinBaggage, childCabinBaggage) ||
-                other.childCabinBaggage == childCabinBaggage) &&
-            (identical(other.infantCheckinBaggage, infantCheckinBaggage) ||
-                other.infantCheckinBaggage == infantCheckinBaggage) &&
-            (identical(other.infantCabinBaggage, infantCabinBaggage) ||
-                other.infantCabinBaggage == infantCabinBaggage) &&
-            (identical(other.adult, adult) || other.adult == adult) &&
-            (identical(other.child, child) || other.child == child) &&
-            (identical(other.infant, infant) || other.infant == infant) &&
-            (identical(other.adtBasic, adtBasic) ||
-                other.adtBasic == adtBasic) &&
-            (identical(other.adtTax, adtTax) || other.adtTax == adtTax) &&
-            (identical(other.chdBasic, chdBasic) ||
-                other.chdBasic == chdBasic) &&
-            (identical(other.chdTax, chdTax) || other.chdTax == chdTax) &&
-            (identical(other.infBasic, infBasic) ||
-                other.infBasic == infBasic) &&
-            (identical(other.infTax, infTax) || other.infTax == infTax) &&
-            (identical(other.totalFare, totalFare) ||
-                other.totalFare == totalFare));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        status,
-        responseMessage,
-        originCity,
-        destinationCity,
-        departureDate,
-        const DeepCollectionEquality().hash(_objseglist),
-        adultCheckinBaggage,
-        adultCabinBaggage,
-        childCheckinBaggage,
-        childCabinBaggage,
-        infantCheckinBaggage,
-        infantCabinBaggage,
-        adult,
-        child,
-        infant,
-        adtBasic,
-        adtTax,
-        chdBasic,
-        chdTax,
-        infBasic,
-        infTax,
-        totalFare
-      ]);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_FlightDetailsResponseCopyWith<_$_FlightDetailsResponse> get copyWith =>
-      __$$_FlightDetailsResponseCopyWithImpl<_$_FlightDetailsResponse>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_FlightDetailsResponseToJson(
-      this,
-    );
-  }
-}
-
-abstract class _FlightDetailsResponse implements FlightDetailsResponse {
-  const factory _FlightDetailsResponse(
-      {final bool? status,
-      final String? responseMessage,
-      final String? originCity,
-      final String? destinationCity,
-      final String? departureDate,
-      final List<FlightDetailsList>? objseglist,
-      final String? adultCheckinBaggage,
-      final String? adultCabinBaggage,
-      final String? childCheckinBaggage,
-      final String? childCabinBaggage,
-      final String? infantCheckinBaggage,
-      final String? infantCabinBaggage,
-      final int? adult,
-      final int? child,
-      final int? infant,
-      final double? adtBasic,
-      final double? adtTax,
-      final double? chdBasic,
-      final double? chdTax,
-      final double? infBasic,
-      final double? infTax,
-      final double? totalFare}) = _$_FlightDetailsResponse;
-
-  factory _FlightDetailsResponse.fromJson(Map<String, dynamic> json) =
-      _$_FlightDetailsResponse.fromJson;
-
-  @override
-  bool? get status;
-  @override
-  String? get responseMessage;
-  @override
-  String? get originCity;
-  @override
-  String? get destinationCity;
-  @override
-  String? get departureDate;
-  @override
-  List<FlightDetailsList>? get objseglist;
-  @override
-  String? get adultCheckinBaggage;
-  @override
-  String? get adultCabinBaggage;
-  @override
-  String? get childCheckinBaggage;
-  @override
-  String? get childCabinBaggage;
-  @override
-  String? get infantCheckinBaggage;
-  @override
-  String? get infantCabinBaggage;
-  @override
-  int? get adult;
-  @override
-  int? get child;
-  @override
-  int? get infant;
-  @override
-  double? get adtBasic;
-  @override
-  double? get adtTax;
-  @override
-  double? get chdBasic;
-  @override
-  double? get chdTax;
-  @override
-  double? get infBasic;
-  @override
-  double? get infTax;
-  @override
-  double? get totalFare;
-  @override
-  @JsonKey(ignore: true)
-  _$$_FlightDetailsResponseCopyWith<_$_FlightDetailsResponse> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-FlightDetailsList _$FlightDetailsListFromJson(Map<String, dynamic> json) {
-  return _FlightDetailsList.fromJson(json);
-}
-
-/// @nodoc
-mixin _$FlightDetailsList {
-  String? get airlineCode => throw _privateConstructorUsedError;
-  String? get airlineName => throw _privateConstructorUsedError;
-  String? get airlineFlightClass => throw _privateConstructorUsedError;
-  String? get departureAirportCode => throw _privateConstructorUsedError;
-  String? get departureTime => throw _privateConstructorUsedError;
-  String? get departureDate => throw _privateConstructorUsedError;
-  String? get departureAirport => throw _privateConstructorUsedError;
-  String? get departureCity => throw _privateConstructorUsedError;
-  String? get arrivalAirportCode => throw _privateConstructorUsedError;
-  String? get arrivalTime => throw _privateConstructorUsedError;
-  String? get arrivalDate => throw _privateConstructorUsedError;
-  String? get arrivalAirport => throw _privateConstructorUsedError;
-  String? get arrivalCity => throw _privateConstructorUsedError;
-  String? get travelDuration => throw _privateConstructorUsedError;
-  String? get layoverTime => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $FlightDetailsListCopyWith<FlightDetailsList> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FlightDetailsListCopyWith<$Res> {
-  factory $FlightDetailsListCopyWith(
-          FlightDetailsList value, $Res Function(FlightDetailsList) then) =
-      _$FlightDetailsListCopyWithImpl<$Res, FlightDetailsList>;
-  @useResult
-  $Res call(
-      {String? airlineCode,
-      String? airlineName,
-      String? airlineFlightClass,
-      String? departureAirportCode,
-      String? departureTime,
-      String? departureDate,
-      String? departureAirport,
-      String? departureCity,
-      String? arrivalAirportCode,
-      String? arrivalTime,
-      String? arrivalDate,
-      String? arrivalAirport,
-      String? arrivalCity,
-      String? travelDuration,
-      String? layoverTime});
-}
-
-/// @nodoc
-class _$FlightDetailsListCopyWithImpl<$Res, $Val extends FlightDetailsList>
-    implements $FlightDetailsListCopyWith<$Res> {
-  _$FlightDetailsListCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? airlineCode = freezed,
-    Object? airlineName = freezed,
-    Object? airlineFlightClass = freezed,
-    Object? departureAirportCode = freezed,
-    Object? departureTime = freezed,
-    Object? departureDate = freezed,
-    Object? departureAirport = freezed,
-    Object? departureCity = freezed,
-    Object? arrivalAirportCode = freezed,
-    Object? arrivalTime = freezed,
-    Object? arrivalDate = freezed,
-    Object? arrivalAirport = freezed,
-    Object? arrivalCity = freezed,
-    Object? travelDuration = freezed,
-    Object? layoverTime = freezed,
-  }) {
-    return _then(_value.copyWith(
-      airlineCode: freezed == airlineCode
-          ? _value.airlineCode
-          : airlineCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      airlineName: freezed == airlineName
-          ? _value.airlineName
-          : airlineName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      airlineFlightClass: freezed == airlineFlightClass
-          ? _value.airlineFlightClass
-          : airlineFlightClass // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureAirportCode: freezed == departureAirportCode
-          ? _value.departureAirportCode
-          : departureAirportCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureTime: freezed == departureTime
-          ? _value.departureTime
-          : departureTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureDate: freezed == departureDate
-          ? _value.departureDate
-          : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureAirport: freezed == departureAirport
-          ? _value.departureAirport
-          : departureAirport // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureCity: freezed == departureCity
-          ? _value.departureCity
-          : departureCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalAirportCode: freezed == arrivalAirportCode
-          ? _value.arrivalAirportCode
-          : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalTime: freezed == arrivalTime
-          ? _value.arrivalTime
-          : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalDate: freezed == arrivalDate
-          ? _value.arrivalDate
-          : arrivalDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalAirport: freezed == arrivalAirport
-          ? _value.arrivalAirport
-          : arrivalAirport // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalCity: freezed == arrivalCity
-          ? _value.arrivalCity
-          : arrivalCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      travelDuration: freezed == travelDuration
-          ? _value.travelDuration
-          : travelDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
-      layoverTime: freezed == layoverTime
-          ? _value.layoverTime
-          : layoverTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_FlightDetailsListCopyWith<$Res>
-    implements $FlightDetailsListCopyWith<$Res> {
-  factory _$$_FlightDetailsListCopyWith(_$_FlightDetailsList value,
-          $Res Function(_$_FlightDetailsList) then) =
-      __$$_FlightDetailsListCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String? airlineCode,
-      String? airlineName,
-      String? airlineFlightClass,
-      String? departureAirportCode,
-      String? departureTime,
-      String? departureDate,
-      String? departureAirport,
-      String? departureCity,
-      String? arrivalAirportCode,
-      String? arrivalTime,
-      String? arrivalDate,
-      String? arrivalAirport,
-      String? arrivalCity,
-      String? travelDuration,
-      String? layoverTime});
-}
-
-/// @nodoc
-class __$$_FlightDetailsListCopyWithImpl<$Res>
-    extends _$FlightDetailsListCopyWithImpl<$Res, _$_FlightDetailsList>
-    implements _$$_FlightDetailsListCopyWith<$Res> {
-  __$$_FlightDetailsListCopyWithImpl(
-      _$_FlightDetailsList _value, $Res Function(_$_FlightDetailsList) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? airlineCode = freezed,
-    Object? airlineName = freezed,
-    Object? airlineFlightClass = freezed,
-    Object? departureAirportCode = freezed,
-    Object? departureTime = freezed,
-    Object? departureDate = freezed,
-    Object? departureAirport = freezed,
-    Object? departureCity = freezed,
-    Object? arrivalAirportCode = freezed,
-    Object? arrivalTime = freezed,
-    Object? arrivalDate = freezed,
-    Object? arrivalAirport = freezed,
-    Object? arrivalCity = freezed,
-    Object? travelDuration = freezed,
-    Object? layoverTime = freezed,
-  }) {
-    return _then(_$_FlightDetailsList(
-      airlineCode: freezed == airlineCode
-          ? _value.airlineCode
-          : airlineCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      airlineName: freezed == airlineName
-          ? _value.airlineName
-          : airlineName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      airlineFlightClass: freezed == airlineFlightClass
-          ? _value.airlineFlightClass
-          : airlineFlightClass // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureAirportCode: freezed == departureAirportCode
-          ? _value.departureAirportCode
-          : departureAirportCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureTime: freezed == departureTime
-          ? _value.departureTime
-          : departureTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureDate: freezed == departureDate
-          ? _value.departureDate
-          : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureAirport: freezed == departureAirport
-          ? _value.departureAirport
-          : departureAirport // ignore: cast_nullable_to_non_nullable
-              as String?,
-      departureCity: freezed == departureCity
-          ? _value.departureCity
-          : departureCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalAirportCode: freezed == arrivalAirportCode
-          ? _value.arrivalAirportCode
-          : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalTime: freezed == arrivalTime
-          ? _value.arrivalTime
-          : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalDate: freezed == arrivalDate
-          ? _value.arrivalDate
-          : arrivalDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalAirport: freezed == arrivalAirport
-          ? _value.arrivalAirport
-          : arrivalAirport // ignore: cast_nullable_to_non_nullable
-              as String?,
-      arrivalCity: freezed == arrivalCity
-          ? _value.arrivalCity
-          : arrivalCity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      travelDuration: freezed == travelDuration
-          ? _value.travelDuration
-          : travelDuration // ignore: cast_nullable_to_non_nullable
-              as String?,
-      layoverTime: freezed == layoverTime
-          ? _value.layoverTime
-          : layoverTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_FlightDetailsList implements _FlightDetailsList {
-  const _$_FlightDetailsList(
-      {this.airlineCode,
-      this.airlineName,
-      this.airlineFlightClass,
-      this.departureAirportCode,
-      this.departureTime,
-      this.departureDate,
-      this.departureAirport,
-      this.departureCity,
-      this.arrivalAirportCode,
-      this.arrivalTime,
-      this.arrivalDate,
-      this.arrivalAirport,
-      this.arrivalCity,
-      this.travelDuration,
-      this.layoverTime});
-
-  factory _$_FlightDetailsList.fromJson(Map<String, dynamic> json) =>
-      _$$_FlightDetailsListFromJson(json);
-
-  @override
-  final String? airlineCode;
-  @override
-  final String? airlineName;
-  @override
-  final String? airlineFlightClass;
-  @override
-  final String? departureAirportCode;
-  @override
-  final String? departureTime;
-  @override
-  final String? departureDate;
-  @override
-  final String? departureAirport;
-  @override
-  final String? departureCity;
-  @override
-  final String? arrivalAirportCode;
-  @override
-  final String? arrivalTime;
-  @override
-  final String? arrivalDate;
-  @override
-  final String? arrivalAirport;
-  @override
-  final String? arrivalCity;
-  @override
-  final String? travelDuration;
-  @override
-  final String? layoverTime;
-
-  @override
-  String toString() {
-    return 'FlightDetailsList(airlineCode: $airlineCode, airlineName: $airlineName, airlineFlightClass: $airlineFlightClass, departureAirportCode: $departureAirportCode, departureTime: $departureTime, departureDate: $departureDate, departureAirport: $departureAirport, departureCity: $departureCity, arrivalAirportCode: $arrivalAirportCode, arrivalTime: $arrivalTime, arrivalDate: $arrivalDate, arrivalAirport: $arrivalAirport, arrivalCity: $arrivalCity, travelDuration: $travelDuration, layoverTime: $layoverTime)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_FlightDetailsList &&
-            (identical(other.airlineCode, airlineCode) ||
-                other.airlineCode == airlineCode) &&
-            (identical(other.airlineName, airlineName) ||
-                other.airlineName == airlineName) &&
-            (identical(other.airlineFlightClass, airlineFlightClass) ||
-                other.airlineFlightClass == airlineFlightClass) &&
-            (identical(other.departureAirportCode, departureAirportCode) ||
-                other.departureAirportCode == departureAirportCode) &&
-            (identical(other.departureTime, departureTime) ||
-                other.departureTime == departureTime) &&
-            (identical(other.departureDate, departureDate) ||
-                other.departureDate == departureDate) &&
-            (identical(other.departureAirport, departureAirport) ||
-                other.departureAirport == departureAirport) &&
-            (identical(other.departureCity, departureCity) ||
-                other.departureCity == departureCity) &&
-            (identical(other.arrivalAirportCode, arrivalAirportCode) ||
-                other.arrivalAirportCode == arrivalAirportCode) &&
-            (identical(other.arrivalTime, arrivalTime) ||
-                other.arrivalTime == arrivalTime) &&
-            (identical(other.arrivalDate, arrivalDate) ||
-                other.arrivalDate == arrivalDate) &&
-            (identical(other.arrivalAirport, arrivalAirport) ||
-                other.arrivalAirport == arrivalAirport) &&
-            (identical(other.arrivalCity, arrivalCity) ||
-                other.arrivalCity == arrivalCity) &&
-            (identical(other.travelDuration, travelDuration) ||
-                other.travelDuration == travelDuration) &&
-            (identical(other.layoverTime, layoverTime) ||
-                other.layoverTime == layoverTime));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      airlineCode,
-      airlineName,
-      airlineFlightClass,
-      departureAirportCode,
-      departureTime,
-      departureDate,
-      departureAirport,
-      departureCity,
-      arrivalAirportCode,
-      arrivalTime,
-      arrivalDate,
-      arrivalAirport,
-      arrivalCity,
-      travelDuration,
-      layoverTime);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_FlightDetailsListCopyWith<_$_FlightDetailsList> get copyWith =>
-      __$$_FlightDetailsListCopyWithImpl<_$_FlightDetailsList>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_FlightDetailsListToJson(
-      this,
-    );
-  }
-}
-
-abstract class _FlightDetailsList implements FlightDetailsList {
-  const factory _FlightDetailsList(
-      {final String? airlineCode,
-      final String? airlineName,
-      final String? airlineFlightClass,
-      final String? departureAirportCode,
-      final String? departureTime,
-      final String? departureDate,
-      final String? departureAirport,
-      final String? departureCity,
-      final String? arrivalAirportCode,
-      final String? arrivalTime,
-      final String? arrivalDate,
-      final String? arrivalAirport,
-      final String? arrivalCity,
-      final String? travelDuration,
-      final String? layoverTime}) = _$_FlightDetailsList;
-
-  factory _FlightDetailsList.fromJson(Map<String, dynamic> json) =
-      _$_FlightDetailsList.fromJson;
-
-  @override
-  String? get airlineCode;
-  @override
-  String? get airlineName;
-  @override
-  String? get airlineFlightClass;
-  @override
-  String? get departureAirportCode;
-  @override
-  String? get departureTime;
-  @override
-  String? get departureDate;
-  @override
-  String? get departureAirport;
-  @override
-  String? get departureCity;
-  @override
-  String? get arrivalAirportCode;
-  @override
-  String? get arrivalTime;
-  @override
-  String? get arrivalDate;
-  @override
-  String? get arrivalAirport;
-  @override
-  String? get arrivalCity;
-  @override
-  String? get travelDuration;
-  @override
-  String? get layoverTime;
-  @override
-  @JsonKey(ignore: true)
-  _$$_FlightDetailsListCopyWith<_$_FlightDetailsList> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 PricingResponse _$PricingResponseFromJson(Map<String, dynamic> json) {
   return _PricingResponse.fromJson(json);
 }
@@ -5355,9 +4292,9 @@ mixin _$PricingResponse {
   double? get infantTotal => throw _privateConstructorUsedError;
   double? get discountAmount => throw _privateConstructorUsedError;
   double? get finalAmount => throw _privateConstructorUsedError;
-  List<MealSearchResult>? get objmealList => throw _privateConstructorUsedError;
-  List<BaggageSearchResult>? get objbaggageList =>
-      throw _privateConstructorUsedError;
+  List<PricingPaxlist>? get objAdtPaxList => throw _privateConstructorUsedError;
+  List<PricingPaxlist>? get objChdPaxList => throw _privateConstructorUsedError;
+  List<PricingPaxlist>? get objInfPaxList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -5387,8 +4324,9 @@ abstract class $PricingResponseCopyWith<$Res> {
       double? infantTotal,
       double? discountAmount,
       double? finalAmount,
-      List<MealSearchResult>? objmealList,
-      List<BaggageSearchResult>? objbaggageList});
+      List<PricingPaxlist>? objAdtPaxList,
+      List<PricingPaxlist>? objChdPaxList,
+      List<PricingPaxlist>? objInfPaxList});
 }
 
 /// @nodoc
@@ -5419,8 +4357,9 @@ class _$PricingResponseCopyWithImpl<$Res, $Val extends PricingResponse>
     Object? infantTotal = freezed,
     Object? discountAmount = freezed,
     Object? finalAmount = freezed,
-    Object? objmealList = freezed,
-    Object? objbaggageList = freezed,
+    Object? objAdtPaxList = freezed,
+    Object? objChdPaxList = freezed,
+    Object? objInfPaxList = freezed,
   }) {
     return _then(_value.copyWith(
       status: freezed == status
@@ -5483,14 +4422,18 @@ class _$PricingResponseCopyWithImpl<$Res, $Val extends PricingResponse>
           ? _value.finalAmount
           : finalAmount // ignore: cast_nullable_to_non_nullable
               as double?,
-      objmealList: freezed == objmealList
-          ? _value.objmealList
-          : objmealList // ignore: cast_nullable_to_non_nullable
-              as List<MealSearchResult>?,
-      objbaggageList: freezed == objbaggageList
-          ? _value.objbaggageList
-          : objbaggageList // ignore: cast_nullable_to_non_nullable
-              as List<BaggageSearchResult>?,
+      objAdtPaxList: freezed == objAdtPaxList
+          ? _value.objAdtPaxList
+          : objAdtPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
+      objChdPaxList: freezed == objChdPaxList
+          ? _value.objChdPaxList
+          : objChdPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
+      objInfPaxList: freezed == objInfPaxList
+          ? _value.objInfPaxList
+          : objInfPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
     ) as $Val);
   }
 }
@@ -5519,8 +4462,9 @@ abstract class _$$_PricingResponseCopyWith<$Res>
       double? infantTotal,
       double? discountAmount,
       double? finalAmount,
-      List<MealSearchResult>? objmealList,
-      List<BaggageSearchResult>? objbaggageList});
+      List<PricingPaxlist>? objAdtPaxList,
+      List<PricingPaxlist>? objChdPaxList,
+      List<PricingPaxlist>? objInfPaxList});
 }
 
 /// @nodoc
@@ -5549,8 +4493,9 @@ class __$$_PricingResponseCopyWithImpl<$Res>
     Object? infantTotal = freezed,
     Object? discountAmount = freezed,
     Object? finalAmount = freezed,
-    Object? objmealList = freezed,
-    Object? objbaggageList = freezed,
+    Object? objAdtPaxList = freezed,
+    Object? objChdPaxList = freezed,
+    Object? objInfPaxList = freezed,
   }) {
     return _then(_$_PricingResponse(
       status: freezed == status
@@ -5613,14 +4558,18 @@ class __$$_PricingResponseCopyWithImpl<$Res>
           ? _value.finalAmount
           : finalAmount // ignore: cast_nullable_to_non_nullable
               as double?,
-      objmealList: freezed == objmealList
-          ? _value._objmealList
-          : objmealList // ignore: cast_nullable_to_non_nullable
-              as List<MealSearchResult>?,
-      objbaggageList: freezed == objbaggageList
-          ? _value._objbaggageList
-          : objbaggageList // ignore: cast_nullable_to_non_nullable
-              as List<BaggageSearchResult>?,
+      objAdtPaxList: freezed == objAdtPaxList
+          ? _value._objAdtPaxList
+          : objAdtPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
+      objChdPaxList: freezed == objChdPaxList
+          ? _value._objChdPaxList
+          : objChdPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
+      objInfPaxList: freezed == objInfPaxList
+          ? _value._objInfPaxList
+          : objInfPaxList // ignore: cast_nullable_to_non_nullable
+              as List<PricingPaxlist>?,
     ));
   }
 }
@@ -5644,12 +4593,14 @@ class _$_PricingResponse implements _PricingResponse {
       this.infantTotal,
       this.discountAmount,
       this.finalAmount,
-      final List<MealSearchResult>? objmealList,
-      final List<BaggageSearchResult>? objbaggageList})
+      final List<PricingPaxlist>? objAdtPaxList,
+      final List<PricingPaxlist>? objChdPaxList,
+      final List<PricingPaxlist>? objInfPaxList})
       : _objSegList = objSegList,
         _taxList = taxList,
-        _objmealList = objmealList,
-        _objbaggageList = objbaggageList;
+        _objAdtPaxList = objAdtPaxList,
+        _objChdPaxList = objChdPaxList,
+        _objInfPaxList = objInfPaxList;
 
   factory _$_PricingResponse.fromJson(Map<String, dynamic> json) =>
       _$$_PricingResponseFromJson(json);
@@ -5700,29 +4651,39 @@ class _$_PricingResponse implements _PricingResponse {
   final double? discountAmount;
   @override
   final double? finalAmount;
-  final List<MealSearchResult>? _objmealList;
+  final List<PricingPaxlist>? _objAdtPaxList;
   @override
-  List<MealSearchResult>? get objmealList {
-    final value = _objmealList;
+  List<PricingPaxlist>? get objAdtPaxList {
+    final value = _objAdtPaxList;
     if (value == null) return null;
-    if (_objmealList is EqualUnmodifiableListView) return _objmealList;
+    if (_objAdtPaxList is EqualUnmodifiableListView) return _objAdtPaxList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
-  final List<BaggageSearchResult>? _objbaggageList;
+  final List<PricingPaxlist>? _objChdPaxList;
   @override
-  List<BaggageSearchResult>? get objbaggageList {
-    final value = _objbaggageList;
+  List<PricingPaxlist>? get objChdPaxList {
+    final value = _objChdPaxList;
     if (value == null) return null;
-    if (_objbaggageList is EqualUnmodifiableListView) return _objbaggageList;
+    if (_objChdPaxList is EqualUnmodifiableListView) return _objChdPaxList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<PricingPaxlist>? _objInfPaxList;
+  @override
+  List<PricingPaxlist>? get objInfPaxList {
+    final value = _objInfPaxList;
+    if (value == null) return null;
+    if (_objInfPaxList is EqualUnmodifiableListView) return _objInfPaxList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'PricingResponse(status: $status, responseMessage: $responseMessage, objSegList: $objSegList, adultBasic: $adultBasic, childBasic: $childBasic, infantBasic: $infantBasic, taxList: $taxList, adult: $adult, child: $child, infant: $infant, adultTotal: $adultTotal, childTotal: $childTotal, infantTotal: $infantTotal, discountAmount: $discountAmount, finalAmount: $finalAmount, objmealList: $objmealList, objbaggageList: $objbaggageList)';
+    return 'PricingResponse(status: $status, responseMessage: $responseMessage, objSegList: $objSegList, adultBasic: $adultBasic, childBasic: $childBasic, infantBasic: $infantBasic, taxList: $taxList, adult: $adult, child: $child, infant: $infant, adultTotal: $adultTotal, childTotal: $childTotal, infantTotal: $infantTotal, discountAmount: $discountAmount, finalAmount: $finalAmount, objAdtPaxList: $objAdtPaxList, objChdPaxList: $objChdPaxList, objInfPaxList: $objInfPaxList)';
   }
 
   @override
@@ -5756,9 +4717,11 @@ class _$_PricingResponse implements _PricingResponse {
             (identical(other.finalAmount, finalAmount) ||
                 other.finalAmount == finalAmount) &&
             const DeepCollectionEquality()
-                .equals(other._objmealList, _objmealList) &&
+                .equals(other._objAdtPaxList, _objAdtPaxList) &&
             const DeepCollectionEquality()
-                .equals(other._objbaggageList, _objbaggageList));
+                .equals(other._objChdPaxList, _objChdPaxList) &&
+            const DeepCollectionEquality()
+                .equals(other._objInfPaxList, _objInfPaxList));
   }
 
   @JsonKey(ignore: true)
@@ -5780,8 +4743,9 @@ class _$_PricingResponse implements _PricingResponse {
       infantTotal,
       discountAmount,
       finalAmount,
-      const DeepCollectionEquality().hash(_objmealList),
-      const DeepCollectionEquality().hash(_objbaggageList));
+      const DeepCollectionEquality().hash(_objAdtPaxList),
+      const DeepCollectionEquality().hash(_objChdPaxList),
+      const DeepCollectionEquality().hash(_objInfPaxList));
 
   @JsonKey(ignore: true)
   @override
@@ -5814,8 +4778,9 @@ abstract class _PricingResponse implements PricingResponse {
       final double? infantTotal,
       final double? discountAmount,
       final double? finalAmount,
-      final List<MealSearchResult>? objmealList,
-      final List<BaggageSearchResult>? objbaggageList}) = _$_PricingResponse;
+      final List<PricingPaxlist>? objAdtPaxList,
+      final List<PricingPaxlist>? objChdPaxList,
+      final List<PricingPaxlist>? objInfPaxList}) = _$_PricingResponse;
 
   factory _PricingResponse.fromJson(Map<String, dynamic> json) =
       _$_PricingResponse.fromJson;
@@ -5851,12 +4816,221 @@ abstract class _PricingResponse implements PricingResponse {
   @override
   double? get finalAmount;
   @override
-  List<MealSearchResult>? get objmealList;
+  List<PricingPaxlist>? get objAdtPaxList;
   @override
-  List<BaggageSearchResult>? get objbaggageList;
+  List<PricingPaxlist>? get objChdPaxList;
+  @override
+  List<PricingPaxlist>? get objInfPaxList;
   @override
   @JsonKey(ignore: true)
   _$$_PricingResponseCopyWith<_$_PricingResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PricingPaxlist _$PricingPaxlistFromJson(Map<String, dynamic> json) {
+  return _PricingPaxlist.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PricingPaxlist {
+  String? get paxKey => throw _privateConstructorUsedError;
+  List<PricingMealSegment>? get objmealseglist =>
+      throw _privateConstructorUsedError;
+  List<PricingBaggageSegment>? get objbaggageseglist =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PricingPaxlistCopyWith<PricingPaxlist> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PricingPaxlistCopyWith<$Res> {
+  factory $PricingPaxlistCopyWith(
+          PricingPaxlist value, $Res Function(PricingPaxlist) then) =
+      _$PricingPaxlistCopyWithImpl<$Res, PricingPaxlist>;
+  @useResult
+  $Res call(
+      {String? paxKey,
+      List<PricingMealSegment>? objmealseglist,
+      List<PricingBaggageSegment>? objbaggageseglist});
+}
+
+/// @nodoc
+class _$PricingPaxlistCopyWithImpl<$Res, $Val extends PricingPaxlist>
+    implements $PricingPaxlistCopyWith<$Res> {
+  _$PricingPaxlistCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? paxKey = freezed,
+    Object? objmealseglist = freezed,
+    Object? objbaggageseglist = freezed,
+  }) {
+    return _then(_value.copyWith(
+      paxKey: freezed == paxKey
+          ? _value.paxKey
+          : paxKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objmealseglist: freezed == objmealseglist
+          ? _value.objmealseglist
+          : objmealseglist // ignore: cast_nullable_to_non_nullable
+              as List<PricingMealSegment>?,
+      objbaggageseglist: freezed == objbaggageseglist
+          ? _value.objbaggageseglist
+          : objbaggageseglist // ignore: cast_nullable_to_non_nullable
+              as List<PricingBaggageSegment>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_PricingPaxlistCopyWith<$Res>
+    implements $PricingPaxlistCopyWith<$Res> {
+  factory _$$_PricingPaxlistCopyWith(
+          _$_PricingPaxlist value, $Res Function(_$_PricingPaxlist) then) =
+      __$$_PricingPaxlistCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? paxKey,
+      List<PricingMealSegment>? objmealseglist,
+      List<PricingBaggageSegment>? objbaggageseglist});
+}
+
+/// @nodoc
+class __$$_PricingPaxlistCopyWithImpl<$Res>
+    extends _$PricingPaxlistCopyWithImpl<$Res, _$_PricingPaxlist>
+    implements _$$_PricingPaxlistCopyWith<$Res> {
+  __$$_PricingPaxlistCopyWithImpl(
+      _$_PricingPaxlist _value, $Res Function(_$_PricingPaxlist) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? paxKey = freezed,
+    Object? objmealseglist = freezed,
+    Object? objbaggageseglist = freezed,
+  }) {
+    return _then(_$_PricingPaxlist(
+      paxKey: freezed == paxKey
+          ? _value.paxKey
+          : paxKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objmealseglist: freezed == objmealseglist
+          ? _value._objmealseglist
+          : objmealseglist // ignore: cast_nullable_to_non_nullable
+              as List<PricingMealSegment>?,
+      objbaggageseglist: freezed == objbaggageseglist
+          ? _value._objbaggageseglist
+          : objbaggageseglist // ignore: cast_nullable_to_non_nullable
+              as List<PricingBaggageSegment>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PricingPaxlist implements _PricingPaxlist {
+  const _$_PricingPaxlist(
+      {this.paxKey,
+      final List<PricingMealSegment>? objmealseglist,
+      final List<PricingBaggageSegment>? objbaggageseglist})
+      : _objmealseglist = objmealseglist,
+        _objbaggageseglist = objbaggageseglist;
+
+  factory _$_PricingPaxlist.fromJson(Map<String, dynamic> json) =>
+      _$$_PricingPaxlistFromJson(json);
+
+  @override
+  final String? paxKey;
+  final List<PricingMealSegment>? _objmealseglist;
+  @override
+  List<PricingMealSegment>? get objmealseglist {
+    final value = _objmealseglist;
+    if (value == null) return null;
+    if (_objmealseglist is EqualUnmodifiableListView) return _objmealseglist;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<PricingBaggageSegment>? _objbaggageseglist;
+  @override
+  List<PricingBaggageSegment>? get objbaggageseglist {
+    final value = _objbaggageseglist;
+    if (value == null) return null;
+    if (_objbaggageseglist is EqualUnmodifiableListView)
+      return _objbaggageseglist;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'PricingPaxlist(paxKey: $paxKey, objmealseglist: $objmealseglist, objbaggageseglist: $objbaggageseglist)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PricingPaxlist &&
+            (identical(other.paxKey, paxKey) || other.paxKey == paxKey) &&
+            const DeepCollectionEquality()
+                .equals(other._objmealseglist, _objmealseglist) &&
+            const DeepCollectionEquality()
+                .equals(other._objbaggageseglist, _objbaggageseglist));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      paxKey,
+      const DeepCollectionEquality().hash(_objmealseglist),
+      const DeepCollectionEquality().hash(_objbaggageseglist));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PricingPaxlistCopyWith<_$_PricingPaxlist> get copyWith =>
+      __$$_PricingPaxlistCopyWithImpl<_$_PricingPaxlist>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PricingPaxlistToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PricingPaxlist implements PricingPaxlist {
+  const factory _PricingPaxlist(
+          {final String? paxKey,
+          final List<PricingMealSegment>? objmealseglist,
+          final List<PricingBaggageSegment>? objbaggageseglist}) =
+      _$_PricingPaxlist;
+
+  factory _PricingPaxlist.fromJson(Map<String, dynamic> json) =
+      _$_PricingPaxlist.fromJson;
+
+  @override
+  String? get paxKey;
+  @override
+  List<PricingMealSegment>? get objmealseglist;
+  @override
+  List<PricingBaggageSegment>? get objbaggageseglist;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PricingPaxlistCopyWith<_$_PricingPaxlist> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6026,7 +5200,9 @@ mixin _$PricingDetailsList {
   String? get departureTime => throw _privateConstructorUsedError;
   String? get departureDate => throw _privateConstructorUsedError;
   String? get departureCity => throw _privateConstructorUsedError;
+  String? get departureAirport => throw _privateConstructorUsedError;
   String? get arrivalAirportCode => throw _privateConstructorUsedError;
+  String? get arrivalAirport => throw _privateConstructorUsedError;
   String? get arrivalTime => throw _privateConstructorUsedError;
   String? get arrivalDate => throw _privateConstructorUsedError;
   String? get arrivalCity => throw _privateConstructorUsedError;
@@ -6034,6 +5210,7 @@ mixin _$PricingDetailsList {
   String? get layoverTime => throw _privateConstructorUsedError;
   String? get airlineFlightClass => throw _privateConstructorUsedError;
   String? get cabinBaggage => throw _privateConstructorUsedError;
+  int? get noofStop => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -6055,14 +5232,17 @@ abstract class $PricingDetailsListCopyWith<$Res> {
       String? departureTime,
       String? departureDate,
       String? departureCity,
+      String? departureAirport,
       String? arrivalAirportCode,
+      String? arrivalAirport,
       String? arrivalTime,
       String? arrivalDate,
       String? arrivalCity,
       String? travelDuration,
       String? layoverTime,
       String? airlineFlightClass,
-      String? cabinBaggage});
+      String? cabinBaggage,
+      int? noofStop});
 }
 
 /// @nodoc
@@ -6085,7 +5265,9 @@ class _$PricingDetailsListCopyWithImpl<$Res, $Val extends PricingDetailsList>
     Object? departureTime = freezed,
     Object? departureDate = freezed,
     Object? departureCity = freezed,
+    Object? departureAirport = freezed,
     Object? arrivalAirportCode = freezed,
+    Object? arrivalAirport = freezed,
     Object? arrivalTime = freezed,
     Object? arrivalDate = freezed,
     Object? arrivalCity = freezed,
@@ -6093,6 +5275,7 @@ class _$PricingDetailsListCopyWithImpl<$Res, $Val extends PricingDetailsList>
     Object? layoverTime = freezed,
     Object? airlineFlightClass = freezed,
     Object? cabinBaggage = freezed,
+    Object? noofStop = freezed,
   }) {
     return _then(_value.copyWith(
       airlineCode: freezed == airlineCode
@@ -6123,9 +5306,17 @@ class _$PricingDetailsListCopyWithImpl<$Res, $Val extends PricingDetailsList>
           ? _value.departureCity
           : departureCity // ignore: cast_nullable_to_non_nullable
               as String?,
+      departureAirport: freezed == departureAirport
+          ? _value.departureAirport
+          : departureAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
       arrivalAirportCode: freezed == arrivalAirportCode
           ? _value.arrivalAirportCode
           : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirport: freezed == arrivalAirport
+          ? _value.arrivalAirport
+          : arrivalAirport // ignore: cast_nullable_to_non_nullable
               as String?,
       arrivalTime: freezed == arrivalTime
           ? _value.arrivalTime
@@ -6155,6 +5346,10 @@ class _$PricingDetailsListCopyWithImpl<$Res, $Val extends PricingDetailsList>
           ? _value.cabinBaggage
           : cabinBaggage // ignore: cast_nullable_to_non_nullable
               as String?,
+      noofStop: freezed == noofStop
+          ? _value.noofStop
+          : noofStop // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -6175,14 +5370,17 @@ abstract class _$$_PricingDetailsListCopyWith<$Res>
       String? departureTime,
       String? departureDate,
       String? departureCity,
+      String? departureAirport,
       String? arrivalAirportCode,
+      String? arrivalAirport,
       String? arrivalTime,
       String? arrivalDate,
       String? arrivalCity,
       String? travelDuration,
       String? layoverTime,
       String? airlineFlightClass,
-      String? cabinBaggage});
+      String? cabinBaggage,
+      int? noofStop});
 }
 
 /// @nodoc
@@ -6203,7 +5401,9 @@ class __$$_PricingDetailsListCopyWithImpl<$Res>
     Object? departureTime = freezed,
     Object? departureDate = freezed,
     Object? departureCity = freezed,
+    Object? departureAirport = freezed,
     Object? arrivalAirportCode = freezed,
+    Object? arrivalAirport = freezed,
     Object? arrivalTime = freezed,
     Object? arrivalDate = freezed,
     Object? arrivalCity = freezed,
@@ -6211,6 +5411,7 @@ class __$$_PricingDetailsListCopyWithImpl<$Res>
     Object? layoverTime = freezed,
     Object? airlineFlightClass = freezed,
     Object? cabinBaggage = freezed,
+    Object? noofStop = freezed,
   }) {
     return _then(_$_PricingDetailsList(
       airlineCode: freezed == airlineCode
@@ -6241,9 +5442,17 @@ class __$$_PricingDetailsListCopyWithImpl<$Res>
           ? _value.departureCity
           : departureCity // ignore: cast_nullable_to_non_nullable
               as String?,
+      departureAirport: freezed == departureAirport
+          ? _value.departureAirport
+          : departureAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
       arrivalAirportCode: freezed == arrivalAirportCode
           ? _value.arrivalAirportCode
           : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirport: freezed == arrivalAirport
+          ? _value.arrivalAirport
+          : arrivalAirport // ignore: cast_nullable_to_non_nullable
               as String?,
       arrivalTime: freezed == arrivalTime
           ? _value.arrivalTime
@@ -6273,6 +5482,10 @@ class __$$_PricingDetailsListCopyWithImpl<$Res>
           ? _value.cabinBaggage
           : cabinBaggage // ignore: cast_nullable_to_non_nullable
               as String?,
+      noofStop: freezed == noofStop
+          ? _value.noofStop
+          : noofStop // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -6288,14 +5501,17 @@ class _$_PricingDetailsList implements _PricingDetailsList {
       this.departureTime,
       this.departureDate,
       this.departureCity,
+      this.departureAirport,
       this.arrivalAirportCode,
+      this.arrivalAirport,
       this.arrivalTime,
       this.arrivalDate,
       this.arrivalCity,
       this.travelDuration,
       this.layoverTime,
       this.airlineFlightClass,
-      this.cabinBaggage});
+      this.cabinBaggage,
+      this.noofStop});
 
   factory _$_PricingDetailsList.fromJson(Map<String, dynamic> json) =>
       _$$_PricingDetailsListFromJson(json);
@@ -6315,7 +5531,11 @@ class _$_PricingDetailsList implements _PricingDetailsList {
   @override
   final String? departureCity;
   @override
+  final String? departureAirport;
+  @override
   final String? arrivalAirportCode;
+  @override
+  final String? arrivalAirport;
   @override
   final String? arrivalTime;
   @override
@@ -6330,10 +5550,12 @@ class _$_PricingDetailsList implements _PricingDetailsList {
   final String? airlineFlightClass;
   @override
   final String? cabinBaggage;
+  @override
+  final int? noofStop;
 
   @override
   String toString() {
-    return 'PricingDetailsList(airlineCode: $airlineCode, airlineName: $airlineName, flightdetails: $flightdetails, departureAirportCode: $departureAirportCode, departureTime: $departureTime, departureDate: $departureDate, departureCity: $departureCity, arrivalAirportCode: $arrivalAirportCode, arrivalTime: $arrivalTime, arrivalDate: $arrivalDate, arrivalCity: $arrivalCity, travelDuration: $travelDuration, layoverTime: $layoverTime, airlineFlightClass: $airlineFlightClass, cabinBaggage: $cabinBaggage)';
+    return 'PricingDetailsList(airlineCode: $airlineCode, airlineName: $airlineName, flightdetails: $flightdetails, departureAirportCode: $departureAirportCode, departureTime: $departureTime, departureDate: $departureDate, departureCity: $departureCity, departureAirport: $departureAirport, arrivalAirportCode: $arrivalAirportCode, arrivalAirport: $arrivalAirport, arrivalTime: $arrivalTime, arrivalDate: $arrivalDate, arrivalCity: $arrivalCity, travelDuration: $travelDuration, layoverTime: $layoverTime, airlineFlightClass: $airlineFlightClass, cabinBaggage: $cabinBaggage, noofStop: $noofStop)';
   }
 
   @override
@@ -6355,8 +5577,12 @@ class _$_PricingDetailsList implements _PricingDetailsList {
                 other.departureDate == departureDate) &&
             (identical(other.departureCity, departureCity) ||
                 other.departureCity == departureCity) &&
+            (identical(other.departureAirport, departureAirport) ||
+                other.departureAirport == departureAirport) &&
             (identical(other.arrivalAirportCode, arrivalAirportCode) ||
                 other.arrivalAirportCode == arrivalAirportCode) &&
+            (identical(other.arrivalAirport, arrivalAirport) ||
+                other.arrivalAirport == arrivalAirport) &&
             (identical(other.arrivalTime, arrivalTime) ||
                 other.arrivalTime == arrivalTime) &&
             (identical(other.arrivalDate, arrivalDate) ||
@@ -6370,7 +5596,9 @@ class _$_PricingDetailsList implements _PricingDetailsList {
             (identical(other.airlineFlightClass, airlineFlightClass) ||
                 other.airlineFlightClass == airlineFlightClass) &&
             (identical(other.cabinBaggage, cabinBaggage) ||
-                other.cabinBaggage == cabinBaggage));
+                other.cabinBaggage == cabinBaggage) &&
+            (identical(other.noofStop, noofStop) ||
+                other.noofStop == noofStop));
   }
 
   @JsonKey(ignore: true)
@@ -6384,14 +5612,17 @@ class _$_PricingDetailsList implements _PricingDetailsList {
       departureTime,
       departureDate,
       departureCity,
+      departureAirport,
       arrivalAirportCode,
+      arrivalAirport,
       arrivalTime,
       arrivalDate,
       arrivalCity,
       travelDuration,
       layoverTime,
       airlineFlightClass,
-      cabinBaggage);
+      cabinBaggage,
+      noofStop);
 
   @JsonKey(ignore: true)
   @override
@@ -6417,14 +5648,17 @@ abstract class _PricingDetailsList implements PricingDetailsList {
       final String? departureTime,
       final String? departureDate,
       final String? departureCity,
+      final String? departureAirport,
       final String? arrivalAirportCode,
+      final String? arrivalAirport,
       final String? arrivalTime,
       final String? arrivalDate,
       final String? arrivalCity,
       final String? travelDuration,
       final String? layoverTime,
       final String? airlineFlightClass,
-      final String? cabinBaggage}) = _$_PricingDetailsList;
+      final String? cabinBaggage,
+      final int? noofStop}) = _$_PricingDetailsList;
 
   factory _PricingDetailsList.fromJson(Map<String, dynamic> json) =
       _$_PricingDetailsList.fromJson;
@@ -6444,7 +5678,11 @@ abstract class _PricingDetailsList implements PricingDetailsList {
   @override
   String? get departureCity;
   @override
+  String? get departureAirport;
+  @override
   String? get arrivalAirportCode;
+  @override
+  String? get arrivalAirport;
   @override
   String? get arrivalTime;
   @override
@@ -6460,8 +5698,177 @@ abstract class _PricingDetailsList implements PricingDetailsList {
   @override
   String? get cabinBaggage;
   @override
+  int? get noofStop;
+  @override
   @JsonKey(ignore: true)
   _$$_PricingDetailsListCopyWith<_$_PricingDetailsList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PricingMealSegment _$PricingMealSegmentFromJson(Map<String, dynamic> json) {
+  return _PricingMealSegment.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PricingMealSegment {
+  String? get sectorCode => throw _privateConstructorUsedError;
+  List<MealSearchResult>? get objmealList => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PricingMealSegmentCopyWith<PricingMealSegment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PricingMealSegmentCopyWith<$Res> {
+  factory $PricingMealSegmentCopyWith(
+          PricingMealSegment value, $Res Function(PricingMealSegment) then) =
+      _$PricingMealSegmentCopyWithImpl<$Res, PricingMealSegment>;
+  @useResult
+  $Res call({String? sectorCode, List<MealSearchResult>? objmealList});
+}
+
+/// @nodoc
+class _$PricingMealSegmentCopyWithImpl<$Res, $Val extends PricingMealSegment>
+    implements $PricingMealSegmentCopyWith<$Res> {
+  _$PricingMealSegmentCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sectorCode = freezed,
+    Object? objmealList = freezed,
+  }) {
+    return _then(_value.copyWith(
+      sectorCode: freezed == sectorCode
+          ? _value.sectorCode
+          : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objmealList: freezed == objmealList
+          ? _value.objmealList
+          : objmealList // ignore: cast_nullable_to_non_nullable
+              as List<MealSearchResult>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_PricingMealSegmentCopyWith<$Res>
+    implements $PricingMealSegmentCopyWith<$Res> {
+  factory _$$_PricingMealSegmentCopyWith(_$_PricingMealSegment value,
+          $Res Function(_$_PricingMealSegment) then) =
+      __$$_PricingMealSegmentCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? sectorCode, List<MealSearchResult>? objmealList});
+}
+
+/// @nodoc
+class __$$_PricingMealSegmentCopyWithImpl<$Res>
+    extends _$PricingMealSegmentCopyWithImpl<$Res, _$_PricingMealSegment>
+    implements _$$_PricingMealSegmentCopyWith<$Res> {
+  __$$_PricingMealSegmentCopyWithImpl(
+      _$_PricingMealSegment _value, $Res Function(_$_PricingMealSegment) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sectorCode = freezed,
+    Object? objmealList = freezed,
+  }) {
+    return _then(_$_PricingMealSegment(
+      sectorCode: freezed == sectorCode
+          ? _value.sectorCode
+          : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objmealList: freezed == objmealList
+          ? _value._objmealList
+          : objmealList // ignore: cast_nullable_to_non_nullable
+              as List<MealSearchResult>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PricingMealSegment implements _PricingMealSegment {
+  const _$_PricingMealSegment(
+      {this.sectorCode, final List<MealSearchResult>? objmealList})
+      : _objmealList = objmealList;
+
+  factory _$_PricingMealSegment.fromJson(Map<String, dynamic> json) =>
+      _$$_PricingMealSegmentFromJson(json);
+
+  @override
+  final String? sectorCode;
+  final List<MealSearchResult>? _objmealList;
+  @override
+  List<MealSearchResult>? get objmealList {
+    final value = _objmealList;
+    if (value == null) return null;
+    if (_objmealList is EqualUnmodifiableListView) return _objmealList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'PricingMealSegment(sectorCode: $sectorCode, objmealList: $objmealList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PricingMealSegment &&
+            (identical(other.sectorCode, sectorCode) ||
+                other.sectorCode == sectorCode) &&
+            const DeepCollectionEquality()
+                .equals(other._objmealList, _objmealList));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, sectorCode,
+      const DeepCollectionEquality().hash(_objmealList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PricingMealSegmentCopyWith<_$_PricingMealSegment> get copyWith =>
+      __$$_PricingMealSegmentCopyWithImpl<_$_PricingMealSegment>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PricingMealSegmentToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PricingMealSegment implements PricingMealSegment {
+  const factory _PricingMealSegment(
+      {final String? sectorCode,
+      final List<MealSearchResult>? objmealList}) = _$_PricingMealSegment;
+
+  factory _PricingMealSegment.fromJson(Map<String, dynamic> json) =
+      _$_PricingMealSegment.fromJson;
+
+  @override
+  String? get sectorCode;
+  @override
+  List<MealSearchResult>? get objmealList;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PricingMealSegmentCopyWith<_$_PricingMealSegment> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6653,6 +6060,177 @@ abstract class _MealSearchResult implements MealSearchResult {
       throw _privateConstructorUsedError;
 }
 
+PricingBaggageSegment _$PricingBaggageSegmentFromJson(
+    Map<String, dynamic> json) {
+  return _PricingBaggageSegment.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PricingBaggageSegment {
+  String? get sectorCode => throw _privateConstructorUsedError;
+  List<BaggageSearchResult>? get objbaggageList =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PricingBaggageSegmentCopyWith<PricingBaggageSegment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PricingBaggageSegmentCopyWith<$Res> {
+  factory $PricingBaggageSegmentCopyWith(PricingBaggageSegment value,
+          $Res Function(PricingBaggageSegment) then) =
+      _$PricingBaggageSegmentCopyWithImpl<$Res, PricingBaggageSegment>;
+  @useResult
+  $Res call({String? sectorCode, List<BaggageSearchResult>? objbaggageList});
+}
+
+/// @nodoc
+class _$PricingBaggageSegmentCopyWithImpl<$Res,
+        $Val extends PricingBaggageSegment>
+    implements $PricingBaggageSegmentCopyWith<$Res> {
+  _$PricingBaggageSegmentCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sectorCode = freezed,
+    Object? objbaggageList = freezed,
+  }) {
+    return _then(_value.copyWith(
+      sectorCode: freezed == sectorCode
+          ? _value.sectorCode
+          : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objbaggageList: freezed == objbaggageList
+          ? _value.objbaggageList
+          : objbaggageList // ignore: cast_nullable_to_non_nullable
+              as List<BaggageSearchResult>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_PricingBaggageSegmentCopyWith<$Res>
+    implements $PricingBaggageSegmentCopyWith<$Res> {
+  factory _$$_PricingBaggageSegmentCopyWith(_$_PricingBaggageSegment value,
+          $Res Function(_$_PricingBaggageSegment) then) =
+      __$$_PricingBaggageSegmentCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? sectorCode, List<BaggageSearchResult>? objbaggageList});
+}
+
+/// @nodoc
+class __$$_PricingBaggageSegmentCopyWithImpl<$Res>
+    extends _$PricingBaggageSegmentCopyWithImpl<$Res, _$_PricingBaggageSegment>
+    implements _$$_PricingBaggageSegmentCopyWith<$Res> {
+  __$$_PricingBaggageSegmentCopyWithImpl(_$_PricingBaggageSegment _value,
+      $Res Function(_$_PricingBaggageSegment) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sectorCode = freezed,
+    Object? objbaggageList = freezed,
+  }) {
+    return _then(_$_PricingBaggageSegment(
+      sectorCode: freezed == sectorCode
+          ? _value.sectorCode
+          : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objbaggageList: freezed == objbaggageList
+          ? _value._objbaggageList
+          : objbaggageList // ignore: cast_nullable_to_non_nullable
+              as List<BaggageSearchResult>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PricingBaggageSegment implements _PricingBaggageSegment {
+  const _$_PricingBaggageSegment(
+      {this.sectorCode, final List<BaggageSearchResult>? objbaggageList})
+      : _objbaggageList = objbaggageList;
+
+  factory _$_PricingBaggageSegment.fromJson(Map<String, dynamic> json) =>
+      _$$_PricingBaggageSegmentFromJson(json);
+
+  @override
+  final String? sectorCode;
+  final List<BaggageSearchResult>? _objbaggageList;
+  @override
+  List<BaggageSearchResult>? get objbaggageList {
+    final value = _objbaggageList;
+    if (value == null) return null;
+    if (_objbaggageList is EqualUnmodifiableListView) return _objbaggageList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'PricingBaggageSegment(sectorCode: $sectorCode, objbaggageList: $objbaggageList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PricingBaggageSegment &&
+            (identical(other.sectorCode, sectorCode) ||
+                other.sectorCode == sectorCode) &&
+            const DeepCollectionEquality()
+                .equals(other._objbaggageList, _objbaggageList));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, sectorCode,
+      const DeepCollectionEquality().hash(_objbaggageList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PricingBaggageSegmentCopyWith<_$_PricingBaggageSegment> get copyWith =>
+      __$$_PricingBaggageSegmentCopyWithImpl<_$_PricingBaggageSegment>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PricingBaggageSegmentToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PricingBaggageSegment implements PricingBaggageSegment {
+  const factory _PricingBaggageSegment(
+          {final String? sectorCode,
+          final List<BaggageSearchResult>? objbaggageList}) =
+      _$_PricingBaggageSegment;
+
+  factory _PricingBaggageSegment.fromJson(Map<String, dynamic> json) =
+      _$_PricingBaggageSegment.fromJson;
+
+  @override
+  String? get sectorCode;
+  @override
+  List<BaggageSearchResult>? get objbaggageList;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PricingBaggageSegmentCopyWith<_$_PricingBaggageSegment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 BaggageSearchResult _$BaggageSearchResultFromJson(Map<String, dynamic> json) {
   return _BaggageSearchResult.fromJson(json);
 }
@@ -6822,5 +6400,1229 @@ abstract class _BaggageSearchResult implements BaggageSearchResult {
   @override
   @JsonKey(ignore: true)
   _$$_BaggageSearchResultCopyWith<_$_BaggageSearchResult> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FlightDetailsResponse _$FlightDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _FlightDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FlightDetailsResponse {
+  bool? get status => throw _privateConstructorUsedError;
+  String? get responseMessage => throw _privateConstructorUsedError;
+  FlightDetailsItin? get objitin => throw _privateConstructorUsedError;
+  int? get adult => throw _privateConstructorUsedError;
+  int? get child => throw _privateConstructorUsedError;
+  int? get infant => throw _privateConstructorUsedError;
+  double? get adtBasic => throw _privateConstructorUsedError;
+  double? get adtTax => throw _privateConstructorUsedError;
+  double? get chdBasic => throw _privateConstructorUsedError;
+  double? get chdTax => throw _privateConstructorUsedError;
+  double? get infBasic => throw _privateConstructorUsedError;
+  double? get infTax => throw _privateConstructorUsedError;
+  double? get totalFare => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FlightDetailsResponseCopyWith<FlightDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FlightDetailsResponseCopyWith<$Res> {
+  factory $FlightDetailsResponseCopyWith(FlightDetailsResponse value,
+          $Res Function(FlightDetailsResponse) then) =
+      _$FlightDetailsResponseCopyWithImpl<$Res, FlightDetailsResponse>;
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      FlightDetailsItin? objitin,
+      int? adult,
+      int? child,
+      int? infant,
+      double? adtBasic,
+      double? adtTax,
+      double? chdBasic,
+      double? chdTax,
+      double? infBasic,
+      double? infTax,
+      double? totalFare});
+
+  $FlightDetailsItinCopyWith<$Res>? get objitin;
+}
+
+/// @nodoc
+class _$FlightDetailsResponseCopyWithImpl<$Res,
+        $Val extends FlightDetailsResponse>
+    implements $FlightDetailsResponseCopyWith<$Res> {
+  _$FlightDetailsResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? objitin = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? adtBasic = freezed,
+    Object? adtTax = freezed,
+    Object? chdBasic = freezed,
+    Object? chdTax = freezed,
+    Object? infBasic = freezed,
+    Object? infTax = freezed,
+    Object? totalFare = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objitin: freezed == objitin
+          ? _value.objitin
+          : objitin // ignore: cast_nullable_to_non_nullable
+              as FlightDetailsItin?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      adtBasic: freezed == adtBasic
+          ? _value.adtBasic
+          : adtBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      adtTax: freezed == adtTax
+          ? _value.adtTax
+          : adtTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      chdBasic: freezed == chdBasic
+          ? _value.chdBasic
+          : chdBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      chdTax: freezed == chdTax
+          ? _value.chdTax
+          : chdTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      infBasic: freezed == infBasic
+          ? _value.infBasic
+          : infBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      infTax: freezed == infTax
+          ? _value.infTax
+          : infTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalFare: freezed == totalFare
+          ? _value.totalFare
+          : totalFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FlightDetailsItinCopyWith<$Res>? get objitin {
+    if (_value.objitin == null) {
+      return null;
+    }
+
+    return $FlightDetailsItinCopyWith<$Res>(_value.objitin!, (value) {
+      return _then(_value.copyWith(objitin: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_FlightDetailsResponseCopyWith<$Res>
+    implements $FlightDetailsResponseCopyWith<$Res> {
+  factory _$$_FlightDetailsResponseCopyWith(_$_FlightDetailsResponse value,
+          $Res Function(_$_FlightDetailsResponse) then) =
+      __$$_FlightDetailsResponseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      FlightDetailsItin? objitin,
+      int? adult,
+      int? child,
+      int? infant,
+      double? adtBasic,
+      double? adtTax,
+      double? chdBasic,
+      double? chdTax,
+      double? infBasic,
+      double? infTax,
+      double? totalFare});
+
+  @override
+  $FlightDetailsItinCopyWith<$Res>? get objitin;
+}
+
+/// @nodoc
+class __$$_FlightDetailsResponseCopyWithImpl<$Res>
+    extends _$FlightDetailsResponseCopyWithImpl<$Res, _$_FlightDetailsResponse>
+    implements _$$_FlightDetailsResponseCopyWith<$Res> {
+  __$$_FlightDetailsResponseCopyWithImpl(_$_FlightDetailsResponse _value,
+      $Res Function(_$_FlightDetailsResponse) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
+    Object? objitin = freezed,
+    Object? adult = freezed,
+    Object? child = freezed,
+    Object? infant = freezed,
+    Object? adtBasic = freezed,
+    Object? adtTax = freezed,
+    Object? chdBasic = freezed,
+    Object? chdTax = freezed,
+    Object? infBasic = freezed,
+    Object? infTax = freezed,
+    Object? totalFare = freezed,
+  }) {
+    return _then(_$_FlightDetailsResponse(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objitin: freezed == objitin
+          ? _value.objitin
+          : objitin // ignore: cast_nullable_to_non_nullable
+              as FlightDetailsItin?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as int?,
+      child: freezed == child
+          ? _value.child
+          : child // ignore: cast_nullable_to_non_nullable
+              as int?,
+      infant: freezed == infant
+          ? _value.infant
+          : infant // ignore: cast_nullable_to_non_nullable
+              as int?,
+      adtBasic: freezed == adtBasic
+          ? _value.adtBasic
+          : adtBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      adtTax: freezed == adtTax
+          ? _value.adtTax
+          : adtTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      chdBasic: freezed == chdBasic
+          ? _value.chdBasic
+          : chdBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      chdTax: freezed == chdTax
+          ? _value.chdTax
+          : chdTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      infBasic: freezed == infBasic
+          ? _value.infBasic
+          : infBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      infTax: freezed == infTax
+          ? _value.infTax
+          : infTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalFare: freezed == totalFare
+          ? _value.totalFare
+          : totalFare // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FlightDetailsResponse implements _FlightDetailsResponse {
+  const _$_FlightDetailsResponse(
+      {this.status,
+      this.responseMessage,
+      this.objitin,
+      this.adult,
+      this.child,
+      this.infant,
+      this.adtBasic,
+      this.adtTax,
+      this.chdBasic,
+      this.chdTax,
+      this.infBasic,
+      this.infTax,
+      this.totalFare});
+
+  factory _$_FlightDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_FlightDetailsResponseFromJson(json);
+
+  @override
+  final bool? status;
+  @override
+  final String? responseMessage;
+  @override
+  final FlightDetailsItin? objitin;
+  @override
+  final int? adult;
+  @override
+  final int? child;
+  @override
+  final int? infant;
+  @override
+  final double? adtBasic;
+  @override
+  final double? adtTax;
+  @override
+  final double? chdBasic;
+  @override
+  final double? chdTax;
+  @override
+  final double? infBasic;
+  @override
+  final double? infTax;
+  @override
+  final double? totalFare;
+
+  @override
+  String toString() {
+    return 'FlightDetailsResponse(status: $status, responseMessage: $responseMessage, objitin: $objitin, adult: $adult, child: $child, infant: $infant, adtBasic: $adtBasic, adtTax: $adtTax, chdBasic: $chdBasic, chdTax: $chdTax, infBasic: $infBasic, infTax: $infTax, totalFare: $totalFare)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FlightDetailsResponse &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.responseMessage, responseMessage) ||
+                other.responseMessage == responseMessage) &&
+            (identical(other.objitin, objitin) || other.objitin == objitin) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.child, child) || other.child == child) &&
+            (identical(other.infant, infant) || other.infant == infant) &&
+            (identical(other.adtBasic, adtBasic) ||
+                other.adtBasic == adtBasic) &&
+            (identical(other.adtTax, adtTax) || other.adtTax == adtTax) &&
+            (identical(other.chdBasic, chdBasic) ||
+                other.chdBasic == chdBasic) &&
+            (identical(other.chdTax, chdTax) || other.chdTax == chdTax) &&
+            (identical(other.infBasic, infBasic) ||
+                other.infBasic == infBasic) &&
+            (identical(other.infTax, infTax) || other.infTax == infTax) &&
+            (identical(other.totalFare, totalFare) ||
+                other.totalFare == totalFare));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      responseMessage,
+      objitin,
+      adult,
+      child,
+      infant,
+      adtBasic,
+      adtTax,
+      chdBasic,
+      chdTax,
+      infBasic,
+      infTax,
+      totalFare);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FlightDetailsResponseCopyWith<_$_FlightDetailsResponse> get copyWith =>
+      __$$_FlightDetailsResponseCopyWithImpl<_$_FlightDetailsResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FlightDetailsResponseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FlightDetailsResponse implements FlightDetailsResponse {
+  const factory _FlightDetailsResponse(
+      {final bool? status,
+      final String? responseMessage,
+      final FlightDetailsItin? objitin,
+      final int? adult,
+      final int? child,
+      final int? infant,
+      final double? adtBasic,
+      final double? adtTax,
+      final double? chdBasic,
+      final double? chdTax,
+      final double? infBasic,
+      final double? infTax,
+      final double? totalFare}) = _$_FlightDetailsResponse;
+
+  factory _FlightDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_FlightDetailsResponse.fromJson;
+
+  @override
+  bool? get status;
+  @override
+  String? get responseMessage;
+  @override
+  FlightDetailsItin? get objitin;
+  @override
+  int? get adult;
+  @override
+  int? get child;
+  @override
+  int? get infant;
+  @override
+  double? get adtBasic;
+  @override
+  double? get adtTax;
+  @override
+  double? get chdBasic;
+  @override
+  double? get chdTax;
+  @override
+  double? get infBasic;
+  @override
+  double? get infTax;
+  @override
+  double? get totalFare;
+  @override
+  @JsonKey(ignore: true)
+  _$$_FlightDetailsResponseCopyWith<_$_FlightDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FlightDetailsItin _$FlightDetailsItinFromJson(Map<String, dynamic> json) {
+  return _FlightDetailsItin.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FlightDetailsItin {
+  String? get originCity => throw _privateConstructorUsedError;
+  String? get destinationCity => throw _privateConstructorUsedError;
+  String? get departureDate => throw _privateConstructorUsedError;
+  List<FlightDetailsSegment>? get objseglist =>
+      throw _privateConstructorUsedError;
+  String? get adultCheckinBaggage => throw _privateConstructorUsedError;
+  String? get adultCabinBaggage => throw _privateConstructorUsedError;
+  String? get childCheckinBaggage => throw _privateConstructorUsedError;
+  String? get childCabinBaggage => throw _privateConstructorUsedError;
+  String? get infantCheckinBaggage => throw _privateConstructorUsedError;
+  String? get infantCabinBaggage => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FlightDetailsItinCopyWith<FlightDetailsItin> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FlightDetailsItinCopyWith<$Res> {
+  factory $FlightDetailsItinCopyWith(
+          FlightDetailsItin value, $Res Function(FlightDetailsItin) then) =
+      _$FlightDetailsItinCopyWithImpl<$Res, FlightDetailsItin>;
+  @useResult
+  $Res call(
+      {String? originCity,
+      String? destinationCity,
+      String? departureDate,
+      List<FlightDetailsSegment>? objseglist,
+      String? adultCheckinBaggage,
+      String? adultCabinBaggage,
+      String? childCheckinBaggage,
+      String? childCabinBaggage,
+      String? infantCheckinBaggage,
+      String? infantCabinBaggage});
+}
+
+/// @nodoc
+class _$FlightDetailsItinCopyWithImpl<$Res, $Val extends FlightDetailsItin>
+    implements $FlightDetailsItinCopyWith<$Res> {
+  _$FlightDetailsItinCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? originCity = freezed,
+    Object? destinationCity = freezed,
+    Object? departureDate = freezed,
+    Object? objseglist = freezed,
+    Object? adultCheckinBaggage = freezed,
+    Object? adultCabinBaggage = freezed,
+    Object? childCheckinBaggage = freezed,
+    Object? childCabinBaggage = freezed,
+    Object? infantCheckinBaggage = freezed,
+    Object? infantCabinBaggage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      originCity: freezed == originCity
+          ? _value.originCity
+          : originCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationCity: freezed == destinationCity
+          ? _value.destinationCity
+          : destinationCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objseglist: freezed == objseglist
+          ? _value.objseglist
+          : objseglist // ignore: cast_nullable_to_non_nullable
+              as List<FlightDetailsSegment>?,
+      adultCheckinBaggage: freezed == adultCheckinBaggage
+          ? _value.adultCheckinBaggage
+          : adultCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      adultCabinBaggage: freezed == adultCabinBaggage
+          ? _value.adultCabinBaggage
+          : adultCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      childCheckinBaggage: freezed == childCheckinBaggage
+          ? _value.childCheckinBaggage
+          : childCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      childCabinBaggage: freezed == childCabinBaggage
+          ? _value.childCabinBaggage
+          : childCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      infantCheckinBaggage: freezed == infantCheckinBaggage
+          ? _value.infantCheckinBaggage
+          : infantCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      infantCabinBaggage: freezed == infantCabinBaggage
+          ? _value.infantCabinBaggage
+          : infantCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_FlightDetailsItinCopyWith<$Res>
+    implements $FlightDetailsItinCopyWith<$Res> {
+  factory _$$_FlightDetailsItinCopyWith(_$_FlightDetailsItin value,
+          $Res Function(_$_FlightDetailsItin) then) =
+      __$$_FlightDetailsItinCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? originCity,
+      String? destinationCity,
+      String? departureDate,
+      List<FlightDetailsSegment>? objseglist,
+      String? adultCheckinBaggage,
+      String? adultCabinBaggage,
+      String? childCheckinBaggage,
+      String? childCabinBaggage,
+      String? infantCheckinBaggage,
+      String? infantCabinBaggage});
+}
+
+/// @nodoc
+class __$$_FlightDetailsItinCopyWithImpl<$Res>
+    extends _$FlightDetailsItinCopyWithImpl<$Res, _$_FlightDetailsItin>
+    implements _$$_FlightDetailsItinCopyWith<$Res> {
+  __$$_FlightDetailsItinCopyWithImpl(
+      _$_FlightDetailsItin _value, $Res Function(_$_FlightDetailsItin) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? originCity = freezed,
+    Object? destinationCity = freezed,
+    Object? departureDate = freezed,
+    Object? objseglist = freezed,
+    Object? adultCheckinBaggage = freezed,
+    Object? adultCabinBaggage = freezed,
+    Object? childCheckinBaggage = freezed,
+    Object? childCabinBaggage = freezed,
+    Object? infantCheckinBaggage = freezed,
+    Object? infantCabinBaggage = freezed,
+  }) {
+    return _then(_$_FlightDetailsItin(
+      originCity: freezed == originCity
+          ? _value.originCity
+          : originCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationCity: freezed == destinationCity
+          ? _value.destinationCity
+          : destinationCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      objseglist: freezed == objseglist
+          ? _value._objseglist
+          : objseglist // ignore: cast_nullable_to_non_nullable
+              as List<FlightDetailsSegment>?,
+      adultCheckinBaggage: freezed == adultCheckinBaggage
+          ? _value.adultCheckinBaggage
+          : adultCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      adultCabinBaggage: freezed == adultCabinBaggage
+          ? _value.adultCabinBaggage
+          : adultCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      childCheckinBaggage: freezed == childCheckinBaggage
+          ? _value.childCheckinBaggage
+          : childCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      childCabinBaggage: freezed == childCabinBaggage
+          ? _value.childCabinBaggage
+          : childCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      infantCheckinBaggage: freezed == infantCheckinBaggage
+          ? _value.infantCheckinBaggage
+          : infantCheckinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      infantCabinBaggage: freezed == infantCabinBaggage
+          ? _value.infantCabinBaggage
+          : infantCabinBaggage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FlightDetailsItin implements _FlightDetailsItin {
+  const _$_FlightDetailsItin(
+      {this.originCity,
+      this.destinationCity,
+      this.departureDate,
+      final List<FlightDetailsSegment>? objseglist,
+      this.adultCheckinBaggage,
+      this.adultCabinBaggage,
+      this.childCheckinBaggage,
+      this.childCabinBaggage,
+      this.infantCheckinBaggage,
+      this.infantCabinBaggage})
+      : _objseglist = objseglist;
+
+  factory _$_FlightDetailsItin.fromJson(Map<String, dynamic> json) =>
+      _$$_FlightDetailsItinFromJson(json);
+
+  @override
+  final String? originCity;
+  @override
+  final String? destinationCity;
+  @override
+  final String? departureDate;
+  final List<FlightDetailsSegment>? _objseglist;
+  @override
+  List<FlightDetailsSegment>? get objseglist {
+    final value = _objseglist;
+    if (value == null) return null;
+    if (_objseglist is EqualUnmodifiableListView) return _objseglist;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? adultCheckinBaggage;
+  @override
+  final String? adultCabinBaggage;
+  @override
+  final String? childCheckinBaggage;
+  @override
+  final String? childCabinBaggage;
+  @override
+  final String? infantCheckinBaggage;
+  @override
+  final String? infantCabinBaggage;
+
+  @override
+  String toString() {
+    return 'FlightDetailsItin(originCity: $originCity, destinationCity: $destinationCity, departureDate: $departureDate, objseglist: $objseglist, adultCheckinBaggage: $adultCheckinBaggage, adultCabinBaggage: $adultCabinBaggage, childCheckinBaggage: $childCheckinBaggage, childCabinBaggage: $childCabinBaggage, infantCheckinBaggage: $infantCheckinBaggage, infantCabinBaggage: $infantCabinBaggage)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FlightDetailsItin &&
+            (identical(other.originCity, originCity) ||
+                other.originCity == originCity) &&
+            (identical(other.destinationCity, destinationCity) ||
+                other.destinationCity == destinationCity) &&
+            (identical(other.departureDate, departureDate) ||
+                other.departureDate == departureDate) &&
+            const DeepCollectionEquality()
+                .equals(other._objseglist, _objseglist) &&
+            (identical(other.adultCheckinBaggage, adultCheckinBaggage) ||
+                other.adultCheckinBaggage == adultCheckinBaggage) &&
+            (identical(other.adultCabinBaggage, adultCabinBaggage) ||
+                other.adultCabinBaggage == adultCabinBaggage) &&
+            (identical(other.childCheckinBaggage, childCheckinBaggage) ||
+                other.childCheckinBaggage == childCheckinBaggage) &&
+            (identical(other.childCabinBaggage, childCabinBaggage) ||
+                other.childCabinBaggage == childCabinBaggage) &&
+            (identical(other.infantCheckinBaggage, infantCheckinBaggage) ||
+                other.infantCheckinBaggage == infantCheckinBaggage) &&
+            (identical(other.infantCabinBaggage, infantCabinBaggage) ||
+                other.infantCabinBaggage == infantCabinBaggage));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      originCity,
+      destinationCity,
+      departureDate,
+      const DeepCollectionEquality().hash(_objseglist),
+      adultCheckinBaggage,
+      adultCabinBaggage,
+      childCheckinBaggage,
+      childCabinBaggage,
+      infantCheckinBaggage,
+      infantCabinBaggage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FlightDetailsItinCopyWith<_$_FlightDetailsItin> get copyWith =>
+      __$$_FlightDetailsItinCopyWithImpl<_$_FlightDetailsItin>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FlightDetailsItinToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FlightDetailsItin implements FlightDetailsItin {
+  const factory _FlightDetailsItin(
+      {final String? originCity,
+      final String? destinationCity,
+      final String? departureDate,
+      final List<FlightDetailsSegment>? objseglist,
+      final String? adultCheckinBaggage,
+      final String? adultCabinBaggage,
+      final String? childCheckinBaggage,
+      final String? childCabinBaggage,
+      final String? infantCheckinBaggage,
+      final String? infantCabinBaggage}) = _$_FlightDetailsItin;
+
+  factory _FlightDetailsItin.fromJson(Map<String, dynamic> json) =
+      _$_FlightDetailsItin.fromJson;
+
+  @override
+  String? get originCity;
+  @override
+  String? get destinationCity;
+  @override
+  String? get departureDate;
+  @override
+  List<FlightDetailsSegment>? get objseglist;
+  @override
+  String? get adultCheckinBaggage;
+  @override
+  String? get adultCabinBaggage;
+  @override
+  String? get childCheckinBaggage;
+  @override
+  String? get childCabinBaggage;
+  @override
+  String? get infantCheckinBaggage;
+  @override
+  String? get infantCabinBaggage;
+  @override
+  @JsonKey(ignore: true)
+  _$$_FlightDetailsItinCopyWith<_$_FlightDetailsItin> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FlightDetailsSegment _$FlightDetailsSegmentFromJson(Map<String, dynamic> json) {
+  return _FlightDetailsSegment.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FlightDetailsSegment {
+  String? get airlineCode => throw _privateConstructorUsedError;
+  String? get airlineName => throw _privateConstructorUsedError;
+  String? get airlineFlightClass => throw _privateConstructorUsedError;
+  String? get departureAirportCode => throw _privateConstructorUsedError;
+  String? get departureTime => throw _privateConstructorUsedError;
+  String? get departureDate => throw _privateConstructorUsedError;
+  String? get departureAirport => throw _privateConstructorUsedError;
+  String? get departureCity => throw _privateConstructorUsedError;
+  String? get arrivalAirportCode => throw _privateConstructorUsedError;
+  String? get arrivalTime => throw _privateConstructorUsedError;
+  String? get arrivalDate => throw _privateConstructorUsedError;
+  String? get arrivalAirport => throw _privateConstructorUsedError;
+  String? get arrivalCity => throw _privateConstructorUsedError;
+  String? get travelDuration => throw _privateConstructorUsedError;
+  String? get layoverTime => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FlightDetailsSegmentCopyWith<FlightDetailsSegment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FlightDetailsSegmentCopyWith<$Res> {
+  factory $FlightDetailsSegmentCopyWith(FlightDetailsSegment value,
+          $Res Function(FlightDetailsSegment) then) =
+      _$FlightDetailsSegmentCopyWithImpl<$Res, FlightDetailsSegment>;
+  @useResult
+  $Res call(
+      {String? airlineCode,
+      String? airlineName,
+      String? airlineFlightClass,
+      String? departureAirportCode,
+      String? departureTime,
+      String? departureDate,
+      String? departureAirport,
+      String? departureCity,
+      String? arrivalAirportCode,
+      String? arrivalTime,
+      String? arrivalDate,
+      String? arrivalAirport,
+      String? arrivalCity,
+      String? travelDuration,
+      String? layoverTime});
+}
+
+/// @nodoc
+class _$FlightDetailsSegmentCopyWithImpl<$Res,
+        $Val extends FlightDetailsSegment>
+    implements $FlightDetailsSegmentCopyWith<$Res> {
+  _$FlightDetailsSegmentCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? airlineCode = freezed,
+    Object? airlineName = freezed,
+    Object? airlineFlightClass = freezed,
+    Object? departureAirportCode = freezed,
+    Object? departureTime = freezed,
+    Object? departureDate = freezed,
+    Object? departureAirport = freezed,
+    Object? departureCity = freezed,
+    Object? arrivalAirportCode = freezed,
+    Object? arrivalTime = freezed,
+    Object? arrivalDate = freezed,
+    Object? arrivalAirport = freezed,
+    Object? arrivalCity = freezed,
+    Object? travelDuration = freezed,
+    Object? layoverTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineName: freezed == airlineName
+          ? _value.airlineName
+          : airlineName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineFlightClass: freezed == airlineFlightClass
+          ? _value.airlineFlightClass
+          : airlineFlightClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureAirportCode: freezed == departureAirportCode
+          ? _value.departureAirportCode
+          : departureAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureTime: freezed == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureAirport: freezed == departureAirport
+          ? _value.departureAirport
+          : departureAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureCity: freezed == departureCity
+          ? _value.departureCity
+          : departureCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirportCode: freezed == arrivalAirportCode
+          ? _value.arrivalAirportCode
+          : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalTime: freezed == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalDate: freezed == arrivalDate
+          ? _value.arrivalDate
+          : arrivalDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirport: freezed == arrivalAirport
+          ? _value.arrivalAirport
+          : arrivalAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalCity: freezed == arrivalCity
+          ? _value.arrivalCity
+          : arrivalCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      travelDuration: freezed == travelDuration
+          ? _value.travelDuration
+          : travelDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      layoverTime: freezed == layoverTime
+          ? _value.layoverTime
+          : layoverTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_FlightDetailsSegmentCopyWith<$Res>
+    implements $FlightDetailsSegmentCopyWith<$Res> {
+  factory _$$_FlightDetailsSegmentCopyWith(_$_FlightDetailsSegment value,
+          $Res Function(_$_FlightDetailsSegment) then) =
+      __$$_FlightDetailsSegmentCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? airlineCode,
+      String? airlineName,
+      String? airlineFlightClass,
+      String? departureAirportCode,
+      String? departureTime,
+      String? departureDate,
+      String? departureAirport,
+      String? departureCity,
+      String? arrivalAirportCode,
+      String? arrivalTime,
+      String? arrivalDate,
+      String? arrivalAirport,
+      String? arrivalCity,
+      String? travelDuration,
+      String? layoverTime});
+}
+
+/// @nodoc
+class __$$_FlightDetailsSegmentCopyWithImpl<$Res>
+    extends _$FlightDetailsSegmentCopyWithImpl<$Res, _$_FlightDetailsSegment>
+    implements _$$_FlightDetailsSegmentCopyWith<$Res> {
+  __$$_FlightDetailsSegmentCopyWithImpl(_$_FlightDetailsSegment _value,
+      $Res Function(_$_FlightDetailsSegment) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? airlineCode = freezed,
+    Object? airlineName = freezed,
+    Object? airlineFlightClass = freezed,
+    Object? departureAirportCode = freezed,
+    Object? departureTime = freezed,
+    Object? departureDate = freezed,
+    Object? departureAirport = freezed,
+    Object? departureCity = freezed,
+    Object? arrivalAirportCode = freezed,
+    Object? arrivalTime = freezed,
+    Object? arrivalDate = freezed,
+    Object? arrivalAirport = freezed,
+    Object? arrivalCity = freezed,
+    Object? travelDuration = freezed,
+    Object? layoverTime = freezed,
+  }) {
+    return _then(_$_FlightDetailsSegment(
+      airlineCode: freezed == airlineCode
+          ? _value.airlineCode
+          : airlineCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineName: freezed == airlineName
+          ? _value.airlineName
+          : airlineName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      airlineFlightClass: freezed == airlineFlightClass
+          ? _value.airlineFlightClass
+          : airlineFlightClass // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureAirportCode: freezed == departureAirportCode
+          ? _value.departureAirportCode
+          : departureAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureTime: freezed == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureDate: freezed == departureDate
+          ? _value.departureDate
+          : departureDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureAirport: freezed == departureAirport
+          ? _value.departureAirport
+          : departureAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      departureCity: freezed == departureCity
+          ? _value.departureCity
+          : departureCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirportCode: freezed == arrivalAirportCode
+          ? _value.arrivalAirportCode
+          : arrivalAirportCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalTime: freezed == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalDate: freezed == arrivalDate
+          ? _value.arrivalDate
+          : arrivalDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalAirport: freezed == arrivalAirport
+          ? _value.arrivalAirport
+          : arrivalAirport // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalCity: freezed == arrivalCity
+          ? _value.arrivalCity
+          : arrivalCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      travelDuration: freezed == travelDuration
+          ? _value.travelDuration
+          : travelDuration // ignore: cast_nullable_to_non_nullable
+              as String?,
+      layoverTime: freezed == layoverTime
+          ? _value.layoverTime
+          : layoverTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FlightDetailsSegment implements _FlightDetailsSegment {
+  const _$_FlightDetailsSegment(
+      {this.airlineCode,
+      this.airlineName,
+      this.airlineFlightClass,
+      this.departureAirportCode,
+      this.departureTime,
+      this.departureDate,
+      this.departureAirport,
+      this.departureCity,
+      this.arrivalAirportCode,
+      this.arrivalTime,
+      this.arrivalDate,
+      this.arrivalAirport,
+      this.arrivalCity,
+      this.travelDuration,
+      this.layoverTime});
+
+  factory _$_FlightDetailsSegment.fromJson(Map<String, dynamic> json) =>
+      _$$_FlightDetailsSegmentFromJson(json);
+
+  @override
+  final String? airlineCode;
+  @override
+  final String? airlineName;
+  @override
+  final String? airlineFlightClass;
+  @override
+  final String? departureAirportCode;
+  @override
+  final String? departureTime;
+  @override
+  final String? departureDate;
+  @override
+  final String? departureAirport;
+  @override
+  final String? departureCity;
+  @override
+  final String? arrivalAirportCode;
+  @override
+  final String? arrivalTime;
+  @override
+  final String? arrivalDate;
+  @override
+  final String? arrivalAirport;
+  @override
+  final String? arrivalCity;
+  @override
+  final String? travelDuration;
+  @override
+  final String? layoverTime;
+
+  @override
+  String toString() {
+    return 'FlightDetailsSegment(airlineCode: $airlineCode, airlineName: $airlineName, airlineFlightClass: $airlineFlightClass, departureAirportCode: $departureAirportCode, departureTime: $departureTime, departureDate: $departureDate, departureAirport: $departureAirport, departureCity: $departureCity, arrivalAirportCode: $arrivalAirportCode, arrivalTime: $arrivalTime, arrivalDate: $arrivalDate, arrivalAirport: $arrivalAirport, arrivalCity: $arrivalCity, travelDuration: $travelDuration, layoverTime: $layoverTime)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FlightDetailsSegment &&
+            (identical(other.airlineCode, airlineCode) ||
+                other.airlineCode == airlineCode) &&
+            (identical(other.airlineName, airlineName) ||
+                other.airlineName == airlineName) &&
+            (identical(other.airlineFlightClass, airlineFlightClass) ||
+                other.airlineFlightClass == airlineFlightClass) &&
+            (identical(other.departureAirportCode, departureAirportCode) ||
+                other.departureAirportCode == departureAirportCode) &&
+            (identical(other.departureTime, departureTime) ||
+                other.departureTime == departureTime) &&
+            (identical(other.departureDate, departureDate) ||
+                other.departureDate == departureDate) &&
+            (identical(other.departureAirport, departureAirport) ||
+                other.departureAirport == departureAirport) &&
+            (identical(other.departureCity, departureCity) ||
+                other.departureCity == departureCity) &&
+            (identical(other.arrivalAirportCode, arrivalAirportCode) ||
+                other.arrivalAirportCode == arrivalAirportCode) &&
+            (identical(other.arrivalTime, arrivalTime) ||
+                other.arrivalTime == arrivalTime) &&
+            (identical(other.arrivalDate, arrivalDate) ||
+                other.arrivalDate == arrivalDate) &&
+            (identical(other.arrivalAirport, arrivalAirport) ||
+                other.arrivalAirport == arrivalAirport) &&
+            (identical(other.arrivalCity, arrivalCity) ||
+                other.arrivalCity == arrivalCity) &&
+            (identical(other.travelDuration, travelDuration) ||
+                other.travelDuration == travelDuration) &&
+            (identical(other.layoverTime, layoverTime) ||
+                other.layoverTime == layoverTime));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      airlineCode,
+      airlineName,
+      airlineFlightClass,
+      departureAirportCode,
+      departureTime,
+      departureDate,
+      departureAirport,
+      departureCity,
+      arrivalAirportCode,
+      arrivalTime,
+      arrivalDate,
+      arrivalAirport,
+      arrivalCity,
+      travelDuration,
+      layoverTime);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FlightDetailsSegmentCopyWith<_$_FlightDetailsSegment> get copyWith =>
+      __$$_FlightDetailsSegmentCopyWithImpl<_$_FlightDetailsSegment>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FlightDetailsSegmentToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FlightDetailsSegment implements FlightDetailsSegment {
+  const factory _FlightDetailsSegment(
+      {final String? airlineCode,
+      final String? airlineName,
+      final String? airlineFlightClass,
+      final String? departureAirportCode,
+      final String? departureTime,
+      final String? departureDate,
+      final String? departureAirport,
+      final String? departureCity,
+      final String? arrivalAirportCode,
+      final String? arrivalTime,
+      final String? arrivalDate,
+      final String? arrivalAirport,
+      final String? arrivalCity,
+      final String? travelDuration,
+      final String? layoverTime}) = _$_FlightDetailsSegment;
+
+  factory _FlightDetailsSegment.fromJson(Map<String, dynamic> json) =
+      _$_FlightDetailsSegment.fromJson;
+
+  @override
+  String? get airlineCode;
+  @override
+  String? get airlineName;
+  @override
+  String? get airlineFlightClass;
+  @override
+  String? get departureAirportCode;
+  @override
+  String? get departureTime;
+  @override
+  String? get departureDate;
+  @override
+  String? get departureAirport;
+  @override
+  String? get departureCity;
+  @override
+  String? get arrivalAirportCode;
+  @override
+  String? get arrivalTime;
+  @override
+  String? get arrivalDate;
+  @override
+  String? get arrivalAirport;
+  @override
+  String? get arrivalCity;
+  @override
+  String? get travelDuration;
+  @override
+  String? get layoverTime;
+  @override
+  @JsonKey(ignore: true)
+  _$$_FlightDetailsSegmentCopyWith<_$_FlightDetailsSegment> get copyWith =>
       throw _privateConstructorUsedError;
 }

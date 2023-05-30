@@ -391,7 +391,7 @@ class SearchApi {
           headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
-      //  log(resultAsJson.toString());
+      log(resultAsJson.toString());
       final responseModel = FlightDetailsResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
