@@ -583,12 +583,11 @@ mixin _$AirlineSearchResponse {
   String? get origin => throw _privateConstructorUsedError;
   String? get destination => throw _privateConstructorUsedError;
   String? get airlineClass => throw _privateConstructorUsedError;
-  String? get departureDate => throw _privateConstructorUsedError;
+  DateTime? get departureDate => throw _privateConstructorUsedError;
   String? get returnDate => throw _privateConstructorUsedError;
-  int? get adult => throw _privateConstructorUsedError;
-  int? get child => throw _privateConstructorUsedError;
-  int? get infant => throw _privateConstructorUsedError;
-  int? get passengers => throw _privateConstructorUsedError;
+  num? get adult => throw _privateConstructorUsedError;
+  num? get child => throw _privateConstructorUsedError;
+  num? get infant => throw _privateConstructorUsedError;
   List<LowestFare>? get objlowfareList => throw _privateConstructorUsedError;
   double? get minimumFare => throw _privateConstructorUsedError;
   double? get maximumFare => throw _privateConstructorUsedError;
@@ -615,12 +614,11 @@ abstract class $AirlineSearchResponseCopyWith<$Res> {
       String? origin,
       String? destination,
       String? airlineClass,
-      String? departureDate,
+      DateTime? departureDate,
       String? returnDate,
-      int? adult,
-      int? child,
-      int? infant,
-      int? passengers,
+      num? adult,
+      num? child,
+      num? infant,
       List<LowestFare>? objlowfareList,
       double? minimumFare,
       double? maximumFare,
@@ -652,7 +650,6 @@ class _$AirlineSearchResponseCopyWithImpl<$Res,
     Object? adult = freezed,
     Object? child = freezed,
     Object? infant = freezed,
-    Object? passengers = freezed,
     Object? objlowfareList = freezed,
     Object? minimumFare = freezed,
     Object? maximumFare = freezed,
@@ -683,7 +680,7 @@ class _$AirlineSearchResponseCopyWithImpl<$Res,
       departureDate: freezed == departureDate
           ? _value.departureDate
           : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       returnDate: freezed == returnDate
           ? _value.returnDate
           : returnDate // ignore: cast_nullable_to_non_nullable
@@ -691,19 +688,15 @@ class _$AirlineSearchResponseCopyWithImpl<$Res,
       adult: freezed == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       infant: freezed == infant
           ? _value.infant
           : infant // ignore: cast_nullable_to_non_nullable
-              as int?,
-      passengers: freezed == passengers
-          ? _value.passengers
-          : passengers // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       objlowfareList: freezed == objlowfareList
           ? _value.objlowfareList
           : objlowfareList // ignore: cast_nullable_to_non_nullable
@@ -742,12 +735,11 @@ abstract class _$$_AirlineSearchResponseCopyWith<$Res>
       String? origin,
       String? destination,
       String? airlineClass,
-      String? departureDate,
+      DateTime? departureDate,
       String? returnDate,
-      int? adult,
-      int? child,
-      int? infant,
-      int? passengers,
+      num? adult,
+      num? child,
+      num? infant,
       List<LowestFare>? objlowfareList,
       double? minimumFare,
       double? maximumFare,
@@ -776,7 +768,6 @@ class __$$_AirlineSearchResponseCopyWithImpl<$Res>
     Object? adult = freezed,
     Object? child = freezed,
     Object? infant = freezed,
-    Object? passengers = freezed,
     Object? objlowfareList = freezed,
     Object? minimumFare = freezed,
     Object? maximumFare = freezed,
@@ -807,7 +798,7 @@ class __$$_AirlineSearchResponseCopyWithImpl<$Res>
       departureDate: freezed == departureDate
           ? _value.departureDate
           : departureDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       returnDate: freezed == returnDate
           ? _value.returnDate
           : returnDate // ignore: cast_nullable_to_non_nullable
@@ -815,19 +806,15 @@ class __$$_AirlineSearchResponseCopyWithImpl<$Res>
       adult: freezed == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       infant: freezed == infant
           ? _value.infant
           : infant // ignore: cast_nullable_to_non_nullable
-              as int?,
-      passengers: freezed == passengers
-          ? _value.passengers
-          : passengers // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       objlowfareList: freezed == objlowfareList
           ? _value._objlowfareList
           : objlowfareList // ignore: cast_nullable_to_non_nullable
@@ -866,7 +853,6 @@ class _$_AirlineSearchResponse implements _AirlineSearchResponse {
       this.adult,
       this.child,
       this.infant,
-      this.passengers,
       final List<LowestFare>? objlowfareList,
       this.minimumFare,
       this.maximumFare,
@@ -890,17 +876,15 @@ class _$_AirlineSearchResponse implements _AirlineSearchResponse {
   @override
   final String? airlineClass;
   @override
-  final String? departureDate;
+  final DateTime? departureDate;
   @override
   final String? returnDate;
   @override
-  final int? adult;
+  final num? adult;
   @override
-  final int? child;
+  final num? child;
   @override
-  final int? infant;
-  @override
-  final int? passengers;
+  final num? infant;
   final List<LowestFare>? _objlowfareList;
   @override
   List<LowestFare>? get objlowfareList {
@@ -938,7 +922,7 @@ class _$_AirlineSearchResponse implements _AirlineSearchResponse {
 
   @override
   String toString() {
-    return 'AirlineSearchResponse(status: $status, responseMessage: $responseMessage, origin: $origin, destination: $destination, airlineClass: $airlineClass, departureDate: $departureDate, returnDate: $returnDate, adult: $adult, child: $child, infant: $infant, passengers: $passengers, objlowfareList: $objlowfareList, minimumFare: $minimumFare, maximumFare: $maximumFare, objAvlairlineList: $objAvlairlineList, objItinList: $objItinList)';
+    return 'AirlineSearchResponse(status: $status, responseMessage: $responseMessage, origin: $origin, destination: $destination, airlineClass: $airlineClass, departureDate: $departureDate, returnDate: $returnDate, adult: $adult, child: $child, infant: $infant, objlowfareList: $objlowfareList, minimumFare: $minimumFare, maximumFare: $maximumFare, objAvlairlineList: $objAvlairlineList, objItinList: $objItinList)';
   }
 
   @override
@@ -961,8 +945,6 @@ class _$_AirlineSearchResponse implements _AirlineSearchResponse {
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.child, child) || other.child == child) &&
             (identical(other.infant, infant) || other.infant == infant) &&
-            (identical(other.passengers, passengers) ||
-                other.passengers == passengers) &&
             const DeepCollectionEquality()
                 .equals(other._objlowfareList, _objlowfareList) &&
             (identical(other.minimumFare, minimumFare) ||
@@ -989,7 +971,6 @@ class _$_AirlineSearchResponse implements _AirlineSearchResponse {
       adult,
       child,
       infant,
-      passengers,
       const DeepCollectionEquality().hash(_objlowfareList),
       minimumFare,
       maximumFare,
@@ -1018,12 +999,11 @@ abstract class _AirlineSearchResponse implements AirlineSearchResponse {
       final String? origin,
       final String? destination,
       final String? airlineClass,
-      final String? departureDate,
+      final DateTime? departureDate,
       final String? returnDate,
-      final int? adult,
-      final int? child,
-      final int? infant,
-      final int? passengers,
+      final num? adult,
+      final num? child,
+      final num? infant,
       final List<LowestFare>? objlowfareList,
       final double? minimumFare,
       final double? maximumFare,
@@ -1044,17 +1024,15 @@ abstract class _AirlineSearchResponse implements AirlineSearchResponse {
   @override
   String? get airlineClass;
   @override
-  String? get departureDate;
+  DateTime? get departureDate;
   @override
   String? get returnDate;
   @override
-  int? get adult;
+  num? get adult;
   @override
-  int? get child;
+  num? get child;
   @override
-  int? get infant;
-  @override
-  int? get passengers;
+  num? get infant;
   @override
   List<LowestFare>? get objlowfareList;
   @override
@@ -1427,7 +1405,7 @@ Apisearchresponse _$ApisearchresponseFromJson(Map<String, dynamic> json) {
 mixin _$Apisearchresponse {
   int? get itinId => throw _privateConstructorUsedError;
   String? get providerCode => throw _privateConstructorUsedError;
-  String? get airlineName => throw _privateConstructorUsedError; //
+  String? get airlineName => throw _privateConstructorUsedError;
   String? get airlineCode => throw _privateConstructorUsedError;
   String? get flightDetails => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
@@ -1839,7 +1817,6 @@ class _$_Apisearchresponse implements _Apisearchresponse {
   final String? providerCode;
   @override
   final String? airlineName;
-//
   @override
   final String? airlineCode;
   @override
@@ -2027,7 +2004,7 @@ abstract class _Apisearchresponse implements Apisearchresponse {
   String? get providerCode;
   @override
   String? get airlineName;
-  @override //
+  @override
   String? get airlineCode;
   @override
   String? get flightDetails;
@@ -5712,6 +5689,7 @@ PricingMealSegment _$PricingMealSegmentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PricingMealSegment {
   String? get sectorCode => throw _privateConstructorUsedError;
+  String? get tripMode => throw _privateConstructorUsedError;
   List<MealSearchResult>? get objmealList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -5726,7 +5704,10 @@ abstract class $PricingMealSegmentCopyWith<$Res> {
           PricingMealSegment value, $Res Function(PricingMealSegment) then) =
       _$PricingMealSegmentCopyWithImpl<$Res, PricingMealSegment>;
   @useResult
-  $Res call({String? sectorCode, List<MealSearchResult>? objmealList});
+  $Res call(
+      {String? sectorCode,
+      String? tripMode,
+      List<MealSearchResult>? objmealList});
 }
 
 /// @nodoc
@@ -5743,12 +5724,17 @@ class _$PricingMealSegmentCopyWithImpl<$Res, $Val extends PricingMealSegment>
   @override
   $Res call({
     Object? sectorCode = freezed,
+    Object? tripMode = freezed,
     Object? objmealList = freezed,
   }) {
     return _then(_value.copyWith(
       sectorCode: freezed == sectorCode
           ? _value.sectorCode
           : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
               as String?,
       objmealList: freezed == objmealList
           ? _value.objmealList
@@ -5766,7 +5752,10 @@ abstract class _$$_PricingMealSegmentCopyWith<$Res>
       __$$_PricingMealSegmentCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? sectorCode, List<MealSearchResult>? objmealList});
+  $Res call(
+      {String? sectorCode,
+      String? tripMode,
+      List<MealSearchResult>? objmealList});
 }
 
 /// @nodoc
@@ -5781,12 +5770,17 @@ class __$$_PricingMealSegmentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sectorCode = freezed,
+    Object? tripMode = freezed,
     Object? objmealList = freezed,
   }) {
     return _then(_$_PricingMealSegment(
       sectorCode: freezed == sectorCode
           ? _value.sectorCode
           : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
               as String?,
       objmealList: freezed == objmealList
           ? _value._objmealList
@@ -5800,7 +5794,9 @@ class __$$_PricingMealSegmentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PricingMealSegment implements _PricingMealSegment {
   const _$_PricingMealSegment(
-      {this.sectorCode, final List<MealSearchResult>? objmealList})
+      {this.sectorCode,
+      this.tripMode,
+      final List<MealSearchResult>? objmealList})
       : _objmealList = objmealList;
 
   factory _$_PricingMealSegment.fromJson(Map<String, dynamic> json) =>
@@ -5808,6 +5804,8 @@ class _$_PricingMealSegment implements _PricingMealSegment {
 
   @override
   final String? sectorCode;
+  @override
+  final String? tripMode;
   final List<MealSearchResult>? _objmealList;
   @override
   List<MealSearchResult>? get objmealList {
@@ -5820,7 +5818,7 @@ class _$_PricingMealSegment implements _PricingMealSegment {
 
   @override
   String toString() {
-    return 'PricingMealSegment(sectorCode: $sectorCode, objmealList: $objmealList)';
+    return 'PricingMealSegment(sectorCode: $sectorCode, tripMode: $tripMode, objmealList: $objmealList)';
   }
 
   @override
@@ -5830,13 +5828,15 @@ class _$_PricingMealSegment implements _PricingMealSegment {
             other is _$_PricingMealSegment &&
             (identical(other.sectorCode, sectorCode) ||
                 other.sectorCode == sectorCode) &&
+            (identical(other.tripMode, tripMode) ||
+                other.tripMode == tripMode) &&
             const DeepCollectionEquality()
                 .equals(other._objmealList, _objmealList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sectorCode,
+  int get hashCode => Object.hash(runtimeType, sectorCode, tripMode,
       const DeepCollectionEquality().hash(_objmealList));
 
   @JsonKey(ignore: true)
@@ -5857,6 +5857,7 @@ class _$_PricingMealSegment implements _PricingMealSegment {
 abstract class _PricingMealSegment implements PricingMealSegment {
   const factory _PricingMealSegment(
       {final String? sectorCode,
+      final String? tripMode,
       final List<MealSearchResult>? objmealList}) = _$_PricingMealSegment;
 
   factory _PricingMealSegment.fromJson(Map<String, dynamic> json) =
@@ -5864,6 +5865,8 @@ abstract class _PricingMealSegment implements PricingMealSegment {
 
   @override
   String? get sectorCode;
+  @override
+  String? get tripMode;
   @override
   List<MealSearchResult>? get objmealList;
   @override
@@ -6068,6 +6071,7 @@ PricingBaggageSegment _$PricingBaggageSegmentFromJson(
 /// @nodoc
 mixin _$PricingBaggageSegment {
   String? get sectorCode => throw _privateConstructorUsedError;
+  String? get tripMode => throw _privateConstructorUsedError;
   List<BaggageSearchResult>? get objbaggageList =>
       throw _privateConstructorUsedError;
 
@@ -6083,7 +6087,10 @@ abstract class $PricingBaggageSegmentCopyWith<$Res> {
           $Res Function(PricingBaggageSegment) then) =
       _$PricingBaggageSegmentCopyWithImpl<$Res, PricingBaggageSegment>;
   @useResult
-  $Res call({String? sectorCode, List<BaggageSearchResult>? objbaggageList});
+  $Res call(
+      {String? sectorCode,
+      String? tripMode,
+      List<BaggageSearchResult>? objbaggageList});
 }
 
 /// @nodoc
@@ -6101,12 +6108,17 @@ class _$PricingBaggageSegmentCopyWithImpl<$Res,
   @override
   $Res call({
     Object? sectorCode = freezed,
+    Object? tripMode = freezed,
     Object? objbaggageList = freezed,
   }) {
     return _then(_value.copyWith(
       sectorCode: freezed == sectorCode
           ? _value.sectorCode
           : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
               as String?,
       objbaggageList: freezed == objbaggageList
           ? _value.objbaggageList
@@ -6124,7 +6136,10 @@ abstract class _$$_PricingBaggageSegmentCopyWith<$Res>
       __$$_PricingBaggageSegmentCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? sectorCode, List<BaggageSearchResult>? objbaggageList});
+  $Res call(
+      {String? sectorCode,
+      String? tripMode,
+      List<BaggageSearchResult>? objbaggageList});
 }
 
 /// @nodoc
@@ -6139,12 +6154,17 @@ class __$$_PricingBaggageSegmentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sectorCode = freezed,
+    Object? tripMode = freezed,
     Object? objbaggageList = freezed,
   }) {
     return _then(_$_PricingBaggageSegment(
       sectorCode: freezed == sectorCode
           ? _value.sectorCode
           : sectorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
               as String?,
       objbaggageList: freezed == objbaggageList
           ? _value._objbaggageList
@@ -6158,7 +6178,9 @@ class __$$_PricingBaggageSegmentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PricingBaggageSegment implements _PricingBaggageSegment {
   const _$_PricingBaggageSegment(
-      {this.sectorCode, final List<BaggageSearchResult>? objbaggageList})
+      {this.sectorCode,
+      this.tripMode,
+      final List<BaggageSearchResult>? objbaggageList})
       : _objbaggageList = objbaggageList;
 
   factory _$_PricingBaggageSegment.fromJson(Map<String, dynamic> json) =>
@@ -6166,6 +6188,8 @@ class _$_PricingBaggageSegment implements _PricingBaggageSegment {
 
   @override
   final String? sectorCode;
+  @override
+  final String? tripMode;
   final List<BaggageSearchResult>? _objbaggageList;
   @override
   List<BaggageSearchResult>? get objbaggageList {
@@ -6178,7 +6202,7 @@ class _$_PricingBaggageSegment implements _PricingBaggageSegment {
 
   @override
   String toString() {
-    return 'PricingBaggageSegment(sectorCode: $sectorCode, objbaggageList: $objbaggageList)';
+    return 'PricingBaggageSegment(sectorCode: $sectorCode, tripMode: $tripMode, objbaggageList: $objbaggageList)';
   }
 
   @override
@@ -6188,13 +6212,15 @@ class _$_PricingBaggageSegment implements _PricingBaggageSegment {
             other is _$_PricingBaggageSegment &&
             (identical(other.sectorCode, sectorCode) ||
                 other.sectorCode == sectorCode) &&
+            (identical(other.tripMode, tripMode) ||
+                other.tripMode == tripMode) &&
             const DeepCollectionEquality()
                 .equals(other._objbaggageList, _objbaggageList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sectorCode,
+  int get hashCode => Object.hash(runtimeType, sectorCode, tripMode,
       const DeepCollectionEquality().hash(_objbaggageList));
 
   @JsonKey(ignore: true)
@@ -6215,6 +6241,7 @@ class _$_PricingBaggageSegment implements _PricingBaggageSegment {
 abstract class _PricingBaggageSegment implements PricingBaggageSegment {
   const factory _PricingBaggageSegment(
           {final String? sectorCode,
+          final String? tripMode,
           final List<BaggageSearchResult>? objbaggageList}) =
       _$_PricingBaggageSegment;
 
@@ -6223,6 +6250,8 @@ abstract class _PricingBaggageSegment implements PricingBaggageSegment {
 
   @override
   String? get sectorCode;
+  @override
+  String? get tripMode;
   @override
   List<BaggageSearchResult>? get objbaggageList;
   @override

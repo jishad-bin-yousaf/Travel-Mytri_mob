@@ -43,12 +43,11 @@ class AirlineSearchResponse with _$AirlineSearchResponse {
     String? origin,
     String? destination,
     String? airlineClass,
-    String? departureDate,
+    DateTime? departureDate,
     String? returnDate,
-    int? adult,
-    int? child,
-    int? infant,
-    int? passengers,
+    num? adult,
+    num? child,
+    num? infant,
     List<LowestFare>? objlowfareList,
     double? minimumFare,
     double? maximumFare,
@@ -300,6 +299,7 @@ class PricingDetailsList with _$PricingDetailsList {
 class PricingMealSegment with _$PricingMealSegment {
   const factory PricingMealSegment({
     String? sectorCode,
+    String? tripMode,
     List<MealSearchResult>? objmealList,
   }) = _PricingMealSegment;
 
@@ -322,6 +322,7 @@ class MealSearchResult with _$MealSearchResult {
 class PricingBaggageSegment with _$PricingBaggageSegment {
   const factory PricingBaggageSegment({
     String? sectorCode,
+    String? tripMode,
     List<BaggageSearchResult>? objbaggageList,
   }) = _PricingBaggageSegment;
 

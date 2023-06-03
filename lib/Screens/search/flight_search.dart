@@ -507,8 +507,8 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
             boxShadow: [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.25), offset: Offset(0, 1), blurRadius: 1)],
           ),
 
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -529,7 +529,10 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                     ),
                   ),
                   Text(
-                    data?.airlineName ?? "Air india",
+                    data?.airlineName ?? "",
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 12),
                   ),
                 ],
@@ -543,7 +546,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(data?.departureTime ?? '32:22', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                          Text(data?.departureTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                           Text(data?.duration ?? ' hr min', style: const TextStyle(fontSize: 11)),
                         ],
                       ),
@@ -551,7 +554,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(data?.arrivalTime ?? '32:22', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                          Text(data?.arrivalTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                           Text(
                             data?.noofStop != 0 && data?.noofStop != null ? "${data?.noofStop} stop" : 'Non-stop',
                             style: const TextStyle(fontSize: 11),
@@ -569,22 +572,9 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "₹${data?.netAmount ?? '736t#'}",
+                          "₹${data?.netAmount ?? ''}",
                           style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20),
                         ),
-                        (data?.pricingList?.length ?? 0) > 1
-                            ? InkWell(
-                                onTap: () {
-                                  selectedIdx = isSelected ? -1 : index;
-                                  flightDetails = false;
-                                  setState(() {});
-                                },
-                                child: Text(
-                                  "More Fares",
-                                  style: TextStyle(color: primaryColor, fontSize: 12),
-                                ),
-                              )
-                            : const SizedBox()
                       ],
                     ),
                   ),
@@ -1139,7 +1129,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 4.0),
                                         child: Text(
-                                          data?.origin ?? 'N/A',
+                                          data?.source ?? 'N/A',
                                           style: const TextStyle(fontSize: 17),
                                         ),
                                       ),

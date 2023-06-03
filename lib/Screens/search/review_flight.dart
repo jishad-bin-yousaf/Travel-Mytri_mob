@@ -22,12 +22,7 @@ class ScreenReviewFlight extends StatelessWidget {
                 children: [
                   TextButton.icon(
                       onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Column();
-                          },
-                        );
+                        pricingBottomSheet(context, data);
                       },
                       label: Icon(
                         Icons.info_outline,
@@ -37,7 +32,9 @@ class ScreenReviewFlight extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  pricingBottomSheet(context, data);
+                },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(150, 50),
                   backgroundColor: secondaryColor,
@@ -182,7 +179,7 @@ class ScreenReviewFlight extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/travellerDetails');
+                      Navigator.of(context).pushNamed('/travellerDetails', arguments: data);
                     },
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
@@ -211,6 +208,37 @@ class ScreenReviewFlight extends StatelessWidget {
     );
   }
 
+  Future<dynamic> pricingBottomSheet(BuildContext context, PricingResponse data) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Fare Summary",
+                    style: TextStyle(fontSize: 23),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close)),
+                ],
+              ),
+              Card(child: Text("${data.finalAmount ?? ''}"))
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   Column travellerContact() {
     return Column(
       children: [
@@ -225,29 +253,6 @@ class ScreenReviewFlight extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Alternate Contact Number")),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Email ID")),
-          ),
-        ),
-      ],
-    );
-  }
-
-  travellerDetails() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            TextField(
-              decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Contact Number")),
-            ),
-            TextField(
-              decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Alternate Contact Number")),
-            ),
-          ],
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

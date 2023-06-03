@@ -922,6 +922,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     itemBuilder: (context, itemData) => ListTile(
                           title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.cityCode?.toUpperCase() ?? ''}"),
                           subtitle: Text(itemData.airportName ?? ''),
+                          trailing: Text(itemData.countryCode ?? ''),
                         ),
                     textFieldConfiguration: TextFieldConfiguration(
                       autofocus: true,
@@ -998,6 +999,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                   itemBuilder: (context, itemData) => ListTile(
                         title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.cityCode?.toUpperCase() ?? ''}"),
                         subtitle: Text(itemData.airportName ?? ''),
+                        trailing: Text(itemData.countryCode ?? ''),
                       ),
                   textFieldConfiguration: TextFieldConfiguration(
                     autofocus: true,

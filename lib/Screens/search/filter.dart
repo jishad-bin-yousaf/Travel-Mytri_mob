@@ -532,11 +532,10 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
             padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-
-                  // filterFlights().then((value) {
-                  //   print(value);
-                  // });
+                  filterFlights().then((value) {
+                    print(value);
+                    Navigator.pop(context);
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(150, 50),
@@ -554,33 +553,35 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
 
   Future<List<Apisearchresponse>> filterFlights() async {
     List<Apisearchresponse> data = widget.airlineSearchResponse.objItinList ?? [];
-    List<Apisearchresponse> filteringList = List.from(data);
+    List<Apisearchresponse> filteringList = [];
     List<Apisearchresponse> filteredList = [];
-    if (isRefundable) {
-      filteringList.addAll(data.where((item) => item.refundable == "refundable").toList());
-      log(isRefundable.toString());
-    }
-    if (priceFilter) {
-      filteringList.addAll(filteringList.where((item) => ((item.netAmount ?? 0) >= (startCurrentValue ?? 0) && (item.netAmount ?? 0) <= (endCurrentValue ?? 0))).toList());
-    }
-
     if (filterFlightCodeList.isNotEmpty) {
       log("Working");
       log("$filterFlightCodeList");
       List<Apisearchresponse> tempFilteredList = [];
       for (int i = 0; i < filterFlightCodeList.length; i++) {
-        tempFilteredList.addAll(filteringList.where((item) => item.airlineCode == filterFlightCodeList[i]));
+        tempFilteredList.addAll(data.where((item) => item.airlineCode == filterFlightCodeList[i]));
       }
-      filteringList.addAll(tempFilteredList);
+      data = tempFilteredList;
+      //  filteringList.addAll(tempFilteredList);
     }
+
+    if (isRefundable) {
+      filteringList.addAll(data.where((item) => item.refundable == "refundable").toList());
+      log(isRefundable.toString());
+    }
+    if (priceFilter) {
+      filteringList.addAll(data.where((item) => ((item.netAmount ?? 0) >= (startCurrentValue ?? 0) && (item.netAmount ?? 0) <= (endCurrentValue ?? 0))).toList());
+    }
+
     if (nonStop) {
-      filteringList.addAll(filteringList.where((item) => item.noofStop == 0));
+      filteringList.addAll(data.where((item) => item.noofStop == 0));
     }
     if (oneStop) {
-      filteringList.addAll(filteringList.where((item) => item.noofStop == 1));
+      filteringList.addAll(data.where((item) => item.noofStop == 1));
     }
     if (twoStop) {
-      filteringList.addAll(filteringList.where((item) => item.noofStop == 2));
+      filteringList.addAll(data.where((item) => item.noofStop == 2));
     }
     filteredList = filteringList.map((item) => item.itinId).toSet().map((itemId) {
       return filteringList.firstWhere((item) => item.itinId == itemId);

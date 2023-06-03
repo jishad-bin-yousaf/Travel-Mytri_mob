@@ -45,12 +45,14 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
             ),
           ]),
+          data.departureDate != null
+              ? Text(
+                  '\t${DateFormat('dd MMMM').format(data.departureDate!)}',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
+                )
+              : SizedBox(),
           Text(
-            '\t${data.departureDate ?? "Date"}',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
-          ),
-          Text(
-            " [\t${data.passengers ?? "0"} Traveller]",
+            " [\t${(data.adult ?? 0 + (data.child ?? 0) + (data.infant ?? 0))}Traveller]",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
           ),
           Text(

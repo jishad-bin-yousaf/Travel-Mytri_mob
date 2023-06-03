@@ -67,12 +67,13 @@ _$_AirlineSearchResponse _$$_AirlineSearchResponseFromJson(
       origin: json['origin'] as String?,
       destination: json['destination'] as String?,
       airlineClass: json['airlineClass'] as String?,
-      departureDate: json['departureDate'] as String?,
+      departureDate: json['departureDate'] == null
+          ? null
+          : DateTime.parse(json['departureDate'] as String),
       returnDate: json['returnDate'] as String?,
-      adult: json['adult'] as int?,
-      child: json['child'] as int?,
-      infant: json['infant'] as int?,
-      passengers: json['passengers'] as int?,
+      adult: json['adult'] as num?,
+      child: json['child'] as num?,
+      infant: json['infant'] as num?,
       objlowfareList: (json['objlowfareList'] as List<dynamic>?)
           ?.map((e) => LowestFare.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -94,12 +95,11 @@ Map<String, dynamic> _$$_AirlineSearchResponseToJson(
       'origin': instance.origin,
       'destination': instance.destination,
       'airlineClass': instance.airlineClass,
-      'departureDate': instance.departureDate,
+      'departureDate': instance.departureDate?.toIso8601String(),
       'returnDate': instance.returnDate,
       'adult': instance.adult,
       'child': instance.child,
       'infant': instance.infant,
-      'passengers': instance.passengers,
       'objlowfareList': instance.objlowfareList,
       'minimumFare': instance.minimumFare,
       'maximumFare': instance.maximumFare,
@@ -539,6 +539,7 @@ _$_PricingMealSegment _$$_PricingMealSegmentFromJson(
         Map<String, dynamic> json) =>
     _$_PricingMealSegment(
       sectorCode: json['sectorCode'] as String?,
+      tripMode: json['tripMode'] as String?,
       objmealList: (json['objmealList'] as List<dynamic>?)
           ?.map((e) => MealSearchResult.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -548,6 +549,7 @@ Map<String, dynamic> _$$_PricingMealSegmentToJson(
         _$_PricingMealSegment instance) =>
     <String, dynamic>{
       'sectorCode': instance.sectorCode,
+      'tripMode': instance.tripMode,
       'objmealList': instance.objmealList,
     };
 
@@ -571,6 +573,7 @@ _$_PricingBaggageSegment _$$_PricingBaggageSegmentFromJson(
         Map<String, dynamic> json) =>
     _$_PricingBaggageSegment(
       sectorCode: json['sectorCode'] as String?,
+      tripMode: json['tripMode'] as String?,
       objbaggageList: (json['objbaggageList'] as List<dynamic>?)
           ?.map((e) => BaggageSearchResult.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -580,6 +583,7 @@ Map<String, dynamic> _$$_PricingBaggageSegmentToJson(
         _$_PricingBaggageSegment instance) =>
     <String, dynamic>{
       'sectorCode': instance.sectorCode,
+      'tripMode': instance.tripMode,
       'objbaggageList': instance.objbaggageList,
     };
 
