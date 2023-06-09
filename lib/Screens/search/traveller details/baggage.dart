@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
-import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
+import '../../../data/model/Search/pricing_models.dart';
 
 class BaggageDetailsPage extends StatefulWidget {
   BaggageDetailsPage(this.data, {super.key});
@@ -11,12 +11,34 @@ class BaggageDetailsPage extends StatefulWidget {
 
 class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
   int sectionIndex = 0;
-
   int selectedIndexBag = -1;
   int selectedIndexSector = -1;
+  List<SSRBaggage> baggageList = [];
+
+  @override
+  void initState() {
+    baggageList = List.generate(widget.data?.length ?? 0, (index) => SSRBaggage());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: InkWell(
+          onTap: () {
+            Navigator.pop(context, baggageList);
+          },
+          child: Container(
+            color: primaryColor,
+            height: 80,
+            width: double.infinity,
+            child: const Center(
+                child: Text(
+              "CONTINUE",
+              style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
+            )),
+          )),
       appBar: AppBar(
         title: Text("Add Baggage"),
       ),
@@ -37,8 +59,9 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                     onPressed: () {
                       selectedIndexSector = isSelected ? -1 : index;
                       selectedIndexBag = -1;
-
                       sectionIndex = index;
+                      baggageList[index].segmentCode = widget.data?[index].sectorCode;
+                      baggageList[index].tripMode = widget.data?[index].tripMode;
                       setState(() {});
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: isSelected ? secondaryColor : Colors.grey.shade300),
@@ -72,6 +95,15 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                     return InkWell(
                         onTap: () {
                           selectedIndexBag = isSelected ? -1 : index;
+                          if (isSelected) {
+                            baggageList[sectionIndex].name = widget.data?[sectionIndex].objbaggageList?[index].name;
+                            baggageList[sectionIndex].amount = widget.data?[sectionIndex].objbaggageList?[index].amount;
+                            baggageList[sectionIndex].key = widget.data?[sectionIndex].objbaggageList?[index].code;
+                          } else {
+                            baggageList[sectionIndex].name = '';
+                            baggageList[sectionIndex].amount = 0;
+                            baggageList[sectionIndex].key = '';
+                          }
                           setState(() {});
                         },
                         child: Container(

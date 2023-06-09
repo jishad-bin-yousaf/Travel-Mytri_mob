@@ -5,7 +5,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/Home/home_screen.dart';
-import 'package:travel_mytri_mobile_v1/Screens/Login/otp_screen.dart';
 import 'package:travel_mytri_mobile_v1/Screens/My%20Trips/my_trips_screen.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: routes,
       initialRoute: '/',
-      // home: const SplashScreen(),
+      //    home: ConfirmationScreen(),
     );
   }
 }
@@ -82,11 +81,16 @@ class _SplashScreenState extends State<SplashScreen> {
             }
               //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
               )
-          : Future.delayed(const Duration(seconds: 5), () {
+          : Future.delayed(const Duration(seconds: 2), () {
               getToken().then((value) {
-                Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+                Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
               });
             }
+              // Future.delayed(const Duration(seconds: 5), () {
+              //     getToken().then((value) {
+              //       Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+              //     });
+              //   }
               //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
               );
     });
@@ -133,8 +137,8 @@ class LaunchScreen extends StatelessWidget {
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
   final _pages = [
-    const ScreenHome(),
-    const ScreenHome(),
+    ScreenHome(),
+    ScreenHome(),
     // const ScreenProfile(),
     ScreenMyTrips(),
     ScreenMyTrips(),

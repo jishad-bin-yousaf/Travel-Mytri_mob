@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:hive/hive.dart';
 
-import 'Search/flight_search_model.dart';
 part '../gen/hive_class_functions.g.dart';
 
 @HiveType(typeId: 1)
 class Token {
   @HiveField(0)
   String? token;
+  @HiveField(1)
+  bool? isUser;
 }
 
 Future<String> setToken(Token token) async {
@@ -41,15 +42,15 @@ Future<String> setToken(Token token) async {
   return '';
 }
 
-Future<String> getToken() async {
+Future<Token> getToken() async {
   final tokenDB = await Hive.openBox<Token>("token_DB");
   print(tokenDB.length);
   try {
-    final token = tokenDB.values.first.token;
+    final token = tokenDB.values.first;
     // log(tokenDB.values.first.token.toString());
     // tokenDB.close();
 
-    return token ?? '';
+    return token;
   } catch (e) {
     // log(tokenDB.values.first.token.toString());
     tokenDB.close();
@@ -58,5 +59,5 @@ Future<String> getToken() async {
   }
   // tokenDB.close();
 
-  return "";
+  return Token();
 }

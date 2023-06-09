@@ -20,9 +20,12 @@ class PassportDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Passport Details")),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text("Passport Details"),
+      ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             const Padding(
               padding: EdgeInsets.all(15.0),
@@ -92,8 +95,8 @@ class PassportDetailsPage extends StatelessWidget {
                       context: context,
                       currentDate: DateTime.now(),
                       initialDate: DateTime.now() /* .subtract(const Duration(days: 30)) */, //get today's date
-                      firstDate: DateTime.now(), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      firstDate: DateTime(1920), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime.now(),
                     );
 
                     pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
@@ -155,7 +158,7 @@ class PassportDetailsPage extends StatelessWidget {
                       currentDate: DateTime.now(),
                       initialDate: DateTime.now() /* .subtract(const Duration(days: 30)) */, //get today's date
                       firstDate: DateTime.now(), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      lastDate: DateTime(2100),
                     );
 
                     pickedFromDate != null ? dateOfExpiryController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';

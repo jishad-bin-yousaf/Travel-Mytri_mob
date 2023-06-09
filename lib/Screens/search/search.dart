@@ -214,6 +214,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
   DateTime? returnDate;
 
+  bool isLoadingPage = false;
+
   @override
   void initState() {
     AirlineApi().getAirport().then((value) {
@@ -237,13 +239,17 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(30),
-        children: [
-          selectTripType(),
-          multiCity ? MultiCity() : oneWayAndRoundTrip(context),
-        ],
-      ),
+      child: isLoadingPage
+          ? Image.network(
+              "https://cdn.dribbble.com/users/1897663/screenshots/4062673/plane_800x600.gif",
+            )
+          : ListView(
+              padding: const EdgeInsets.all(30),
+              children: [
+                selectTripType(),
+                multiCity ? MultiCity() : oneWayAndRoundTrip(context),
+              ],
+            ),
     );
   }
 
@@ -305,6 +311,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
             onPressed: () async {
+              isLoadingPage = true;
+              setState(() {});
               searchReq.adult = adultCount;
               searchReq.child = childCount;
               searchReq.infant = infantCount;
@@ -324,7 +332,10 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 onwardSector.destinationcountry = destinationCountry;
                 onwardSector.departureDate = departureDate;
                 onwardSector.departureDate = departureDate;
-                onwardSector.tripmode = "";
+                if (oneWay) {
+                  onwardSector.tripmode = "";
+                }
+
                 searchReq.objsectorlist?.add(onwardSector);
                 travelType = "O";
               }
@@ -337,7 +348,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 returnSector.destinationcountry = originCountry;
                 returnSector.departureDate = departureDate;
                 returnSector.departureDate = departureDate;
-                returnSector.tripmode = "";
+                returnSector.tripmode = "R";
 
                 travelType = "R";
 
@@ -364,7 +375,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           "data": data,
                           "tripType": travelType,
                           "internationalTrip": internationalTrip,
-                        })
+                        }).then((value) => isLoadingPage = false)
                       : Helper().toastMessage(value?.responseMessage ?? "Try Again");
                 });
               } else if (roundTrip && internationalTrip) {
@@ -381,6 +392,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           "data": data,
                           "tripType": travelType,
                           "internationalTrip": true,
+                        }).then((value) {
+                          isLoadingPage = false;
+                          setState(() {});
                         })
                       : Helper().toastMessage(value?.responseMessage ?? "Try Again");
                 });
@@ -398,6 +412,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           "data": data,
                           "tripType": travelType,
                           "internationalTrip": false,
+                        }).then((value) {
+                          isLoadingPage = false;
+                          setState(() {});
                         })
                       : Helper().toastMessage(value?.responseMessage ?? "Try Again");
                 });
@@ -410,6 +427,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           "data": data,
                           "tripType": travelType,
                           "internationalTrip": internationalTrip,
+                        }).then((value) {
+                          isLoadingPage = false;
+                          setState(() {});
                         })
                       : Helper().toastMessage(value?.responseMessage ?? "Try Again");
                 });

@@ -8,6 +8,7 @@ import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../Constants/urls.dart';
 import 'model/Search/flight_search_model.dart';
+import 'model/Search/pricing_models.dart';
 import 'model/airport_list.dart';
 import 'package:device_info/device_info.dart';
 
@@ -26,16 +27,16 @@ Future<Map<String, String>> getHeader() async {
     deviceId = iosInfo.identifierForVendor;
   }
   await getToken().then((value) {
-    if (value.isNotEmpty) {
+    if (value.token != '') {
       header = {
-        "Authorization": "Bearer $value ",
+        "Authorization": "Bearer ${value.token} ",
         "DeviceCode": "M",
         "content-type": "application/json",
         "os": Platform.isAndroid
             ? "Android"
             : Platform.isIOS
                 ? "iOS"
-                : "",
+                : "W",
         "deviceId": deviceId,
         "appVersion": "1.0.0"
       };
@@ -186,9 +187,11 @@ class AuthenticationApi {
 
       print(header);
       print(url);
+      log(jsonEncode({"deviceId": header["deviceId"]}).toString() + "++++");
+
       final result = await http.post(
         url,
-        body: jsonEncode({}),
+        body: jsonEncode({"deviceId": header["deviceId"]}),
         headers: header,
       );
       log(result.statusCode.toString());
@@ -293,59 +296,31 @@ class SearchApi {
   }
 
   Future<RAirlineSearchResponse?> combinedRoundTrip(FlightSearchReqModel data) async {
-    try {
-      final url = Uri.parse(baseUrl + urls.combinedRoundTrip);
-      /*  var deviceInfo = DeviceInfoPlugin();
-      String deviceId = '';
-      Map<String, String> header = {};
+    //   try {
+    final url = Uri.parse(baseUrl + urls.combinedRoundTrip);
 
-      if (Platform.isAndroid) {
-        var androidInfo = await deviceInfo.androidInfo;
-        deviceId = androidInfo.androidId;
-      } else if (Platform.isIOS) {
-        var iosInfo = await deviceInfo.iosInfo;
-        deviceId = iosInfo.identifierForVendor;
-      }
-      await getToken().then((value) => header = {
-            "Authorization": "Bearer $value",
-            "DeviceCode": "M",
-            "content-type": "application/json",
-            "os": Platform.isAndroid
-                ? "Android"
-                : Platform.isIOS
-                    ? "iOS"
-                    : "",
-            "deviceId": deviceId,
-            "appVersion": "1.0.0"
-          });
+    final header = await getHeader();
 
-      if (Platform.isAndroid) {
-        log("Android");
-      } else if (Platform.isIOS) {
-        log("iOS");
-      } */
-      final header = await getHeader();
-
-      print(header);
-      print(url);
-      log(jsonEncode(data).toString() + "++++");
-      final result = await http.post(url,
-          body: jsonEncode(data),
-          //  body: data.toJson(),
-          headers: header);
-      log(result.statusCode.toString());
-      final resultAsJson = jsonDecode(result.body);
-      //  log(resultAsJson.toString());
-      final responseModel = RAirlineSearchResponse.fromJson(resultAsJson);
-      // Helper().toastMessage(responseModel.);
-      return responseModel;
-    } on http.ClientException catch (e) {
-      log(e.message.toString() + "+++++");
-      throw Exception();
-    } catch (e) {
-      log("Error :$e");
-    }
-    return null;
+    print(header);
+    print(url);
+    log(jsonEncode(data).toString() + "++++");
+    final result = await http.post(url,
+        body: jsonEncode(data),
+        //  body: data.toJson(),
+        headers: header);
+    log(result.statusCode.toString());
+    final resultAsJson = jsonDecode(result.body);
+    //  log(resultAsJson.toString());
+    final responseModel = RAirlineSearchResponse.fromJson(resultAsJson);
+    // Helper().toastMessage(responseModel.);
+    return responseModel;
+    // } on http.ClientException catch (e) {
+    //   log(e.message.toString() + "+++++");
+    //   throw Exception();
+    // } catch (e) {
+    //   log("Error :$e");
+    // }
+    // return null;
   }
 
   Future<IRAirlineSearchResponse?> individualRoundTrip(FlightSearchReqModel data) async {
@@ -404,7 +379,38 @@ class SearchApi {
     return null;
   }
 
-  Future<PricingResponse?> pricingDetails({itinId, fareId, providerCode}) async {
+  Future<FlightDetailsResponseIR?> flightDetailsR({required FlightDetailsRequestIR data}) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getFlightDetailsIR);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+      log(jsonEncode(data).toString() + "++++");
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      log(resultAsJson.toString());
+      final responseModel = FlightDetailsResponseIR.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class PricingApi {
+  final urls = PricingUrls();
+  Future<PricingResponse?> pricingDetails({required PricingRequest request}) async {
     try {
       final url = Uri.parse(baseUrl + urls.getPricingDetails);
 
@@ -412,15 +418,71 @@ class SearchApi {
 
       print(header);
       print(url);
-      log("${jsonEncode({"itinId": itinId, "fareId": fareId, "providerCode": providerCode})}++++");
+      log("${jsonEncode(request)}++++");
       final result = await http.post(url,
-          body: jsonEncode({"itinId": itinId, "fareId": fareId, "providerCode": providerCode}),
+          body: jsonEncode(request),
           //  body: data.toJson(),
           headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
       final responseModel = PricingResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<BookingResponse?> bookTicket(BookingRequest data) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getBookingResponse);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+      log("${jsonEncode(data)}++++");
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = BookingResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<RepriceResponse?> getRepricing(RepricingRequest data) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getRePricingDetails);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+      log("${jsonEncode(data)}++++");
+      final result = await http.post(url,
+          body: jsonEncode(data),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = RepriceResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {

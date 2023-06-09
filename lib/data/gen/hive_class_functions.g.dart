@@ -16,15 +16,19 @@ class TokenAdapter extends TypeAdapter<Token> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Token()..token = fields[0] as String?;
+    return Token()
+      ..token = fields[0] as String?
+      ..isUser = fields[1] as bool?;
   }
 
   @override
   void write(BinaryWriter writer, Token obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.token);
+      ..write(obj.token)
+      ..writeByte(1)
+      ..write(obj.isUser);
   }
 
   @override

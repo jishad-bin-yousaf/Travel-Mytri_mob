@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/baggage.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/meals.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/passport.dart';
-import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
+import '../../../data/model/Search/pricing_models.dart';
 
 class TavellerDetails extends StatelessWidget {
   final List<CountryList> cntryList = [
@@ -16,19 +20,38 @@ class TavellerDetails extends StatelessWidget {
     CountryList(name: 'France'),
     // Add more countries as needed
   ];
+  final PricingResponse data;
+  final RepricingRequest requestingData = RepricingRequest();
+  late List<RePricingPaxlist> adultPaxList;
+  late List<RePricingPaxlist> childPaxList;
+  late List<RePricingPaxlist> infantPaxList;
 
-  TavellerDetails({super.key});
+  TavellerDetails({required this.data}) {
+    initializePaxLists();
+  }
+
+  void initializePaxLists() {
+    adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => RePricingPaxlist());
+    childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => RePricingPaxlist());
+    infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => RePricingPaxlist());
+  }
+
   @override
   Widget build(BuildContext context) {
-    PricingResponse data = ModalRoute.of(context)?.settings.arguments as PricingResponse;
-
+    log(jsonEncode(data).toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Travellers"),
         centerTitle: false,
+        automaticallyImplyLeading: false,
       ),
       bottomSheet: InkWell(
-          onTap: () {},
+          onTap: () {
+            requestingData.objAdtPaxList = adultPaxList;
+            requestingData.objChdPaxList = childPaxList;
+            requestingData.objInfPaxList = infantPaxList;
+            Navigator.pop(context, requestingData);
+          },
           child: Container(
             color: primaryColor,
             height: 80,
@@ -49,19 +72,20 @@ class TavellerDetails extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
-          (data.objAdtPaxList?.length ?? 0) != 0
+          (data.objApiResponse?.objAdtPaxList?.length ?? 0) != 0
               ? SizedBox(
-                  height: 245 * (data.objAdtPaxList?.length ?? 0).toDouble(),
+                  height: 245 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble(),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.objAdtPaxList?.length ?? 0,
+                    itemCount: data.objApiResponse?.objAdtPaxList?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return adultDetails(index, context, data.objAdtPaxList?[index]);
+                      adultPaxList[index].paxKey = data.objApiResponse?.objAdtPaxList?[index].paxKey ?? '';
+                      return adultDetails(index, context, data.objApiResponse?.objAdtPaxList?[index]);
                     },
                   ),
                 )
               : const SizedBox(),
-          (data.objChdPaxList?.length ?? 0) != 0
+          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
               ? Container(
                   padding: const EdgeInsets.all(8),
                   color: Colors.grey.shade300,
@@ -71,19 +95,21 @@ class TavellerDetails extends StatelessWidget {
                   ),
                 )
               : SizedBox(),
-          (data.objChdPaxList?.length ?? 0) != 0
+          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
               ? SizedBox(
-                  height: 325 * (data.objChdPaxList?.length ?? 0).toDouble(),
+                  height: 325 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble(),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.objChdPaxList?.length ?? 0,
+                    itemCount: data.objApiResponse?.objChdPaxList?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return childDetails(index, context, data.objChdPaxList?[index]);
+                      childPaxList[index].paxKey = data.objApiResponse?.objChdPaxList?[index].paxKey ?? '';
+
+                      return childDetails(index, context, data.objApiResponse?.objChdPaxList?[index]);
                     },
                   ),
                 )
               : SizedBox(),
-          (data.objInfPaxList?.length ?? 0) != 0
+          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
               ? Container(
                   padding: const EdgeInsets.all(8),
                   color: Colors.grey.shade300,
@@ -93,13 +119,15 @@ class TavellerDetails extends StatelessWidget {
                   ),
                 )
               : SizedBox(),
-          (data.objInfPaxList?.length ?? 0) != 0
+          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
               ? SizedBox(
                   height: 325 * 3,
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context, index) {
+                      //  infantPaxList[index].paxKey = data.objInfPaxList?[index].paxKey ?? '';
+
                       return infantDetails(index, context);
                     },
                   ),
@@ -112,6 +140,9 @@ class TavellerDetails extends StatelessWidget {
   }
 
   infantDetails(int index, BuildContext context) {
+    TextEditingController dobController = TextEditingController();
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -119,17 +150,44 @@ class TavellerDetails extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text("Infant ${index + 1}", style: const TextStyle(fontSize: 18)),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("First Name"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+            controller: firstNameController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("First Name"),
+            ),
+          ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Last Name"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+            controller: lastNameController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("Last Name"),
+            ),
+          ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Date of Birth"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+              controller: dobController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                label: Text("Date of Birth"),
+              ),
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedFromDate = await showDatePicker(
+                    context: context,
+                    currentDate: DateTime.now().subtract(Duration(days: 2 * 365)),
+                    initialDate: DateTime.now().subtract(Duration(days: 2 * 365)) /* .subtract(const Duration(days: 30)) */, //get today's date
+                    firstDate: DateTime.now().subtract(Duration(days: 2 * 365)), //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime.now());
+                pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
+              }),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -155,6 +213,9 @@ class TavellerDetails extends StatelessWidget {
   }
 
   childDetails(int index, BuildContext context, PricingPaxlist? data) {
+    TextEditingController dobController = TextEditingController();
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -162,17 +223,44 @@ class TavellerDetails extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text("Child${index + 1}", style: const TextStyle(fontSize: 18)),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("First Name"))),
+          child: TextField(
+            controller: firstNameController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("First Name"),
+            ),
+          ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Last Name"))),
+          child: TextField(
+            controller: lastNameController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("Last Name"),
+            ),
+          ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Date of Birth"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                label: Text("Date of Birth"),
+              ),
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedFromDate = await showDatePicker(
+                  context: context,
+                  currentDate: DateTime.now().subtract(Duration(days: 2 * 365)),
+                  initialDate: DateTime.now().subtract(Duration(days: 2 * 365)) /* .subtract(const Duration(days: 30)) */, //get today's date
+                  firstDate: DateTime.now().subtract(Duration(days: 12 * 365)), //DateTime.now() - not to allow to choose before today.
+                  lastDate: DateTime.now().subtract(Duration(days: 2 * 365)),
+                );
+                pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
+              }),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,9 +285,11 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                      builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
-                    ))
-                    .then((value) => print(value));
+                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                ))
+                    .then((value) {
+                  childPaxList[index].objBaggage = value as List<SSRBaggage>?;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -211,9 +301,11 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                      builder: (context) => MealDetailsPage(data?.objmealseglist),
-                    ))
-                    .then((value) => print(value));
+                  builder: (context) => MealDetailsPage(data?.objmealseglist),
+                ))
+                    .then((value) {
+                  childPaxList[index].objMealList = value as List<SSRMeal>?;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -228,6 +320,9 @@ class TavellerDetails extends StatelessWidget {
   }
 
   adultDetails(int index, BuildContext context, PricingPaxlist? data) {
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -235,13 +330,19 @@ class TavellerDetails extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text("Adult${index + 1}", style: const TextStyle(fontSize: 18)),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("First Name"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+            controller: firstNameController,
+            decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
+          ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Last Name"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: TextField(
+            controller: lastNameController,
+            decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Last Name")),
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -252,7 +353,7 @@ class TavellerDetails extends StatelessWidget {
                     .push(MaterialPageRoute(
                       builder: (context) => PassportDetailsPage(cntryList: cntryList),
                     ))
-                    .then((value) => print(value));
+                    .then((value) {});
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -264,9 +365,11 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                      builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
-                    ))
-                    .then((value) => print(value));
+                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                ))
+                    .then((value) {
+                  adultPaxList[index].objBaggage = value as List<SSRBaggage>?;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -278,9 +381,11 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                      builder: (context) => MealDetailsPage(data?.objmealseglist),
-                    ))
-                    .then((value) => print(value));
+                  builder: (context) => MealDetailsPage(data?.objmealseglist),
+                ))
+                    .then((value) {
+                  adultPaxList[index].objMealList = value as List<SSRMeal>?;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(

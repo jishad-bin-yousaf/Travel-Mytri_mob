@@ -7,7 +7,7 @@ import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dar
 import '../../Constants/colors.dart';
 
 //typedef ListCallback = void Function(List<AirlineSearchResponse>);
-typedef ListCallback = void Function(List<Apisearchresponse>);
+typedef ListCallback = void Function(List<ApiSearchResponse>);
 
 class FlightFilterDrawer extends StatefulWidget {
   const FlightFilterDrawer({
@@ -87,7 +87,7 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                     //  itemCount: 4,
                     itemCount: widget.airlineSearchResponse.objAvlairlineList?.length ?? 0,
                     itemBuilder: (context, index) {
-                      final val = widget.airlineSearchResponse.objAvlairlineList?[0];
+                      final val = widget.airlineSearchResponse.objAvlairlineList?[index];
                       //    bool isChecked = selectedFlight == index; // Maintain checked state for each item
                       bool isChecked = selectedFlights[index]; // Maintain checked state for each item
 
@@ -551,14 +551,14 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
     );
   }
 
-  Future<List<Apisearchresponse>> filterFlights() async {
-    List<Apisearchresponse> data = widget.airlineSearchResponse.objItinList ?? [];
-    List<Apisearchresponse> filteringList = [];
-    List<Apisearchresponse> filteredList = [];
+  Future<List<ApiSearchResponse>> filterFlights() async {
+    List<ApiSearchResponse> data = widget.airlineSearchResponse.objItinList ?? [];
+    List<ApiSearchResponse> filteringList = [];
+    List<ApiSearchResponse> filteredList = [];
     if (filterFlightCodeList.isNotEmpty) {
       log("Working");
       log("$filterFlightCodeList");
-      List<Apisearchresponse> tempFilteredList = [];
+      List<ApiSearchResponse> tempFilteredList = [];
       for (int i = 0; i < filterFlightCodeList.length; i++) {
         tempFilteredList.addAll(data.where((item) => item.airlineCode == filterFlightCodeList[i]));
       }

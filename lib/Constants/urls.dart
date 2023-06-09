@@ -8,7 +8,13 @@ class SearchUrl {
   String combinedRoundTrip = "/api/AirlineSearch/GetAirlineAvailabilityCRT";
   String individualRoundTrip = "/api/AirlineSearch/GetAirlineAvailabilityIRT";
   String getFlightDetails = "/api/AirlineSearch/GetFlightDetails";
-  String getPricingDetails = "/api/AirlineSearch/GetPricingDetails";
+  String getFlightDetailsIR = "/api/AirlineSearch/GetFlightDetailsIR";
+}
+
+class PricingUrls {
+  String getPricingDetails = "/api/Pricing/GetPricingDetails";
+  String getRePricingDetails = "/api/Pricing/GetRePricingDetails";
+  String getBookingResponse = "/api/Booking/GetBookingResponse";
 }
 
 class AuthenticationUrl {

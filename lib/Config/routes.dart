@@ -12,6 +12,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/otp': (context) => ScreenOtp(),
   '/flights': (context) => const FlightSearchScreen(),
   '/FlightSearchResult': (context) => ScreenFlightSearchResult(),
-  '/ReviewFlight': (context) => const ScreenReviewFlight(),
-  '/travellerDetails': (context) => TavellerDetails(),
+  '/ReviewFlight': (context) => ScreenReviewFlight(),
+//  '/travellerDetails': (context) => TavellerDetails(),
 };

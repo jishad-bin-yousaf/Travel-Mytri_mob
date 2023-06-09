@@ -133,16 +133,21 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
                   child: ElevatedButton(
                     onPressed: () async {
                       log(codeValue);
-                      await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) async {
-                        if (resp?.status == true && resp?.token != null) {
-                          Token toc = Token();
-                          toc.token = resp?.token ?? "";
-                          await setToken(toc).then((value) {
-                            if (value.isNotEmpty && value != ' ') Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
-                          });
-                        } else {
-                          Helper().toastMessage(resp?.responseMessage ?? "Go Back & Try Again");
+
+                      AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((value) {
+                        Token toc = Token();
+                        if (value?.token != null) {
+                          toc.token = value?.token ?? '';
+                          toc.isUser = value?.status ?? false;
+                          setToken(toc);
                         }
+                        (value?.status ?? false)
+                            ? Future.delayed(const Duration(seconds: 2), () {
+                                getToken().then((value) {
+                                  Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                                });
+                              })
+                            : Helper().toastMessage(value?.responseMessage ?? "Go Back & Try Again");
                       });
                     },
                     style: ElevatedButton.styleFrom(

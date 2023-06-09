@@ -52,7 +52,7 @@ class AirlineSearchResponse with _$AirlineSearchResponse {
     double? minimumFare,
     double? maximumFare,
     List<AvailableAirline>? objAvlairlineList,
-    List<Apisearchresponse>? objItinList,
+    List<ApiSearchResponse>? objItinList,
   }) = _AirlineSearchResponse;
 
   factory AirlineSearchResponse.fromJson(Map<String, dynamic> json) => _$AirlineSearchResponseFromJson(json);
@@ -67,95 +67,6 @@ class LowestFare with _$LowestFare {
   }) = _LowestFare;
 
   factory LowestFare.fromJson(Map<String, dynamic> json) => _$LowestFareFromJson(json);
-}
-
-@freezed
-class AvailableAirline with _$AvailableAirline {
-  const factory AvailableAirline({
-    String? airlineCode,
-    String? airlineName,
-    double? minAmount,
-  }) = _AvailableAirline;
-
-  factory AvailableAirline.fromJson(Map<String, dynamic> json) => _$AvailableAirlineFromJson(json);
-}
-
-@freezed
-class Apisearchresponse with _$Apisearchresponse {
-  const factory Apisearchresponse({
-    int? itinId,
-    String? providerCode,
-    String? airlineName,
-    String? airlineCode,
-    String? flightDetails,
-    String? source,
-    String? destination,
-    String? origin,
-    String? departureDate,
-    String? arrivalDate,
-    String? departureTime,
-    String? arrivalTime,
-    String? duration,
-    String? freeBaggage,
-    String? refundable,
-    String? sourceAirport,
-    String? destinationAirport,
-    int? noofSeat,
-    double? amount,
-    double? discount,
-    double? netAmount,
-    int? noofStop,
-    String? segmentDetails,
-    List<PricingBasic>? pricingList,
-  }) = _Apisearchresponse;
-
-  factory Apisearchresponse.fromJson(Map<String, dynamic> json) => _$ApisearchresponseFromJson(json);
-}
-
-@freezed
-class PricingBasic with _$PricingBasic {
-  const factory PricingBasic({
-    int? fareId,
-    String? fareName,
-    double? netAmount,
-    double? discount,
-    String? cabinBaggage,
-    String? checkinBaggage,
-    String? meal,
-    String? seat,
-    String? cancellation,
-    String? dateChange,
-  }) = _PricingBasic;
-
-  factory PricingBasic.fromJson(Map<String, dynamic> json) => _$PricingBasicFromJson(json);
-}
-
-@freezed
-class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
-  const factory IRAirlineSearchResponse({
-    //individual Round Trip(Domestic)
-    bool? status,
-    String? responseMessage,
-    String? airlineClass,
-    String? origin,
-    String? destination,
-    DateTime? departureDate,
-    String? originR,
-    String? destinationR,
-    DateTime? returnDate,
-    int? adult,
-    int? child,
-    int? infant,
-    double? minimumFare,
-    double? maximumFare,
-    double? minimumFareR,
-    double? maximumFareR,
-    List<AvailableAirline>? objAvlairlineList,
-    List<Apisearchresponse>? objItinList,
-    List<Apisearchresponse>? objItinListR,
-  }) = _IRAirlineSearchResponse;
-
-  factory IRAirlineSearchResponse.fromJson(Map<String, dynamic> json) => _$IRAirlineSearchResponseFromJson(json);
 }
 
 @freezed
@@ -186,9 +97,10 @@ class RAirlineSearchResponse with _$RAirlineSearchResponse {
 class RApisearchresponse with _$RApisearchresponse {
   const factory RApisearchresponse({
     int? itinId,
+    int? fareId,
     String? providerCode,
-    Apisearchresponse? onwardDetails,
-    Apisearchresponse? returnDetails,
+    ApiSearchResponse? onwardDetails,
+    ApiSearchResponse? returnDetails,
     double? amount,
     double? discount,
     double? netAmount,
@@ -220,124 +132,6 @@ class Apisearchresponsedetails with _$Apisearchresponsedetails {
     String? segmentDetails,
   }) = _Apisearchresponsedetails;
   factory Apisearchresponsedetails.fromJson(Map<String, dynamic> json) => _$ApisearchresponsedetailsFromJson(json);
-}
-
-@freezed
-class PricingResponse with _$PricingResponse {
-  const factory PricingResponse({
-    bool? status,
-    String? responseMessage,
-    List<PricingDetailsList>? objSegList,
-    double? adultBasic,
-    double? childBasic,
-    double? infantBasic,
-    List<TaxSplitup>? taxList,
-    int? adult,
-    int? child,
-    int? infant,
-    double? adultTotal,
-    double? childTotal,
-    double? infantTotal,
-    double? discountAmount,
-    double? finalAmount,
-    List<PricingPaxlist>? objAdtPaxList,
-    List<PricingPaxlist>? objChdPaxList,
-    List<PricingPaxlist>? objInfPaxList,
-  }) = _PricingResponse;
-
-  factory PricingResponse.fromJson(Map<String, dynamic> json) => _$PricingResponseFromJson(json);
-}
-
-@freezed
-class PricingPaxlist with _$PricingPaxlist {
-  const factory PricingPaxlist({
-    String? paxKey,
-    List<PricingMealSegment>? objmealseglist,
-    List<PricingBaggageSegment>? objbaggageseglist,
-  }) = _PricingPaxlist;
-
-  factory PricingPaxlist.fromJson(Map<String, dynamic> json) => _$PricingPaxlistFromJson(json);
-}
-
-@freezed
-class TaxSplitup with _$TaxSplitup {
-  const factory TaxSplitup({
-    String? taxCode,
-    double? amount,
-  }) = _TaxSplitup;
-
-  factory TaxSplitup.fromJson(Map<String, dynamic> json) => _$TaxSplitupFromJson(json);
-}
-
-@freezed
-class PricingDetailsList with _$PricingDetailsList {
-  const factory PricingDetailsList({
-    String? airlineCode,
-    String? airlineName,
-    String? flightdetails,
-    String? departureAirportCode,
-    String? departureTime,
-    String? departureDate,
-    String? departureCity,
-    String? departureAirport,
-    String? arrivalAirportCode,
-    String? arrivalAirport,
-    String? arrivalTime,
-    String? arrivalDate,
-    String? arrivalCity,
-    String? travelDuration,
-    String? layoverTime,
-    String? airlineFlightClass,
-    String? cabinBaggage,
-    int? noofStop,
-  }) = _PricingDetailsList;
-
-  factory PricingDetailsList.fromJson(Map<String, dynamic> json) => _$PricingDetailsListFromJson(json);
-}
-
-@freezed
-class PricingMealSegment with _$PricingMealSegment {
-  const factory PricingMealSegment({
-    String? sectorCode,
-    String? tripMode,
-    List<MealSearchResult>? objmealList,
-  }) = _PricingMealSegment;
-
-  factory PricingMealSegment.fromJson(Map<String, dynamic> json) => _$PricingMealSegmentFromJson(json);
-}
-
-@freezed
-class MealSearchResult with _$MealSearchResult {
-  const factory MealSearchResult({
-    String? mealUrl,
-    String? code,
-    String? name,
-    double? amount,
-  }) = _MealSearchResult;
-
-  factory MealSearchResult.fromJson(Map<String, dynamic> json) => _$MealSearchResultFromJson(json);
-}
-
-@freezed
-class PricingBaggageSegment with _$PricingBaggageSegment {
-  const factory PricingBaggageSegment({
-    String? sectorCode,
-    String? tripMode,
-    List<BaggageSearchResult>? objbaggageList,
-  }) = _PricingBaggageSegment;
-
-  factory PricingBaggageSegment.fromJson(Map<String, dynamic> json) => _$PricingBaggageSegmentFromJson(json);
-}
-
-@freezed
-class BaggageSearchResult with _$BaggageSearchResult {
-  const factory BaggageSearchResult({
-    String? code,
-    String? name,
-    double? amount,
-  }) = _BaggageSearchResult;
-
-  factory BaggageSearchResult.fromJson(Map<String, dynamic> json) => _$BaggageSearchResultFromJson(json);
 }
 
 @freezed
@@ -387,6 +181,7 @@ class FlightDetailsSegment with _$FlightDetailsSegment {
     String? departureTime,
     String? departureDate,
     String? departureAirport,
+    String? flightNumber,
     String? departureCity,
     String? arrivalAirportCode,
     String? arrivalTime,
@@ -397,4 +192,156 @@ class FlightDetailsSegment with _$FlightDetailsSegment {
     String? layoverTime,
   }) = _FlightDetailsSegment;
   factory FlightDetailsSegment.fromJson(Map<String, dynamic> json) => _$FlightDetailsSegmentFromJson(json);
+}
+
+@unfreezed
+class PricingRequest with _$PricingRequest {
+  factory PricingRequest({
+    int? itinId,
+    int? itinIdR,
+    int? fareId,
+    int? fareIdR,
+    String? providerCode,
+    String? providerCodeR,
+  }) = _PricingRequest;
+
+  factory PricingRequest.fromJson(Map<String, dynamic> json) => _$PricingRequestFromJson(json);
+}
+
+@freezed
+class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
+  const factory IRAirlineSearchResponse({
+    bool? status,
+    String? responseMessage,
+    String? airlineClass,
+    String? origin,
+    String? destination,
+    DateTime? departureDate,
+    String? originR,
+    String? destinationR,
+    DateTime? returnDate,
+    int? adult,
+    int? child,
+    int? infant,
+    double? minimumFare,
+    double? maximumFare,
+    double? minimumFareR,
+    double? maximumFareR,
+    List<AvailableAirline>? objAvlairlineList,
+    List<ApiSearchResponse>? objItinList,
+    List<ApiSearchResponse>? objItinListR,
+  }) = _IRAirlineSearchResponse;
+
+  factory IRAirlineSearchResponse.fromJson(Map<String, dynamic> json) => _$IRAirlineSearchResponseFromJson(json);
+}
+
+@freezed
+class AvailableAirline with _$AvailableAirline {
+  const factory AvailableAirline({
+    String? airlineCode,
+    String? airlineName,
+    double? minAmount,
+    int? count,
+  }) = _AvailableAirline;
+
+  factory AvailableAirline.fromJson(Map<String, dynamic> json) => _$AvailableAirlineFromJson(json);
+}
+
+@freezed
+class ApiSearchResponse with _$ApiSearchResponse {
+  const factory ApiSearchResponse({
+    int? itinId,
+    int? fareId,
+    String? providerCode,
+    String? airlineCode,
+    String? airlineName,
+    String? flightDetails,
+    String? source,
+    String? destination,
+    String? departureDate,
+    String? arrivalDate,
+    String? departureTime,
+    String? arrivalTime,
+    String? duration,
+    String? freeBaggage,
+    String? refundable,
+    String? sourceAirport,
+    String? destinationAirport,
+    int? noofSeat,
+    double? amount,
+    double? discount,
+    double? netAmount,
+    double? adultFare,
+    int? noofStop,
+    String? segmentDetails,
+    String? codeshareAirlines,
+    List<PricingBasic>? pricingList,
+  }) = _ApiSearchResponse;
+
+  factory ApiSearchResponse.fromJson(Map<String, dynamic> json) => _$ApiSearchResponseFromJson(json);
+}
+
+@freezed
+class PricingBasic with _$PricingBasic {
+  const factory PricingBasic({
+    int? fareId,
+    String? fareName,
+    double? netAmount,
+    double? discount,
+    String? cabinBaggage,
+    String? checkinBaggage,
+    String? meal,
+    String? seat,
+    String? cancellation,
+    String? dateChange,
+  }) = _PricingBasic;
+
+  factory PricingBasic.fromJson(Map<String, dynamic> json) => _$PricingBasicFromJson(json);
+}
+
+@unfreezed
+class FlightDetailsRequest with _$FlightDetailsRequest {
+  factory FlightDetailsRequest({
+    int? itinId,
+    int? fareId,
+    String? providerCode,
+  }) = _FlightDetailsRequest;
+
+  factory FlightDetailsRequest.fromJson(Map<String, dynamic> json) => _$FlightDetailsRequestFromJson(json);
+}
+
+@unfreezed
+class FlightDetailsRequestIR with _$FlightDetailsRequestIR {
+  factory FlightDetailsRequestIR({
+    int? itinId,
+    int? itinIdR,
+    int? fareId,
+    int? fareIdR,
+    String? providerCode,
+    String? providerCodeR,
+  }) = _FlightDetailsRequestIR;
+
+  factory FlightDetailsRequestIR.fromJson(Map<String, dynamic> json) => _$FlightDetailsRequestIRFromJson(json);
+}
+
+@freezed
+class FlightDetailsResponseIR with _$FlightDetailsResponseIR {
+  const factory FlightDetailsResponseIR({
+    bool? status,
+    String? responseMessage,
+    FlightDetailsItin? objitin,
+    FlightDetailsItin? objitinR,
+    int? adult,
+    int? child,
+    int? infant,
+    double? adtBasic,
+    double? adtTax,
+    double? chdBasic,
+    double? chdTax,
+    double? infBasic,
+    double? infTax,
+    double? totalFare,
+  }) = _FlightDetailsResponseIR;
+
+  factory FlightDetailsResponseIR.fromJson(Map<String, dynamic> json) => _$FlightDetailsResponseIRFromJson(json);
 }

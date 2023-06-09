@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/filter.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
@@ -110,14 +111,14 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       color: white,
                     ),
-                    child: const Column(
+                    child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Row(children: [
                               Text(
-                                "BOM", // '${data.origin ?? "N/A"}\t',
+                                '${rAirlineSearchResponse.origin ?? ""}\t',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                               Icon(
@@ -126,16 +127,16 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                                 size: 20,
                               ),
                               Text(
-                                "CCJ", //  '\t${data.destination ?? "N/A"}',
+                                '${rAirlineSearchResponse.destination ?? ""}',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                             ]),
                             Text(
-                              "12 apr", //   '\t${data.departureDate ?? "Date"}',
+                              '${rAirlineSearchResponse.departureDate ?? ""}',
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                             ),
                             Text(
-                              "12 Travellers", //  " [\t${data.passengers ?? "0"} Traveller]",
+                              " [\t${(rAirlineSearchResponse.adult ?? 0) + (rAirlineSearchResponse.child ?? 0) + (rAirlineSearchResponse.infant ?? 0)} Traveller]",
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                             ),
                           ],
@@ -146,7 +147,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                           children: [
                             Row(children: [
                               Text(
-                                "BOM", // '${data.origin ?? "N/A"}\t',
+                                '${rAirlineSearchResponse.origin ?? ""}\t',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                               Icon(
@@ -155,16 +156,16 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                                 size: 20,
                               ),
                               Text(
-                                "CCJ", //  '\t${data.destination ?? "N/A"}',
+                                '${rAirlineSearchResponse.destination ?? ""}',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                             ]),
                             Text(
-                              "12 apr", //   '\t${data.departureDate ?? "Date"}',
+                              '${rAirlineSearchResponse.departureDate ?? ""}',
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                             ),
                             Text(
-                              "Premium economy", //    data.airlineClass ?? "Premium economy",
+                              '${rAirlineSearchResponse.airlineClass}',
                               style: TextStyle(fontSize: 12, color: Colors.black),
                             ),
                           ],
@@ -185,28 +186,12 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
         irAirlineSearchResponse = arguments["data"];
         log(irAirlineSearchResponse.toString());
         return Scaffold(
-          //    backgroundColor: secondaryColor,
           appBar: AppBar(),
-          // flightSearchAppBar(context, ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: FloatingActionButton.extended(
-            label: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-              child: Text(
-                "Continue",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Column();
-                  //      return moreDetails(context,);
-                },
-              );
-            },
-          ),
+          // bottomSheet: Container(
+          //   color: secondaryColor,
+          //   height: 200,
+          //   width: double.maxFinite,
+          // ),
           body: Column(
             children: [
               Row(
@@ -217,17 +202,20 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       padding: const EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       decoration: const BoxDecoration(color: secondaryColor, borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Text("DEL", style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
-                              Icon(Icons.arrow_forward, color: white),
-                              Text("HYD", style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
+                              Text(irAirlineSearchResponse.origin ?? '', style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
+                              const Icon(Icons.arrow_forward, color: white),
+                              Text(irAirlineSearchResponse.destination ?? '', style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
                             ],
                           ),
-                          Text("15 April", style: TextStyle(color: white, fontSize: 17, fontWeight: FontWeight.w500)),
+                          Text(
+                            "${DateFormat('dd MMMM').format(irAirlineSearchResponse.departureDate!)}",
+                            style: TextStyle(color: white, fontSize: 17, fontWeight: FontWeight.w500),
+                          ),
                         ],
                       )),
                   Container(
@@ -235,17 +223,20 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 2 - 20,
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Text("DEL", style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
-                              Icon(Icons.arrow_forward, color: white),
-                              Text("HYD", style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
+                              Text(irAirlineSearchResponse.originR ?? '', style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
+                              const Icon(Icons.arrow_forward, color: white),
+                              Text(irAirlineSearchResponse.destinationR ?? '', style: TextStyle(color: white, fontSize: 18, fontWeight: FontWeight.w600)),
                             ],
                           ),
-                          Text("15 April", style: TextStyle(color: white, fontSize: 17, fontWeight: FontWeight.w500)),
+                          Text(
+                            "${DateFormat('dd MMMM').format(irAirlineSearchResponse.returnDate!)}",
+                            style: TextStyle(color: white, fontSize: 17, fontWeight: FontWeight.w500),
+                          ),
                         ],
                       )),
                 ],
@@ -269,6 +260,119 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
     }
   }
 
+  flightDetailsSector(BuildContext context, FlightDetailsItin data) {
+    return SizedBox(
+      height: (data.objseglist?.length ?? 0) * 210,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: data.objseglist?.length ?? 0,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                SizedBox(height: 10),
+                Card(
+                  color: Colors.grey.shade300,
+                  elevation: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.network(
+                        "https://agents.alhind.com/images/logos/${data.objseglist?[index].airlineCode ?? ''}.gif",
+                        /*${data.airlineName}.*/
+
+                        fit: BoxFit.fitHeight,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Text("No logo");
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Text(data.objseglist?[index].airlineName ?? ''),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0, right: 5),
+                        child: Text(data.objseglist?[index].airlineFlightClass ?? ''),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0, right: 25),
+                        child: Text(data.adultCabinBaggage ?? ''),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 14, top: 15, bottom: 15),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Expanded(
+                      //  width: MediaQuery.of(context).size.width / 2 - 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.objseglist?[index].departureCity ?? '',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              "${data.objseglist?[index].departureAirportCode ?? ''} ${data.objseglist?[index].departureTime ?? ''}",
+                              style: TextStyle(fontSize: 23),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              data.objseglist?[index].departureAirport ?? '',
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.access_time_outlined),
+                        ),
+                        Text(
+                          data.objseglist?[index].travelDuration ?? '',
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      // width: MediaQuery.of(context).size.width / 2 - 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            data.objseglist?[index].arrivalCity ?? '',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              "${data.objseglist?[index].arrivalAirportCode ?? ''} ${data.objseglist?[index].arrivalTime ?? ''}",
+                              style: TextStyle(fontSize: 23),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              data.objseglist?[index].arrivalAirport ?? '',
+                              maxLines: 2,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ),
+              ],
+            );
+          }),
+    );
+  }
+
   Padding moreDetails(BuildContext context, FlightDetailsResponse data) {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -280,10 +384,16 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("${data.objitin?.originCity ?? ''}-${data.objitin?.destinationCity ?? ''}"), Text("${data.objitin?.departureDate ?? ''}")],
+              children: [
+                Text("${data.objitin?.originCity ?? ''}-${data.objitin?.destinationCity ?? ''}"),
+                Text("${data.objitin?.departureDate ?? ''}"),
+              ],
             ),
           ),
-          Text("Flight Information".toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          Text(
+            "Flight Information".toUpperCase(),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
           SizedBox(
             height: 320,
             child: ListView.builder(
@@ -444,7 +554,13 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
 
   int? fareId;
   FlightDetailsResponse flightData = FlightDetailsResponse();
+  ApiSearchResponse indSelectedOnward = ApiSearchResponse();
+  ApiSearchResponse indSelectedReturn = ApiSearchResponse();
 
+  bool isFlightDetails = true;
+  bool isFareSummary = false;
+
+  FlightDetailsResponseIR flightDataRoundTrip = FlightDetailsResponseIR();
   @override
   Widget build(BuildContext context) {
     if (widget.travelType == "O") {
@@ -462,25 +578,350 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
             return combainedRoundTripWidget(context, widget.combainedRoundData?[index], isSelected, index);
           });
     } else if (widget.travelType == "R" && !widget.internationalTrip) {
-      return Row(
+      return Column(
         children: [
-          SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: ListView.builder(
-                  itemCount: widget.onwardList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    bool isSelected = selectedIndexOnward == index;
+          Expanded(
+            child: Row(
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: ListView.builder(
+                        itemCount: widget.onwardList?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          bool isSelected = selectedIndexOnward == index;
 
-                    return individualRoundTripWidget(context, widget.onwardList?[index], isSelected, index, onward: true);
-                  })),
-          SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: ListView.builder(
-                  itemCount: widget.returnList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    bool isSelected = selectedIndexReturn == index;
-                    return individualRoundTripWidget(context, widget.returnList?[index], isSelected, index, onward: false);
-                  })),
+                          return individualRoundTripWidget(context, widget.onwardList?[index], isSelected, index, onward: true);
+                        })),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: ListView.builder(
+                        itemCount: widget.returnList?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          bool isSelected = selectedIndexReturn == index;
+                          return individualRoundTripWidget(context, widget.returnList?[index], isSelected, index, onward: false);
+                        })),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              indSelectedOnward.itinId != null
+                  ? Container(
+                      height: 80,
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
+                                child: ClipRRect(
+                                  child: Image.network(
+                                    "https://agents.alhind.com/images/logos/${indSelectedOnward.airlineCode ?? ''}.gif",
+
+                                    /*${data.airlineName}.*/
+
+                                    fit: BoxFit.fitHeight,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const Text("No logo");
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                indSelectedOnward.airlineName ?? "",
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(indSelectedOnward.departureTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                      Text(indSelectedOnward.duration ?? '', style: const TextStyle(fontSize: 11)),
+                                    ],
+                                  ),
+                                  Icon(Icons.arrow_forward, size: 20),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(indSelectedOnward.arrivalTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                      Text(
+                                        indSelectedOnward.noofStop != 0 && indSelectedOnward.noofStop != null ? "${indSelectedOnward.noofStop} stop" : 'Non-stop',
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 8.0,
+                                  left: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "₹${indSelectedOnward.netAmount ?? ''}",
+                                      style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  : indSelectedReturn.itinId != null
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: 80,
+                          child: Center(child: Text("Please select onward")),
+                        )
+                      : SizedBox(),
+              indSelectedReturn.itinId != null
+                  ? Container(
+                      height: 80,
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
+                                child: ClipRRect(
+                                  child: Image.network(
+                                    "https://agents.alhind.com/images/logos/${indSelectedReturn.airlineCode ?? ''}.gif",
+
+                                    /*${data.airlineName}.*/
+
+                                    fit: BoxFit.fitHeight,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const Text("No logo");
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                indSelectedReturn.airlineName ?? "",
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(indSelectedReturn.departureTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                      Text(indSelectedReturn.duration ?? '', style: const TextStyle(fontSize: 11)),
+                                    ],
+                                  ),
+                                  Icon(Icons.arrow_forward, size: 20),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(indSelectedReturn.arrivalTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                      Text(
+                                        indSelectedReturn.noofStop != 0 && indSelectedReturn.noofStop != null ? "${indSelectedReturn.noofStop} stop" : 'Non-stop',
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 8.0,
+                                  left: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "₹${indSelectedReturn.netAmount ?? ''}",
+                                      style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  : SizedBox(),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                height: 80,
+                width: MediaQuery.of(context).size.width / 2,
+                color: Colors.grey,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "₹${(indSelectedOnward.amount ?? 0) + (indSelectedReturn.amount ?? 0)}",
+                      style: TextStyle(
+                        color: white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        if ((indSelectedOnward.itinId != null) && (indSelectedReturn.itinId != null)) {
+                          await SearchApi()
+                              .flightDetailsR(
+                                  data: FlightDetailsRequestIR(
+                            itinId: indSelectedOnward.itinId,
+                            itinIdR: indSelectedReturn.itinId,
+                            fareIdR: indSelectedReturn.fareId,
+                            providerCodeR: indSelectedReturn.providerCode,
+                            providerCode: indSelectedOnward.providerCode,
+                            fareId: indSelectedOnward.fareId,
+                          ))
+                              .then((value) {
+                            flightDataRoundTrip = value ?? FlightDetailsResponseIR();
+                          });
+                          setState(() {});
+
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return StatefulBuilder(builder: (context, setState) {
+                                return Container(
+                                  color: white,
+                                  child: Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Row(children: [
+                                          Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    isFlightDetails = true;
+                                                    isFareSummary = false;
+                                                    setState(() {});
+                                                    //       FlightDetailsResponseIR
+                                                  },
+                                                  child: Text("Flight Details", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                                ),
+                                              ),
+                                              isFlightDetails
+                                                  ? SizedBox(
+                                                      width: 120,
+                                                      child: Divider(thickness: 2, color: Colors.black),
+                                                    )
+                                                  : SizedBox(
+                                                      width: 120,
+                                                      child: Divider(thickness: 2, color: Colors.transparent),
+                                                    )
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    isFareSummary = true;
+                                                    isFlightDetails = false;
+                                                    setState(() {});
+                                                  },
+                                                  child: Text("Fare Summary", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                                ),
+                                              ),
+                                              isFareSummary
+                                                  ? SizedBox(
+                                                      width: 120,
+                                                      child: Divider(thickness: 2, color: Colors.black),
+                                                    )
+                                                  : SizedBox(
+                                                      width: 120,
+                                                      child: Divider(thickness: 2, color: Colors.transparent),
+                                                    )
+                                            ],
+                                          )
+                                        ]),
+                                        isFlightDetails
+                                            ? Column(
+                                                children: [
+                                                  flightDetailsSector(flightDataRoundTrip.objitin),
+                                                  flightDetailsSector(flightDataRoundTrip.objitinR),
+                                                ],
+                                              )
+                                            : flightDetailsFareSummary(flightDataRoundTrip),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                            },
+                          );
+                        }
+                      },
+                      icon: Icon(Icons.info_outline, color: white, size: 30),
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  PricingRequest req = PricingRequest();
+                  req.itinId = indSelectedOnward.itinId;
+                  req.itinIdR = indSelectedReturn.itinId;
+                  req.fareId = indSelectedOnward.fareId;
+                  req.fareIdR = indSelectedReturn.fareId;
+                  req.providerCode = indSelectedOnward.providerCode;
+                  req.providerCodeR = indSelectedReturn.providerCode;
+                  if ((indSelectedOnward.itinId != null) && (indSelectedReturn.itinId != null)) {
+                    PricingApi().pricingDetails(request: req).then((value) {
+                      (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
+                    });
+                  }
+                },
+                child: Container(
+                  height: 80,
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: secondaryColor,
+                  child: Center(
+                    child: Text(
+                      "PROCEED",
+                      style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ],
       );
     } else {
@@ -488,13 +929,23 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
     }
   }
 
-  individualRoundTripWidget(BuildContext context, Apisearchresponse? data, bool isSelected, int index, {required bool onward}) {
+  individualRoundTripWidget(BuildContext context, ApiSearchResponse? data, bool isSelected, int index, {required bool onward}) {
     return InkWell(
         onTap: () {
           if (onward) {
             selectedIndexOnward = isSelected ? -1 : index;
+            if (!isSelected) {
+              indSelectedOnward = data ?? ApiSearchResponse();
+            } else {
+              indSelectedOnward = ApiSearchResponse();
+            }
           } else {
             selectedIndexReturn = isSelected ? -1 : index;
+            if (!isSelected) {
+              indSelectedReturn = data ?? ApiSearchResponse();
+            } else {
+              indSelectedReturn = ApiSearchResponse();
+            }
           }
           setState(() {});
         },
@@ -547,7 +998,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(data?.departureTime ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                          Text(data?.duration ?? ' hr min', style: const TextStyle(fontSize: 11)),
+                          Text(data?.duration ?? '', style: const TextStyle(fontSize: 11)),
                         ],
                       ),
                       Icon(Icons.arrow_forward, size: 20),
@@ -609,11 +1060,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       children: [
                         /* logo  */ Row(
                           children: [
-                            /*  Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ClipRRect(
                                 child: Image.network(
-                                  "https://agents.alhind.com/images/logos/${data?.airlineCode??""}.gif",
+                                  "https://agents.alhind.com/images/logos/${data?.onwardDetails?.airlineCode ?? ''}.gif",
                                   /*${data.airlineName}.*/
                                   height: 30,
                                   fit: BoxFit.fitHeight,
@@ -622,7 +1073,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   },
                                 ),
                               ),
-                            ), */
+                            ),
                             Text(
                               data?.onwardDetails?.airlineName ?? "______",
                               style: const TextStyle(fontSize: 16),
@@ -641,11 +1092,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4.0),
                                     child: Text(
-                                      data?.onwardDetails?.origin ?? 'DEL',
+                                      data?.onwardDetails?.source ?? '',
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                   ),
-                                  Text(data?.onwardDetails?.departureTime ?? '11:11', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                  Text(data?.onwardDetails?.departureTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                 ],
                               ),
                               Padding(
@@ -653,7 +1104,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      data?.onwardDetails?.duration ?? '2 hr',
+                                      "${data?.onwardDetails?.duration ?? ''}",
                                     ),
                                     SizedBox(
                                       width: 40,
@@ -688,11 +1139,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4.0),
                                     child: Text(
-                                      data?.onwardDetails?.destination ?? 'DOH',
+                                      data?.onwardDetails?.destination ?? '',
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                   ),
-                                  Text(data?.onwardDetails?.arrivalTime ?? '22:22', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                  Text(data?.onwardDetails?.arrivalTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                 ],
                               ),
                             ],
@@ -717,19 +1168,8 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                     color: Colors.grey.shade600,
                                     size: 20,
                                   ),
-                                  Text(data?.onwardDetails?.freeBaggage ?? "N/A")
+                                  Text(data?.onwardDetails?.freeBaggage ?? "")
                                 ]),
-                                TextButton.icon(
-                                    onPressed: () async {
-                                      await SearchApi().flightDetails(itinId: data?.itinId, providerCode: data?.providerCode, fareId: fareId ?? data?.pricingList?.first.fareId).then((value) {
-                                        flightData = value ?? FlightDetailsResponse();
-                                        selectedIdx = isSelected ? -1 : index;
-                                        flightDetails = true;
-                                      });
-                                      setState(() {});
-                                    },
-                                    label: Icon(!isSelected ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_up_outlined),
-                                    icon: const Text("Flight Details"))
                               ],
                             ),
                           ],
@@ -749,7 +1189,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                           //    mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              data?.returnDetails?.airlineName ?? "Flight Name",
+                              data?.returnDetails?.airlineName ?? "",
                               style: const TextStyle(fontSize: 16),
                             ),
                           ],
@@ -765,11 +1205,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4.0),
                                     child: Text(
-                                      data?.returnDetails?.origin ?? 'DEL',
+                                      data?.returnDetails?.source ?? '',
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                   ),
-                                  Text(data?.returnDetails?.departureTime ?? '11:11', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                  Text(data?.returnDetails?.departureTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                 ],
                               ),
                               Padding(
@@ -777,7 +1217,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      data?.returnDetails?.duration ?? '2 hr',
+                                      data?.returnDetails?.duration ?? '',
                                     ),
                                     SizedBox(
                                       width: 40,
@@ -812,11 +1252,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4.0),
                                     child: Text(
-                                      data?.returnDetails?.destination ?? 'DOH',
+                                      data?.returnDetails?.destination ?? '',
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                   ),
-                                  Text(data?.returnDetails?.arrivalTime ?? '22:22', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                  Text(data?.returnDetails?.arrivalTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                 ],
                               ),
                             ],
@@ -841,16 +1281,52 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                     color: Colors.grey.shade600,
                                     size: 20,
                                   ),
-                                  Text(data?.returnDetails?.freeBaggage ?? "N/A")
+                                  Text(data?.returnDetails?.freeBaggage ?? "")
                                 ]),
                                 TextButton.icon(
-                                    onPressed: () {
-                                      selectedIdx = isSelected ? -1 : index;
-                                      flightDetails = true;
+                                    onPressed: () async {
+                                      await SearchApi().flightDetailsR(data: FlightDetailsRequestIR(itinId: data?.itinId, itinIdR: 0, fareIdR: 0, providerCodeR: "", providerCode: data?.providerCode, fareId: fareId ?? data?.pricingList?.first.fareId)).then((value) {
+                                        flightDataRoundTrip = value ?? FlightDetailsResponseIR();
+                                        selectedIdx = isSelected ? -1 : index;
+                                        flightDetails = true;
+                                      });
                                       setState(() {});
                                     },
                                     label: Icon(!isSelected ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_up_outlined),
                                     icon: const Text("Flight Details"))
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
                               ],
                             ),
                           ],
@@ -869,7 +1345,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "₹${data?.returnDetails?.netAmount ?? '736t#'}",
+                          "₹${data?.amount ?? ''}",
                           style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 22),
                         ),
                         (data?.pricingList?.length ?? 0) > 1
@@ -891,7 +1367,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                   const SizedBox(height: 100),
                   ElevatedButton(
                     onPressed: () {
-                      SearchApi().pricingDetails(providerCode: data?.providerCode, itinId: data?.itinId, fareId: fareId ?? data?.pricingList?.first.fareId).then((value) {
+                      PricingApi().pricingDetails(request: PricingRequest(fareId: data?.fareId, fareIdR: 0, itinId: data?.itinId, itinIdR: 0, providerCode: data?.providerCode, providerCodeR: "")).then((value) {
                         (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
                       });
                     },
@@ -917,145 +1393,82 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
         ),
         isSelected
             ? Container(
-                margin: const EdgeInsets.all(10),
                 color: const Color.fromARGB(87, 156, 172, 192),
-                child: flightDetails ? moreDetails(context, flightData) : morePrice(context, data?.pricingList),
+                child: flightDetails
+                    ? Container(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            Row(children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        isFlightDetails = true;
+                                        isFareSummary = false;
+                                        setState(() {});
+                                        //       FlightDetailsResponseIR
+                                      },
+                                      child: Text("Flight Details", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                    ),
+                                  ),
+                                  isFlightDetails
+                                      ? SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.black),
+                                        )
+                                      : SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.transparent),
+                                        )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        isFareSummary = true;
+                                        isFlightDetails = false;
+                                        setState(() {});
+                                      },
+                                      child: Text("Fare Summary", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                    ),
+                                  ),
+                                  isFareSummary
+                                      ? SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.black),
+                                        )
+                                      : SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.transparent),
+                                        )
+                                ],
+                              )
+                            ]),
+                            isFlightDetails
+                                ? Column(
+                                    children: [
+                                      flightDetailsSector(flightDataRoundTrip.objitin),
+                                      flightDetailsSector(flightDataRoundTrip.objitinR),
+                                    ],
+                                  )
+                                : flightDetailsFareSummary(flightDataRoundTrip),
+                          ],
+                        ),
+                      )
+                    : morePrice(context, data?.pricingList),
               )
-            : SizedBox()
+            : const SizedBox(),
       ],
     );
   }
 
-  Padding moreDetails(BuildContext context, FlightDetailsResponse data) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Flight Details".toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("${data.objitin?.originCity ?? ''}-${data.objitin?.destinationCity ?? ''}"), Text("${data.objitin?.departureDate ?? ''}")],
-            ),
-          ),
-          Text("Flight Information".toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          SizedBox(
-            height: 320,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: data.objitin?.objseglist?.length ?? 0,
-              itemBuilder: (context, index) {
-                final val = data.objitin?.objseglist?[index];
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.network(
-                            "https://agents.alhind.com/images/logos/${val?.airlineCode ?? ""}.gif",
-                            fit: BoxFit.fitHeight,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Text("No logo");
-                            },
-                          ),
-                          Text(
-                            "\t ${val?.airlineName ?? ''}",
-                            maxLines: 2,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Icon(Icons.circle, size: 10),
-                          ),
-                          Text(
-                            val?.airlineFlightClass ?? '',
-                            maxLines: 2,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.business_center_outlined),
-                                Text("\t${data.objitin?.adultCabinBaggage ?? ''}"),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              const Icon(Icons.luggage_outlined),
-                              Text("\t${data.objitin?.adultCheckinBaggage ?? ''}"),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${val?.departureAirportCode ?? ''} ${val?.departureTime ?? ''}".toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(val?.departureDate ?? ''),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 3,
-                              child: Text(val?.departureAirport ?? '', maxLines: 2, softWrap: true),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(val?.departureCity ?? ''),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            const Icon(Icons.access_time_rounded, size: 40),
-                            Text(val?.travelDuration ?? ''),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${val?.arrivalAirportCode ?? ''} ${val?.arrivalTime ?? ''}".toUpperCase(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(val?.arrivalDate ?? ''),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 3,
-                              child: Text(
-                                val?.arrivalAirport ?? '',
-                                maxLines: 2,
-                                softWrap: true,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(
-                                val?.arrivalCity ?? '',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Column oneWayWidget({required Apisearchresponse? data, required bool isSelected, required int index, required BuildContext context}) {
+  Column oneWayWidget({required ApiSearchResponse? data, required bool isSelected, required int index, required BuildContext context}) {
     return Column(
       children: [
         Container(
@@ -1095,7 +1508,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                 ),
                               ),
                               Text(
-                                data?.airlineName ?? "Air india",
+                                data?.airlineName ?? "",
                                 style: const TextStyle(fontSize: 18),
                               ),
                             ],
@@ -1129,11 +1542,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 4.0),
                                         child: Text(
-                                          data?.source ?? 'N/A',
+                                          data?.source ?? '',
                                           style: const TextStyle(fontSize: 17),
                                         ),
                                       ),
-                                      Text(data?.departureTime ?? '99:99', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                      Text(data?.departureTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                     ],
                                   ),
                                   Padding(
@@ -1141,7 +1554,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          data?.duration ?? '2 pi',
+                                          data?.duration ?? '',
                                         ),
                                         SizedBox(
                                           width: 40,
@@ -1176,11 +1589,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 4.0),
                                         child: Text(
-                                          data?.destination ?? 'N/A',
+                                          data?.destination ?? '',
                                           style: const TextStyle(fontSize: 17),
                                         ),
                                       ),
-                                      Text(data?.arrivalTime ?? '22:22', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                      Text(data?.arrivalTime ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                                     ],
                                   ),
                                 ],
@@ -1194,7 +1607,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "₹${data?.netAmount ?? '736t#'}",
+                                "₹${data?.netAmount ?? ''}",
                                 style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 24),
                               ),
                               (data?.pricingList?.length ?? 0) > 1
@@ -1215,7 +1628,8 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            SearchApi().pricingDetails(providerCode: data?.providerCode, itinId: data?.itinId, fareId: fareId ?? data?.pricingList?.first.fareId).then((value) {
+                            //combained
+                            PricingApi().pricingDetails(request: PricingRequest(fareId: data?.fareId, fareIdR: 0, itinId: data?.itinId, itinIdR: 0, providerCode: data?.providerCode, providerCodeR: "")).then((value) {
                               (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
                             });
                           },
@@ -1280,10 +1694,326 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
         isSelected
             ? Container(
                 color: const Color.fromARGB(87, 156, 172, 192),
-                child: flightDetails ? moreDetails(context, flightData) : morePrice(context, data?.pricingList),
+                child: flightDetails
+                    ? Container(
+                        child: Column(
+                          children: [
+                            Row(children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        isFlightDetails = true;
+                                        isFareSummary = false;
+                                        setState(() {});
+                                      },
+                                      child: Text("Flight Details", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                    ),
+                                  ),
+                                  isFlightDetails
+                                      ? SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.black),
+                                        )
+                                      : SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.transparent),
+                                        )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        isFareSummary = true;
+                                        isFlightDetails = false;
+                                        setState(() {});
+                                      },
+                                      child: Text("Fare Summary", style: TextStyle(color: Colors.black, fontSize: 20)),
+                                    ),
+                                  ),
+                                  isFareSummary
+                                      ? SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.black),
+                                        )
+                                      : SizedBox(
+                                          width: 120,
+                                          child: Divider(thickness: 2, color: Colors.transparent),
+                                        ),
+                                ],
+                              )
+                            ]),
+                            isFlightDetails ? flightDetailsSector(flightData.objitin) : flightDetailsFareSummary(flightData),
+                          ],
+                        ),
+                      )
+                    : morePrice(context, data?.pricingList),
               )
             : const SizedBox(),
       ],
+    );
+  }
+
+  flightDetailsFareSummary(data) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Fare Summary",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Adult X ${data.adult}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "Child X ${data.child}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Infant X ${data.infant}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Base Fare",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      " ${data.adtBasic}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      " ${data.chdBasic}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      " ${data.infBasic}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Fees & Tax",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      " ${data.adtTax}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      " ${data.chdTax}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      " ${data.infTax}",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Divider(thickness: 2, color: Colors.grey),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5),
+              child: Text(
+                "Total",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5),
+              child: Text(
+                " ${data.totalFare ?? 0}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "  *Total price displayed above has been rounded of and may vary at final stage.",
+            maxLines: 2,
+          ),
+        ),
+      ],
+    );
+  }
+
+  flightDetailsSector(FlightDetailsItin? data) {
+    return SizedBox(
+      height: (data?.objseglist?.length ?? 0) * 210,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: data?.objseglist?.length ?? 0,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                SizedBox(height: 10),
+                Card(
+                  color: Colors.grey.shade300,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.network(
+                          "https://agents.alhind.com/images/logos/${data?.objseglist?[index].airlineCode ?? ''}.gif",
+                          /*${data.airlineName}.*/
+
+                          fit: BoxFit.fitHeight,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Text("No logo");
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(data?.objseglist?[index].airlineName ?? ''),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 5),
+                          child: Text(data?.objseglist?[index].airlineFlightClass ?? ''),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 25),
+                          child: Text(data?.adultCabinBaggage ?? 'N/A KG'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 14, top: 15, bottom: 15),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Expanded(
+                      //  width: MediaQuery.of(context).size.width / 2 - 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data?.objseglist?[index].departureCity ?? '',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              "${data?.objseglist?[index].departureAirportCode ?? ''} ${data?.objseglist?[index].departureTime ?? ''}",
+                              style: TextStyle(fontSize: 23),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              data?.objseglist?[index].departureAirport ?? '',
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.access_time_outlined),
+                        ),
+                        Text(
+                          data?.objseglist?[index].travelDuration ?? '',
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      // width: MediaQuery.of(context).size.width / 2 - 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            data?.objseglist?[index].arrivalCity ?? '',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              "${data?.objseglist?[index].arrivalAirportCode ?? ''} ${data?.objseglist?[index].arrivalTime ?? ''}",
+                              style: TextStyle(fontSize: 23),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              data?.objseglist?[index].arrivalAirport ?? '',
+                              maxLines: 2,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ),
+              ],
+            );
+          }),
     );
   }
 
@@ -1445,9 +2175,9 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
 }
 
 class FlightFareCardListView extends StatefulWidget {
-  late List<Apisearchresponse>? data;
-  late List<Apisearchresponse>? onwardList;
-  late List<Apisearchresponse>? returnList;
+  late List<ApiSearchResponse>? data;
+  late List<ApiSearchResponse>? onwardList;
+  late List<ApiSearchResponse>? returnList;
   late List<RApisearchresponse>? combainedRoundData;
   late bool internationalTrip;
 

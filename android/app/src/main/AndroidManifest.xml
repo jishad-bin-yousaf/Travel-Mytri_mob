@@ -2,7 +2,7 @@
     package="com.example.travel_mytri_mobile_v1">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="travel_mytri_mobile_v1"
+        android:label="Travel Mythri"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
