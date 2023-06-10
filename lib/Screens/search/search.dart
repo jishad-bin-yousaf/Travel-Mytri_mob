@@ -10,8 +10,29 @@ import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
 import 'package:travel_mytri_mobile_v1/data/model/airport_list.dart';
 
-class FlightSearchScreen extends StatelessWidget {
-  const FlightSearchScreen({super.key});
+import '../../data/model/hive_class_functions.dart';
+
+class FlightSearchScreen extends StatefulWidget {
+  FlightSearchScreen({super.key});
+
+  @override
+  State<FlightSearchScreen> createState() => _FlightSearchScreenState();
+}
+
+class _FlightSearchScreenState extends State<FlightSearchScreen> {
+  bool isLogged = false;
+  String? userName = "";
+  @override
+  void initState() {
+    getToken().then((value) {
+      dev.log(isLogged.toString());
+      isLogged = value.isUser ?? false;
+      userName = value.fullName ?? "User";
+      dev.log((userName).toString() + "userDetails");
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +62,9 @@ class FlightSearchScreen extends StatelessWidget {
               //   loginBottomSheet(context, width);
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
-            label: const Text(
-              "Hi User !",
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
+            label: Text(
+              "Hi $userName !",
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
             ),
           ),
         ),

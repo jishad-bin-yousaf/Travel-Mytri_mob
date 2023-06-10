@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:hive/hive.dart';
 
+import 'general_resp.dart';
+
 part '../gen/hive_class_functions.g.dart';
 
 @HiveType(typeId: 1)
@@ -10,6 +12,21 @@ class Token {
   String? token;
   @HiveField(1)
   bool? isUser;
+  @HiveField(2)
+  String? fullName;
+  @HiveField(3)
+  String? firstName;
+  @HiveField(4)
+  String? lastName;
+  @HiveField(5)
+  String? userId;
+}
+
+class UserData {
+  String? fullName;
+  String? firstName;
+  String? lastName;
+  String? userId;
 }
 
 Future<String> setToken(Token token) async {

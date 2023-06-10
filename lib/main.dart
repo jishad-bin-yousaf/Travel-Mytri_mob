@@ -10,6 +10,7 @@ import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
 import 'Config/routes.dart';
+import 'Screens/widgets/print_pdf.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
 Future<void> main() async {
@@ -50,7 +51,6 @@ class MyApp extends StatelessWidget {
       ),
       routes: routes,
       initialRoute: '/',
-      //    home: ConfirmationScreen(),
     );
   }
 }

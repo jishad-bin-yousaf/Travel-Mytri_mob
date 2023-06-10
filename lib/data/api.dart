@@ -160,7 +160,7 @@ class AuthenticationApi {
     try {
       final url = Uri.parse(baseUrl + urls.startingApi);
 
-      /*     var deviceInfo = DeviceInfoPlugin();
+      var deviceInfo = DeviceInfoPlugin();
       String deviceId = '';
       Map<String, String> header = {};
 
@@ -172,7 +172,7 @@ class AuthenticationApi {
         deviceId = iosInfo.identifierForVendor;
       }
       await getToken().then((value) => header = {
-            "Authorization": "Bearer $value",
+            "Authorization": "Bearer ${value.token}",
             "DeviceCode": "M",
             "content-type": "application/json",
             "os": Platform.isAndroid
@@ -180,18 +180,17 @@ class AuthenticationApi {
                 : Platform.isIOS
                     ? "iOS"
                     : "",
-            "deviceId": deviceId,
             "appVersion": "1.0.0"
-          }); */
-      final header = await getHeader();
+          });
+      // final header = await getHeader();
 
       print(header);
       print(url);
-      log(jsonEncode({"deviceId": header["deviceId"]}).toString() + "++++");
+      log(jsonEncode({"Id": deviceId}).toString() + "++++");
 
       final result = await http.post(
         url,
-        body: jsonEncode({"deviceId": header["deviceId"]}),
+        body: jsonEncode({"Id": deviceId}),
         headers: header,
       );
       log(result.statusCode.toString());

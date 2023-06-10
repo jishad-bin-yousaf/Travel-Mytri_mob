@@ -1534,11 +1534,20 @@ RepriceResponse _$RepriceResponseFromJson(Map<String, dynamic> json) {
 mixin _$RepriceResponse {
   bool? get status => throw _privateConstructorUsedError;
   String? get responseMessage => throw _privateConstructorUsedError;
+  int? get itinId => throw _privateConstructorUsedError;
+  int? get itinIdR => throw _privateConstructorUsedError;
+  int? get fareId => throw _privateConstructorUsedError;
+  int? get fareIdR => throw _privateConstructorUsedError;
+  String? get providerCode => throw _privateConstructorUsedError;
+  String? get providerCodeR => throw _privateConstructorUsedError;
+  double? get totalTax => throw _privateConstructorUsedError;
+  double? get totalResponseAmount => throw _privateConstructorUsedError;
   List<PricingDetailsList>? get objSegList =>
       throw _privateConstructorUsedError;
   double? get adultBasic => throw _privateConstructorUsedError;
   double? get childBasic => throw _privateConstructorUsedError;
   double? get infantBasic => throw _privateConstructorUsedError;
+  double? get totalBasic => throw _privateConstructorUsedError;
   List<TaxSplitup>? get taxList => throw _privateConstructorUsedError;
   int? get adult => throw _privateConstructorUsedError;
   int? get child => throw _privateConstructorUsedError;
@@ -1565,10 +1574,19 @@ abstract class $RepriceResponseCopyWith<$Res> {
   $Res call(
       {bool? status,
       String? responseMessage,
+      int? itinId,
+      int? itinIdR,
+      int? fareId,
+      int? fareIdR,
+      String? providerCode,
+      String? providerCodeR,
+      double? totalTax,
+      double? totalResponseAmount,
       List<PricingDetailsList>? objSegList,
       double? adultBasic,
       double? childBasic,
       double? infantBasic,
+      double? totalBasic,
       List<TaxSplitup>? taxList,
       int? adult,
       int? child,
@@ -1596,10 +1614,19 @@ class _$RepriceResponseCopyWithImpl<$Res, $Val extends RepriceResponse>
   $Res call({
     Object? status = freezed,
     Object? responseMessage = freezed,
+    Object? itinId = freezed,
+    Object? itinIdR = freezed,
+    Object? fareId = freezed,
+    Object? fareIdR = freezed,
+    Object? providerCode = freezed,
+    Object? providerCodeR = freezed,
+    Object? totalTax = freezed,
+    Object? totalResponseAmount = freezed,
     Object? objSegList = freezed,
     Object? adultBasic = freezed,
     Object? childBasic = freezed,
     Object? infantBasic = freezed,
+    Object? totalBasic = freezed,
     Object? taxList = freezed,
     Object? adult = freezed,
     Object? child = freezed,
@@ -1620,6 +1647,38 @@ class _$RepriceResponseCopyWithImpl<$Res, $Val extends RepriceResponse>
           ? _value.responseMessage
           : responseMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      itinId: freezed == itinId
+          ? _value.itinId
+          : itinId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itinIdR: freezed == itinIdR
+          ? _value.itinIdR
+          : itinIdR // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareId: freezed == fareId
+          ? _value.fareId
+          : fareId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareIdR: freezed == fareIdR
+          ? _value.fareIdR
+          : fareIdR // ignore: cast_nullable_to_non_nullable
+              as int?,
+      providerCode: freezed == providerCode
+          ? _value.providerCode
+          : providerCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerCodeR: freezed == providerCodeR
+          ? _value.providerCodeR
+          : providerCodeR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTax: freezed == totalTax
+          ? _value.totalTax
+          : totalTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalResponseAmount: freezed == totalResponseAmount
+          ? _value.totalResponseAmount
+          : totalResponseAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       objSegList: freezed == objSegList
           ? _value.objSegList
           : objSegList // ignore: cast_nullable_to_non_nullable
@@ -1635,6 +1694,10 @@ class _$RepriceResponseCopyWithImpl<$Res, $Val extends RepriceResponse>
       infantBasic: freezed == infantBasic
           ? _value.infantBasic
           : infantBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalBasic: freezed == totalBasic
+          ? _value.totalBasic
+          : totalBasic // ignore: cast_nullable_to_non_nullable
               as double?,
       taxList: freezed == taxList
           ? _value.taxList
@@ -1691,10 +1754,19 @@ abstract class _$$_RepriceResponseCopyWith<$Res>
   $Res call(
       {bool? status,
       String? responseMessage,
+      int? itinId,
+      int? itinIdR,
+      int? fareId,
+      int? fareIdR,
+      String? providerCode,
+      String? providerCodeR,
+      double? totalTax,
+      double? totalResponseAmount,
       List<PricingDetailsList>? objSegList,
       double? adultBasic,
       double? childBasic,
       double? infantBasic,
+      double? totalBasic,
       List<TaxSplitup>? taxList,
       int? adult,
       int? child,
@@ -1720,10 +1792,19 @@ class __$$_RepriceResponseCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? responseMessage = freezed,
+    Object? itinId = freezed,
+    Object? itinIdR = freezed,
+    Object? fareId = freezed,
+    Object? fareIdR = freezed,
+    Object? providerCode = freezed,
+    Object? providerCodeR = freezed,
+    Object? totalTax = freezed,
+    Object? totalResponseAmount = freezed,
     Object? objSegList = freezed,
     Object? adultBasic = freezed,
     Object? childBasic = freezed,
     Object? infantBasic = freezed,
+    Object? totalBasic = freezed,
     Object? taxList = freezed,
     Object? adult = freezed,
     Object? child = freezed,
@@ -1744,6 +1825,38 @@ class __$$_RepriceResponseCopyWithImpl<$Res>
           ? _value.responseMessage
           : responseMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      itinId: freezed == itinId
+          ? _value.itinId
+          : itinId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itinIdR: freezed == itinIdR
+          ? _value.itinIdR
+          : itinIdR // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareId: freezed == fareId
+          ? _value.fareId
+          : fareId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareIdR: freezed == fareIdR
+          ? _value.fareIdR
+          : fareIdR // ignore: cast_nullable_to_non_nullable
+              as int?,
+      providerCode: freezed == providerCode
+          ? _value.providerCode
+          : providerCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerCodeR: freezed == providerCodeR
+          ? _value.providerCodeR
+          : providerCodeR // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTax: freezed == totalTax
+          ? _value.totalTax
+          : totalTax // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalResponseAmount: freezed == totalResponseAmount
+          ? _value.totalResponseAmount
+          : totalResponseAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       objSegList: freezed == objSegList
           ? _value._objSegList
           : objSegList // ignore: cast_nullable_to_non_nullable
@@ -1759,6 +1872,10 @@ class __$$_RepriceResponseCopyWithImpl<$Res>
       infantBasic: freezed == infantBasic
           ? _value.infantBasic
           : infantBasic // ignore: cast_nullable_to_non_nullable
+              as double?,
+      totalBasic: freezed == totalBasic
+          ? _value.totalBasic
+          : totalBasic // ignore: cast_nullable_to_non_nullable
               as double?,
       taxList: freezed == taxList
           ? _value._taxList
@@ -1810,10 +1927,19 @@ class _$_RepriceResponse implements _RepriceResponse {
   const _$_RepriceResponse(
       {this.status,
       this.responseMessage,
+      this.itinId,
+      this.itinIdR,
+      this.fareId,
+      this.fareIdR,
+      this.providerCode,
+      this.providerCodeR,
+      this.totalTax,
+      this.totalResponseAmount,
       final List<PricingDetailsList>? objSegList,
       this.adultBasic,
       this.childBasic,
       this.infantBasic,
+      this.totalBasic,
       final List<TaxSplitup>? taxList,
       this.adult,
       this.child,
@@ -1834,6 +1960,22 @@ class _$_RepriceResponse implements _RepriceResponse {
   final bool? status;
   @override
   final String? responseMessage;
+  @override
+  final int? itinId;
+  @override
+  final int? itinIdR;
+  @override
+  final int? fareId;
+  @override
+  final int? fareIdR;
+  @override
+  final String? providerCode;
+  @override
+  final String? providerCodeR;
+  @override
+  final double? totalTax;
+  @override
+  final double? totalResponseAmount;
   final List<PricingDetailsList>? _objSegList;
   @override
   List<PricingDetailsList>? get objSegList {
@@ -1850,6 +1992,8 @@ class _$_RepriceResponse implements _RepriceResponse {
   final double? childBasic;
   @override
   final double? infantBasic;
+  @override
+  final double? totalBasic;
   final List<TaxSplitup>? _taxList;
   @override
   List<TaxSplitup>? get taxList {
@@ -1881,7 +2025,7 @@ class _$_RepriceResponse implements _RepriceResponse {
 
   @override
   String toString() {
-    return 'RepriceResponse(status: $status, responseMessage: $responseMessage, objSegList: $objSegList, adultBasic: $adultBasic, childBasic: $childBasic, infantBasic: $infantBasic, taxList: $taxList, adult: $adult, child: $child, infant: $infant, adultTotal: $adultTotal, childTotal: $childTotal, infantTotal: $infantTotal, ssrTotal: $ssrTotal, discountAmount: $discountAmount, finalAmount: $finalAmount)';
+    return 'RepriceResponse(status: $status, responseMessage: $responseMessage, itinId: $itinId, itinIdR: $itinIdR, fareId: $fareId, fareIdR: $fareIdR, providerCode: $providerCode, providerCodeR: $providerCodeR, totalTax: $totalTax, totalResponseAmount: $totalResponseAmount, objSegList: $objSegList, adultBasic: $adultBasic, childBasic: $childBasic, infantBasic: $infantBasic, totalBasic: $totalBasic, taxList: $taxList, adult: $adult, child: $child, infant: $infant, adultTotal: $adultTotal, childTotal: $childTotal, infantTotal: $infantTotal, ssrTotal: $ssrTotal, discountAmount: $discountAmount, finalAmount: $finalAmount)';
   }
 
   @override
@@ -1892,6 +2036,18 @@ class _$_RepriceResponse implements _RepriceResponse {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.responseMessage, responseMessage) ||
                 other.responseMessage == responseMessage) &&
+            (identical(other.itinId, itinId) || other.itinId == itinId) &&
+            (identical(other.itinIdR, itinIdR) || other.itinIdR == itinIdR) &&
+            (identical(other.fareId, fareId) || other.fareId == fareId) &&
+            (identical(other.fareIdR, fareIdR) || other.fareIdR == fareIdR) &&
+            (identical(other.providerCode, providerCode) ||
+                other.providerCode == providerCode) &&
+            (identical(other.providerCodeR, providerCodeR) ||
+                other.providerCodeR == providerCodeR) &&
+            (identical(other.totalTax, totalTax) ||
+                other.totalTax == totalTax) &&
+            (identical(other.totalResponseAmount, totalResponseAmount) ||
+                other.totalResponseAmount == totalResponseAmount) &&
             const DeepCollectionEquality()
                 .equals(other._objSegList, _objSegList) &&
             (identical(other.adultBasic, adultBasic) ||
@@ -1900,6 +2056,8 @@ class _$_RepriceResponse implements _RepriceResponse {
                 other.childBasic == childBasic) &&
             (identical(other.infantBasic, infantBasic) ||
                 other.infantBasic == infantBasic) &&
+            (identical(other.totalBasic, totalBasic) ||
+                other.totalBasic == totalBasic) &&
             const DeepCollectionEquality().equals(other._taxList, _taxList) &&
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.child, child) || other.child == child) &&
@@ -1920,24 +2078,34 @@ class _$_RepriceResponse implements _RepriceResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      status,
-      responseMessage,
-      const DeepCollectionEquality().hash(_objSegList),
-      adultBasic,
-      childBasic,
-      infantBasic,
-      const DeepCollectionEquality().hash(_taxList),
-      adult,
-      child,
-      infant,
-      adultTotal,
-      childTotal,
-      infantTotal,
-      ssrTotal,
-      discountAmount,
-      finalAmount);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        status,
+        responseMessage,
+        itinId,
+        itinIdR,
+        fareId,
+        fareIdR,
+        providerCode,
+        providerCodeR,
+        totalTax,
+        totalResponseAmount,
+        const DeepCollectionEquality().hash(_objSegList),
+        adultBasic,
+        childBasic,
+        infantBasic,
+        totalBasic,
+        const DeepCollectionEquality().hash(_taxList),
+        adult,
+        child,
+        infant,
+        adultTotal,
+        childTotal,
+        infantTotal,
+        ssrTotal,
+        discountAmount,
+        finalAmount
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -1957,10 +2125,19 @@ abstract class _RepriceResponse implements RepriceResponse {
   const factory _RepriceResponse(
       {final bool? status,
       final String? responseMessage,
+      final int? itinId,
+      final int? itinIdR,
+      final int? fareId,
+      final int? fareIdR,
+      final String? providerCode,
+      final String? providerCodeR,
+      final double? totalTax,
+      final double? totalResponseAmount,
       final List<PricingDetailsList>? objSegList,
       final double? adultBasic,
       final double? childBasic,
       final double? infantBasic,
+      final double? totalBasic,
       final List<TaxSplitup>? taxList,
       final int? adult,
       final int? child,
@@ -1980,6 +2157,22 @@ abstract class _RepriceResponse implements RepriceResponse {
   @override
   String? get responseMessage;
   @override
+  int? get itinId;
+  @override
+  int? get itinIdR;
+  @override
+  int? get fareId;
+  @override
+  int? get fareIdR;
+  @override
+  String? get providerCode;
+  @override
+  String? get providerCodeR;
+  @override
+  double? get totalTax;
+  @override
+  double? get totalResponseAmount;
+  @override
   List<PricingDetailsList>? get objSegList;
   @override
   double? get adultBasic;
@@ -1987,6 +2180,8 @@ abstract class _RepriceResponse implements RepriceResponse {
   double? get childBasic;
   @override
   double? get infantBasic;
+  @override
+  double? get totalBasic;
   @override
   List<TaxSplitup>? get taxList;
   @override

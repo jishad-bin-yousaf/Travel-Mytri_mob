@@ -9,6 +9,8 @@ import 'dart:async';
 import '../../Constants/colors.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import '../../data/model/general_resp.dart';
+
 class ScreenOtp extends StatefulWidget {
   const ScreenOtp({super.key});
 
@@ -139,6 +141,12 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
                         if (value?.token != null) {
                           toc.token = value?.token ?? '';
                           toc.isUser = value?.status ?? false;
+                          toc.fullName = value?.objUser?.fullName ?? "";
+                          toc.firstName = value?.objUser?.firstName ?? "";
+                          toc.lastName = value?.objUser?.lastName ?? "";
+                          toc.userId = value?.objUser?.userId ?? "";
+                          // log((value!.objUser)toString());
+                          log((value?.objUser).toString());
                           setToken(toc);
                         }
                         (value?.status ?? false)
@@ -192,22 +200,6 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
           },
           decoration: const InputDecoration(hintText: "0"),
         ));
-  }
-
-  void submitOtp(phoneNo) async {
-    // dispose();
-    log(codeValue);
-    await AuthenticationApi().otpSubmit(mobileNo: phoneNo, otp: codeValue).then((resp) async {
-      if (resp?.status == true && resp?.token != null) {
-        Token toc = Token();
-        toc.token = resp?.token ?? "";
-        await setToken(toc).then((value) {
-          if (value.isNotEmpty && value != ' ') Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
-        });
-      } else {
-        Helper().toastMessage(resp?.responseMessage ?? "Go Back & Try Again");
-      }
-    });
   }
 }
 

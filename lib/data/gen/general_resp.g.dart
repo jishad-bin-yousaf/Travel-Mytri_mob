@@ -25,6 +25,9 @@ _$_ResponseWithToken _$$_ResponseWithTokenFromJson(Map<String, dynamic> json) =>
       status: json['status'] as bool?,
       responseMessage: json['responseMessage'] as String?,
       token: json['token'] as String?,
+      objUser: json['objUser'] == null
+          ? null
+          : UserDetails.fromJson(json['objUser'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ResponseWithTokenToJson(
@@ -33,4 +36,21 @@ Map<String, dynamic> _$$_ResponseWithTokenToJson(
       'status': instance.status,
       'responseMessage': instance.responseMessage,
       'token': instance.token,
+      'objUser': instance.objUser,
+    };
+
+_$_UserDetails _$$_UserDetailsFromJson(Map<String, dynamic> json) =>
+    _$_UserDetails(
+      fullName: json['fullName'] as String?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
+      userId: json['userId'] as String?,
+    );
+
+Map<String, dynamic> _$$_UserDetailsToJson(_$_UserDetails instance) =>
+    <String, dynamic>{
+      'fullName': instance.fullName,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'userId': instance.userId,
     };

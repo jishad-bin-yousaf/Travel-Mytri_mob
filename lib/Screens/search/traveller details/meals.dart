@@ -14,10 +14,11 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
   int selectedIndexMeal = -1;
   int selectedIndexSector = -1;
   List<SSRMeal> mealList = [];
+  List<SSRMeal> mealListFinal = [];
 
   @override
   void initState() {
-    mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal());
+    mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: ''));
 
     super.initState();
   }
@@ -59,6 +60,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                     onPressed: () {
                       selectedIndexSector = isSelected ? -1 : index;
                       selectedIndexMeal = -1;
+
                       mealList[index].segmentCode = widget.data?[index].sectorCode;
                       mealList[index].tripMode = widget.data?[index].tripMode;
                       sectionIndex = index;

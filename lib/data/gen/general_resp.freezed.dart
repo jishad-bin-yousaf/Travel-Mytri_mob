@@ -179,6 +179,7 @@ mixin _$ResponseWithToken {
   bool? get status => throw _privateConstructorUsedError;
   String? get responseMessage => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
+  UserDetails? get objUser => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -192,7 +193,13 @@ abstract class $ResponseWithTokenCopyWith<$Res> {
           ResponseWithToken value, $Res Function(ResponseWithToken) then) =
       _$ResponseWithTokenCopyWithImpl<$Res, ResponseWithToken>;
   @useResult
-  $Res call({bool? status, String? responseMessage, String? token});
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? token,
+      UserDetails? objUser});
+
+  $UserDetailsCopyWith<$Res>? get objUser;
 }
 
 /// @nodoc
@@ -211,6 +218,7 @@ class _$ResponseWithTokenCopyWithImpl<$Res, $Val extends ResponseWithToken>
     Object? status = freezed,
     Object? responseMessage = freezed,
     Object? token = freezed,
+    Object? objUser = freezed,
   }) {
     return _then(_value.copyWith(
       status: freezed == status
@@ -225,7 +233,23 @@ class _$ResponseWithTokenCopyWithImpl<$Res, $Val extends ResponseWithToken>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      objUser: freezed == objUser
+          ? _value.objUser
+          : objUser // ignore: cast_nullable_to_non_nullable
+              as UserDetails?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDetailsCopyWith<$Res>? get objUser {
+    if (_value.objUser == null) {
+      return null;
+    }
+
+    return $UserDetailsCopyWith<$Res>(_value.objUser!, (value) {
+      return _then(_value.copyWith(objUser: value) as $Val);
+    });
   }
 }
 
@@ -237,7 +261,14 @@ abstract class _$$_ResponseWithTokenCopyWith<$Res>
       __$$_ResponseWithTokenCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool? status, String? responseMessage, String? token});
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      String? token,
+      UserDetails? objUser});
+
+  @override
+  $UserDetailsCopyWith<$Res>? get objUser;
 }
 
 /// @nodoc
@@ -254,6 +285,7 @@ class __$$_ResponseWithTokenCopyWithImpl<$Res>
     Object? status = freezed,
     Object? responseMessage = freezed,
     Object? token = freezed,
+    Object? objUser = freezed,
   }) {
     return _then(_$_ResponseWithToken(
       status: freezed == status
@@ -268,6 +300,10 @@ class __$$_ResponseWithTokenCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      objUser: freezed == objUser
+          ? _value.objUser
+          : objUser // ignore: cast_nullable_to_non_nullable
+              as UserDetails?,
     ));
   }
 }
@@ -275,7 +311,8 @@ class __$$_ResponseWithTokenCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ResponseWithToken implements _ResponseWithToken {
-  _$_ResponseWithToken({this.status, this.responseMessage, this.token});
+  _$_ResponseWithToken(
+      {this.status, this.responseMessage, this.token, this.objUser});
 
   factory _$_ResponseWithToken.fromJson(Map<String, dynamic> json) =>
       _$$_ResponseWithTokenFromJson(json);
@@ -286,10 +323,12 @@ class _$_ResponseWithToken implements _ResponseWithToken {
   final String? responseMessage;
   @override
   final String? token;
+  @override
+  final UserDetails? objUser;
 
   @override
   String toString() {
-    return 'ResponseWithToken(status: $status, responseMessage: $responseMessage, token: $token)';
+    return 'ResponseWithToken(status: $status, responseMessage: $responseMessage, token: $token, objUser: $objUser)';
   }
 
   @override
@@ -300,12 +339,14 @@ class _$_ResponseWithToken implements _ResponseWithToken {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.responseMessage, responseMessage) ||
                 other.responseMessage == responseMessage) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.objUser, objUser) || other.objUser == objUser));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, status, responseMessage, token);
+  int get hashCode =>
+      Object.hash(runtimeType, status, responseMessage, token, objUser);
 
   @JsonKey(ignore: true)
   @override
@@ -326,7 +367,8 @@ abstract class _ResponseWithToken implements ResponseWithToken {
   factory _ResponseWithToken(
       {final bool? status,
       final String? responseMessage,
-      final String? token}) = _$_ResponseWithToken;
+      final String? token,
+      final UserDetails? objUser}) = _$_ResponseWithToken;
 
   factory _ResponseWithToken.fromJson(Map<String, dynamic> json) =
       _$_ResponseWithToken.fromJson;
@@ -338,7 +380,203 @@ abstract class _ResponseWithToken implements ResponseWithToken {
   @override
   String? get token;
   @override
+  UserDetails? get objUser;
+  @override
   @JsonKey(ignore: true)
   _$$_ResponseWithTokenCopyWith<_$_ResponseWithToken> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) {
+  return _UserDetails.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserDetails {
+  String? get fullName => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserDetailsCopyWith<UserDetails> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserDetailsCopyWith<$Res> {
+  factory $UserDetailsCopyWith(
+          UserDetails value, $Res Function(UserDetails) then) =
+      _$UserDetailsCopyWithImpl<$Res, UserDetails>;
+  @useResult
+  $Res call(
+      {String? fullName, String? firstName, String? lastName, String? userId});
+}
+
+/// @nodoc
+class _$UserDetailsCopyWithImpl<$Res, $Val extends UserDetails>
+    implements $UserDetailsCopyWith<$Res> {
+  _$UserDetailsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? fullName = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? userId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      fullName: freezed == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_UserDetailsCopyWith<$Res>
+    implements $UserDetailsCopyWith<$Res> {
+  factory _$$_UserDetailsCopyWith(
+          _$_UserDetails value, $Res Function(_$_UserDetails) then) =
+      __$$_UserDetailsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? fullName, String? firstName, String? lastName, String? userId});
+}
+
+/// @nodoc
+class __$$_UserDetailsCopyWithImpl<$Res>
+    extends _$UserDetailsCopyWithImpl<$Res, _$_UserDetails>
+    implements _$$_UserDetailsCopyWith<$Res> {
+  __$$_UserDetailsCopyWithImpl(
+      _$_UserDetails _value, $Res Function(_$_UserDetails) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? fullName = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? userId = freezed,
+  }) {
+    return _then(_$_UserDetails(
+      fullName: freezed == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserDetails implements _UserDetails {
+  _$_UserDetails({this.fullName, this.firstName, this.lastName, this.userId});
+
+  factory _$_UserDetails.fromJson(Map<String, dynamic> json) =>
+      _$$_UserDetailsFromJson(json);
+
+  @override
+  final String? fullName;
+  @override
+  final String? firstName;
+  @override
+  final String? lastName;
+  @override
+  final String? userId;
+
+  @override
+  String toString() {
+    return 'UserDetails(fullName: $fullName, firstName: $firstName, lastName: $lastName, userId: $userId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UserDetails &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, fullName, firstName, lastName, userId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UserDetailsCopyWith<_$_UserDetails> get copyWith =>
+      __$$_UserDetailsCopyWithImpl<_$_UserDetails>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UserDetailsToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserDetails implements UserDetails {
+  factory _UserDetails(
+      {final String? fullName,
+      final String? firstName,
+      final String? lastName,
+      final String? userId}) = _$_UserDetails;
+
+  factory _UserDetails.fromJson(Map<String, dynamic> json) =
+      _$_UserDetails.fromJson;
+
+  @override
+  String? get fullName;
+  @override
+  String? get firstName;
+  @override
+  String? get lastName;
+  @override
+  String? get userId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_UserDetailsCopyWith<_$_UserDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }

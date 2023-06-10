@@ -151,12 +151,21 @@ _$_RepriceResponse _$$_RepriceResponseFromJson(Map<String, dynamic> json) =>
     _$_RepriceResponse(
       status: json['status'] as bool?,
       responseMessage: json['responseMessage'] as String?,
+      itinId: json['itinId'] as int?,
+      itinIdR: json['itinIdR'] as int?,
+      fareId: json['fareId'] as int?,
+      fareIdR: json['fareIdR'] as int?,
+      providerCode: json['providerCode'] as String?,
+      providerCodeR: json['providerCodeR'] as String?,
+      totalTax: (json['totalTax'] as num?)?.toDouble(),
+      totalResponseAmount: (json['totalResponseAmount'] as num?)?.toDouble(),
       objSegList: (json['objSegList'] as List<dynamic>?)
           ?.map((e) => PricingDetailsList.fromJson(e as Map<String, dynamic>))
           .toList(),
       adultBasic: (json['adultBasic'] as num?)?.toDouble(),
       childBasic: (json['childBasic'] as num?)?.toDouble(),
       infantBasic: (json['infantBasic'] as num?)?.toDouble(),
+      totalBasic: (json['totalBasic'] as num?)?.toDouble(),
       taxList: (json['taxList'] as List<dynamic>?)
           ?.map((e) => TaxSplitup.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -175,10 +184,19 @@ Map<String, dynamic> _$$_RepriceResponseToJson(_$_RepriceResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'responseMessage': instance.responseMessage,
+      'itinId': instance.itinId,
+      'itinIdR': instance.itinIdR,
+      'fareId': instance.fareId,
+      'fareIdR': instance.fareIdR,
+      'providerCode': instance.providerCode,
+      'providerCodeR': instance.providerCodeR,
+      'totalTax': instance.totalTax,
+      'totalResponseAmount': instance.totalResponseAmount,
       'objSegList': instance.objSegList,
       'adultBasic': instance.adultBasic,
       'childBasic': instance.childBasic,
       'infantBasic': instance.infantBasic,
+      'totalBasic': instance.totalBasic,
       'taxList': instance.taxList,
       'adult': instance.adult,
       'child': instance.child,

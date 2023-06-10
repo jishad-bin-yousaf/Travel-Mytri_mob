@@ -18,17 +18,29 @@ class TokenAdapter extends TypeAdapter<Token> {
     };
     return Token()
       ..token = fields[0] as String?
-      ..isUser = fields[1] as bool?;
+      ..isUser = fields[1] as bool?
+      ..fullName = fields[2] as String?
+      ..firstName = fields[3] as String?
+      ..lastName = fields[4] as String?
+      ..userId = fields[5] as String?;
   }
 
   @override
   void write(BinaryWriter writer, Token obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.token)
       ..writeByte(1)
-      ..write(obj.isUser);
+      ..write(obj.isUser)
+      ..writeByte(2)
+      ..write(obj.fullName)
+      ..writeByte(3)
+      ..write(obj.firstName)
+      ..writeByte(4)
+      ..write(obj.lastName)
+      ..writeByte(5)
+      ..write(obj.userId);
   }
 
   @override

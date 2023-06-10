@@ -90,31 +90,34 @@ class ScreenReviewFlight extends StatelessWidget {
                       Card(
                         color: Colors.grey.shade300,
                         elevation: 0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.network(
-                              "https://agents.alhind.com/images/logos/${data.objApiResponse?.objSegList?[index].airlineCode ?? ''}.gif",
-                              /*${data.airlineName}.*/
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.network(
+                                "https://agents.alhind.com/images/logos/${data.objApiResponse?.objSegList?[index].airlineCode ?? ''}.gif",
+                                /*${data.airlineName}.*/
 
-                              fit: BoxFit.fitHeight,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Text("No logo");
-                              },
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(data.objApiResponse?.objSegList?[index].airlineName ?? ''),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12.0, right: 5),
-                              child: Text(data.objApiResponse?.objSegList?[index].airlineFlightClass ?? ''),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12.0, right: 25),
-                              child: Text(data.objApiResponse?.objSegList?[index].cabinBaggage ?? ''),
-                            ),
-                          ],
+                                fit: BoxFit.fitHeight,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Text("No logo");
+                                },
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(data.objApiResponse?.objSegList?[index].airlineName ?? ''),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12.0, right: 5),
+                                child: Text(data.objApiResponse?.objSegList?[index].airlineFlightClass ?? ''),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12.0, right: 25),
+                                child: Text(data.objApiResponse?.objSegList?[index].cabinBaggage ?? ''),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
@@ -139,6 +142,13 @@ class ScreenReviewFlight extends StatelessWidget {
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: Text(
                                     data.objApiResponse?.objSegList?[index].departureAirport ?? '',
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: Text(
+                                    data.objApiResponse?.objSegList?[index].departureDate ?? '',
                                     maxLines: 2,
                                   ),
                                 ),
@@ -177,6 +187,13 @@ class ScreenReviewFlight extends StatelessWidget {
                                     data.objApiResponse?.objSegList?[index].arrivalAirport ?? '',
                                     maxLines: 2,
                                     textAlign: TextAlign.right,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: Text(
+                                    data.objApiResponse?.objSegList?[index].arrivalDate ?? '',
+                                    maxLines: 2,
                                   ),
                                 ),
                               ],
@@ -360,12 +377,13 @@ class ScreenReviewFlight extends StatelessWidget {
 
   rePricingBottomSheet(BuildContext context, RepriceResponse data, PricingResponse value) {
     return showModalBottomSheet(
+      // isScrollControlled: false,
       context: context,
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -709,7 +727,7 @@ class ScreenReviewFlight extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Text(
-                "du7886",
+                "${data.totalTax ?? 0}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ],

@@ -7,21 +7,30 @@ import 'package:travel_mytri_mobile_v1/Screens/Login/login_pop_up.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   ScreenHome({super.key});
-  bool isLogined = false;
 
-  login() {
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
+  bool isLogged = false;
+  String? userName = "";
+  @override
+  void initState() {
     getToken().then((value) {
-      log(isLogined.toString());
-      isLogined = value.isUser ?? false;
-      log(isLogined.toString());
+      log(isLogged.toString());
+      isLogged = value.isUser ?? false;
+      userName = value.fullName ?? "User";
+      log((userName).toString() + "userDetails");
+      setState(() {});
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    login();
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -33,12 +42,12 @@ class ScreenHome extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: TextButton.icon(
             onPressed: () {
-              !isLogined ? loginBottomSheet(context, width) : null;
+              !isLogged ? loginBottomSheet(context, width) : null;
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
-            label: const Text(
-              "Hi Jishad !",
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
+            label: Text(
+              "Hi ${userName ?? ""} !",
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
             ),
           ),
         ),
@@ -686,5 +695,4 @@ class ScreenHome extends StatelessWidget {
       ),
     );
   }
-  // Color.fromARGB(255, 241, 131, 39)
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
-
-import '../../data/model/Search/flight_search_model.dart';
 import '../../data/model/Search/pricing_models.dart';
+import '../widgets/print_pdf.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   ConfirmationScreen({required this.data});
@@ -68,7 +67,11 @@ class ConfirmationScreen extends StatelessWidget {
                 vertical: 8,
               ),
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PDFViewerScreen(pdfUrl: "https://uattm.jameer.xyz/data/TravelMythri_E-Ticket.pdf"),
+                  ));
+                },
                 style: OutlinedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   side: BorderSide(width: 2, color: Colors.black),

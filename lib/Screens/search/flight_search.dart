@@ -1,7 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';

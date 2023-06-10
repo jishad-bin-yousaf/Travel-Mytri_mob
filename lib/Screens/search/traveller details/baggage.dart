@@ -10,14 +10,14 @@ class BaggageDetailsPage extends StatefulWidget {
 }
 
 class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
-  int sectionIndex = 0;
+  int? sectionIndex;
   int selectedIndexBag = -1;
   int selectedIndexSector = -1;
   List<SSRBaggage> baggageList = [];
 
   @override
   void initState() {
-    baggageList = List.generate(widget.data?.length ?? 0, (index) => SSRBaggage());
+    baggageList = List.generate(widget.data?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
 
     super.initState();
   }
@@ -75,76 +75,80 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
             ),
           ),
           SizedBox(height: 20),
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return GridView.builder(
-                  physics: const ScrollPhysics(),
-                  itemCount: widget.data?[sectionIndex].objbaggageList?.length ?? 0,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 150,
-                      crossAxisCount: constraints.maxWidth > 620 ? 6 : 3,
-                      crossAxisSpacing: 5,
-                      childAspectRatio: constraints.maxWidth < 620 ? MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.5) : MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 0.9),
-                      //  maxCrossAxisExtent: 200,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (BuildContext ctx, int index) {
-                    bool isSelected = selectedIndexBag == index;
+          sectionIndex != null
+              ? Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return GridView.builder(
+                        physics: const ScrollPhysics(),
+                        itemCount: widget.data?[sectionIndex!].objbaggageList?.length ?? 0,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisExtent: 150,
+                            crossAxisCount: constraints.maxWidth > 620 ? 6 : 3,
+                            crossAxisSpacing: 5,
+                            childAspectRatio: constraints.maxWidth < 620 ? MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.5) : MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 0.9),
+                            //  maxCrossAxisExtent: 200,
+                            mainAxisSpacing: 10),
+                        itemBuilder: (BuildContext ctx, int index) {
+                          bool isSelected = selectedIndexBag == index;
 
-                    final data = widget.data?[sectionIndex].objbaggageList?[index];
-                    return InkWell(
-                        onTap: () {
-                          selectedIndexBag = isSelected ? -1 : index;
-                          if (isSelected) {
-                            baggageList[sectionIndex].name = widget.data?[sectionIndex].objbaggageList?[index].name;
-                            baggageList[sectionIndex].amount = widget.data?[sectionIndex].objbaggageList?[index].amount;
-                            baggageList[sectionIndex].key = widget.data?[sectionIndex].objbaggageList?[index].code;
-                          } else {
-                            baggageList[sectionIndex].name = '';
-                            baggageList[sectionIndex].amount = 0;
-                            baggageList[sectionIndex].key = '';
-                          }
-                          setState(() {});
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.grey.shade200,
-                            border: Border.all(width: 2, color: isSelected ? primaryColor : Colors.grey.shade400),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/icons/baggage.png",
-                                height: 60,
-                                width: 60,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Text(
-                                  data?.name ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
+                          final data = widget.data?[sectionIndex!].objbaggageList?[index];
+                          return InkWell(
+                              onTap: () {
+                                selectedIndexBag = isSelected ? -1 : index;
+                                if (isSelected) {
+                                  baggageList[sectionIndex!].name = widget.data?[sectionIndex!].objbaggageList?[index].name;
+                                  baggageList[sectionIndex!].amount = widget.data?[sectionIndex!].objbaggageList?[index].amount;
+                                  baggageList[sectionIndex!].key = widget.data?[sectionIndex!].objbaggageList?[index].code;
+                                } else {
+                                  baggageList[sectionIndex!].name = '';
+                                  baggageList[sectionIndex!].amount = 0;
+                                  baggageList[sectionIndex!].key = '';
+                                }
+                                setState(() {});
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.grey.shade200,
+                                  border: Border.all(width: 2, color: isSelected ? primaryColor : Colors.grey.shade400),
                                 ),
-                              ),
-                              Text(
-                                "₹ ${data?.amount ?? ''}",
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                        ));
-                  },
-                );
-              },
-            ),
-          ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/baggage.png",
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Text(
+                                        data?.name ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                    Text(
+                                      "₹ ${data?.amount ?? ''}",
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        },
+                      );
+                    },
+                  ),
+                )
+              : const SizedBox(
+                  child: Text("Please Select a sector from above"),
+                ),
         ],
       )),
     );
