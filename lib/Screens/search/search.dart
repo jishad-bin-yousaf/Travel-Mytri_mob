@@ -389,7 +389,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
               if (oneWay) {
                 SearchApi().oneWay(searchReq).then((value) {
-                  final data = value ?? const AirlineSearchResponse();
+                  final data = value ?? AirlineSearchResponse();
 
                   data.status != null && data.status!
                       ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
@@ -441,7 +441,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 });
               } else if (multiCity) {
                 SearchApi().oneWay(searchReq).then((value) {
-                  final data = value ?? const AirlineSearchResponse();
+                  final data = value ?? AirlineSearchResponse();
 
                   data.status != null && data.status!
                       ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {

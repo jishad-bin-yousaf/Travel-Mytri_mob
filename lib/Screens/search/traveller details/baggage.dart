@@ -3,8 +3,9 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../../data/model/Search/pricing_models.dart';
 
 class BaggageDetailsPage extends StatefulWidget {
-  BaggageDetailsPage(this.data, {super.key});
-  List<PricingBaggageSegment>? data;
+  BaggageDetailsPage({super.key, required this.data, required this.baggageList});
+  List<PricingBaggageSegment> data;
+  List<SSRBaggage> baggageList;
   @override
   State<BaggageDetailsPage> createState() => _BaggageDetailsPageState();
 }
@@ -13,21 +14,13 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
   int? sectionIndex;
   int selectedIndexBag = -1;
   int selectedIndexSector = -1;
-  List<SSRBaggage> baggageList = [];
-
-  @override
-  void initState() {
-    baggageList = List.generate(widget.data?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: InkWell(
           onTap: () {
-            Navigator.pop(context, baggageList);
+            Navigator.pop(context, widget.baggageList);
           },
           child: Container(
             color: primaryColor,
@@ -48,7 +41,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
           SizedBox(
             height: 60.0,
             child: ListView.builder(
-              itemCount: widget.data?.length ?? 0,
+              itemCount: widget.data.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 bool isSelected = selectedIndexSector == index;
@@ -60,13 +53,13 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                       selectedIndexSector = isSelected ? -1 : index;
                       selectedIndexBag = -1;
                       sectionIndex = index;
-                      baggageList[index].segmentCode = widget.data?[index].sectorCode;
-                      baggageList[index].tripMode = widget.data?[index].tripMode;
+                      widget.baggageList[index].segmentCode = widget.data[index].sectorCode;
+                      widget.baggageList[index].tripMode = widget.data[index].tripMode;
                       setState(() {});
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: isSelected ? secondaryColor : Colors.grey.shade300),
                     child: Text(
-                      widget.data?[index].sectorCode ?? '',
+                      widget.data[index].sectorCode ?? '',
                       style: TextStyle(color: isSelected ? white : Colors.black),
                     ),
                   ),
@@ -81,7 +74,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                     builder: (context, constraints) {
                       return GridView.builder(
                         physics: const ScrollPhysics(),
-                        itemCount: widget.data?[sectionIndex!].objbaggageList?.length ?? 0,
+                        itemCount: widget.data[sectionIndex!].objbaggageList?.length ?? 0,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisExtent: 150,
                             crossAxisCount: constraints.maxWidth > 620 ? 6 : 3,
@@ -92,18 +85,18 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                         itemBuilder: (BuildContext ctx, int index) {
                           bool isSelected = selectedIndexBag == index;
 
-                          final data = widget.data?[sectionIndex!].objbaggageList?[index];
+                          final data = widget.data[sectionIndex!].objbaggageList?[index];
                           return InkWell(
                               onTap: () {
                                 selectedIndexBag = isSelected ? -1 : index;
                                 if (isSelected) {
-                                  baggageList[sectionIndex!].name = widget.data?[sectionIndex!].objbaggageList?[index].name;
-                                  baggageList[sectionIndex!].amount = widget.data?[sectionIndex!].objbaggageList?[index].amount;
-                                  baggageList[sectionIndex!].key = widget.data?[sectionIndex!].objbaggageList?[index].code;
+                                  widget.baggageList[sectionIndex!].name = widget.data[sectionIndex!].objbaggageList?[index].name;
+                                  widget.baggageList[sectionIndex!].amount = widget.data[sectionIndex!].objbaggageList?[index].amount;
+                                  widget.baggageList[sectionIndex!].key = widget.data[sectionIndex!].objbaggageList?[index].code;
                                 } else {
-                                  baggageList[sectionIndex!].name = '';
-                                  baggageList[sectionIndex!].amount = 0;
-                                  baggageList[sectionIndex!].key = '';
+                                  widget.baggageList[sectionIndex!].name = '';
+                                  widget.baggageList[sectionIndex!].amount = 0;
+                                  widget.baggageList[sectionIndex!].key = '';
                                 }
                                 setState(() {});
                               },

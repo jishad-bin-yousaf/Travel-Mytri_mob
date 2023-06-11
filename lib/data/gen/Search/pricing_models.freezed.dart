@@ -5618,18 +5618,31 @@ BookingPaxdetails _$BookingPaxdetailsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BookingPaxdetails {
   String? get paxType => throw _privateConstructorUsedError;
+  set paxType(String? value) => throw _privateConstructorUsedError;
   String? get paxKey => throw _privateConstructorUsedError;
+  set paxKey(String? value) => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  set title(String? value) => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
+  set firstName(String? value) => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
+  set lastName(String? value) => throw _privateConstructorUsedError;
   String? get documentNumber => throw _privateConstructorUsedError;
+  set documentNumber(String? value) => throw _privateConstructorUsedError;
   String? get nationality => throw _privateConstructorUsedError;
+  set nationality(String? value) => throw _privateConstructorUsedError;
   String? get dateofBirth => throw _privateConstructorUsedError;
+  set dateofBirth(String? value) => throw _privateConstructorUsedError;
   String? get countryofIssue => throw _privateConstructorUsedError;
+  set countryofIssue(String? value) => throw _privateConstructorUsedError;
   String? get dateOfExpiry => throw _privateConstructorUsedError;
+  set dateOfExpiry(String? value) => throw _privateConstructorUsedError;
   List<SSRMeal>? get objMealList => throw _privateConstructorUsedError;
+  set objMealList(List<SSRMeal>? value) => throw _privateConstructorUsedError;
   List<SSRBaggage>? get objBaggage => throw _privateConstructorUsedError;
+  set objBaggage(List<SSRBaggage>? value) => throw _privateConstructorUsedError;
   List<SSRSeat>? get objSeatList => throw _privateConstructorUsedError;
+  set objSeatList(List<SSRSeat>? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -5834,15 +5847,15 @@ class __$$_BookingPaxdetailsCopyWithImpl<$Res>
           : dateOfExpiry // ignore: cast_nullable_to_non_nullable
               as String?,
       objMealList: freezed == objMealList
-          ? _value._objMealList
+          ? _value.objMealList
           : objMealList // ignore: cast_nullable_to_non_nullable
               as List<SSRMeal>?,
       objBaggage: freezed == objBaggage
-          ? _value._objBaggage
+          ? _value.objBaggage
           : objBaggage // ignore: cast_nullable_to_non_nullable
               as List<SSRBaggage>?,
       objSeatList: freezed == objSeatList
-          ? _value._objSeatList
+          ? _value.objSeatList
           : objSeatList // ignore: cast_nullable_to_non_nullable
               as List<SSRSeat>?,
     ));
@@ -5852,7 +5865,7 @@ class __$$_BookingPaxdetailsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BookingPaxdetails implements _BookingPaxdetails {
-  const _$_BookingPaxdetails(
+  _$_BookingPaxdetails(
       {this.paxType,
       this.paxKey,
       this.title,
@@ -5863,118 +5876,44 @@ class _$_BookingPaxdetails implements _BookingPaxdetails {
       this.dateofBirth,
       this.countryofIssue,
       this.dateOfExpiry,
-      final List<SSRMeal>? objMealList,
-      final List<SSRBaggage>? objBaggage,
-      final List<SSRSeat>? objSeatList})
-      : _objMealList = objMealList,
-        _objBaggage = objBaggage,
-        _objSeatList = objSeatList;
+      this.objMealList,
+      this.objBaggage,
+      this.objSeatList});
 
   factory _$_BookingPaxdetails.fromJson(Map<String, dynamic> json) =>
       _$$_BookingPaxdetailsFromJson(json);
 
   @override
-  final String? paxType;
+  String? paxType;
   @override
-  final String? paxKey;
+  String? paxKey;
   @override
-  final String? title;
+  String? title;
   @override
-  final String? firstName;
+  String? firstName;
   @override
-  final String? lastName;
+  String? lastName;
   @override
-  final String? documentNumber;
+  String? documentNumber;
   @override
-  final String? nationality;
+  String? nationality;
   @override
-  final String? dateofBirth;
+  String? dateofBirth;
   @override
-  final String? countryofIssue;
+  String? countryofIssue;
   @override
-  final String? dateOfExpiry;
-  final List<SSRMeal>? _objMealList;
+  String? dateOfExpiry;
   @override
-  List<SSRMeal>? get objMealList {
-    final value = _objMealList;
-    if (value == null) return null;
-    if (_objMealList is EqualUnmodifiableListView) return _objMealList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<SSRBaggage>? _objBaggage;
+  List<SSRMeal>? objMealList;
   @override
-  List<SSRBaggage>? get objBaggage {
-    final value = _objBaggage;
-    if (value == null) return null;
-    if (_objBaggage is EqualUnmodifiableListView) return _objBaggage;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<SSRSeat>? _objSeatList;
+  List<SSRBaggage>? objBaggage;
   @override
-  List<SSRSeat>? get objSeatList {
-    final value = _objSeatList;
-    if (value == null) return null;
-    if (_objSeatList is EqualUnmodifiableListView) return _objSeatList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  List<SSRSeat>? objSeatList;
 
   @override
   String toString() {
     return 'BookingPaxdetails(paxType: $paxType, paxKey: $paxKey, title: $title, firstName: $firstName, lastName: $lastName, documentNumber: $documentNumber, nationality: $nationality, dateofBirth: $dateofBirth, countryofIssue: $countryofIssue, dateOfExpiry: $dateOfExpiry, objMealList: $objMealList, objBaggage: $objBaggage, objSeatList: $objSeatList)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BookingPaxdetails &&
-            (identical(other.paxType, paxType) || other.paxType == paxType) &&
-            (identical(other.paxKey, paxKey) || other.paxKey == paxKey) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.documentNumber, documentNumber) ||
-                other.documentNumber == documentNumber) &&
-            (identical(other.nationality, nationality) ||
-                other.nationality == nationality) &&
-            (identical(other.dateofBirth, dateofBirth) ||
-                other.dateofBirth == dateofBirth) &&
-            (identical(other.countryofIssue, countryofIssue) ||
-                other.countryofIssue == countryofIssue) &&
-            (identical(other.dateOfExpiry, dateOfExpiry) ||
-                other.dateOfExpiry == dateOfExpiry) &&
-            const DeepCollectionEquality()
-                .equals(other._objMealList, _objMealList) &&
-            const DeepCollectionEquality()
-                .equals(other._objBaggage, _objBaggage) &&
-            const DeepCollectionEquality()
-                .equals(other._objSeatList, _objSeatList));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      paxType,
-      paxKey,
-      title,
-      firstName,
-      lastName,
-      documentNumber,
-      nationality,
-      dateofBirth,
-      countryofIssue,
-      dateOfExpiry,
-      const DeepCollectionEquality().hash(_objMealList),
-      const DeepCollectionEquality().hash(_objBaggage),
-      const DeepCollectionEquality().hash(_objSeatList));
 
   @JsonKey(ignore: true)
   @override
@@ -5992,50 +5931,63 @@ class _$_BookingPaxdetails implements _BookingPaxdetails {
 }
 
 abstract class _BookingPaxdetails implements BookingPaxdetails {
-  const factory _BookingPaxdetails(
-      {final String? paxType,
-      final String? paxKey,
-      final String? title,
-      final String? firstName,
-      final String? lastName,
-      final String? documentNumber,
-      final String? nationality,
-      final String? dateofBirth,
-      final String? countryofIssue,
-      final String? dateOfExpiry,
-      final List<SSRMeal>? objMealList,
-      final List<SSRBaggage>? objBaggage,
-      final List<SSRSeat>? objSeatList}) = _$_BookingPaxdetails;
+  factory _BookingPaxdetails(
+      {String? paxType,
+      String? paxKey,
+      String? title,
+      String? firstName,
+      String? lastName,
+      String? documentNumber,
+      String? nationality,
+      String? dateofBirth,
+      String? countryofIssue,
+      String? dateOfExpiry,
+      List<SSRMeal>? objMealList,
+      List<SSRBaggage>? objBaggage,
+      List<SSRSeat>? objSeatList}) = _$_BookingPaxdetails;
 
   factory _BookingPaxdetails.fromJson(Map<String, dynamic> json) =
       _$_BookingPaxdetails.fromJson;
 
   @override
   String? get paxType;
+  set paxType(String? value);
   @override
   String? get paxKey;
+  set paxKey(String? value);
   @override
   String? get title;
+  set title(String? value);
   @override
   String? get firstName;
+  set firstName(String? value);
   @override
   String? get lastName;
+  set lastName(String? value);
   @override
   String? get documentNumber;
+  set documentNumber(String? value);
   @override
   String? get nationality;
+  set nationality(String? value);
   @override
   String? get dateofBirth;
+  set dateofBirth(String? value);
   @override
   String? get countryofIssue;
+  set countryofIssue(String? value);
   @override
   String? get dateOfExpiry;
+  set dateOfExpiry(String? value);
   @override
   List<SSRMeal>? get objMealList;
+  set objMealList(List<SSRMeal>? value);
   @override
   List<SSRBaggage>? get objBaggage;
+  set objBaggage(List<SSRBaggage>? value);
   @override
   List<SSRSeat>? get objSeatList;
+  set objSeatList(List<SSRSeat>? value);
   @override
   @JsonKey(ignore: true)
   _$$_BookingPaxdetailsCopyWith<_$_BookingPaxdetails> get copyWith =>
@@ -6049,13 +6001,21 @@ BookingGstDetails _$BookingGstDetailsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BookingGstDetails {
   String? get gstNumber => throw _privateConstructorUsedError;
+  set gstNumber(String? value) => throw _privateConstructorUsedError;
   String? get companyName => throw _privateConstructorUsedError;
+  set companyName(String? value) => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  set email(String? value) => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
+  set mobile(String? value) => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
+  set address(String? value) => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
+  set city(String? value) => throw _privateConstructorUsedError;
   int? get pincode => throw _privateConstructorUsedError;
+  set pincode(int? value) => throw _privateConstructorUsedError;
   int? get state => throw _privateConstructorUsedError;
+  set state(int? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -6218,7 +6178,7 @@ class __$$_BookingGstDetailsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BookingGstDetails implements _BookingGstDetails {
-  const _$_BookingGstDetails(
+  _$_BookingGstDetails(
       {this.gstNumber,
       this.companyName,
       this.email,
@@ -6232,48 +6192,26 @@ class _$_BookingGstDetails implements _BookingGstDetails {
       _$$_BookingGstDetailsFromJson(json);
 
   @override
-  final String? gstNumber;
+  String? gstNumber;
   @override
-  final String? companyName;
+  String? companyName;
   @override
-  final String? email;
+  String? email;
   @override
-  final String? mobile;
+  String? mobile;
   @override
-  final String? address;
+  String? address;
   @override
-  final String? city;
+  String? city;
   @override
-  final int? pincode;
+  int? pincode;
   @override
-  final int? state;
+  int? state;
 
   @override
   String toString() {
     return 'BookingGstDetails(gstNumber: $gstNumber, companyName: $companyName, email: $email, mobile: $mobile, address: $address, city: $city, pincode: $pincode, state: $state)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BookingGstDetails &&
-            (identical(other.gstNumber, gstNumber) ||
-                other.gstNumber == gstNumber) &&
-            (identical(other.companyName, companyName) ||
-                other.companyName == companyName) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.mobile, mobile) || other.mobile == mobile) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.city, city) || other.city == city) &&
-            (identical(other.pincode, pincode) || other.pincode == pincode) &&
-            (identical(other.state, state) || other.state == state));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, gstNumber, companyName, email,
-      mobile, address, city, pincode, state);
 
   @JsonKey(ignore: true)
   @override
@@ -6291,35 +6229,43 @@ class _$_BookingGstDetails implements _BookingGstDetails {
 }
 
 abstract class _BookingGstDetails implements BookingGstDetails {
-  const factory _BookingGstDetails(
-      {final String? gstNumber,
-      final String? companyName,
-      final String? email,
-      final String? mobile,
-      final String? address,
-      final String? city,
-      final int? pincode,
-      final int? state}) = _$_BookingGstDetails;
+  factory _BookingGstDetails(
+      {String? gstNumber,
+      String? companyName,
+      String? email,
+      String? mobile,
+      String? address,
+      String? city,
+      int? pincode,
+      int? state}) = _$_BookingGstDetails;
 
   factory _BookingGstDetails.fromJson(Map<String, dynamic> json) =
       _$_BookingGstDetails.fromJson;
 
   @override
   String? get gstNumber;
+  set gstNumber(String? value);
   @override
   String? get companyName;
+  set companyName(String? value);
   @override
   String? get email;
+  set email(String? value);
   @override
   String? get mobile;
+  set mobile(String? value);
   @override
   String? get address;
+  set address(String? value);
   @override
   String? get city;
+  set city(String? value);
   @override
   int? get pincode;
+  set pincode(int? value);
   @override
   int? get state;
+  set state(int? value);
   @override
   @JsonKey(ignore: true)
   _$$_BookingGstDetailsCopyWith<_$_BookingGstDetails> get copyWith =>

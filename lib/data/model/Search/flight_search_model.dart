@@ -35,9 +35,9 @@ class Objsectorlist with _$Objsectorlist {
   factory Objsectorlist.fromJson(Map<String, dynamic> json) => _$ObjsectorlistFromJson(json);
 }
 
-@freezed
+@unfreezed
 class AirlineSearchResponse with _$AirlineSearchResponse {
-  const factory AirlineSearchResponse({
+  factory AirlineSearchResponse({
     bool? status,
     String? responseMessage,
     String? origin,
@@ -247,9 +247,9 @@ class AvailableAirline with _$AvailableAirline {
   factory AvailableAirline.fromJson(Map<String, dynamic> json) => _$AvailableAirlineFromJson(json);
 }
 
-@freezed
+@unfreezed
 class ApiSearchResponse with _$ApiSearchResponse {
-  const factory ApiSearchResponse({
+  factory ApiSearchResponse({
     int? itinId,
     int? fareId,
     String? providerCode,

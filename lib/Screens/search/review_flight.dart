@@ -42,19 +42,21 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
     CountryList(name: 'France'),
     // Add more countries as needed
   ];
-  late List<RePricingPaxlist> adultPaxList;
-  late List<RePricingPaxlist> childPaxList;
-  late List<RePricingPaxlist> infantPaxList;
+  late List<BookingPaxdetails> adultPaxList;
+  late List<BookingPaxdetails> childPaxList;
+  late List<BookingPaxdetails> infantPaxList;
 
   final RepricingRequest requestingData = RepricingRequest();
+
+  num totalBaggageAndMealAmount = 0;
 
   @override
   Widget build(BuildContext context) {
     PricingResponse data = ModalRoute.of(context)?.settings.arguments as PricingResponse;
 
-    adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => RePricingPaxlist());
-    childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => RePricingPaxlist());
-    infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => RePricingPaxlist());
+    adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails());
+    childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails());
+    infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
 
     return Scaffold(
       /*     bottomSheet: Container(
@@ -329,6 +331,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              infantPaxList[index].firstName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("First Name"),
@@ -339,6 +344,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              infantPaxList[index].lastName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("Last Name"),
@@ -362,6 +370,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                     firstDate: DateTime.now().subtract(Duration(days: 2 * 365)), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime.now());
                 pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
+                infantPaxList[index].dateofBirth = pickedFromDate.toString();
               }),
         ),
         Row(
@@ -379,9 +388,24 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                   useSafeArea: true,
                   context: context,
                   builder: (context) {
+                    passportNoController.text = infantPaxList[index].documentNumber ?? '';
+                    countryOfIssueController.text = infantPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = infantPaxList[index].nationality ?? '';
+                    dobController.text = infantPaxList[index].dateofBirth ?? '';
+                    dateOfExpiryController.text = infantPaxList[index].dateOfExpiry ?? "";
                     return passportBottomSheet(passportNoController, nationalityController, dobController, countryOfIssueController, dateOfExpiryController);
                   },
-                );
+                ).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
+                  print(passportNoController.text);
+                  adultPaxList[index].documentNumber = data.passportNoController.text;
+                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  adultPaxList[index].nationality = data.nationalityController.text;
+                  adultPaxList[index].dateofBirth = data.dobController.text;
+                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -411,6 +435,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              childPaxList[index].firstName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("First Name"),
@@ -421,6 +448,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              childPaxList[index].lastName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("Last Name"),
@@ -462,9 +492,24 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                   useSafeArea: true,
                   context: context,
                   builder: (context) {
+                    passportNoController.text = childPaxList[index].documentNumber ?? '';
+                    countryOfIssueController.text = childPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = childPaxList[index].nationality ?? '';
+                    dobController.text = childPaxList[index].dateofBirth ?? '';
+                    dateOfExpiryController.text = childPaxList[index].dateOfExpiry ?? "";
                     return passportBottomSheet(passportNoController, nationalityController, dobController, countryOfIssueController, dateOfExpiryController);
                   },
-                ).then((value) => null);
+                ).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
+                  print(passportNoController.text);
+                  adultPaxList[index].documentNumber = data.passportNoController.text;
+                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  adultPaxList[index].nationality = data.nationalityController.text;
+                  adultPaxList[index].dateofBirth = data.dobController.text;
+                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -474,9 +519,11 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
             ),
             ElevatedButton(
               onPressed: () {
+                List<SSRBaggage> baggageList = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], baggageList: baggageList),
                 ))
                     .then((value) {
                   childPaxList[index].objBaggage = value as List<SSRBaggage>?;
@@ -525,6 +572,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              adultPaxList[index].firstName = value;
+            },
             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
           ),
         ),
@@ -532,6 +582,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              adultPaxList[index].lastName = value;
+            },
             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Last Name")),
           ),
         ),
@@ -550,14 +603,23 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                   useSafeArea: true,
                   context: context,
                   builder: (context) {
-                    print(passportNoController.text);
-
+                    passportNoController.text = adultPaxList[index].documentNumber ?? '';
+                    countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = adultPaxList[index].nationality ?? '';
+                    dobController.text = adultPaxList[index].dateofBirth ?? '';
+                    dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
                     return passportBottomSheet(passportNoController, nationalityController, dobController, countryOfIssueController, dateOfExpiryController);
                   },
                 ).then((value) {
-                  passportNoController = value.passportNoController;
-                  print(value.passportNoController.text);
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
                   print(passportNoController.text);
+                  adultPaxList[index].documentNumber = data.passportNoController.text;
+                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  adultPaxList[index].nationality = data.nationalityController.text;
+                  adultPaxList[index].dateofBirth = data.dobController.text;
+                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
                 });
               },
               // onPressed: () {
@@ -575,9 +637,11 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
             ),
             ElevatedButton(
               onPressed: () {
+                adultPaxList[index].objBaggage = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], baggageList: adultPaxList[index].objBaggage ?? []),
                 ))
                     .then((value) {
                   adultPaxList[index].objBaggage = value as List<SSRBaggage>?;
@@ -785,7 +849,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
               ),
               baseFare(data),
               taxesAndFee(data),
-              baggageAndMeal(),
+              //   baggageAndMeal(),
               Card(
                 child: Container(
                   width: double.infinity,
@@ -884,17 +948,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                 children: [
                   InkWell(
                     onTap: () {
-                      BookingRequest req = BookingRequest();
-                      req.fareId = value.fareId;
-                      req.fareIdR = value.fareIdR;
-                      req.itinId = value.itinId;
-                      req.itinIdR = value.itinIdR;
-                      req.providerCode = value.providerCode;
-                      req.providerCodeR = value.providerCodeR;
-                      req.contactNumber = contactController.text;
-                      req.alternateContactNumber = alternateContactController.text;
-                      req.contactEmail = emailController.text;
-                      PricingApi().bookTicket(req).then((value) {
+                      PricingApi().bookTicket(bookingRequest).then((value) {
                         if (value != null) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -1077,7 +1131,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Text(
-            "5092",
+            "Rs ${totalBaggageAndMealAmount}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ],
@@ -1380,7 +1434,15 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
         ElevatedButton(
             onPressed: () {
               print(passportNoController.text);
-              Navigator.pop(context, PassportDetails(passportNoController: passportNoController));
+              Navigator.pop(
+                  context,
+                  PassportDetails(
+                    passportNoController: passportNoController,
+                    countryOfIssueController: countryOfIssueController,
+                    dateOfExpiryController: dateOfExpiryController,
+                    dobController: dobController,
+                    nationalityController: nationalityController,
+                  ));
             },
             style: ElevatedButton.styleFrom(
               fixedSize: Size(MediaQuery.of(context).size.width - 50, 50),
@@ -1411,5 +1473,11 @@ class PassportDetails {
   TextEditingController countryOfIssueController = TextEditingController();
   TextEditingController dateOfExpiryController = TextEditingController();
 
-  PassportDetails({required this.passportNoController});
+  PassportDetails({
+    required this.passportNoController,
+    required this.nationalityController,
+    required this.dobController,
+    required this.countryOfIssueController,
+    required this.dateOfExpiryController,
+  });
 }

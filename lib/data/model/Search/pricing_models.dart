@@ -302,9 +302,9 @@ class BookingRequest with _$BookingRequest {
   factory BookingRequest.fromJson(Map<String, dynamic> json) => _$BookingRequestFromJson(json);
 }
 
-@freezed
+@unfreezed
 class BookingPaxdetails with _$BookingPaxdetails {
-  const factory BookingPaxdetails({
+   factory BookingPaxdetails({
     String? paxType,
     String? paxKey,
     String? title,
@@ -323,9 +323,9 @@ class BookingPaxdetails with _$BookingPaxdetails {
   factory BookingPaxdetails.fromJson(Map<String, dynamic> json) => _$BookingPaxdetailsFromJson(json);
 }
 
-@freezed
+@unfreezed
 class BookingGstDetails with _$BookingGstDetails {
-  const factory BookingGstDetails({
+   factory BookingGstDetails({
     String? gstNumber,
     String? companyName,
     String? email,
