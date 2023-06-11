@@ -129,7 +129,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                               ),
                             ]),
                             Text(
-                              '${rAirlineSearchResponse.departureDate ?? ""}',
+                              "${DateFormat('dd MMMM').format(rAirlineSearchResponse.departureDate!)}",
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                             ),
                             Text(
@@ -144,7 +144,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                           children: [
                             Row(children: [
                               Text(
-                                '${rAirlineSearchResponse.origin ?? ""}\t',
+                                '${rAirlineSearchResponse.destination ?? ""}\t',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                               Icon(
@@ -153,12 +153,12 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                                 size: 20,
                               ),
                               Text(
-                                '${rAirlineSearchResponse.destination ?? ""}',
+                                '${rAirlineSearchResponse.origin ?? ""}',
                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                             ]),
                             Text(
-                              '${rAirlineSearchResponse.departureDate ?? ""}',
+                              "${DateFormat('dd MMMM').format(rAirlineSearchResponse.returnDate!)}",
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
                             ),
                             Text(
@@ -672,7 +672,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                   children: [
                                     Text(
                                       "₹${indSelectedOnward.netAmount ?? ''}",
-                                      style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20),
+                                      style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 18),
                                     ),
                                   ],
                                 ),
@@ -1605,7 +1605,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                             children: [
                               Text(
                                 "₹${data?.netAmount ?? ''}",
-                                style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 24),
+                                style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20),
                               ),
                               (data?.pricingList?.length ?? 0) > 1
                                   ? InkWell(

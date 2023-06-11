@@ -40,102 +40,105 @@ class TavellerDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     log(jsonEncode(data).toString());
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Travellers"),
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-      ),
-      bottomSheet: InkWell(
-          onTap: () {
-            requestingData.objAdtPaxList = adultPaxList;
-            requestingData.objChdPaxList = childPaxList;
-            requestingData.objInfPaxList = infantPaxList;
-            Navigator.pop(context, requestingData);
-          },
-          child: Container(
-            color: primaryColor,
-            height: 80,
-            width: double.infinity,
-            child: const Center(
-                child: Text(
-              "CONTINUE",
-              style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
+        appBar: AppBar(
+          title: const Text("Add Travellers"),
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+        ),
+        bottomSheet: InkWell(
+            onTap: () {
+              requestingData.objAdtPaxList = adultPaxList;
+              requestingData.objChdPaxList = childPaxList;
+              requestingData.objInfPaxList = infantPaxList;
+              Navigator.pop(context, requestingData);
+            },
+            child: Container(
+              color: primaryColor,
+              height: 80,
+              width: double.infinity,
+              child: const Center(
+                  child: Text(
+                "CONTINUE",
+                style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
+              )),
             )),
-          )),
-      body: ListView(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.grey.shade300,
-            child: const Text(
-              "Adults",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
+        body: travellerDetails());
+  }
+
+  ListView travellerDetails() {
+    return ListView(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          color: Colors.grey.shade300,
+          child: const Text(
+            "Adults",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          (data.objApiResponse?.objAdtPaxList?.length ?? 0) != 0
-              ? SizedBox(
-                  height: 245 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble(),
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.objApiResponse?.objAdtPaxList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      adultPaxList[index].paxKey = data.objApiResponse?.objAdtPaxList?[index].paxKey ?? '';
-                      return adultDetails(index, context, data.objApiResponse?.objAdtPaxList?[index]);
-                    },
-                  ),
-                )
-              : const SizedBox(),
-          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
-              ? Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.grey.shade300,
-                  child: const Text(
-                    "Child",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                )
-              : SizedBox(),
-          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
-              ? SizedBox(
-                  height: 325 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble(),
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.objApiResponse?.objChdPaxList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      childPaxList[index].paxKey = data.objApiResponse?.objChdPaxList?[index].paxKey ?? '';
+        ),
+        (data.objApiResponse?.objAdtPaxList?.length ?? 0) != 0
+            ? SizedBox(
+                height: 245 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble(),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: data.objApiResponse?.objAdtPaxList?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    adultPaxList[index].paxKey = data.objApiResponse?.objAdtPaxList?[index].paxKey ?? '';
+                    return adultDetails(index, context, data.objApiResponse?.objAdtPaxList?[index]);
+                  },
+                ),
+              )
+            : const SizedBox(),
+        (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
+            ? Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.grey.shade300,
+                child: const Text(
+                  "Child",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+              )
+            : SizedBox(),
+        (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
+            ? SizedBox(
+                height: 325 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble(),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: data.objApiResponse?.objChdPaxList?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    childPaxList[index].paxKey = data.objApiResponse?.objChdPaxList?[index].paxKey ?? '';
 
-                      return childDetails(index, context, data.objApiResponse?.objChdPaxList?[index]);
-                    },
-                  ),
-                )
-              : SizedBox(),
-          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
-              ? Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.grey.shade300,
-                  child: const Text(
-                    "Infants",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                )
-              : SizedBox(),
-          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
-              ? SizedBox(
-                  height: 325 * 3,
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      //  infantPaxList[index].paxKey = data.objInfPaxList?[index].paxKey ?? '';
+                    return childDetails(index, context, data.objApiResponse?.objChdPaxList?[index]);
+                  },
+                ),
+              )
+            : SizedBox(),
+        (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
+            ? Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.grey.shade300,
+                child: const Text(
+                  "Infants",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+              )
+            : SizedBox(),
+        (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
+            ? SizedBox(
+                height: 325 * 3,
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    //  infantPaxList[index].paxKey = data.objInfPaxList?[index].paxKey ?? '';
 
-                      return infantDetails(index, context);
-                    },
-                  ),
-                )
-              : SizedBox(),
-          const SizedBox(height: 75)
-        ],
-      ),
+                    return infantDetails(index, context);
+                  },
+                ),
+              )
+            : SizedBox(),
+        const SizedBox(height: 75)
+      ],
     );
   }
 

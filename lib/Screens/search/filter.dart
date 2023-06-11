@@ -551,10 +551,11 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
     );
   }
 
-  Future<List<ApiSearchResponse>> filterFlights() async {
-    List<ApiSearchResponse> data = widget.airlineSearchResponse.objItinList ?? [];
-    List<ApiSearchResponse> filteringList = [];
+  Future<List<ApiSearchResponse>> filterFlights() {
+    List<ApiSearchResponse> data = widget.airlineSearchResponse.objItinList ?? []; // data
+    List<ApiSearchResponse> filteringList = List<ApiSearchResponse>.empty(growable: true);
     List<ApiSearchResponse> filteredList = [];
+
     if (filterFlightCodeList.isNotEmpty) {
       log("Working");
       log("$filterFlightCodeList");
@@ -563,7 +564,6 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
         tempFilteredList.addAll(data.where((item) => item.airlineCode == filterFlightCodeList[i]));
       }
       data = tempFilteredList;
-      //  filteringList.addAll(tempFilteredList);
     }
 
     if (isRefundable) {
@@ -583,11 +583,12 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
     if (twoStop) {
       filteringList.addAll(data.where((item) => item.noofStop == 2));
     }
-    filteredList = filteringList.map((item) => item.itinId).toSet().map((itemId) {
+
+    filteredList = filteringList.toSet().map((item) => item.itinId).map((itemId) {
       return filteringList.firstWhere((item) => item.itinId == itemId);
     }).toList();
 
-    print(filteredList.length);
-    return filteredList;
+    print("Filtered List Length: ${filteredList.length}");
+    return Future.value(filteredList);
   }
 }
