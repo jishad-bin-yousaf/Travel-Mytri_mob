@@ -18,7 +18,7 @@ class ScreenFlightSearchResult extends StatefulWidget {
 
 class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
   //ScreenFlightSearchResult({super.key});
-  AirlineSearchResponse airlineSearchResponse = const AirlineSearchResponse();
+  AirlineSearchResponse airlineSearchResponse = AirlineSearchResponse();
 
   IRAirlineSearchResponse irAirlineSearchResponse = const IRAirlineSearchResponse();
 
@@ -43,6 +43,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
     if (travelType == "O") {
       log(travelType);
       airlineSearchResponse = arguments["data"];
+      final data = airlineSearchResponse;
       log(airlineSearchResponse.toString());
 
       return Scaffold(
@@ -51,10 +52,13 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         drawer: FlightFilterDrawer(
-          airlineSearchResponse: airlineSearchResponse,
+          airlineSearchResponse: data,
           callBack: (p0) {
+            airlineSearchResponse.objItinList = p0;
             setState(() {});
             log(p0.toString());
+            log(p0.length.toString());
+            print("Working");
           },
         ),
         floatingActionButton: Padding(
@@ -62,10 +66,13 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
           child: FloatingActionButton(
             onPressed: () {
               _scaffoldKey.currentState?.openDrawer();
-              // Navigator.of(context).pushNamed("/FilterFlights", arguments: {
-              //   "minimumFare": airlineSearchResponse.minimumFare,
-              //   "maximumFare": airlineSearchResponse.maximumFare,
-              //   "objAvlairlineList": airlineSearchResponse.objAvlairlineList,
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) {
+              //     return FlightFilterDrawer(airlineSearchResponse: arguments["data"]);
+              //   },
+              // )).then((value) {
+              //   airlineSearchResponse.objItinList = value;
+              //   setState(() {});
               // });
             },
             child: Icon(Icons.filter_alt_outlined),

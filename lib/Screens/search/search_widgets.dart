@@ -958,7 +958,7 @@ class _MultiCityState extends State<MultiCity> {
               print(internationalTrip);
 
               SearchApi().oneWay(searchReq).then((value) {
-                final data = value ?? const AirlineSearchResponse();
+                final data = value ?? AirlineSearchResponse();
                 print(data);
                 data.status != null && data.status!
                     ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {

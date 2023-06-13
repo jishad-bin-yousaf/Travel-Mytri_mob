@@ -75,7 +75,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             Container(
               alignment: Alignment.bottomCenter,
               margin: const EdgeInsets.only(top: 60),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50),
@@ -261,8 +261,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return Expanded(
       child: isLoadingPage
-          ? Image.network(
-              "https://cdn.dribbble.com/users/1897663/screenshots/4062673/plane_800x600.gif",
+          ? Image.asset(
+              "assets/loader.gif",
+              //      "https://cdn.dribbble.com/users/328772/screenshots/10293847/media/d45c05b5e858e2508fb1a3b84f33e932.gif",
             )
           : ListView(
               padding: const EdgeInsets.all(30),
@@ -332,8 +333,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
             onPressed: () async {
-              isLoadingPage = true;
-              setState(() {});
               searchReq.adult = adultCount;
               searchReq.child = childCount;
               searchReq.infant = infantCount;
@@ -352,7 +351,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 onwardSector.destination = destinationCode;
                 onwardSector.destinationcountry = destinationCountry;
                 onwardSector.departureDate = departureDate;
-                onwardSector.departureDate = departureDate;
+
                 if (oneWay) {
                   onwardSector.tripmode = "";
                 }
@@ -367,8 +366,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 returnSector.origincountry = destinationCountry;
                 returnSector.destination = originCode;
                 returnSector.destinationcountry = originCountry;
-                returnSector.departureDate = departureDate;
-                returnSector.departureDate = departureDate;
+                returnSector.departureDate = returnDate;
+
                 returnSector.tripmode = "R";
 
                 travelType = "R";
@@ -387,75 +386,98 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               }
               print(internationalTrip);
 
-              if (oneWay) {
-                SearchApi().oneWay(searchReq).then((value) {
-                  final data = value ?? AirlineSearchResponse();
+              if (showDepTypeField && showArrTypeField && departure != '' && arrival != '') {
+                if (departureDate != null) {
+                  isLoadingPage = true;
+                  setState(() {});
+                  if (oneWay) {
+                    SearchApi().oneWay(searchReq).then((value) {
+                      isLoadingPage = false;
+                      setState(() {});
 
-                  data.status != null && data.status!
-                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": internationalTrip,
-                        }).then((value) => isLoadingPage = false)
-                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                });
-              } else if (roundTrip && internationalTrip) {
-                SearchApi().combinedRoundTrip(searchReq).then((value) {
-                  final data = value ?? const RAirlineSearchResponse();
-                  dev.log({
-                        "data": data,
-                        "tripType": travelType,
-                        "internationalTrip": internationalTrip,
-                      }.toString() +
-                      "  => Passing combinedRoundTrip");
-                  data.status != null && data.status!
-                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": true,
-                        }).then((value) {
-                          isLoadingPage = false;
-                          setState(() {});
-                        })
-                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                });
-              } else if (roundTrip && internationalTrip == false) {
-                SearchApi().individualRoundTrip(searchReq).then((value) {
-                  final data = value ?? const IRAirlineSearchResponse();
-                  dev.log({
-                        "data": data,
-                        "tripType": travelType,
-                        "internationalTrip": internationalTrip,
-                      }.toString() +
-                      "  => Passing individualRoundTrip");
-                  data.status != null && data.status!
-                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": false,
-                        }).then((value) {
-                          isLoadingPage = false;
-                          setState(() {});
-                        })
-                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                });
-              } else if (multiCity) {
-                SearchApi().oneWay(searchReq).then((value) {
-                  final data = value ?? AirlineSearchResponse();
+                      final data = value ?? AirlineSearchResponse();
 
-                  data.status != null && data.status!
-                      ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": internationalTrip,
-                        }).then((value) {
-                          isLoadingPage = false;
-                          setState(() {});
-                        })
-                      : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                });
+                      data.status != null && data.status!
+                          ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": internationalTrip,
+                            }).then((value) {
+                              //      isLoadingPage = false;
+                              //         setState(() {});
+                            })
+                          : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                    });
+                  } else if (roundTrip && internationalTrip) {
+                    SearchApi().combinedRoundTrip(searchReq).then((value) {
+                      isLoadingPage = false;
+                      setState(() {});
+
+                      final data = value ?? const RAirlineSearchResponse();
+                      dev.log({
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          }.toString() +
+                          "  => Passing combinedRoundTrip");
+                      data.status != null && data.status!
+                          ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": true,
+                            }).then((value) {
+                              //  isLoadingPage = false;
+                              //   setState(() {});
+                            })
+                          : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                    });
+                  } else if (roundTrip && internationalTrip == false) {
+                    SearchApi().individualRoundTrip(searchReq).then((value) {
+                      isLoadingPage = false;
+                      setState(() {});
+
+                      final data = value ?? const IRAirlineSearchResponse();
+                      dev.log({
+                            "data": data,
+                            "tripType": travelType,
+                            "internationalTrip": internationalTrip,
+                          }.toString() +
+                          "  => Passing individualRoundTrip");
+                      data.status != null && data.status!
+                          ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": false,
+                            }).then((value) {
+                              //     isLoadingPage = false;
+                              //       setState(() {});
+                            })
+                          : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                    });
+                  } else if (multiCity) {
+                    SearchApi().oneWay(searchReq).then((value) {
+                      isLoadingPage = false;
+                      setState(() {});
+                      final data = value ?? AirlineSearchResponse();
+
+                      data.status != null && data.status!
+                          ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": internationalTrip,
+                            }).then((value) {
+                              // isLoadingPage = false;
+                              // setState(() {});
+                            })
+                          : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                    });
+                  }
+                } else {
+                  Helper().toastMessage("Please select Departure Date");
+                }
+              } else {
+                Helper().toastMessage("Please select Valid Airport");
               }
-
               //    Navigator.of(context).pushNamed('/FlightSearchResult');
             },
             style: ElevatedButton.styleFrom(
