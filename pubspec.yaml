@@ -91,6 +91,7 @@ flutter:
     - assets/airline_deals/
     - assets/hotels/
     - assets/icons/
+    - assets/
 
 flutter_icons:
   android: true

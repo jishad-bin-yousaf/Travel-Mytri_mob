@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Travel Mythri',
       theme: ThemeData(
+        //   useMaterial3: true,
         primaryColor: primaryColor,
         primaryColorDark: primaryColor,
         canvasColor: tertiaryColor,

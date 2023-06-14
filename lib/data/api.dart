@@ -471,16 +471,16 @@ class PricingApi {
 
       final header = await getHeader();
 
-      print(header);
-      print(url);
-      log("${jsonEncode(data)}++++");
+      print("Header : $header");
+      print("URL :$url");
+      log("Request Data : ${jsonEncode(data)}");
       final result = await http.post(url,
           body: jsonEncode(data),
           //  body: data.toJson(),
           headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
-      //  log(resultAsJson.toString());
+      log(resultAsJson.toString());
       final responseModel = RepriceResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
