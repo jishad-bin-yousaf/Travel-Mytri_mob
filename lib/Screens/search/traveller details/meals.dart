@@ -18,7 +18,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
 
   @override
   void initState() {
-    mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: ''));
+    mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: '', key: ''));
 
     super.initState();
   }
@@ -29,7 +29,6 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
       bottomSheet: InkWell(
           onTap: () {
             //    print(mealList.length);
-
             print(mealList);
             Navigator.pop(context, mealList);
           },
@@ -98,7 +97,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                           return InkWell(
                               onTap: () {
                                 selectedIndexMeal = isSelected ? -1 : index;
-                                if (isSelected) {
+                                if (!isSelected) {
                                   mealList[sectionIndex!].name = widget.data?[sectionIndex!].objmealList?[index].name;
                                   mealList[sectionIndex!].amount = widget.data?[sectionIndex!].objmealList?[index].amount;
                                   mealList[sectionIndex!].key = widget.data?[sectionIndex!].objmealList?[index].code;

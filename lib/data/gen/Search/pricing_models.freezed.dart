@@ -330,8 +330,6 @@ mixin _$RePricingPaxlist {
   set objMealList(List<SSRMeal>? value) => throw _privateConstructorUsedError;
   List<SSRBaggage>? get objBaggage => throw _privateConstructorUsedError;
   set objBaggage(List<SSRBaggage>? value) => throw _privateConstructorUsedError;
-  List<SSRSeat>? get objSeatList => throw _privateConstructorUsedError;
-  set objSeatList(List<SSRSeat>? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -348,8 +346,7 @@ abstract class $RePricingPaxlistCopyWith<$Res> {
   $Res call(
       {String? paxKey,
       List<SSRMeal>? objMealList,
-      List<SSRBaggage>? objBaggage,
-      List<SSRSeat>? objSeatList});
+      List<SSRBaggage>? objBaggage});
 }
 
 /// @nodoc
@@ -368,7 +365,6 @@ class _$RePricingPaxlistCopyWithImpl<$Res, $Val extends RePricingPaxlist>
     Object? paxKey = freezed,
     Object? objMealList = freezed,
     Object? objBaggage = freezed,
-    Object? objSeatList = freezed,
   }) {
     return _then(_value.copyWith(
       paxKey: freezed == paxKey
@@ -383,10 +379,6 @@ class _$RePricingPaxlistCopyWithImpl<$Res, $Val extends RePricingPaxlist>
           ? _value.objBaggage
           : objBaggage // ignore: cast_nullable_to_non_nullable
               as List<SSRBaggage>?,
-      objSeatList: freezed == objSeatList
-          ? _value.objSeatList
-          : objSeatList // ignore: cast_nullable_to_non_nullable
-              as List<SSRSeat>?,
     ) as $Val);
   }
 }
@@ -402,8 +394,7 @@ abstract class _$$_RePricingPaxlistCopyWith<$Res>
   $Res call(
       {String? paxKey,
       List<SSRMeal>? objMealList,
-      List<SSRBaggage>? objBaggage,
-      List<SSRSeat>? objSeatList});
+      List<SSRBaggage>? objBaggage});
 }
 
 /// @nodoc
@@ -420,7 +411,6 @@ class __$$_RePricingPaxlistCopyWithImpl<$Res>
     Object? paxKey = freezed,
     Object? objMealList = freezed,
     Object? objBaggage = freezed,
-    Object? objSeatList = freezed,
   }) {
     return _then(_$_RePricingPaxlist(
       paxKey: freezed == paxKey
@@ -435,10 +425,6 @@ class __$$_RePricingPaxlistCopyWithImpl<$Res>
           ? _value.objBaggage
           : objBaggage // ignore: cast_nullable_to_non_nullable
               as List<SSRBaggage>?,
-      objSeatList: freezed == objSeatList
-          ? _value.objSeatList
-          : objSeatList // ignore: cast_nullable_to_non_nullable
-              as List<SSRSeat>?,
     ));
   }
 }
@@ -446,8 +432,7 @@ class __$$_RePricingPaxlistCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_RePricingPaxlist implements _RePricingPaxlist {
-  _$_RePricingPaxlist(
-      {this.paxKey, this.objMealList, this.objBaggage, this.objSeatList});
+  _$_RePricingPaxlist({this.paxKey, this.objMealList, this.objBaggage});
 
   factory _$_RePricingPaxlist.fromJson(Map<String, dynamic> json) =>
       _$$_RePricingPaxlistFromJson(json);
@@ -458,12 +443,10 @@ class _$_RePricingPaxlist implements _RePricingPaxlist {
   List<SSRMeal>? objMealList;
   @override
   List<SSRBaggage>? objBaggage;
-  @override
-  List<SSRSeat>? objSeatList;
 
   @override
   String toString() {
-    return 'RePricingPaxlist(paxKey: $paxKey, objMealList: $objMealList, objBaggage: $objBaggage, objSeatList: $objSeatList)';
+    return 'RePricingPaxlist(paxKey: $paxKey, objMealList: $objMealList, objBaggage: $objBaggage)';
   }
 
   @JsonKey(ignore: true)
@@ -484,8 +467,7 @@ abstract class _RePricingPaxlist implements RePricingPaxlist {
   factory _RePricingPaxlist(
       {String? paxKey,
       List<SSRMeal>? objMealList,
-      List<SSRBaggage>? objBaggage,
-      List<SSRSeat>? objSeatList}) = _$_RePricingPaxlist;
+      List<SSRBaggage>? objBaggage}) = _$_RePricingPaxlist;
 
   factory _RePricingPaxlist.fromJson(Map<String, dynamic> json) =
       _$_RePricingPaxlist.fromJson;
@@ -499,9 +481,6 @@ abstract class _RePricingPaxlist implements RePricingPaxlist {
   @override
   List<SSRBaggage>? get objBaggage;
   set objBaggage(List<SSRBaggage>? value);
-  @override
-  List<SSRSeat>? get objSeatList;
-  set objSeatList(List<SSRSeat>? value);
   @override
   @JsonKey(ignore: true)
   _$$_RePricingPaxlistCopyWith<_$_RePricingPaxlist> get copyWith =>

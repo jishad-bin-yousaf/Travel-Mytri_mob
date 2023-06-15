@@ -1,4 +1,4 @@
-/* import 'dart:convert';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -8,6 +8,17 @@ import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/baggag
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/meals.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/passport.dart';
 import '../../../data/model/Search/pricing_models.dart';
+
+class ListOfBookingPaxDetails {
+  List<BookingPaxdetails> adultPaxList;
+  List<BookingPaxdetails> childPaxList;
+  List<BookingPaxdetails> infantPaxList;
+  ListOfBookingPaxDetails({
+    required this.adultPaxList,
+    required this.childPaxList,
+    required this.infantPaxList,
+  });
+}
 
 class TavellerDetails extends StatelessWidget {
   final List<CountryList> cntryList = [
@@ -21,142 +32,152 @@ class TavellerDetails extends StatelessWidget {
     // Add more countries as needed
   ];
   final PricingResponse data;
-  final RepricingRequest requestingData = RepricingRequest();
-  late List<RePricingPaxlist> adultPaxList;
-  late List<RePricingPaxlist> childPaxList;
-  late List<RePricingPaxlist> infantPaxList;
 
-  TavellerDetails({required this.data}) {
+  List<BookingPaxdetails> paxList = [];
+  late List<BookingPaxdetails> adultPaxList;
+  late List<BookingPaxdetails> childPaxList;
+  late List<BookingPaxdetails> infantPaxList;
+  ListOfBookingPaxDetails paxDetailsList;
+
+  TavellerDetails({required this.data, required this.paxDetailsList}) {
     initializePaxLists();
   }
 
   void initializePaxLists() {
-    adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => RePricingPaxlist());
-    childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => RePricingPaxlist());
-    infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => RePricingPaxlist());
+    adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => paxDetailsList.adultPaxList[index]);
+    childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => paxDetailsList.childPaxList[index]);
+    infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => paxDetailsList.infantPaxList[index]);
   }
 
   @override
   Widget build(BuildContext context) {
-    log(jsonEncode(data).toString());
+    // log((paxDetailsList).toString());
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Add Travellers"),
-          centerTitle: false,
-          automaticallyImplyLeading: false,
-        ),
-        bottomSheet: InkWell(
-            onTap: () {
-              requestingData.objAdtPaxList = adultPaxList;
-              requestingData.objChdPaxList = childPaxList;
-              requestingData.objInfPaxList = infantPaxList;
-              Navigator.pop(context, requestingData);
-            },
-            child: Container(
-              color: primaryColor,
-              height: 80,
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                "CONTINUE",
-                style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
-              )),
+      appBar: AppBar(
+        title: const Text("Add Travellers"),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+      ),
+      bottomSheet: InkWell(
+          onTap: () {
+            paxList.addAll(adultPaxList);
+            paxList.addAll(childPaxList);
+            paxList.addAll(infantPaxList);
+            log(paxDetailsList.toString());
+            Navigator.pop(context, ListOfBookingPaxDetails(adultPaxList: adultPaxList, childPaxList: childPaxList, infantPaxList: infantPaxList));
+          },
+          child: Container(
+            color: primaryColor,
+            height: 80,
+            width: double.infinity,
+            child: const Center(
+                child: Text(
+              "CONTINUE",
+              style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
             )),
-        body: travellerDetails());
-  }
-
-  ListView travellerDetails() {
-    return ListView(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          color: Colors.grey.shade300,
-          child: const Text(
-            "Adults",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          )),
+      body: ListView(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            color: Colors.grey.shade300,
+            child: const Text(
+              "Adults",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        (data.objApiResponse?.objAdtPaxList?.length ?? 0) != 0
-            ? SizedBox(
-                height: 245 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble(),
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: data.objApiResponse?.objAdtPaxList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    adultPaxList[index].paxKey = data.objApiResponse?.objAdtPaxList?[index].paxKey ?? '';
-                    return adultDetails(index, context, data.objApiResponse?.objAdtPaxList?[index]);
-                  },
-                ),
-              )
-            : const SizedBox(),
-        (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
-            ? Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.grey.shade300,
-                child: const Text(
-                  "Child",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              )
-            : SizedBox(),
-        (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
-            ? SizedBox(
-                height: 325 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble(),
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: data.objApiResponse?.objChdPaxList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    childPaxList[index].paxKey = data.objApiResponse?.objChdPaxList?[index].paxKey ?? '';
+          (data.objApiResponse?.objAdtPaxList?.length ?? 0) != 0
+              ? SizedBox(
+                  height: 250 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble(),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: data.objApiResponse?.objAdtPaxList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      adultPaxList[index].paxKey = data.objApiResponse?.objAdtPaxList?[index].paxKey ?? '';
+                      adultPaxList[index].paxType = 'Adult';
+                      return adultDetails(
+                        index,
+                        context,
+                        data.objApiResponse?.objAdtPaxList?[index],
+                      );
+                    },
+                  ),
+                )
+              : const SizedBox(),
+          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
+              ? Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.grey.shade300,
+                  child: const Text(
+                    "Child",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                )
+              : SizedBox(),
+          (data.objApiResponse?.objChdPaxList?.length ?? 0) != 0
+              ? SizedBox(
+                  height: 335 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble(),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: data.objApiResponse?.objChdPaxList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      childPaxList[index].paxKey = data.objApiResponse?.objChdPaxList?[index].paxKey ?? '';
+                      childPaxList[index].paxType = 'child';
+                      return childDetails(index, context, data.objApiResponse?.objChdPaxList?[index]);
+                    },
+                  ),
+                )
+              : SizedBox(),
+          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
+              ? Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.grey.shade300,
+                  child: const Text(
+                    "Infants",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                )
+              : SizedBox(),
+          (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
+              ? SizedBox(
+                  height: 335 * (data.objApiResponse?.objInfPaxList?.length ?? 0).toDouble(),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      infantPaxList[index].paxKey = data.objApiResponse?.objInfPaxList?[index].paxKey ?? '';
+                      infantPaxList[index].paxType = 'infant';
 
-                    return childDetails(index, context, data.objApiResponse?.objChdPaxList?[index]);
-                  },
-                ),
-              )
-            : SizedBox(),
-        (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
-            ? Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.grey.shade300,
-                child: const Text(
-                  "Infants",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              )
-            : SizedBox(),
-        (data.objApiResponse?.objInfPaxList?.length ?? 0) != 0
-            ? SizedBox(
-                height: 325 * 3,
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    //  infantPaxList[index].paxKey = data.objInfPaxList?[index].paxKey ?? '';
-
-                    return infantDetails(index, context);
-                  },
-                ),
-              )
-            : SizedBox(),
-        const SizedBox(height: 75)
-      ],
+                      return infantDetails(index, context);
+                    },
+                  ),
+                )
+              : SizedBox(),
+          const SizedBox(height: 75),
+        ],
+      ),
     );
   }
 
   infantDetails(int index, BuildContext context) {
-    TextEditingController dobController = TextEditingController();
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
+    TextEditingController dobController = TextEditingController(text: paxDetailsList.infantPaxList[index].dateofBirth);
+    TextEditingController firstNameController = TextEditingController(text: paxDetailsList.infantPaxList[index].firstName);
+    TextEditingController lastNameController = TextEditingController(text: paxDetailsList.infantPaxList[index].lastName);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("Infant ${index + 1}", style: const TextStyle(fontSize: 18)),
+          child: Text("Infant (${index + 1})", style: const TextStyle(fontSize: 18)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              infantPaxList[index].firstName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("First Name"),
@@ -167,6 +188,9 @@ class TavellerDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              infantPaxList[index].lastName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("Last Name"),
@@ -190,6 +214,8 @@ class TavellerDetails extends StatelessWidget {
                     firstDate: DateTime.now().subtract(Duration(days: 2 * 365)), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime.now());
                 pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
+                //   infantPaxList[index].dateofBirth = DateFormat("dd MMM yyy").format(pickedFromDate ?? DateTime.now());
+                infantPaxList[index].dateofBirth = dobController.text;
               }),
         ),
         Row(
@@ -197,11 +223,36 @@ class TavellerDetails extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                      builder: (context) => PassportDetailsPage(cntryList: cntryList),
-                    ))
-                    .then((value) => print(value));
+                TextEditingController passportNoController = TextEditingController();
+                TextEditingController nationalityController = TextEditingController();
+                TextEditingController dobController = TextEditingController();
+                TextEditingController countryOfIssueController = TextEditingController();
+                TextEditingController dateOfExpiryController = TextEditingController();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  passportNoController.text = infantPaxList[index].documentNumber ?? '';
+                  countryOfIssueController.text = infantPaxList[index].countryofIssue ?? '';
+                  nationalityController.text = infantPaxList[index].nationality ?? '';
+                  dobController.text = infantPaxList[index].dateofBirth ?? '';
+                  dateOfExpiryController.text = infantPaxList[index].dateOfExpiry ?? "";
+                  return PassportDetailsPage(
+                    cntryList: cntryList,
+                    countryOfIssueController: countryOfIssueController,
+                    dateOfExpiryController: dateOfExpiryController,
+                    dobController: dobController,
+                    nationalityController: nationalityController,
+                    passportNoController: passportNoController,
+                  );
+                })).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
+                  print(passportNoController.text);
+                  infantPaxList[index].documentNumber = data.passportNoController.text;
+                  infantPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  infantPaxList[index].nationality = data.nationalityController.text;
+                  infantPaxList[index].dateofBirth = data.dobController.text;
+                  infantPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -216,20 +267,24 @@ class TavellerDetails extends StatelessWidget {
   }
 
   childDetails(int index, BuildContext context, PricingPaxlist? data) {
-    TextEditingController dobController = TextEditingController();
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
+    TextEditingController dobController = TextEditingController(text: paxDetailsList.childPaxList[index].dateofBirth);
+    TextEditingController firstNameController = TextEditingController(text: paxDetailsList.childPaxList[index].firstName);
+    TextEditingController lastNameController = TextEditingController(text: paxDetailsList.childPaxList[index].lastName);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("Child${index + 1}", style: const TextStyle(fontSize: 18)),
+          child: Text("Child (${index + 1})", style: const TextStyle(fontSize: 18)),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              childPaxList[index].firstName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("First Name"),
@@ -240,6 +295,9 @@ class TavellerDetails extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              childPaxList[index].lastName = value;
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               label: Text("Last Name"),
@@ -249,6 +307,7 @@ class TavellerDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
+              controller: dobController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 label: Text("Date of Birth"),
@@ -262,7 +321,9 @@ class TavellerDetails extends StatelessWidget {
                   firstDate: DateTime.now().subtract(Duration(days: 12 * 365)), //DateTime.now() - not to allow to choose before today.
                   lastDate: DateTime.now().subtract(Duration(days: 2 * 365)),
                 );
+
                 pickedFromDate != null ? dobController.text = DateFormat('dd MMMM yyyy').format(pickedFromDate) : '';
+                infantPaxList[index].dateofBirth = dobController.text;
               }),
         ),
         Row(
@@ -270,13 +331,61 @@ class TavellerDetails extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                      builder: (context) => PassportDetailsPage(
-                        cntryList: cntryList,
-                      ),
-                    ))
-                    .then((value) => print(value));
+                TextEditingController passportNoController = TextEditingController();
+                TextEditingController nationalityController = TextEditingController();
+                TextEditingController dobController = TextEditingController();
+                TextEditingController countryOfIssueController = TextEditingController();
+                TextEditingController dateOfExpiryController = TextEditingController();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  passportNoController.text = childPaxList[index].documentNumber ?? '';
+                  countryOfIssueController.text = childPaxList[index].countryofIssue ?? '';
+                  nationalityController.text = childPaxList[index].nationality ?? '';
+                  dobController.text = childPaxList[index].dateofBirth ?? '';
+                  dateOfExpiryController.text = childPaxList[index].dateOfExpiry ?? "";
+                  return PassportDetailsPage(
+                    cntryList: cntryList,
+                    countryOfIssueController: countryOfIssueController,
+                    dateOfExpiryController: dateOfExpiryController,
+                    dobController: dobController,
+                    nationalityController: nationalityController,
+                    passportNoController: passportNoController,
+                  );
+                })).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
+                  print(passportNoController.text);
+                  childPaxList[index].documentNumber = data.passportNoController.text;
+                  childPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  childPaxList[index].nationality = data.nationalityController.text;
+                  childPaxList[index].dateofBirth = data.dobController.text;
+                  childPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
+
+                /*          showModalBottomSheet(
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) {
+                    passportNoController.text = childPaxList[index].documentNumber ?? '';
+                    countryOfIssueController.text = childPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = childPaxList[index].nationality ?? '';
+                    dobController.text = childPaxList[index].dateofBirth ?? '';
+                    dateOfExpiryController.text = childPaxList[index].dateOfExpiry ?? "";
+                    return passportBottomSheet(passportNoController, nationalityController, dobController, countryOfIssueController, dateOfExpiryController);
+                  },
+                ).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+
+                  print(passportNoController.text);
+                  adultPaxList[index].documentNumber = data.passportNoController.text;
+                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  adultPaxList[index].nationality = data.nationalityController.text;
+                  adultPaxList[index].dateofBirth = data.dobController.text;
+                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
+            */
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
@@ -286,9 +395,11 @@ class TavellerDetails extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                //         List<SSRBaggage> baggageList = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
                 ))
                     .then((value) {
                   childPaxList[index].objBaggage = value as List<SSRBaggage>?;
@@ -323,20 +434,23 @@ class TavellerDetails extends StatelessWidget {
   }
 
   adultDetails(int index, BuildContext context, PricingPaxlist? data) {
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
+    TextEditingController firstNameController = TextEditingController(text: paxDetailsList.adultPaxList[index].firstName);
+    TextEditingController lastNameController = TextEditingController(text: paxDetailsList.adultPaxList[index].lastName);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("Adult${index + 1}", style: const TextStyle(fontSize: 18)),
+          child: Text("Adult (${index + 1})", style: const TextStyle(fontSize: 18)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: firstNameController,
+            onChanged: (value) {
+              adultPaxList[index].firstName = value;
+            },
             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
           ),
         ),
@@ -344,6 +458,9 @@ class TavellerDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: TextField(
             controller: lastNameController,
+            onChanged: (value) {
+              adultPaxList[index].lastName = value;
+            },
             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Last Name")),
           ),
         ),
@@ -352,12 +469,44 @@ class TavellerDetails extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                      builder: (context) => PassportDetailsPage(cntryList: cntryList),
-                    ))
-                    .then((value) {});
+                TextEditingController passportNoController = TextEditingController();
+                TextEditingController nationalityController = TextEditingController();
+                TextEditingController dobController = TextEditingController();
+                TextEditingController countryOfIssueController = TextEditingController();
+                TextEditingController dateOfExpiryController = TextEditingController();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  passportNoController.text = adultPaxList[index].documentNumber ?? '';
+                  countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
+                  nationalityController.text = adultPaxList[index].nationality ?? '';
+                  dobController.text = adultPaxList[index].dateofBirth ?? '';
+                  dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
+                  return PassportDetailsPage(
+                    cntryList: cntryList,
+                    countryOfIssueController: countryOfIssueController,
+                    dateOfExpiryController: dateOfExpiryController,
+                    dobController: dobController,
+                    nationalityController: nationalityController,
+                    passportNoController: passportNoController,
+                  );
+                })).then((value) {
+                  final data = value as PassportDetails;
+                  passportNoController = data.passportNoController;
+                  print(passportNoController.text);
+                  adultPaxList[index].documentNumber = data.passportNoController.text;
+                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                  adultPaxList[index].nationality = data.nationalityController.text;
+                  adultPaxList[index].dateofBirth = data.dobController.text;
+                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                });
               },
+
+              // onPressed: () {
+              //   Navigator.of(context)
+              //       .push(MaterialPageRoute(
+              //         builder: (context) => PassportDetailsPage(cntryList: cntryList),
+              //       ))
+              //       .then((value) {});
+              // },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -366,12 +515,14 @@ class TavellerDetails extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                //         adultPaxList[index].objBaggage = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data?.objbaggageseglist),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
                 ))
                     .then((value) {
-                  adultPaxList[index].objBaggage = value as List<SSRBaggage>?;
+                  adultPaxList[index].objBaggage = value ?? [] as List<SSRBaggage>?;
                 });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
@@ -382,12 +533,14 @@ class TavellerDetails extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                //     adultPaxList[index].objMealList = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRMeal(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
                 Navigator.of(context)
                     .push(MaterialPageRoute(
                   builder: (context) => MealDetailsPage(data?.objmealseglist),
                 ))
                     .then((value) {
-                  adultPaxList[index].objMealList = value as List<SSRMeal>?;
+                  adultPaxList[index].objMealList = value ?? [] as List<SSRMeal>?;
                 });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
@@ -402,8 +555,24 @@ class TavellerDetails extends StatelessWidget {
     );
   }
 }
- */
+
 class CountryList {
   String name;
   CountryList({required this.name});
+}
+
+class PassportDetails {
+  TextEditingController passportNoController = TextEditingController();
+  TextEditingController nationalityController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+  TextEditingController countryOfIssueController = TextEditingController();
+  TextEditingController dateOfExpiryController = TextEditingController();
+
+  PassportDetails({
+    required this.passportNoController,
+    required this.nationalityController,
+    required this.dobController,
+    required this.countryOfIssueController,
+    required this.dateOfExpiryController,
+  });
 }

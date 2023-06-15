@@ -25,7 +25,7 @@ class RePricingPaxlist with _$RePricingPaxlist {
     String? paxKey,
     List<SSRMeal>? objMealList,
     List<SSRBaggage>? objBaggage,
-    List<SSRSeat>? objSeatList,
+    //  List<SSRSeat>? objSeatList,
   }) = _RePricingPaxlist;
   factory RePricingPaxlist.fromJson(Map<String, dynamic> json) => _$RePricingPaxlistFromJson(json);
 }
@@ -304,7 +304,7 @@ class BookingRequest with _$BookingRequest {
 
 @unfreezed
 class BookingPaxdetails with _$BookingPaxdetails {
-   factory BookingPaxdetails({
+  factory BookingPaxdetails({
     String? paxType,
     String? paxKey,
     String? title,
@@ -325,7 +325,7 @@ class BookingPaxdetails with _$BookingPaxdetails {
 
 @unfreezed
 class BookingGstDetails with _$BookingGstDetails {
-   factory BookingGstDetails({
+  factory BookingGstDetails({
     String? gstNumber,
     String? companyName,
     String? email,

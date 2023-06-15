@@ -3,24 +3,34 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../../data/model/Search/pricing_models.dart';
 
 class BaggageDetailsPage extends StatefulWidget {
-  BaggageDetailsPage({super.key, required this.data, required this.baggageList});
+  BaggageDetailsPage({
+    super.key,
+    required this.data,
+  });
   List<PricingBaggageSegment> data;
-  List<SSRBaggage> baggageList;
   @override
   State<BaggageDetailsPage> createState() => _BaggageDetailsPageState();
 }
 
 class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
   int? sectionIndex;
+  late List<SSRBaggage> baggageList;
   int selectedIndexBag = -1;
   int selectedIndexSector = -1;
+
+  @override
+  void initState() {
+    baggageList = List.generate(widget.data.length ?? 0, (index) => SSRBaggage(amount: 0, name: '', segmentCode: '', tripMode: '', key: ""));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: InkWell(
           onTap: () {
-            Navigator.pop(context, widget.baggageList);
+            Navigator.pop(context, baggageList);
           },
           child: Container(
             color: primaryColor,
@@ -53,8 +63,8 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                       selectedIndexSector = isSelected ? -1 : index;
                       selectedIndexBag = -1;
                       sectionIndex = index;
-                      widget.baggageList[index].segmentCode = widget.data[index].sectorCode;
-                      widget.baggageList[index].tripMode = widget.data[index].tripMode;
+                      baggageList[index].segmentCode = widget.data[index].sectorCode;
+                      baggageList[index].tripMode = widget.data[index].tripMode;
                       setState(() {});
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: isSelected ? secondaryColor : Colors.grey.shade300),
@@ -89,14 +99,14 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                           return InkWell(
                               onTap: () {
                                 selectedIndexBag = isSelected ? -1 : index;
-                                if (isSelected) {
-                                  widget.baggageList[sectionIndex!].name = widget.data[sectionIndex!].objbaggageList?[index].name;
-                                  widget.baggageList[sectionIndex!].amount = widget.data[sectionIndex!].objbaggageList?[index].amount;
-                                  widget.baggageList[sectionIndex!].key = widget.data[sectionIndex!].objbaggageList?[index].code;
+                                if (!isSelected) {
+                                  baggageList[sectionIndex!].name = widget.data[sectionIndex!].objbaggageList?[index].name;
+                                  baggageList[sectionIndex!].amount = widget.data[sectionIndex!].objbaggageList?[index].amount;
+                                  baggageList[sectionIndex!].key = widget.data[sectionIndex!].objbaggageList?[index].code;
                                 } else {
-                                  widget.baggageList[sectionIndex!].name = '';
-                                  widget.baggageList[sectionIndex!].amount = 0;
-                                  widget.baggageList[sectionIndex!].key = '';
+                                  baggageList[sectionIndex!].name = '';
+                                  baggageList[sectionIndex!].amount = 0;
+                                  baggageList[sectionIndex!].key = '';
                                 }
                                 setState(() {});
                               },

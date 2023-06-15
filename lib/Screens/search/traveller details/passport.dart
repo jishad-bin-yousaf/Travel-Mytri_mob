@@ -8,14 +8,22 @@ import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/travel
 import '../../../Constants/colors.dart';
 
 class PassportDetailsPage extends StatelessWidget {
-  PassportDetailsPage({super.key, required this.cntryList});
+  PassportDetailsPage({
+    super.key,
+    required this.cntryList,
+    required this.passportNoController,
+    required this.nationalityController,
+    required this.dobController,
+    required this.countryOfIssueController,
+    required this.dateOfExpiryController,
+  });
 
   List<CountryList> cntryList;
-  TextEditingController passportNoController = TextEditingController();
-  TextEditingController nationalityController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
-  TextEditingController countryOfIssueController = TextEditingController();
-  TextEditingController dateOfExpiryController = TextEditingController();
+  TextEditingController passportNoController;
+  TextEditingController nationalityController;
+  TextEditingController dobController;
+  TextEditingController countryOfIssueController;
+  TextEditingController dateOfExpiryController;
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +180,15 @@ class PassportDetailsPage extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context, "hellooooo");
+                  Navigator.pop(
+                      context,
+                      PassportDetails(
+                        countryOfIssueController: countryOfIssueController,
+                        passportNoController: passportNoController,
+                        dateOfExpiryController: dateOfExpiryController,
+                        dobController: dobController,
+                        nationalityController: nationalityController,
+                      ));
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(MediaQuery.of(context).size.width - 50, 50),

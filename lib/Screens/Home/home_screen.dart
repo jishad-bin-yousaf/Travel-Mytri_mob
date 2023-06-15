@@ -22,7 +22,7 @@ class _ScreenHomeState extends State<ScreenHome> {
     getToken().then((value) {
       log(isLogged.toString());
       isLogged = value.isUser ?? false;
-      userName = value.fullName ?? "User";
+      userName = value.firstName ?? "User";
       log((userName).toString() + "userDetails");
       setState(() {});
     });

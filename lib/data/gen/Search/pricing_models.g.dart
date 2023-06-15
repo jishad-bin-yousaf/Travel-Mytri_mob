@@ -47,9 +47,6 @@ _$_RePricingPaxlist _$$_RePricingPaxlistFromJson(Map<String, dynamic> json) =>
       objBaggage: (json['objBaggage'] as List<dynamic>?)
           ?.map((e) => SSRBaggage.fromJson(e as Map<String, dynamic>))
           .toList(),
-      objSeatList: (json['objSeatList'] as List<dynamic>?)
-          ?.map((e) => SSRSeat.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$_RePricingPaxlistToJson(_$_RePricingPaxlist instance) =>
@@ -57,7 +54,6 @@ Map<String, dynamic> _$$_RePricingPaxlistToJson(_$_RePricingPaxlist instance) =>
       'paxKey': instance.paxKey,
       'objMealList': instance.objMealList,
       'objBaggage': instance.objBaggage,
-      'objSeatList': instance.objSeatList,
     };
 
 _$_SSRMeal _$$_SSRMealFromJson(Map<String, dynamic> json) => _$_SSRMeal(
