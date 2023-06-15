@@ -980,7 +980,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     debounceDuration: const Duration(milliseconds: 500),
                     suggestionsCallback: (query) async => getList(query),
                     itemBuilder: (context, itemData) => ListTile(
-                          title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.cityCode?.toUpperCase() ?? ''}"),
+                          title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.code?.toUpperCase() ?? ''}"),
                           subtitle: Text(itemData.airportName ?? ''),
                           trailing: Text(itemData.countryCode ?? ''),
                         ),
@@ -1240,6 +1240,11 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
       dev.log("cityCodeList ++++$cityCodeList");
 
+      final codeList = await airportList.where((element) => element.code!.toLowerCase().contains(query.toLowerCase())).toList();
+      filteredFlights.addAll(codeList);
+
+      dev.log("cityCodeList ++++$codeList");
+
       final cityNameList = airportList.where((element) => element.cityName!.toLowerCase().contains(query.toLowerCase())).toList();
       filteredFlights.addAll(cityNameList);
       dev.log("cityNameList ++++$cityNameList");
@@ -1249,8 +1254,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
     }
     dev.log(filteredFlights.toString());
 
-    filteredFlights = filteredFlights.toSet().map((item) => item.cityCode).map((itemId) {
-      return filteredFlights.firstWhere((item) => item.cityCode == itemId);
+    filteredFlights = filteredFlights.toSet().map((item) => item.code).map((itemId) {
+      return filteredFlights.firstWhere((item) => item.code == itemId);
     }).toList();
 
     return filteredFlights;

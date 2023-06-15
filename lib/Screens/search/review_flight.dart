@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/confirmation.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';

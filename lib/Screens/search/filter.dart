@@ -557,7 +557,8 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   Future<List<ApiSearchResponse>> filterFlights() {
     List<ApiSearchResponse> data = widget.airlineSearchResponse.objItinList ?? []; // data
     //  List<ApiSearchResponse> filteringList = List<ApiSearchResponse>.empty(growable: true);
-    List<ApiSearchResponse> filteredList = [];
+    List<ApiSearchResponse> filteredList = widget.airlineSearchResponse.objItinList ?? [];
+    ;
 
     if (filterFlightCodeList.isNotEmpty) {
       log("Working");
@@ -569,13 +570,28 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
       filteredList = tempFilteredList;
     }
 
-    // if (isRefundable) {
-    //   filteringList.addAll(data.where((item) => item.refundable == "refundable").toList());
-    //   log(isRefundable.toString());
-    // }
+    if (isRefundable) {
+      filteredList.removeWhere((element) => (element.refundable != "refundable"));
+    }
     if (priceFilter) {
       filteredList = filteredList.where((item) => ((item.netAmount ?? 0) >= (startCurrentValue ?? 0) && (item.netAmount ?? 0) <= (endCurrentValue ?? 0))).toList();
     }
+
+    filteredList = data.where((item) {
+      bool satisfiesConditions = false;
+
+      if (nonStop && item.noofStop == 0) {
+        satisfiesConditions = true;
+      }
+      if (oneStop && item.noofStop == 1) {
+        satisfiesConditions = true;
+      }
+      if (twoStop && item.noofStop == 2) {
+        satisfiesConditions = true;
+      }
+
+      return satisfiesConditions;
+    }).toList();
 
     // if (nonStop) {
     //   filteringList.addAll(data.where((item) => item.noofStop == 0));
@@ -587,11 +603,11 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
     //   filteringList.addAll(data.where((item) => item.noofStop == 2));
     // }
 
-    // filteredList = filteringList.toSet().map((item) => item.itinId).map((itemId) {
-    //   return filteringList.firstWhere((item) => item.itinId == itemId);
-    // }).toList();
+    final finalList = filteredList.toSet().map((item) => item.itinId).map((itemId) {
+      return filteredList.firstWhere((item) => item.itinId == itemId);
+    }).toList();
 
-    print("Filtered List Length: ${filteredList.length}");
-    return Future.value(filteredList);
+    print("Filtered List Length: ${finalList.length}");
+    return Future.value(finalList);
   }
 }
