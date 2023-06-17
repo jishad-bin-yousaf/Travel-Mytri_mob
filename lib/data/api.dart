@@ -7,6 +7,7 @@ import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../Constants/urls.dart';
+import 'model/My Trip/my_trips.dart';
 import 'model/Search/flight_search_model.dart';
 import 'model/Search/pricing_models.dart';
 import 'model/airport_list.dart';
@@ -482,6 +483,37 @@ class PricingApi {
       final resultAsJson = jsonDecode(result.body);
       log(resultAsJson.toString());
       final responseModel = RepriceResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class MyTripsApi {
+  final urls = AirlineUrl();
+  Future<AirlineTicketHistoryResponse?> getDetails({required String request}) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.myTrips);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+      log("${jsonEncode(request)}++++");
+      final result = await http.post(url,
+          body: jsonEncode(request),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = AirlineTicketHistoryResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {

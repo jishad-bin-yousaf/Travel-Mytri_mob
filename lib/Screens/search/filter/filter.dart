@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
 
-import '../../Constants/colors.dart';
+import '../../../Constants/colors.dart';
 
 //typedef ListCallback = void Function(List<AirlineSearchResponse>);
 typedef ListCallback = void Function(List<ApiSearchResponse>);
@@ -12,11 +12,18 @@ typedef ListCallback = void Function(List<ApiSearchResponse>);
 class FlightFilterDrawer extends StatefulWidget {
   const FlightFilterDrawer({
     Key? key,
-    required this.airlineSearchResponse,
+    required this.airlineList,
+    required this.itemList,
     required this.callBack,
+    required this.minimumFare,
+    required this.maximumFare,
   }) : super(key: key);
 
-  final AirlineSearchResponse airlineSearchResponse;
+  final List<AvailableAirline> airlineList;
+  final List<ApiSearchResponse> itemList;
+  final num? minimumFare;
+  final num? maximumFare;
+
   final ListCallback callBack;
 
   @override
@@ -26,7 +33,6 @@ class FlightFilterDrawer extends StatefulWidget {
 class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   double? startCurrentValue;
   double? endCurrentValue;
-
   bool isRefundable = false;
   bool nonStop = false;
   bool oneStop = false;
@@ -47,26 +53,40 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   @override
   void initState() {
     super.initState();
-    selectedFlights = List<bool>.filled(widget.airlineSearchResponse.objAvlairlineList?.length ?? 0, false);
+    selectedFlights = List<bool>.filled(widget.airlineList.length, false);
   }
 
   @override
   void didUpdateWidget(FlightFilterDrawer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.airlineSearchResponse != oldWidget.airlineSearchResponse) {
+    if (widget.airlineList != oldWidget.airlineList) {
       // Widget configuration has changed, update the selectedFlights list accordingly
-      selectedFlights = List<bool>.filled(widget.airlineSearchResponse.objAvlairlineList?.length ?? 0, false);
+      selectedFlights = List<bool>.filled(widget.airlineList.length, false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    log((widget.airlineSearchResponse.objItinList?.length).toString() + " total data length");
+    log((widget.airlineList.length).toString() + " total data length");
     return Scaffold(
       appBar: AppBar(),
-      // width: MediaQuery.of(context).size.width * 3.5 / 4,
+      bottomSheet: ElevatedButton(
+          onPressed: () {
+            filterFlights().then((value) {
+              widget.callBack(value);
+
+              Navigator.pop(context, value);
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(MediaQuery.of(context).size.width, 80),
+            backgroundColor: secondaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+          child: const Text("Apply Filters")),
       body: ListView(
-        //    crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             margin: const EdgeInsets.all(30),
@@ -84,12 +104,12 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                 ),
                 SizedBox(
                   //   height: 4 * 50,
-                  height: (widget.airlineSearchResponse.objAvlairlineList?.length ?? 0) * 50,
+                  height: widget.airlineList.length * 50,
                   child: ListView.builder(
                     //  itemCount: 4,
-                    itemCount: widget.airlineSearchResponse.objAvlairlineList?.length ?? 0,
+                    itemCount: widget.airlineList.length,
                     itemBuilder: (context, index) {
-                      final val = widget.airlineSearchResponse.objAvlairlineList?[index];
+                      final val = widget.airlineList[index];
                       //    bool isChecked = selectedFlight == index; // Maintain checked state for each item
                       bool isChecked = selectedFlights[index]; // Maintain checked state for each item
 
@@ -99,17 +119,17 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.network(
-                              "https://agents.alhind.com/images/logos/${val?.airlineCode}.gif",
+                              "https://agents.alhind.com/images/logos/${val.airlineCode}.gif",
                               errorBuilder: (context, error, stackTrace) {
                                 return const Text("No logo");
                               },
                             ),
                             Text(
-                              val?.airlineName ?? '',
+                              val.airlineName ?? '',
                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "${val?.minAmount ?? 0}",
+                              "${val.minAmount ?? 0}",
                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                             Checkbox(
@@ -120,11 +140,11 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                                   selectedFlights[index] = value ?? false;
                                   if (selectedFlights[index]) {
                                     // Add the flight to the filteredFlights list
-                                    filterFlightCodeList.add(val?.airlineCode ?? "");
+                                    filterFlightCodeList.add(val.airlineCode ?? "");
                                   }
                                   if (!selectedFlights[index]) {
                                     // Add the flight to the filteredFlights list
-                                    filterFlightCodeList.remove(val?.airlineCode);
+                                    filterFlightCodeList.remove(val.airlineCode);
                                   }
 
                                   //  selectedFlight = isChecked ? -1 : index;
@@ -491,17 +511,17 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
               ],
             ),
           ),
-          widget.airlineSearchResponse.minimumFare != widget.airlineSearchResponse.maximumFare
+          widget.minimumFare != widget.maximumFare
               ? Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: SfRangeSlider(
                     enableTooltip: true,
                     showLabels: true,
-                    min: /* (widget.airlineSearchResponse.minimumFare == widget.airlineSearchResponse.maximumFare) ? 0 : */ widget.airlineSearchResponse.minimumFare ?? 0,
-                    max: widget.airlineSearchResponse.maximumFare ?? 10,
+                    min: /* (widget.airlineSearchResponse.minimumFare == widget.airlineSearchResponse.maximumFare) ? 0 : */ widget.minimumFare ?? 0,
+                    max: widget.maximumFare ?? 10,
                     values: SfRangeValues(
-                      startCurrentValue ?? widget.airlineSearchResponse.minimumFare ?? 0,
-                      endCurrentValue ?? widget.airlineSearchResponse.maximumFare ?? 10,
+                      startCurrentValue ?? widget.minimumFare ?? 0,
+                      endCurrentValue ?? widget.maximumFare ?? 10,
                     ),
                     onChanged: (value) {
                       priceFilter = true;
@@ -512,61 +532,65 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                   ),
                 )
               : SizedBox(),
-          widget.airlineSearchResponse.minimumFare != widget.airlineSearchResponse.maximumFare
+          widget.minimumFare != widget.maximumFare
               ? Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        "min : ${(startCurrentValue ?? widget.airlineSearchResponse.minimumFare ?? 0).toInt()}",
+                        "min : ${(startCurrentValue ?? widget.minimumFare ?? 0).toInt()}",
                         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "max : ${(endCurrentValue ?? widget.airlineSearchResponse.maximumFare ?? 10).toInt()}",
+                        "max : ${(endCurrentValue ?? widget.maximumFare ?? 10).toInt()}",
                         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                 )
               : SizedBox(),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  filterFlights().then((value) {
-                    widget.callBack(value);
-
-                    Navigator.pop(context, value);
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(150, 50),
-                  backgroundColor: secondaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                child: const Text("Apply Filters")),
+          SizedBox(
+            height: 80,
           )
+          // Padding(
+          //   padding: const EdgeInsets.all(10.0),
+          //   child: ElevatedButton(
+          //       onPressed: () {
+          //         filterFlights().then((value) {
+          //           widget.callBack(value);
+
+          //           Navigator.pop(context, value);
+          //         });
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //         fixedSize: Size(150, 50),
+          //         backgroundColor: secondaryColor,
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(5.0),
+          //         ),
+          //       ),
+          //       child: const Text("Apply Filters")),
+          // )
         ],
       ),
     );
   }
 
   Future<List<ApiSearchResponse>> filterFlights() {
-    List<ApiSearchResponse> data = widget.airlineSearchResponse.objItinList ?? []; // data
+    List<ApiSearchResponse> data = widget.itemList; // data
     //  List<ApiSearchResponse> filteringList = List<ApiSearchResponse>.empty(growable: true);
-    List<ApiSearchResponse> filteredList = widget.airlineSearchResponse.objItinList ?? [];
+    List<ApiSearchResponse> filteredList = widget.itemList;
     ;
 
     if (filterFlightCodeList.isNotEmpty) {
       log("Working");
       log("$filterFlightCodeList");
       List<ApiSearchResponse> tempFilteredList = [];
-      for (int i = 0; i < filterFlightCodeList.length; i++) {
-        tempFilteredList.addAll(data.where((item) => item.airlineCode == filterFlightCodeList[i]));
-      }
+      tempFilteredList = data.where((element) => filterFlightCodeList.contains(element.airlineCode)).toList();
+      // for (int i = 0; i < filterFlightCodeList.length; i++) {
+      //   tempFilteredList.addAll(data.where((item) => item.airlineCode == filterFlightCodeList[i]));
+      // }
       filteredList = tempFilteredList;
     }
 
@@ -577,37 +601,68 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
       filteredList = filteredList.where((item) => ((item.netAmount ?? 0) >= (startCurrentValue ?? 0) && (item.netAmount ?? 0) <= (endCurrentValue ?? 0))).toList();
     }
 
-    filteredList = data.where((item) {
-      bool satisfiesConditions = false;
+    if (nonStop || oneStop || twoStop) {
+      filteredList = filteredList.where((item) {
+        bool satisfiesConditions = false;
 
-      if (nonStop && item.noofStop == 0) {
-        satisfiesConditions = true;
-      }
-      if (oneStop && item.noofStop == 1) {
-        satisfiesConditions = true;
-      }
-      if (twoStop && item.noofStop == 2) {
-        satisfiesConditions = true;
-      }
+        if (nonStop && item.noofStop == 0) {
+          satisfiesConditions = true;
+        }
+        if (oneStop && item.noofStop == 1) {
+          satisfiesConditions = true;
+        }
+        if (twoStop && item.noofStop == 2) {
+          satisfiesConditions = true;
+        }
+        return satisfiesConditions;
+      }).toList();
+    }
+    if (depEarlyMorning || depMorning || depAfternoon || depNight) {
+      filteredList = filteredList.where((item) {
+        bool satisfiesConditions = false;
+        final departureHour = int.tryParse(item.departureTime?.split(":")[0] ?? '');
 
-      return satisfiesConditions;
-    }).toList();
+        if (depEarlyMorning && (departureHour != null) && (departureHour > 0) && (departureHour <= 6)) {
+          satisfiesConditions = true;
+        }
+        if (depMorning && (departureHour != null) && (departureHour > 6) && (departureHour <= 12)) {
+          satisfiesConditions = true;
+        }
+        if (depAfternoon && (departureHour != null) && (departureHour > 12) && (departureHour <= 18)) {
+          satisfiesConditions = true;
+        }
+        if (depNight && (departureHour != null) && ((departureHour > 18) || (departureHour <= 0))) {
+          satisfiesConditions = true;
+        }
+        return satisfiesConditions;
+      }).toList();
+    }
+    if (arrEarlyMorning || arrMorning || arrAfternoon || arrNight) {
+      filteredList = filteredList.where((item) {
+        bool satisfiesConditions = false;
+        final arrivalHour = int.tryParse(item.arrivalTime?.split(":")[0] ?? '');
 
-    // if (nonStop) {
-    //   filteringList.addAll(data.where((item) => item.noofStop == 0));
-    // }
-    // if (oneStop) {
-    //   filteringList.addAll(data.where((item) => item.noofStop == 1));
-    // }
-    // if (twoStop) {
-    //   filteringList.addAll(data.where((item) => item.noofStop == 2));
-    // }
+        if (arrEarlyMorning && (arrivalHour != null) && (arrivalHour > 0) && (arrivalHour <= 6)) {
+          satisfiesConditions = true;
+        }
+        if (arrMorning && (arrivalHour != null) && (arrivalHour > 6) && (arrivalHour <= 12)) {
+          satisfiesConditions = true;
+        }
+        if (arrAfternoon && (arrivalHour != null) && (arrivalHour > 12) && (arrivalHour <= 18)) {
+          satisfiesConditions = true;
+        }
+        if (arrNight && (arrivalHour != null) && ((arrivalHour > 18) || (arrivalHour <= 0))) {
+          satisfiesConditions = true;
+        }
+        return satisfiesConditions;
+      }).toList();
+    }
 
-    final finalList = filteredList.toSet().map((item) => item.itinId).map((itemId) {
-      return filteredList.firstWhere((item) => item.itinId == itemId);
-    }).toList();
+    // final finalList = filteredList.toSet().map((item) => item.itinId).map((itemId) {
+    //   return filteredList.firstWhere((item) => item.itinId == itemId);
+    // }).toList();
 
-    print("Filtered List Length: ${finalList.length}");
-    return Future.value(finalList);
+    print("Filtered List Length: ${filteredList.length}");
+    return Future.value(filteredList);
   }
 }

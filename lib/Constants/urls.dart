@@ -1,6 +1,7 @@
 class AirlineUrl {
   String getAirlineTicketHistory = "/api/Airline/GetAirlineTicketHistory";
   String airport = "/api/ControlPanel/GetAirport";
+  String myTrips = "/api/Airline/GetAirlineTicketHistory";
 }
 
 class SearchUrl {

@@ -10,6 +10,7 @@ import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
 import 'Config/routes.dart';
+import 'Screens/my_transactions.dart';
 import 'Screens/widgets/print_pdf.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
@@ -137,11 +138,5 @@ class LaunchScreen extends StatelessWidget {
 
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
-  final _pages = [
-    ScreenHome(),
-    ScreenHome(),
-    // const ScreenProfile(),
-    ScreenMyTrips(),
-    ScreenMyTrips(),
-  ];
+  final _pages = [ScreenHome(), ScreenHome(), ScreenMyTrips(), MyTransactionsScreen()];
 }

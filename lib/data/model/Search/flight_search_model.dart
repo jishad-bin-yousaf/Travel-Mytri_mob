@@ -39,6 +39,7 @@ class Objsectorlist with _$Objsectorlist {
 class AirlineSearchResponse with _$AirlineSearchResponse {
   factory AirlineSearchResponse({
     bool? status,
+    bool? test,
     String? responseMessage,
     String? origin,
     String? destination,
@@ -69,13 +70,14 @@ class LowestFare with _$LowestFare {
   factory LowestFare.fromJson(Map<String, dynamic> json) => _$LowestFareFromJson(json);
 }
 
-@freezed
+@unfreezed
 class RAirlineSearchResponse with _$RAirlineSearchResponse {
-  const factory RAirlineSearchResponse({
+  factory RAirlineSearchResponse({
     //Combined Round trip(International)
 
     bool? status,
     String? responseMessage,
+    bool? test,
     String? airlineClass,
     String? origin,
     String? destination,
@@ -208,11 +210,13 @@ class PricingRequest with _$PricingRequest {
   factory PricingRequest.fromJson(Map<String, dynamic> json) => _$PricingRequestFromJson(json);
 }
 
-@freezed
+@unfreezed
 class IRAirlineSearchResponse with _$IRAirlineSearchResponse {
-  const factory IRAirlineSearchResponse({
+  factory IRAirlineSearchResponse({
     bool? status,
     String? responseMessage,
+    bool? testO,
+    bool? testR,
     String? airlineClass,
     String? origin,
     String? destination,

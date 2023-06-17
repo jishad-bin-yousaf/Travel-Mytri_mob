@@ -412,7 +412,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     isLoadingPage = false;
                     setState(() {});
 
-                    final data = value ?? const RAirlineSearchResponse();
+                    final data = value ?? RAirlineSearchResponse();
                     dev.log({
                           "data": data,
                           "tripType": travelType,
@@ -435,7 +435,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     isLoadingPage = false;
                     setState(() {});
 
-                    final data = value ?? const IRAirlineSearchResponse();
+                    final data = value ?? IRAirlineSearchResponse();
                     dev.log({
                           "data": data,
                           "tripType": travelType,

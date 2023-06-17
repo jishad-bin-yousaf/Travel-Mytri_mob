@@ -63,6 +63,7 @@ _$_AirlineSearchResponse _$$_AirlineSearchResponseFromJson(
         Map<String, dynamic> json) =>
     _$_AirlineSearchResponse(
       status: json['status'] as bool?,
+      test: json['test'] as bool?,
       responseMessage: json['responseMessage'] as String?,
       origin: json['origin'] as String?,
       destination: json['destination'] as String?,
@@ -91,6 +92,7 @@ Map<String, dynamic> _$$_AirlineSearchResponseToJson(
         _$_AirlineSearchResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
+      'test': instance.test,
       'responseMessage': instance.responseMessage,
       'origin': instance.origin,
       'destination': instance.destination,
@@ -126,6 +128,7 @@ _$_RAirlineSearchResponse _$$_RAirlineSearchResponseFromJson(
     _$_RAirlineSearchResponse(
       status: json['status'] as bool?,
       responseMessage: json['responseMessage'] as String?,
+      test: json['test'] as bool?,
       airlineClass: json['airlineClass'] as String?,
       origin: json['origin'] as String?,
       destination: json['destination'] as String?,
@@ -153,6 +156,7 @@ Map<String, dynamic> _$$_RAirlineSearchResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'responseMessage': instance.responseMessage,
+      'test': instance.test,
       'airlineClass': instance.airlineClass,
       'origin': instance.origin,
       'destination': instance.destination,
@@ -383,6 +387,8 @@ _$_IRAirlineSearchResponse _$$_IRAirlineSearchResponseFromJson(
     _$_IRAirlineSearchResponse(
       status: json['status'] as bool?,
       responseMessage: json['responseMessage'] as String?,
+      testO: json['testO'] as bool?,
+      testR: json['testR'] as bool?,
       airlineClass: json['airlineClass'] as String?,
       origin: json['origin'] as String?,
       destination: json['destination'] as String?,
@@ -417,6 +423,8 @@ Map<String, dynamic> _$$_IRAirlineSearchResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'responseMessage': instance.responseMessage,
+      'testO': instance.testO,
+      'testR': instance.testR,
       'airlineClass': instance.airlineClass,
       'origin': instance.origin,
       'destination': instance.destination,
