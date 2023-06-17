@@ -503,11 +503,11 @@ class MyTripsApi {
 
       final header = await getHeader();
 
-      print(header);
+      print({"status": request});
       print(url);
       log("${jsonEncode(request)}++++");
       final result = await http.post(url,
-          body: jsonEncode(request),
+          body: jsonEncode({"status": request}),
           //  body: data.toJson(),
           headers: header);
       log(result.statusCode.toString());

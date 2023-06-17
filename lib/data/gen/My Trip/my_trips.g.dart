@@ -31,7 +31,8 @@ _$_AirlineTicketHistory _$$_AirlineTicketHistoryFromJson(
         Map<String, dynamic> json) =>
     _$_AirlineTicketHistory(
       ItinId: json['ItinId'] as int?,
-      sectorData: json['sectorData'] as String?,
+      departureCity: json['departureCity'] as String?,
+      arrivalCity: json['arrivalCity'] as String?,
       bookingType: json['bookingType'] as String?,
       bookingReferenceId: json['bookingReferenceId'] as String?,
       airlinePnr: json['airlinePnr'] as String?,
@@ -49,7 +50,8 @@ Map<String, dynamic> _$$_AirlineTicketHistoryToJson(
         _$_AirlineTicketHistory instance) =>
     <String, dynamic>{
       'ItinId': instance.ItinId,
-      'sectorData': instance.sectorData,
+      'departureCity': instance.departureCity,
+      'arrivalCity': instance.arrivalCity,
       'bookingType': instance.bookingType,
       'bookingReferenceId': instance.bookingReferenceId,
       'airlinePnr': instance.airlinePnr,

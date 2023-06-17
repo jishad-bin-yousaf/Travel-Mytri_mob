@@ -18,7 +18,8 @@ class AirlineTicketHistoryResponse with _$AirlineTicketHistoryResponse {
 class AirlineTicketHistory with _$AirlineTicketHistory {
   const factory AirlineTicketHistory({
     int? ItinId,
-    String? sectorData,
+    String? departureCity,
+    String? arrivalCity,
     String? bookingType,
     String? bookingReferenceId,
     String? airlinePnr,

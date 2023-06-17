@@ -249,7 +249,8 @@ AirlineTicketHistory _$AirlineTicketHistoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AirlineTicketHistory {
   int? get ItinId => throw _privateConstructorUsedError;
-  String? get sectorData => throw _privateConstructorUsedError;
+  String? get departureCity => throw _privateConstructorUsedError;
+  String? get arrivalCity => throw _privateConstructorUsedError;
   String? get bookingType => throw _privateConstructorUsedError;
   String? get bookingReferenceId => throw _privateConstructorUsedError;
   String? get airlinePnr => throw _privateConstructorUsedError;
@@ -272,7 +273,8 @@ abstract class $AirlineTicketHistoryCopyWith<$Res> {
   @useResult
   $Res call(
       {int? ItinId,
-      String? sectorData,
+      String? departureCity,
+      String? arrivalCity,
       String? bookingType,
       String? bookingReferenceId,
       String? airlinePnr,
@@ -296,7 +298,8 @@ class _$AirlineTicketHistoryCopyWithImpl<$Res,
   @override
   $Res call({
     Object? ItinId = freezed,
-    Object? sectorData = freezed,
+    Object? departureCity = freezed,
+    Object? arrivalCity = freezed,
     Object? bookingType = freezed,
     Object? bookingReferenceId = freezed,
     Object? airlinePnr = freezed,
@@ -309,9 +312,13 @@ class _$AirlineTicketHistoryCopyWithImpl<$Res,
           ? _value.ItinId
           : ItinId // ignore: cast_nullable_to_non_nullable
               as int?,
-      sectorData: freezed == sectorData
-          ? _value.sectorData
-          : sectorData // ignore: cast_nullable_to_non_nullable
+      departureCity: freezed == departureCity
+          ? _value.departureCity
+          : departureCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalCity: freezed == arrivalCity
+          ? _value.arrivalCity
+          : arrivalCity // ignore: cast_nullable_to_non_nullable
               as String?,
       bookingType: freezed == bookingType
           ? _value.bookingType
@@ -351,7 +358,8 @@ abstract class _$$_AirlineTicketHistoryCopyWith<$Res>
   @useResult
   $Res call(
       {int? ItinId,
-      String? sectorData,
+      String? departureCity,
+      String? arrivalCity,
       String? bookingType,
       String? bookingReferenceId,
       String? airlinePnr,
@@ -372,7 +380,8 @@ class __$$_AirlineTicketHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ItinId = freezed,
-    Object? sectorData = freezed,
+    Object? departureCity = freezed,
+    Object? arrivalCity = freezed,
     Object? bookingType = freezed,
     Object? bookingReferenceId = freezed,
     Object? airlinePnr = freezed,
@@ -385,9 +394,13 @@ class __$$_AirlineTicketHistoryCopyWithImpl<$Res>
           ? _value.ItinId
           : ItinId // ignore: cast_nullable_to_non_nullable
               as int?,
-      sectorData: freezed == sectorData
-          ? _value.sectorData
-          : sectorData // ignore: cast_nullable_to_non_nullable
+      departureCity: freezed == departureCity
+          ? _value.departureCity
+          : departureCity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      arrivalCity: freezed == arrivalCity
+          ? _value.arrivalCity
+          : arrivalCity // ignore: cast_nullable_to_non_nullable
               as String?,
       bookingType: freezed == bookingType
           ? _value.bookingType
@@ -422,7 +435,8 @@ class __$$_AirlineTicketHistoryCopyWithImpl<$Res>
 class _$_AirlineTicketHistory implements _AirlineTicketHistory {
   const _$_AirlineTicketHistory(
       {this.ItinId,
-      this.sectorData,
+      this.departureCity,
+      this.arrivalCity,
       this.bookingType,
       this.bookingReferenceId,
       this.airlinePnr,
@@ -438,7 +452,9 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
   @override
   final int? ItinId;
   @override
-  final String? sectorData;
+  final String? departureCity;
+  @override
+  final String? arrivalCity;
   @override
   final String? bookingType;
   @override
@@ -469,7 +485,7 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
 
   @override
   String toString() {
-    return 'AirlineTicketHistory(ItinId: $ItinId, sectorData: $sectorData, bookingType: $bookingType, bookingReferenceId: $bookingReferenceId, airlinePnr: $airlinePnr, TotalAmount: $TotalAmount, objSegDetails: $objSegDetails, objPaxDetails: $objPaxDetails)';
+    return 'AirlineTicketHistory(ItinId: $ItinId, departureCity: $departureCity, arrivalCity: $arrivalCity, bookingType: $bookingType, bookingReferenceId: $bookingReferenceId, airlinePnr: $airlinePnr, TotalAmount: $TotalAmount, objSegDetails: $objSegDetails, objPaxDetails: $objPaxDetails)';
   }
 
   @override
@@ -478,8 +494,10 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
         (other.runtimeType == runtimeType &&
             other is _$_AirlineTicketHistory &&
             (identical(other.ItinId, ItinId) || other.ItinId == ItinId) &&
-            (identical(other.sectorData, sectorData) ||
-                other.sectorData == sectorData) &&
+            (identical(other.departureCity, departureCity) ||
+                other.departureCity == departureCity) &&
+            (identical(other.arrivalCity, arrivalCity) ||
+                other.arrivalCity == arrivalCity) &&
             (identical(other.bookingType, bookingType) ||
                 other.bookingType == bookingType) &&
             (identical(other.bookingReferenceId, bookingReferenceId) ||
@@ -499,7 +517,8 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
   int get hashCode => Object.hash(
       runtimeType,
       ItinId,
-      sectorData,
+      departureCity,
+      arrivalCity,
       bookingType,
       bookingReferenceId,
       airlinePnr,
@@ -525,7 +544,8 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
 abstract class _AirlineTicketHistory implements AirlineTicketHistory {
   const factory _AirlineTicketHistory(
       {final int? ItinId,
-      final String? sectorData,
+      final String? departureCity,
+      final String? arrivalCity,
       final String? bookingType,
       final String? bookingReferenceId,
       final String? airlinePnr,
@@ -539,7 +559,9 @@ abstract class _AirlineTicketHistory implements AirlineTicketHistory {
   @override
   int? get ItinId;
   @override
-  String? get sectorData;
+  String? get departureCity;
+  @override
+  String? get arrivalCity;
   @override
   String? get bookingType;
   @override
