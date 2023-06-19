@@ -350,8 +350,8 @@ mixin _$Objsectorlist {
   set destination(String? value) => throw _privateConstructorUsedError;
   String? get destinationcountry => throw _privateConstructorUsedError;
   set destinationcountry(String? value) => throw _privateConstructorUsedError;
-  DateTime? get departureDate => throw _privateConstructorUsedError;
-  set departureDate(DateTime? value) => throw _privateConstructorUsedError;
+  String? get departureDate => throw _privateConstructorUsedError;
+  set departureDate(String? value) => throw _privateConstructorUsedError;
   String? get tripmode => throw _privateConstructorUsedError;
   set tripmode(String? value) => throw _privateConstructorUsedError;
 
@@ -372,7 +372,7 @@ abstract class $ObjsectorlistCopyWith<$Res> {
       String? origincountry,
       String? destination,
       String? destinationcountry,
-      DateTime? departureDate,
+      String? departureDate,
       String? tripmode});
 }
 
@@ -416,7 +416,7 @@ class _$ObjsectorlistCopyWithImpl<$Res, $Val extends Objsectorlist>
       departureDate: freezed == departureDate
           ? _value.departureDate
           : departureDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       tripmode: freezed == tripmode
           ? _value.tripmode
           : tripmode // ignore: cast_nullable_to_non_nullable
@@ -438,7 +438,7 @@ abstract class _$$_ObjsectorlistCopyWith<$Res>
       String? origincountry,
       String? destination,
       String? destinationcountry,
-      DateTime? departureDate,
+      String? departureDate,
       String? tripmode});
 }
 
@@ -480,7 +480,7 @@ class __$$_ObjsectorlistCopyWithImpl<$Res>
       departureDate: freezed == departureDate
           ? _value.departureDate
           : departureDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       tripmode: freezed == tripmode
           ? _value.tripmode
           : tripmode // ignore: cast_nullable_to_non_nullable
@@ -512,7 +512,7 @@ class _$_Objsectorlist implements _Objsectorlist {
   @override
   String? destinationcountry;
   @override
-  DateTime? departureDate;
+  String? departureDate;
   @override
   String? tripmode;
 
@@ -541,7 +541,7 @@ abstract class _Objsectorlist implements Objsectorlist {
       String? origincountry,
       String? destination,
       String? destinationcountry,
-      DateTime? departureDate,
+      String? departureDate,
       String? tripmode}) = _$_Objsectorlist;
 
   factory _Objsectorlist.fromJson(Map<String, dynamic> json) =
@@ -560,8 +560,8 @@ abstract class _Objsectorlist implements Objsectorlist {
   String? get destinationcountry;
   set destinationcountry(String? value);
   @override
-  DateTime? get departureDate;
-  set departureDate(DateTime? value);
+  String? get departureDate;
+  set departureDate(String? value);
   @override
   String? get tripmode;
   set tripmode(String? value);

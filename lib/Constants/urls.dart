@@ -23,3 +23,8 @@ class AuthenticationUrl {
   String startingApi = "/api/Account/DefaultAuthenticate";
   String otpSubmit = "/api/Account/OtpSubmitForAuthentication";
 }
+
+class AccountUrl {
+  String editProfile = "/api/Account/EditProfile";
+  String getProfile = "/api/Account/GetProfile";
+}

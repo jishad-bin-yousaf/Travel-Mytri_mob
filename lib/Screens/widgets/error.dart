@@ -37,7 +37,7 @@ class ErrorPage extends StatelessWidget {
                   padding: const EdgeInsets.all(30.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed("/home");
+                      Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(200, 50),

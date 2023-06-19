@@ -28,7 +28,7 @@ class Objsectorlist with _$Objsectorlist {
     String? origincountry,
     String? destination,
     String? destinationcountry,
-    DateTime? departureDate,
+    String? departureDate,
     String? tripmode,
   }) = _Objsectorlist;
 

@@ -442,8 +442,55 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                 separatorBuilder: (context, index) => Divider(),
               ),
             ),
-            ListView.builder(
-              itemBuilder: (context, index) {},
+            Container(
+              margin: EdgeInsets.all(10),
+              color: Color.fromARGB(255, 226, 223, 223),
+              height: 38 * (dataList?.objPaxDetails?.length ?? 0).toDouble(),
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: dataList?.objPaxDetails?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 6.0, left: 8, top: 6),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person_2),
+                        Text(dataList?.objPaxDetails?[index] ?? ''),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Divider(color: Colors.black87),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: Text(
+                  "Total Amount : ₹ ${dataList?.TotalAmount ?? 0}",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Print Ticket"),
+                  style: ElevatedButton.styleFrom(shape: StadiumBorder(), backgroundColor: secondaryColor),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Email Ticket"),
+                  style: ElevatedButton.styleFrom(shape: StadiumBorder(), backgroundColor: Colors.green),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Cancel Ticket"),
+                  style: ElevatedButton.styleFrom(shape: StadiumBorder(), backgroundColor: Colors.red),
+                ),
+              ],
             )
           ],
         );

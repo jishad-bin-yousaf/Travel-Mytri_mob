@@ -916,7 +916,7 @@ class _MultiCityState extends State<MultiCity> {
               sector1.origincountry = frmCity1cntry;
               sector1.destination = toCity1code;
               sector1.destinationcountry = toCity1cntry;
-              sector1.departureDate = date1;
+              //    sector1.departureDate = date1;
 
               searchReq.objsectorlist?.add(sector1);
 
@@ -924,7 +924,7 @@ class _MultiCityState extends State<MultiCity> {
               sector2.origincountry = frmCity2cntry;
               sector2.destination = toCity2code;
               sector2.destinationcountry = toCity2cntry;
-              sector2.departureDate = date2;
+              //    sector2.departureDate = date2;
 
               searchReq.objsectorlist?.add(sector2);
 
@@ -933,7 +933,7 @@ class _MultiCityState extends State<MultiCity> {
                 sector3.origincountry = frmCity3cntry;
                 sector3.destination = toCity3code;
                 sector3.destinationcountry = toCity3cntry;
-                sector3.departureDate = date3;
+                //    sector3.departureDate = date3;
 
                 searchReq.objsectorlist?.add(sector3);
 
@@ -942,7 +942,7 @@ class _MultiCityState extends State<MultiCity> {
                   sector4.origincountry = frmCity4cntry;
                   sector4.destination = toCity2code;
                   sector4.destinationcountry = toCity4cntry;
-                  sector4.departureDate = date2;
+                  //      sector4.departureDate = date2;
 
                   searchReq.objsectorlist?.add(sector4);
                 }

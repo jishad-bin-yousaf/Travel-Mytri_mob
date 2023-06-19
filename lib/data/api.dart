@@ -8,6 +8,7 @@ import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../Constants/urls.dart';
 import 'model/My Trip/my_trips.dart';
+import 'model/Profile/profile_models.dart';
 import 'model/Search/flight_search_model.dart';
 import 'model/Search/pricing_models.dart';
 import 'model/airport_list.dart';
@@ -514,6 +515,65 @@ class MyTripsApi {
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
       final responseModel = AirlineTicketHistoryResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class ProfileApi {
+  final urls = AccountUrl();
+  Future<GetProfileResponse?> getProfileDetails() async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getProfile);
+
+      final header = await getHeader();
+
+      print({});
+      print(url);
+      log("${jsonEncode({})}++++");
+      final result = await http.post(url,
+          body: jsonEncode({}),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = GetProfileResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<EditProfileResponse?> editProfile({required EditProfileRequest request}) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.editProfile);
+
+      final header = await getHeader();
+
+      print({"status": request});
+      print(url);
+      log("${jsonEncode(request)}++++");
+      final result = await http.post(url,
+          body: jsonEncode({"status": request}),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = EditProfileResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {

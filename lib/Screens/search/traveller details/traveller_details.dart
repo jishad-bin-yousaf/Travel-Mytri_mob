@@ -20,6 +20,8 @@ class ListOfBookingPaxDetails {
   });
 }
 
+typedef ListCallback = void Function(String);
+
 class TavellerDetails extends StatelessWidget {
   final List<CountryList> cntryList = [
     CountryList(name: 'United States'),
@@ -436,122 +438,137 @@ class TavellerDetails extends StatelessWidget {
   adultDetails(int index, BuildContext context, PricingPaxlist? data) {
     TextEditingController firstNameController = TextEditingController(text: paxDetailsList.adultPaxList[index].firstName);
     TextEditingController lastNameController = TextEditingController(text: paxDetailsList.adultPaxList[index].lastName);
+    adultPaxList[index].title ?? (adultPaxList[index].title = "Mr");
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Adult (${index + 1})", style: const TextStyle(fontSize: 18)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(
-            controller: firstNameController,
-            onChanged: (value) {
-              adultPaxList[index].firstName = value;
-            },
-            decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Adult (${index + 1})", style: const TextStyle(fontSize: 18)),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(
-            controller: lastNameController,
-            onChanged: (value) {
-              adultPaxList[index].lastName = value;
-            },
-            decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Last Name")),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            child: Row(
+              children: [
+                AdultDropDown(
+                  dropdownValue: adultPaxList[index].title ?? "Mr",
+                  callBack: (p0) {
+                    adultPaxList[index].title = p0;
+                  },
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: firstNameController,
+                    onChanged: (value) {
+                      adultPaxList[index].firstName = value;
+                    },
+                    decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                TextEditingController passportNoController = TextEditingController();
-                TextEditingController nationalityController = TextEditingController();
-                TextEditingController dobController = TextEditingController();
-                TextEditingController countryOfIssueController = TextEditingController();
-                TextEditingController dateOfExpiryController = TextEditingController();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  passportNoController.text = adultPaxList[index].documentNumber ?? '';
-                  countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
-                  nationalityController.text = adultPaxList[index].nationality ?? '';
-                  dobController.text = adultPaxList[index].dateofBirth ?? '';
-                  dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
-                  return PassportDetailsPage(
-                    cntryList: cntryList,
-                    countryOfIssueController: countryOfIssueController,
-                    dateOfExpiryController: dateOfExpiryController,
-                    dobController: dobController,
-                    nationalityController: nationalityController,
-                    passportNoController: passportNoController,
-                  );
-                })).then((value) {
-                  final data = value as PassportDetails;
-                  passportNoController = data.passportNoController;
-                  print(passportNoController.text);
-                  adultPaxList[index].documentNumber = data.passportNoController.text;
-                  adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
-                  adultPaxList[index].nationality = data.nationalityController.text;
-                  adultPaxList[index].dateofBirth = data.dobController.text;
-                  adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
-                });
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            child: TextField(
+              controller: lastNameController,
+              onChanged: (value) {
+                adultPaxList[index].lastName = value;
               },
-
-              // onPressed: () {
-              //   Navigator.of(context)
-              //       .push(MaterialPageRoute(
-              //         builder: (context) => PassportDetailsPage(cntryList: cntryList),
-              //       ))
-              //       .then((value) {});
-              // },
-              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                child: Text("Passport"),
-              ),
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Last Name")),
             ),
-            ElevatedButton(
-              onPressed: () {
-                //         adultPaxList[index].objBaggage = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  TextEditingController passportNoController = TextEditingController();
+                  TextEditingController nationalityController = TextEditingController();
+                  TextEditingController dobController = TextEditingController();
+                  TextEditingController countryOfIssueController = TextEditingController();
+                  TextEditingController dateOfExpiryController = TextEditingController();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    passportNoController.text = adultPaxList[index].documentNumber ?? '';
+                    countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = adultPaxList[index].nationality ?? '';
+                    dobController.text = adultPaxList[index].dateofBirth ?? '';
+                    dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
+                    return PassportDetailsPage(
+                      cntryList: cntryList,
+                      countryOfIssueController: countryOfIssueController,
+                      dateOfExpiryController: dateOfExpiryController,
+                      dobController: dobController,
+                      nationalityController: nationalityController,
+                      passportNoController: passportNoController,
+                    );
+                  })).then((value) {
+                    final data = value as PassportDetails;
+                    passportNoController = data.passportNoController;
+                    print(passportNoController.text);
+                    adultPaxList[index].documentNumber = data.passportNoController.text;
+                    adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
+                    adultPaxList[index].nationality = data.nationalityController.text;
+                    adultPaxList[index].dateofBirth = data.dobController.text;
+                    adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
+                  });
+                },
 
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
-                ))
-                    .then((value) {
-                  adultPaxList[index].objBaggage = value ?? [] as List<SSRBaggage>?;
-                });
-              },
-              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                child: Text("Baggage"),
+                // onPressed: () {
+                //   Navigator.of(context)
+                //       .push(MaterialPageRoute(
+                //         builder: (context) => PassportDetailsPage(cntryList: cntryList),
+                //       ))
+                //       .then((value) {});
+                // },
+                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Text("Passport"),
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                //     adultPaxList[index].objMealList = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRMeal(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+              ElevatedButton(
+                onPressed: () {
+                  //         adultPaxList[index].objBaggage = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRBaggage(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
 
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                  builder: (context) => MealDetailsPage(data?.objmealseglist),
-                ))
-                    .then((value) {
-                  adultPaxList[index].objMealList = value ?? [] as List<SSRMeal>?;
-                });
-              },
-              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                child: Text("Meal"),
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                    builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
+                  ))
+                      .then((value) {
+                    adultPaxList[index].objBaggage = value ?? [] as List<SSRBaggage>?;
+                  });
+                },
+                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Text("Baggage"),
+                ),
               ),
-            ),
-          ],
-        )
-      ],
+              ElevatedButton(
+                onPressed: () {
+                  //     adultPaxList[index].objMealList = List.generate(data?.objbaggageseglist?.length ?? 0, (index) => SSRMeal(amount: 0, key: '', name: '', segmentCode: '', tripMode: ''));
+
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                    builder: (context) => MealDetailsPage(data?.objmealseglist),
+                  ))
+                      .then((value) {
+                    adultPaxList[index].objMealList = value ?? [] as List<SSRMeal>?;
+                  });
+                },
+                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Text("Meal"),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -575,4 +592,51 @@ class PassportDetails {
     required this.countryOfIssueController,
     required this.dateOfExpiryController,
   });
+}
+
+class AdultDropDown extends StatefulWidget {
+  final ListCallback callBack;
+  String dropdownValue;
+  AdultDropDown({super.key, required this.callBack, required this.dropdownValue});
+  @override
+  _AdultDropDownState createState() => _AdultDropDownState();
+}
+
+class _AdultDropDownState extends State<AdultDropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+          width: 1.0,
+        ),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: DropdownButton<String>(
+        value: widget.dropdownValue,
+        //  icon: Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        //  style: TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          //  color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String? newValue) {
+          widget.callBack(newValue ?? '');
+          setState(() {
+            widget.dropdownValue = newValue ?? '';
+          });
+        },
+        items: <String>['Mr', 'Ms', 'Mrs'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
 }

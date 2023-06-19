@@ -198,6 +198,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   late bool businessClass;
   late bool firstClass;
   DateTime departureDate = DateTime.now();
+  String? departureDateReq = "${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}";
 
   bool showDepTypeField = true;
   bool showArrTypeField = true;
@@ -236,6 +237,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   DateTime? returnDate;
 
   bool isLoadingPage = false;
+
+  String? returnDateReq;
 
   @override
   void initState() {
@@ -350,11 +353,8 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 onwardSector.origincountry = originCountry;
                 onwardSector.destination = destinationCode;
                 onwardSector.destinationcountry = destinationCountry;
-                onwardSector.departureDate = departureDate;
-
-                if (oneWay) {
-                  onwardSector.tripmode = "";
-                }
+                onwardSector.departureDate = departureDateReq;
+                onwardSector.tripmode = "O";
 
                 searchReq.objsectorlist?.add(onwardSector);
                 travelType = "O";
@@ -366,8 +366,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 returnSector.origincountry = destinationCountry;
                 returnSector.destination = originCode;
                 returnSector.destinationcountry = originCountry;
-                returnSector.departureDate = returnDate;
-
+                returnSector.departureDate = returnDateReq;
                 returnSector.tripmode = "R";
 
                 travelType = "R";
@@ -378,9 +377,12 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               print(searchReq);
               print(internationalTrip);
               if (originCountry != "IN" || destinationCountry != "IN") {
+                searchReq.traveltype = "I";
                 internationalTrip = true;
                 print("If statement works");
               } else {
+                searchReq.traveltype = "D";
+
                 internationalTrip = false;
                 print("else statement works");
               }
@@ -841,7 +843,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               controller: departureDateController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.calendar_month_outlined),
-                hintText: "Eg : 2023-4-11",
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
                   color: primaryColor,
@@ -852,13 +853,15 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 DateTime? pickedFromDate = await showDatePicker(
                   context: context,
                   currentDate: DateTime.now(),
-                  initialDate: DateTime.now() /* .subtract(const Duration(days: 30)) */, //get today's date
+                  initialDate: departureDate /* .subtract(const Duration(days: 30)) */, //get today's date
                   firstDate: DateTime.now(), //DateTime.now() - not to allow to choose before today.
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                 );
                 departureDate = pickedFromDate ?? DateTime.now();
-                pickedFromDate != null ? departureDateController.text = "${pickedFromDate.year}-${pickedFromDate.month.toString().padLeft(2, '0')}-${pickedFromDate.day.toString().padLeft(2, '0')}" : '';
-
+                returnDateController.text = '';
+                returnDate = departureDate;
+                pickedFromDate != null ? departureDateReq = "${pickedFromDate.year}-${pickedFromDate.month.toString().padLeft(2, '0')}-${pickedFromDate.day.toString().padLeft(2, '0')}" : '';
+                departureDateController.text = DateFormat('dd MMM yyyy').format(pickedFromDate ?? DateTime.now());
                 //   value.notify();
               },
             ),
@@ -887,13 +890,14 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     // travelType = "roundTrip";
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
-                      currentDate: DateTime.now(),
-                      initialDate: DateTime.now(), //get today's date
-                      firstDate: DateTime(1980), //DateTime.now() - not to allow to choose before today.
+                      currentDate: departureDate,
+                      initialDate: returnDate ?? departureDate, //get today's date
+                      firstDate: departureDate, //DateTime.now() - not to allow to choose before today.
                       lastDate: DateTime.now().add(const Duration(days: 365)),
                     );
-                    pickedDate != null ? returnDateController.text = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}" : '';
+                    pickedDate != null ? returnDateReq = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}" : '';
                     returnDate = pickedDate;
+                    returnDateController.text = DateFormat('dd MMM yyyy').format(pickedDate ?? departureDate);
 
                     if (returnDateController.text.isEmpty) {
                       oneWay = true;

@@ -43,9 +43,7 @@ _$_Objsectorlist _$$_ObjsectorlistFromJson(Map<String, dynamic> json) =>
       origincountry: json['origincountry'] as String?,
       destination: json['destination'] as String?,
       destinationcountry: json['destinationcountry'] as String?,
-      departureDate: json['departureDate'] == null
-          ? null
-          : DateTime.parse(json['departureDate'] as String),
+      departureDate: json['departureDate'] as String?,
       tripmode: json['tripmode'] as String?,
     );
 
@@ -55,7 +53,7 @@ Map<String, dynamic> _$$_ObjsectorlistToJson(_$_Objsectorlist instance) =>
       'origincountry': instance.origincountry,
       'destination': instance.destination,
       'destinationcountry': instance.destinationcountry,
-      'departureDate': instance.departureDate?.toIso8601String(),
+      'departureDate': instance.departureDate,
       'tripmode': instance.tripmode,
     };
 
