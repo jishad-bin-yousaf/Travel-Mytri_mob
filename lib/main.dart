@@ -12,6 +12,7 @@ import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import 'Config/routes.dart';
 import 'Screens/Profile/profile.dart';
 import 'Screens/My transactions/my_transactions.dart';
+import 'Screens/payment/payment.dart';
 import 'Screens/widgets/print_pdf.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
@@ -52,8 +53,9 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(800, name: DESKTOP),
         ],
       ),
-      routes: routes,
-      initialRoute: '/',
+      //   routes: routes,
+      //  initialRoute: '/',
+      home: PaymentPage(),
     );
   }
 }

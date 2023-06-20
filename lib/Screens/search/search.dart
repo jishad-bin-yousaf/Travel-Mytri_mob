@@ -242,7 +242,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
   @override
   void initState() {
-    AirlineApi().getAirport().then((value) {
+    UtilitiesApi().getAirport().then((value) {
       airportList = value ?? [];
     });
 

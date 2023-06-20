@@ -210,8 +210,8 @@ class AuthenticationApi {
   }
 }
 
-class AirlineApi {
-  AirlineUrl urls = AirlineUrl();
+class UtilitiesApi {
+  UtilitiesUrl urls = UtilitiesUrl();
   Future<List<AirportData>?> getAirport() async {
     try {
       final url = Uri.parse(baseUrl + urls.airport);
@@ -563,11 +563,11 @@ class ProfileApi {
 
       final header = await getHeader();
 
-      print({"status": request});
+      print({request});
       print(url);
       log("${jsonEncode(request)}++++");
       final result = await http.post(url,
-          body: jsonEncode({"status": request}),
+          body: jsonEncode(request),
           //  body: data.toJson(),
           headers: header);
       log(result.statusCode.toString());

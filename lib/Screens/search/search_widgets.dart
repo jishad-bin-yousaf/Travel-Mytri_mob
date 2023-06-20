@@ -156,7 +156,7 @@ class _MultiCityState extends State<MultiCity> {
   bool internationalTrip = true;
   @override
   void initState() {
-    AirlineApi().getAirport().then((value) {
+    UtilitiesApi().getAirport().then((value) {
       airportList = value ?? [];
     });
 

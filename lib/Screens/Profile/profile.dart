@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 10, right: 10),
                           child: TextField(
-                            controller: lastNameController,
+                            controller: countryController,
                             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Country")),
                           ),
                         ),
@@ -93,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 10),
                           child: TextField(
-                            controller: emailIDController,
+                            controller: stateController,
                             decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("State")),
                           ),
                         ),

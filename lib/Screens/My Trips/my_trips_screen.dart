@@ -4,6 +4,7 @@ import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 import '../../data/model/My Trip/my_trips.dart';
+import '../widgets/print_pdf.dart';
 
 enum TripType { flights, hotels }
 
@@ -476,7 +477,11 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => PDFViewerScreen(pdfUrl: "https://uattm.jameer.xyz/data/TravelMythri_E-Ticket.pdf"),
+                    ));
+                  },
                   child: Text("Print Ticket"),
                   style: ElevatedButton.styleFrom(shape: StadiumBorder(), backgroundColor: secondaryColor),
                 ),
