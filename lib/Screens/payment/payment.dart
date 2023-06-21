@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
+import 'package:travel_mytri_mobile_v1/Screens/payment/card_utilis.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -13,9 +15,27 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   late Timer _timer;
   int _secondsRemaining = 600;
+  TextEditingController cardNumberController = TextEditingController();
+  CardType cardType = CardType.Invalid;
+
+  void getCardFrmNum() {
+    if (cardNumberController.text.length <= 6) {
+      String cardNum = CardUtils.getCleanedNumber(cardNumberController.text);
+      CardType type = CardUtils.getCardTypeFrmNumber(cardNum);
+      if (type != cardType) {
+        setState(() {
+          cardType = type;
+          print(cardType);
+        });
+      }
+    }
+  }
 
   @override
   void initState() {
+    cardNumberController.addListener(() {
+      getCardFrmNum();
+    });
     super.initState();
     _startTimer();
   }
@@ -236,7 +256,7 @@ class _PaymentPageState extends State<PaymentPage> {
             padding: EdgeInsets.all(20),
             child: Text(
               "Amount to Pay : 99998",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
             ),
           ),
           Container(
@@ -254,6 +274,92 @@ class _PaymentPageState extends State<PaymentPage> {
                 Text(
                   "CREDIT / DEBIT CARD",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: cardNumberController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(19),
+                    CardNumberInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CardUtils.getCardIcon(cardType),
+                    ),
+                    border: OutlineInputBorder(),
+                    label: Text("Enter your card No."),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(Icons.credit_card),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text("Enter Name your card "),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Icon(Icons.account_circle_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(4),
+                            CardMonthInputFormatter(),
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            label: Text("MM/YY"),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(Icons.calendar_month_outlined),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(4),
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            label: Text("CVV"),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(Icons.lock_outline),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -363,5 +469,51 @@ class _PaymentPageState extends State<PaymentPage> {
         ],
       ),
     );
+  }
+}
+
+class CardNumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+    String inputData = newValue.text;
+    StringBuffer buffer = StringBuffer();
+    for (int i = 0; i < inputData.length; i++) {
+      buffer.write(inputData[i]);
+      int index = i + 1;
+      if (index % 4 == 0 && inputData.length != index) {
+        buffer.write("  ");
+      }
+    }
+    return TextEditingValue(
+        text: buffer.toString(),
+        selection: TextSelection.collapsed(
+          offset: buffer.toString().length,
+        ));
+  }
+}
+
+class CardMonthInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    var newText = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = StringBuffer();
+    for (int i = 0; i < newText.length; i++) {
+      buffer.write(newText[i]);
+      var nonZeroIndex = i + 1;
+      if (nonZeroIndex % 2 == 0 && nonZeroIndex != newText.length) {
+        buffer.write('/');
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(text: string, selection: TextSelection.collapsed(offset: string.length));
   }
 }

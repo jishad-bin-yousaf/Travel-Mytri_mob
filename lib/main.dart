@@ -53,9 +53,9 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(800, name: DESKTOP),
         ],
       ),
-      //   routes: routes,
-      //  initialRoute: '/',
-      home: PaymentPage(),
+      routes: routes,
+      initialRoute: '/',
+      //  home: PaymentPage(),
     );
   }
 }

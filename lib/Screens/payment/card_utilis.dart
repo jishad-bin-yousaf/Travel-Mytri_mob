@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'card_strings.dart';
-import 'card_type.dart';
-
 class PaymentCard {
   CardType? type;
   String? number;
@@ -11,8 +8,7 @@ class PaymentCard {
   int? year;
   int? cvv;
 
-  PaymentCard(
-      {this.type, this.number, this.name, this.month, this.year, this.cvv});
+  PaymentCard({this.type, this.number, this.name, this.month, this.year, this.cvv});
 
   @override
   String toString() {
@@ -102,8 +98,7 @@ class CardUtils {
     // 1. The year is in the past. In that case, we just assume that the month
     // has passed
     // 2. Card's month (plus another month) is more than current month.
-    return hasYearPassed(year) ||
-        convertYearTo4Digits(year) == now.year && (month < now.month + 1);
+    return hasYearPassed(year) || convertYearTo4Digits(year) == now.year && (month < now.month + 1);
   }
 
   static bool hasYearPassed(int year) {
@@ -140,6 +135,9 @@ class CardUtils {
         break;
       case CardType.DinersClub:
         img = 'dinners_club.png';
+        break;
+      case CardType.ruPay:
+        img = 'ruPay.png';
         break;
       case CardType.Jcb:
         img = 'jcb.png';
@@ -206,8 +204,7 @@ class CardUtils {
 
   static CardType getCardTypeFrmNumber(String input) {
     CardType cardType;
-    if (input.startsWith(RegExp(
-        r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
+    if (input.startsWith(RegExp(r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
       cardType = CardType.Master;
     } else if (input.startsWith(RegExp(r'[4]'))) {
       cardType = CardType.Visa;
@@ -215,12 +212,14 @@ class CardUtils {
       cardType = CardType.Verve;
     } else if (input.startsWith(RegExp(r'((34)|(37))'))) {
       cardType = CardType.AmericanExpress;
-    } else if (input.startsWith(RegExp(r'((6[45])|(6011))'))) {
-      cardType = CardType.Discover;
+    } else if (input.startsWith(RegExp(r'((6[45])|(6011)|(81)|(82)|(508))'))) {
+      cardType = CardType.ruPay;
     } else if (input.startsWith(RegExp(r'((30[0-5])|(3[89])|(36)|(3095))'))) {
       cardType = CardType.DinersClub;
     } else if (input.startsWith(RegExp(r'(352[89]|35[3-8][0-9])'))) {
-      cardType = CardType.Jcb;
+      cardType = CardType.ruPay;
+    } else if (input.startsWith(RegExp(r'(352[89]|35[3-8][0-9])'))) {
+      cardType = CardType.ruPay;
     } else if (input.length <= 8) {
       cardType = CardType.Others;
     } else {
@@ -228,4 +227,24 @@ class CardUtils {
     }
     return cardType;
   }
+}
+
+class Strings {
+  //static const String appName = 'Payment Card Demo';
+  static const String fieldReq = 'This field is required';
+  static const String numberIsInvalid = 'Card is invalid';
+  static const String pay = 'Validate';
+}
+
+enum CardType {
+  Master,
+  Visa,
+  Verve,
+  Discover,
+  AmericanExpress,
+  DinersClub,
+  Jcb,
+  ruPay,
+  Others,
+  Invalid,
 }
