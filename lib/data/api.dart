@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
+import 'package:travel_mytri_mobile_v1/data/model/Transactions/transactions_model.dart';
 import 'package:travel_mytri_mobile_v1/data/model/general_resp.dart';
 import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../Constants/urls.dart';
@@ -574,6 +575,37 @@ class ProfileApi {
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());
       final responseModel = EditProfileResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+      throw Exception();
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+}
+
+class TransactionsApi {
+  final urls = TransactionsUrl();
+  Future<AccountStatementResponse?> getTransactions() async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getTransactions);
+
+      final header = await getHeader();
+
+      print({});
+      print(url);
+      log("${jsonEncode({})}++++");
+      final result = await http.post(url,
+          body: jsonEncode({}),
+          //  body: data.toJson(),
+          headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = AccountStatementResponse.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel;
     } on http.ClientException catch (e) {

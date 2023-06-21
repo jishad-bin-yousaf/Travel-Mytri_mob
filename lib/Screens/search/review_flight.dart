@@ -10,16 +10,13 @@ import 'package:travel_mytri_mobile_v1/data/api.dart';
 import '../../data/model/Search/pricing_models.dart';
 import 'traveller details/traveller_details.dart';
 
-class ScreenReviewFlight extends StatefulWidget {
+class ScreenReviewFlight extends StatelessWidget {
   ScreenReviewFlight({super.key});
 
-  @override
-  State<ScreenReviewFlight> createState() => _ScreenReviewFlightState();
-}
-
-class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
   RepricingRequest req = RepricingRequest();
+
   BookingRequest bookingRequest = BookingRequest();
+
   ListOfBookingPaxDetails paxDetailsList = ListOfBookingPaxDetails(adultPaxList: [], childPaxList: [], infantPaxList: []);
 
   TextEditingController contactController = TextEditingController();
@@ -40,27 +37,18 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
     CountryList(name: 'France'),
     // Add more countries as needed
   ];
-  // late List<BookingPaxdetails> adultPaxList;
-  // late List<BookingPaxdetails> childPaxList;
-  // late List<BookingPaxdetails> infantPaxList;
 
   final RepricingRequest requestingData = RepricingRequest();
 
   num totalBaggageAndMealAmount = 0;
 
   List<RePricingPaxlist> rePricingAdtList = [];
+
   List<RePricingPaxlist> rePricingChdList = [];
+
   List<RePricingPaxlist> rePricingInfList = [];
 
   // @override
-  // void initState() {
-  //   paxDetailsList.adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails());
-  //   paxDetailsList.childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails());
-  //   paxDetailsList.infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
-
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     PricingResponse data = ModalRoute.of(context)?.settings.arguments as PricingResponse;
@@ -69,57 +57,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
     paxDetailsList.infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
 
     return Scaffold(
-      /*     bottomSheet: Container(
-        height: 80,
-        color: primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  TextButton.icon(
-                      onPressed: () {
-                        pricingBottomSheet(context, data);
-                      },
-                      label: Icon(
-                        Icons.info_outline,
-                        color: white,
-                      ),
-                      icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
-                ],
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  req.fareId = data.fareId;
-                  req.fareIdR = data.fareIdR;
-                  req.itinId = data.itinId;
-                  req.itinIdR = data.itinIdR;
-                  req.providerCode = data.providerCode;
-                  req.providerCodeR = data.providerCodeR;
-                  PricingApi().getRepricing(req).then((value) {
-                    if ((value?.status == true) && value != null) {
-                      rePricingBottomSheet(context, value, data);
-                    } else {
-                      Helper().toastMessage("Try Again");
-                      Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
-                    }
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(150, 50),
-                  backgroundColor: secondaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
-              ),
-            ],
-          ),
-        ),
-      ), */
+      bottomSheet: bottomSheet(context, data),
       appBar: AppBar(
         title: Text("Review Flight"),
         centerTitle: false,
@@ -144,8 +82,6 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      //  travelDetails = true;
-                      //    setState(() {});
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           log(paxDetailsList.toString());
@@ -189,10 +125,6 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
               ],
             ),
           ),
-          // SizedBox(
-          //   height: (300 * (data.objApiResponse?.objAdtPaxList?.length ?? 0).toDouble()) + (335 * (data.objApiResponse?.objChdPaxList?.length ?? 0).toDouble()) + (335 * (data.objApiResponse?.objInfPaxList?.length ?? 0).toDouble()),
-          //   child: travellerDetails(data, context),
-          // ),
           Padding(
             padding: const EdgeInsets.only(left: 12.0, bottom: 12),
             child: Text(
@@ -204,99 +136,105 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
             padding: const EdgeInsets.all(12.0),
             child: travellerContact(),
           ),
-          Container(
-            //    height: 80,
-            color: primaryColor,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      TextButton.icon(
-                          onPressed: () {
-                            pricingBottomSheet(context, data);
-                          },
-                          label: Icon(
-                            Icons.info_outline,
-                            color: white,
-                          ),
-                          icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      for (BookingPaxdetails bookingPax in paxDetailsList.adultPaxList) {
-                        RePricingPaxlist rePricingPax = RePricingPaxlist(
-                          paxKey: bookingPax.paxKey,
-                          objMealList: bookingPax.objMealList,
-                          objBaggage: bookingPax.objBaggage,
-                          //     objSeatList: bookingPax.objSeatList,
-                        );
-                        rePricingAdtList.add(rePricingPax);
-                      }
-                      for (BookingPaxdetails bookingPax in paxDetailsList.childPaxList) {
-                        RePricingPaxlist rePricingPax = RePricingPaxlist(
-                          paxKey: bookingPax.paxKey,
-                          objMealList: bookingPax.objMealList,
-                          objBaggage: bookingPax.objBaggage,
-                          //     objSeatList: bookingPax.objSeatList,
-                        );
-                        rePricingChdList.add(rePricingPax);
-                      }
-                      for (BookingPaxdetails bookingPax in paxDetailsList.infantPaxList) {
-                        RePricingPaxlist rePricingPax = RePricingPaxlist(
-                          paxKey: bookingPax.paxKey,
-                          objMealList: bookingPax.objMealList,
-                          objBaggage: bookingPax.objBaggage,
-                          //      objSeatList: bookingPax.objSeatList,
-                        );
-                        rePricingInfList.add(rePricingPax);
-                      }
-                      req.fareId = data.fareId;
-                      req.fareIdR = data.fareIdR;
-                      req.itinId = data.itinId;
-                      req.itinIdR = data.itinIdR;
-                      req.providerCode = data.providerCode;
-                      req.providerCodeR = data.providerCodeR;
-                      req.objAdtPaxList = rePricingAdtList;
-                      req.objChdPaxList = rePricingChdList;
-                      req.objInfPaxList = rePricingInfList;
-
-                      bookingRequest.fareId = data.fareId;
-                      bookingRequest.fareIdR = data.fareIdR;
-                      bookingRequest.itinId = data.itinId;
-                      bookingRequest.itinIdR = data.itinIdR;
-                      bookingRequest.providerCode = data.providerCode;
-                      bookingRequest.providerCodeR = data.providerCodeR;
-                      bookingRequest.contactEmail = emailController.text;
-                      bookingRequest.alternateContactNumber = alternateContactController.text;
-                      bookingRequest.contactNumber = contactController.text;
-
-                      PricingApi().getRepricing(req).then((value) {
-                        if ((value?.status == true) && value != null) {
-                          rePricingBottomSheet(context, value, data);
-                        } else {
-                          Helper().toastMessage("Try Again");
-                          //   Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(150, 50),
-                      backgroundColor: secondaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          SizedBox(
+            height: 100,
+          )
         ],
+      ),
+    );
+  }
+
+  Container bottomSheet(BuildContext context, PricingResponse data) {
+    return Container(
+      //    height: 80,
+      color: primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                TextButton.icon(
+                    onPressed: () {
+                      pricingBottomSheet(context, data);
+                    },
+                    label: Icon(
+                      Icons.info_outline,
+                      color: white,
+                    ),
+                    icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {
+                for (BookingPaxdetails bookingPax in paxDetailsList.adultPaxList) {
+                  RePricingPaxlist rePricingPax = RePricingPaxlist(
+                    paxKey: bookingPax.paxKey,
+                    objMealList: bookingPax.objMealList,
+                    objBaggage: bookingPax.objBaggage,
+                    //     objSeatList: bookingPax.objSeatList,
+                  );
+                  rePricingAdtList.add(rePricingPax);
+                }
+                for (BookingPaxdetails bookingPax in paxDetailsList.childPaxList) {
+                  RePricingPaxlist rePricingPax = RePricingPaxlist(
+                    paxKey: bookingPax.paxKey,
+                    objMealList: bookingPax.objMealList,
+                    objBaggage: bookingPax.objBaggage,
+                    //     objSeatList: bookingPax.objSeatList,
+                  );
+                  rePricingChdList.add(rePricingPax);
+                }
+                for (BookingPaxdetails bookingPax in paxDetailsList.infantPaxList) {
+                  RePricingPaxlist rePricingPax = RePricingPaxlist(
+                    paxKey: bookingPax.paxKey,
+                    objMealList: bookingPax.objMealList,
+                    objBaggage: bookingPax.objBaggage,
+                    //      objSeatList: bookingPax.objSeatList,
+                  );
+                  rePricingInfList.add(rePricingPax);
+                }
+                req.fareId = data.fareId;
+                req.fareIdR = data.fareIdR;
+                req.itinId = data.itinId;
+                req.itinIdR = data.itinIdR;
+                req.providerCode = data.providerCode;
+                req.providerCodeR = data.providerCodeR;
+                req.objAdtPaxList = rePricingAdtList;
+                req.objChdPaxList = rePricingChdList;
+                req.objInfPaxList = rePricingInfList;
+
+                bookingRequest.fareId = data.fareId;
+                bookingRequest.fareIdR = data.fareIdR;
+                bookingRequest.itinId = data.itinId;
+                bookingRequest.itinIdR = data.itinIdR;
+                bookingRequest.providerCode = data.providerCode;
+                bookingRequest.providerCodeR = data.providerCodeR;
+                bookingRequest.contactEmail = emailController.text;
+                bookingRequest.alternateContactNumber = alternateContactController.text;
+                bookingRequest.contactNumber = contactController.text;
+
+                PricingApi().getRepricing(req).then((value) {
+                  if ((value?.status == true) && value != null) {
+                    rePricingBottomSheet(context, value, data);
+                  } else {
+                    Helper().toastMessage("Try Again");
+                    //   Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(150, 50),
+                backgroundColor: secondaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
+            ),
+          ],
+        ),
       ),
     );
   }

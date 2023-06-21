@@ -33,3 +33,7 @@ class UtilitiesUrl {
   String getCountry = "/api/Utilities/GetCountry";
   String getState = "/api/Utilities/GetState";
 }
+
+class TransactionsUrl {
+  String getTransactions = "/api/ControlPanel/AccountStatments";
+}

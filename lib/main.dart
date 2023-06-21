@@ -139,7 +139,7 @@ class LaunchScreen extends StatelessWidget {
     );
   }
 
-  static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
+  static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(3);
 
   final _pages = [
     ScreenHome(),
