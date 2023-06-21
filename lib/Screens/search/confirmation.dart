@@ -23,13 +23,13 @@ class ConfirmationScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             Image.asset(
-              "assets/icons/success.png",
+              (data.status ?? false) ? "assets/icons/success.png" : "assets/icons/failed.png",
               height: 100,
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "Your Booking Confirmed!",
+                (data.status ?? false) ? "Your Booking Confirmed!" : "Your Booking Failed!",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
@@ -37,8 +37,8 @@ class ConfirmationScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const Text(
-              "Thank you for booking with TravelMythri!",
+            Text(
+              (data.status ?? false) ? "Thank you for booking with TravelMythri!" : "Please Contact us ( itsupport@travelmythri.com ) ",
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -55,7 +55,7 @@ class ConfirmationScreen extends StatelessWidget {
               ),
             ),
             Text(
-              data.email ?? "jishad123@hotmail.com",
+              data.email ?? "",
               style: TextStyle(
                 fontSize: 16,
               ),

@@ -165,7 +165,7 @@ class TavellerDetails extends StatelessWidget {
     TextEditingController dobController = TextEditingController(text: paxDetailsList.infantPaxList[index].dateofBirth);
     TextEditingController firstNameController = TextEditingController(text: paxDetailsList.infantPaxList[index].firstName);
     TextEditingController lastNameController = TextEditingController(text: paxDetailsList.infantPaxList[index].lastName);
-
+    infantPaxList[index].title ?? (infantPaxList[index].title = "Mstr");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -175,15 +175,24 @@ class TavellerDetails extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(
-            controller: firstNameController,
-            onChanged: (value) {
-              infantPaxList[index].firstName = value;
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text("First Name"),
-            ),
+          child: Row(
+            children: [
+              MinorDropDown(
+                dropdownValue: childPaxList[index].title ?? "Mstr",
+                callBack: (p0) {
+                  infantPaxList[index].title = p0;
+                },
+              ),
+              Expanded(
+                child: TextField(
+                  controller: firstNameController,
+                  onChanged: (value) {
+                    infantPaxList[index].firstName = value;
+                  },
+                  decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -272,7 +281,7 @@ class TavellerDetails extends StatelessWidget {
     TextEditingController dobController = TextEditingController(text: paxDetailsList.childPaxList[index].dateofBirth);
     TextEditingController firstNameController = TextEditingController(text: paxDetailsList.childPaxList[index].firstName);
     TextEditingController lastNameController = TextEditingController(text: paxDetailsList.childPaxList[index].lastName);
-
+    childPaxList[index].title ?? (childPaxList[index].title = "Mstr");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -281,16 +290,25 @@ class TavellerDetails extends StatelessWidget {
           child: Text("Child (${index + 1})", style: const TextStyle(fontSize: 18)),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: TextField(
-            controller: firstNameController,
-            onChanged: (value) {
-              childPaxList[index].firstName = value;
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text("First Name"),
-            ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: Row(
+            children: [
+              MinorDropDown(
+                dropdownValue: childPaxList[index].title ?? "Mstr",
+                callBack: (p0) {
+                  childPaxList[index].title = p0;
+                },
+              ),
+              Expanded(
+                child: TextField(
+                  controller: firstNameController,
+                  onChanged: (value) {
+                    childPaxList[index].firstName = value;
+                  },
+                  decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("First Name")),
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -631,6 +649,53 @@ class _AdultDropDownState extends State<AdultDropDown> {
           });
         },
         items: <String>['Mr', 'Ms', 'Mrs'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class MinorDropDown extends StatefulWidget {
+  final ListCallback callBack;
+  String dropdownValue;
+  MinorDropDown({super.key, required this.callBack, required this.dropdownValue});
+  @override
+  _MinorDropDownState createState() => _MinorDropDownState();
+}
+
+class _MinorDropDownState extends State<MinorDropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+          width: 1.0,
+        ),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: DropdownButton<String>(
+        value: widget.dropdownValue,
+        //  icon: Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        //  style: TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          //  color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String? newValue) {
+          widget.callBack(newValue ?? '');
+          setState(() {
+            widget.dropdownValue = newValue ?? '';
+          });
+        },
+        items: <String>['Mstr', 'Miss'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
