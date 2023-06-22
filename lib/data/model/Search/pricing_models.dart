@@ -333,7 +333,6 @@ class BookingGstDetails with _$BookingGstDetails {
     String? address,
     String? city,
     int? pincode,
-    int? state,
   }) = _BookingGstDetails;
 
   factory BookingGstDetails.fromJson(Map<String, dynamic> json) => _$BookingGstDetailsFromJson(json);

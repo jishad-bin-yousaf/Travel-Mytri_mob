@@ -1,17 +1,24 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/payment/payment.dart';
-import 'package:travel_mytri_mobile_v1/Screens/search/confirmation.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 import '../../data/model/Search/pricing_models.dart';
 import 'traveller details/traveller_details.dart';
 
-class ScreenReviewFlight extends StatelessWidget {
+class ScreenReviewFlight extends StatefulWidget {
   ScreenReviewFlight({super.key});
+
+  @override
+  State<ScreenReviewFlight> createState() => _ScreenReviewFlightState();
+}
+
+class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
+  bool addGst = false;
 
   RepricingRequest req = RepricingRequest();
 
@@ -24,6 +31,20 @@ class ScreenReviewFlight extends StatelessWidget {
   TextEditingController alternateContactController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
+
+  TextEditingController gstNumberController = TextEditingController();
+
+  TextEditingController gstCompanyNameController = TextEditingController();
+
+  TextEditingController gstEmailController = TextEditingController();
+
+  TextEditingController gstMobileController = TextEditingController();
+
+  TextEditingController gstAddressController = TextEditingController();
+
+  TextEditingController gstCityController = TextEditingController();
+
+  TextEditingController gstPinCodeController = TextEditingController();
 
   bool travelDetails = false;
 
@@ -59,7 +80,7 @@ class ScreenReviewFlight extends StatelessWidget {
     return Scaffold(
       bottomSheet: bottomSheet(context, data),
       appBar: AppBar(
-        title: Text("Review Flight"),
+        title: const Text("Review Flight"),
         centerTitle: false,
       ),
       body: ListView(
@@ -74,7 +95,7 @@ class ScreenReviewFlight extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Traveller Details",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
@@ -119,14 +140,14 @@ class ScreenReviewFlight extends StatelessWidget {
                         BorderSide(color: Colors.grey.shade800),
                       ),
                     ),
-                    child: Text("Add Travellers", style: TextStyle(color: Colors.black, fontSize: 20)),
+                    child: const Text("Add Travellers", style: TextStyle(color: Colors.black, fontSize: 20)),
                   ),
                 )
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0, bottom: 12),
+          const Padding(
+            padding: EdgeInsets.only(left: 12.0, bottom: 12),
             child: Text(
               "Traveller Contact",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -136,9 +157,104 @@ class ScreenReviewFlight extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: travellerContact(),
           ),
-          SizedBox(
+          Row(
+            children: [
+              Checkbox.adaptive(
+                value: addGst,
+                onChanged: (value) {
+                  setState(() => addGst = !addGst);
+                },
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() => addGst = !addGst);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(
+                    left: 12.0,
+                  ),
+                  child: Text(
+                    "I would like to add my GSTIN (optional)",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          addGst ? gstDetails() : SizedBox(),
+          const SizedBox(
             height: 100,
           )
+        ],
+      ),
+    );
+  }
+
+  Padding gstDetails() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstNumberController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("GST Number")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstCompanyNameController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Company Name")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstEmailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Email ID")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstMobileController,
+              keyboardType: TextInputType.phone,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(10),
+              ],
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Mobile Number")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstAddressController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Address")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstCityController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("City")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: gstPinCodeController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(6),
+              ],
+              decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Pincode")),
+            ),
+          ),
         ],
       ),
     );
@@ -159,11 +275,11 @@ class ScreenReviewFlight extends StatelessWidget {
                     onPressed: () {
                       pricingBottomSheet(context, data);
                     },
-                    label: Icon(
+                    label: const Icon(
                       Icons.info_outline,
                       color: white,
                     ),
-                    icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
+                    icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: const TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
               ],
             ),
             ElevatedButton(
@@ -225,7 +341,7 @@ class ScreenReviewFlight extends StatelessWidget {
                 });
               },
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(150, 50),
+                fixedSize: const Size(150, 50),
                 backgroundColor: secondaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -242,17 +358,17 @@ class ScreenReviewFlight extends StatelessWidget {
   SafeArea reviewArea(PricingResponse data, BuildContext context) {
     return SafeArea(
       child: ListView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           SizedBox(
             height: (data.objApiResponse?.objSegList?.length ?? 0) * 210,
             child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: data.objApiResponse?.objSegList?.length ?? 0,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Card(
                         color: Colors.grey.shade300,
                         elevation: 0,
@@ -301,7 +417,7 @@ class ScreenReviewFlight extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(vertical: 12),
                                   child: Text(
                                     "${data.objApiResponse?.objSegList?[index].departureAirportCode ?? ''} ${data.objApiResponse?.objSegList?[index].departureTime ?? ''}",
-                                    style: TextStyle(fontSize: 23),
+                                    style: const TextStyle(fontSize: 23),
                                   ),
                                 ),
                                 Padding(
@@ -323,8 +439,8 @@ class ScreenReviewFlight extends StatelessWidget {
                           ),
                           Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
                                 child: Icon(Icons.access_time_outlined),
                               ),
                               Text(
@@ -344,7 +460,7 @@ class ScreenReviewFlight extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(vertical: 12),
                                   child: Text(
                                     "${data.objApiResponse?.objSegList?[index].arrivalAirportCode ?? ''} ${data.objApiResponse?.objSegList?[index].arrivalTime ?? ''}",
-                                    style: TextStyle(fontSize: 23),
+                                    style: const TextStyle(fontSize: 23),
                                   ),
                                 ),
                                 Padding(
@@ -371,7 +487,7 @@ class ScreenReviewFlight extends StatelessWidget {
                   );
                 }),
           ),
-          Divider(thickness: 1, color: Colors.black),
+          const Divider(thickness: 1, color: Colors.black),
         ],
       ),
     );
@@ -389,7 +505,7 @@ class ScreenReviewFlight extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Fare Summary",
                     style: TextStyle(fontSize: 23),
                   ),
@@ -397,7 +513,7 @@ class ScreenReviewFlight extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close)),
+                      icon: const Icon(Icons.close)),
                 ],
               ),
               Container(
@@ -408,7 +524,7 @@ class ScreenReviewFlight extends StatelessWidget {
                 child: Text(
                   "₹ ${data.objApiResponse?.finalAmount ?? ''}",
                   //  textAlign: TextAlign.center,
-                  style: TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
+                  style: const TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
                 ),
               ),
               baseFare(data),
@@ -418,13 +534,13 @@ class ScreenReviewFlight extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   height: 70,
                   //  color: Colors.grey.shade400,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "You Pay",
                         //  textAlign: TextAlign.center,
                         style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
@@ -432,7 +548,7 @@ class ScreenReviewFlight extends StatelessWidget {
                       Text(
                         "₹ ${data.objApiResponse?.finalAmount ?? ''}",
                         //  textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
+                        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
                       ),
                     ],
                   ),
@@ -459,7 +575,7 @@ class ScreenReviewFlight extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Fare Summary",
                     style: TextStyle(fontSize: 23),
                   ),
@@ -467,7 +583,7 @@ class ScreenReviewFlight extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close)),
+                      icon: const Icon(Icons.close)),
                 ],
               ),
               Container(
@@ -478,7 +594,7 @@ class ScreenReviewFlight extends StatelessWidget {
                 child: Text(
                   "₹ ${data.finalAmount ?? ''}",
                   //  textAlign: TextAlign.center,
-                  style: TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
+                  style: const TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
                 ),
               ),
               rePricingBaseFare(data),
@@ -487,7 +603,7 @@ class ScreenReviewFlight extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "You Pay",
                     //  textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
@@ -495,12 +611,12 @@ class ScreenReviewFlight extends StatelessWidget {
                   Text(
                     "₹ ${data.finalAmount ?? ''}",
                     //  textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
+                    style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
                     "Are you sure you want to continue the booking?",
@@ -513,16 +629,27 @@ class ScreenReviewFlight extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      bookingRequest.objGst = BookingGstDetails(
-                        address: "",
-                        city: "",
-                        companyName: "",
-                        email: "",
-                        gstNumber: "",
-                        mobile: "",
-                        pincode: 000000,
-                        state: 0,
-                      );
+                      if (addGst) {
+                        bookingRequest.objGst = BookingGstDetails(
+                          address: gstAddressController.text,
+                          city: gstCityController.text,
+                          companyName: gstCompanyNameController.text,
+                          email: gstEmailController.text,
+                          gstNumber: gstNumberController.text,
+                          mobile: gstMobileController.text,
+                          pincode: int.tryParse(gstPinCodeController.text),
+                        );
+                      } else {
+                        bookingRequest.objGst = BookingGstDetails(
+                          address: "",
+                          city: "",
+                          companyName: "",
+                          email: "",
+                          gstNumber: "",
+                          mobile: "",
+                          pincode: 0,
+                        );
+                      }
                       PricingApi().bookTicket(bookingRequest).then((value) {
                         if (value != null) {
                           Navigator.of(context).push(
@@ -540,7 +667,7 @@ class ScreenReviewFlight extends StatelessWidget {
                         height: 80,
                         width: MediaQuery.of(context).size.width / 2 - 10,
                         color: secondaryColor,
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           "PROCEED TO PAYMENT",
                           style: TextStyle(
@@ -558,7 +685,7 @@ class ScreenReviewFlight extends StatelessWidget {
                         height: 80,
                         width: MediaQuery.of(context).size.width / 2 - 10,
                         color: Colors.grey,
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           "CANCEL",
                           style: TextStyle(
@@ -587,11 +714,11 @@ class ScreenReviewFlight extends StatelessWidget {
             children: [
               Text(
                 "Base Fare (${(data.adult ?? 0) + (data.child ?? 0) + (data.infant ?? 0)} Travellers)",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Text(
                 "${(data.objApiResponse?.adultBasic ?? 0) + (data.objApiResponse?.childBasic ?? 0) + (data.objApiResponse?.infantBasic ?? 0)}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ],
           ),
@@ -656,13 +783,13 @@ class ScreenReviewFlight extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Taxes & Fees",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Text(
                 "${data.objApiResponse?.totalTax ?? '7886'}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ],
           ),
@@ -701,13 +828,13 @@ class ScreenReviewFlight extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Baggage & Meals",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Text(
             "Rs ${totalBaggageAndMealAmount}",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ],
       ),
@@ -724,11 +851,11 @@ class ScreenReviewFlight extends StatelessWidget {
             children: [
               Text(
                 "Base Fare (${(data.adult ?? 0) + (data.child ?? 0) + (data.infant ?? 0)} Travellers)",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Text(
                 "${(data.adultBasic ?? 0) + (data.childBasic ?? 0) + (data.infantBasic ?? 0)}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ],
           ),
@@ -793,13 +920,13 @@ class ScreenReviewFlight extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Taxes & Fees",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Text(
                 "${data.totalTax ?? 0}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ],
           ),
@@ -839,21 +966,38 @@ class ScreenReviewFlight extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             controller: contactController,
-            decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Contact Number")),
+            keyboardType: TextInputType.phone,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(10),
+            ],
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("Contact Number"),
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             controller: alternateContactController,
-            decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Alternate Contact Number")),
+            keyboardType: TextInputType.phone,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(10),
+            ],
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("Alternate Contact Number"),
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             controller: emailController,
-            decoration: InputDecoration(border: OutlineInputBorder(), label: Text("Email ID")),
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(border: OutlineInputBorder(), label: Text("Email ID")),
           ),
         ),
       ],

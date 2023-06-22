@@ -5993,8 +5993,6 @@ mixin _$BookingGstDetails {
   set city(String? value) => throw _privateConstructorUsedError;
   int? get pincode => throw _privateConstructorUsedError;
   set pincode(int? value) => throw _privateConstructorUsedError;
-  int? get state => throw _privateConstructorUsedError;
-  set state(int? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -6015,8 +6013,7 @@ abstract class $BookingGstDetailsCopyWith<$Res> {
       String? mobile,
       String? address,
       String? city,
-      int? pincode,
-      int? state});
+      int? pincode});
 }
 
 /// @nodoc
@@ -6039,7 +6036,6 @@ class _$BookingGstDetailsCopyWithImpl<$Res, $Val extends BookingGstDetails>
     Object? address = freezed,
     Object? city = freezed,
     Object? pincode = freezed,
-    Object? state = freezed,
   }) {
     return _then(_value.copyWith(
       gstNumber: freezed == gstNumber
@@ -6070,10 +6066,6 @@ class _$BookingGstDetailsCopyWithImpl<$Res, $Val extends BookingGstDetails>
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int?,
-      state: freezed == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -6093,8 +6085,7 @@ abstract class _$$_BookingGstDetailsCopyWith<$Res>
       String? mobile,
       String? address,
       String? city,
-      int? pincode,
-      int? state});
+      int? pincode});
 }
 
 /// @nodoc
@@ -6115,7 +6106,6 @@ class __$$_BookingGstDetailsCopyWithImpl<$Res>
     Object? address = freezed,
     Object? city = freezed,
     Object? pincode = freezed,
-    Object? state = freezed,
   }) {
     return _then(_$_BookingGstDetails(
       gstNumber: freezed == gstNumber
@@ -6146,10 +6136,6 @@ class __$$_BookingGstDetailsCopyWithImpl<$Res>
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int?,
-      state: freezed == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -6164,8 +6150,7 @@ class _$_BookingGstDetails implements _BookingGstDetails {
       this.mobile,
       this.address,
       this.city,
-      this.pincode,
-      this.state});
+      this.pincode});
 
   factory _$_BookingGstDetails.fromJson(Map<String, dynamic> json) =>
       _$$_BookingGstDetailsFromJson(json);
@@ -6184,12 +6169,10 @@ class _$_BookingGstDetails implements _BookingGstDetails {
   String? city;
   @override
   int? pincode;
-  @override
-  int? state;
 
   @override
   String toString() {
-    return 'BookingGstDetails(gstNumber: $gstNumber, companyName: $companyName, email: $email, mobile: $mobile, address: $address, city: $city, pincode: $pincode, state: $state)';
+    return 'BookingGstDetails(gstNumber: $gstNumber, companyName: $companyName, email: $email, mobile: $mobile, address: $address, city: $city, pincode: $pincode)';
   }
 
   @JsonKey(ignore: true)
@@ -6215,8 +6198,7 @@ abstract class _BookingGstDetails implements BookingGstDetails {
       String? mobile,
       String? address,
       String? city,
-      int? pincode,
-      int? state}) = _$_BookingGstDetails;
+      int? pincode}) = _$_BookingGstDetails;
 
   factory _BookingGstDetails.fromJson(Map<String, dynamic> json) =
       _$_BookingGstDetails.fromJson;
@@ -6242,9 +6224,6 @@ abstract class _BookingGstDetails implements BookingGstDetails {
   @override
   int? get pincode;
   set pincode(int? value);
-  @override
-  int? get state;
-  set state(int? value);
   @override
   @JsonKey(ignore: true)
   _$$_BookingGstDetailsCopyWith<_$_BookingGstDetails> get copyWith =>

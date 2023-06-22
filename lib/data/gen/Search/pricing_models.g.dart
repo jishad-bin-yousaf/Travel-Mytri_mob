@@ -566,7 +566,6 @@ _$_BookingGstDetails _$$_BookingGstDetailsFromJson(Map<String, dynamic> json) =>
       address: json['address'] as String?,
       city: json['city'] as String?,
       pincode: json['pincode'] as int?,
-      state: json['state'] as int?,
     );
 
 Map<String, dynamic> _$$_BookingGstDetailsToJson(
@@ -579,5 +578,4 @@ Map<String, dynamic> _$$_BookingGstDetailsToJson(
       'address': instance.address,
       'city': instance.city,
       'pincode': instance.pincode,
-      'state': instance.state,
     };
