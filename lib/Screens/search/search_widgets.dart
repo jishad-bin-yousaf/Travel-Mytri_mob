@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:travel_mytri_mobile_v1/Screens/search/search.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:intl/intl.dart';
 import '../../Constants/colors.dart';
 import '../../data/model/Search/flight_search_model.dart';
-import '../../data/model/airport_list.dart';
+import '../../data/model/utilities.dart';
 import '../widgets/helper.dart';
 
 flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
@@ -14,7 +15,26 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
     actions: [
       IconButton(
           tooltip: "Edit",
-          onPressed: () => Navigator.of(context).pop(),
+          // onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              useSafeArea: true,
+              enableDrag: true,
+              context: context,
+              builder: (context) {
+                return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TripTypes(),
+                ]);
+              },
+            );
+          },
           icon: const Icon(
             Icons.edit_outlined,
             size: 23,

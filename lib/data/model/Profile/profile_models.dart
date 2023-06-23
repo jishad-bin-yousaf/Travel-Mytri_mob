@@ -14,6 +14,8 @@ class GetProfileResponse with _$GetProfileResponse {
     String? pincode,
     String? city,
     String? countryId,
+    String? country,
+    String? state,
     String? stateId,
     String? fullName,
     int? passwordStatus,

@@ -29,6 +29,8 @@ mixin _$GetProfileResponse {
   String? get pincode => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get countryId => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
   String? get stateId => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
   int? get passwordStatus => throw _privateConstructorUsedError;
@@ -56,6 +58,8 @@ abstract class $GetProfileResponseCopyWith<$Res> {
       String? pincode,
       String? city,
       String? countryId,
+      String? country,
+      String? state,
       String? stateId,
       String? fullName,
       int? passwordStatus,
@@ -84,6 +88,8 @@ class _$GetProfileResponseCopyWithImpl<$Res, $Val extends GetProfileResponse>
     Object? pincode = freezed,
     Object? city = freezed,
     Object? countryId = freezed,
+    Object? country = freezed,
+    Object? state = freezed,
     Object? stateId = freezed,
     Object? fullName = freezed,
     Object? passwordStatus = freezed,
@@ -126,6 +132,14 @@ class _$GetProfileResponseCopyWithImpl<$Res, $Val extends GetProfileResponse>
           ? _value.countryId
           : countryId // ignore: cast_nullable_to_non_nullable
               as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
       stateId: freezed == stateId
           ? _value.stateId
           : stateId // ignore: cast_nullable_to_non_nullable
@@ -164,6 +178,8 @@ abstract class _$$_GetProfileResponseCopyWith<$Res>
       String? pincode,
       String? city,
       String? countryId,
+      String? country,
+      String? state,
       String? stateId,
       String? fullName,
       int? passwordStatus,
@@ -190,6 +206,8 @@ class __$$_GetProfileResponseCopyWithImpl<$Res>
     Object? pincode = freezed,
     Object? city = freezed,
     Object? countryId = freezed,
+    Object? country = freezed,
+    Object? state = freezed,
     Object? stateId = freezed,
     Object? fullName = freezed,
     Object? passwordStatus = freezed,
@@ -232,6 +250,14 @@ class __$$_GetProfileResponseCopyWithImpl<$Res>
           ? _value.countryId
           : countryId // ignore: cast_nullable_to_non_nullable
               as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
       stateId: freezed == stateId
           ? _value.stateId
           : stateId // ignore: cast_nullable_to_non_nullable
@@ -265,6 +291,8 @@ class _$_GetProfileResponse implements _GetProfileResponse {
       this.pincode,
       this.city,
       this.countryId,
+      this.country,
+      this.state,
       this.stateId,
       this.fullName,
       this.passwordStatus,
@@ -292,6 +320,10 @@ class _$_GetProfileResponse implements _GetProfileResponse {
   @override
   final String? countryId;
   @override
+  final String? country;
+  @override
+  final String? state;
+  @override
   final String? stateId;
   @override
   final String? fullName;
@@ -302,7 +334,7 @@ class _$_GetProfileResponse implements _GetProfileResponse {
 
   @override
   String toString() {
-    return 'GetProfileResponse(status: $status, responseMessage: $responseMessage, email: $email, firstName: $firstName, lastName: $lastName, address: $address, pincode: $pincode, city: $city, countryId: $countryId, stateId: $stateId, fullName: $fullName, passwordStatus: $passwordStatus, userId: $userId)';
+    return 'GetProfileResponse(status: $status, responseMessage: $responseMessage, email: $email, firstName: $firstName, lastName: $lastName, address: $address, pincode: $pincode, city: $city, countryId: $countryId, country: $country, state: $state, stateId: $stateId, fullName: $fullName, passwordStatus: $passwordStatus, userId: $userId)';
   }
 
   @override
@@ -323,6 +355,8 @@ class _$_GetProfileResponse implements _GetProfileResponse {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.countryId, countryId) ||
                 other.countryId == countryId) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.state, state) || other.state == state) &&
             (identical(other.stateId, stateId) || other.stateId == stateId) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
@@ -344,6 +378,8 @@ class _$_GetProfileResponse implements _GetProfileResponse {
       pincode,
       city,
       countryId,
+      country,
+      state,
       stateId,
       fullName,
       passwordStatus,
@@ -375,6 +411,8 @@ abstract class _GetProfileResponse implements GetProfileResponse {
       final String? pincode,
       final String? city,
       final String? countryId,
+      final String? country,
+      final String? state,
       final String? stateId,
       final String? fullName,
       final int? passwordStatus,
@@ -401,6 +439,10 @@ abstract class _GetProfileResponse implements GetProfileResponse {
   String? get city;
   @override
   String? get countryId;
+  @override
+  String? get country;
+  @override
+  String? get state;
   @override
   String? get stateId;
   @override

@@ -101,7 +101,7 @@ class _CRTFilterState extends State<CRTFilter> {
                 ),
                 SizedBox(
                   //   height: 4 * 50,
-                  height: widget.airlineList.length * 50,
+                  height: 200,
                   child: ListView.builder(
                     //  itemCount: 4,
                     itemCount: widget.airlineList.length,

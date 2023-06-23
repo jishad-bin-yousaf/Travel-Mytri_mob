@@ -9,7 +9,7 @@ import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
-import 'package:travel_mytri_mobile_v1/data/model/airport_list.dart';
+import 'package:travel_mytri_mobile_v1/data/model/utilities.dart';
 
 import '../../data/model/hive_class_functions.dart';
 
@@ -262,20 +262,20 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: isLoadingPage
-          ? Image.asset(
-              "assets/loader.gif",
-              //      "https://cdn.dribbble.com/users/328772/screenshots/10293847/media/d45c05b5e858e2508fb1a3b84f33e932.gif",
-            )
-          : ListView(
+    return isLoadingPage
+        ? Image.asset(
+            "assets/loader.gif",
+            //      "https://cdn.dribbble.com/users/328772/screenshots/10293847/media/d45c05b5e858e2508fb1a3b84f33e932.gif",
+          )
+        : Expanded(
+            child: ListView(
               padding: const EdgeInsets.all(30),
               children: [
                 selectTripType(),
                 multiCity ? MultiCity() : oneWayAndRoundTrip(context),
               ],
             ),
-    );
+          );
   }
 
   Column oneWayAndRoundTrip(BuildContext context) {
@@ -980,7 +980,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     },
                   )
                 : TypeAheadField<AirportData>(
-                    hideSuggestionsOnKeyboardHide: true,
+                    hideSuggestionsOnKeyboardHide: false,
                     debounceDuration: const Duration(milliseconds: 500),
                     suggestionsCallback: (query) async => getList(query),
                     itemBuilder: (context, itemData) => ListTile(
@@ -1004,9 +1004,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                           child: Center(child: Text("No Airports Found")),
                         ),
                     onSuggestionSelected: (suggestion) {
-                      originCode = suggestion.cityCode ?? '';
+                      originCode = suggestion.code ?? '';
                       originCountry = suggestion.countryCode ?? '';
-                      departureController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
+                      departureController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.code?.toUpperCase() ?? ''}";
                       departure = departureController.text;
                       deptAirportName = suggestion.airportName ?? '';
                       showDepTypeField = true;
@@ -1059,11 +1059,11 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               )
             else
               TypeAheadField<AirportData>(
-                  hideSuggestionsOnKeyboardHide: true,
+                  hideSuggestionsOnKeyboardHide: false,
                   debounceDuration: const Duration(milliseconds: 500),
                   suggestionsCallback: (query) async => getList(query),
                   itemBuilder: (context, itemData) => ListTile(
-                        title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.cityCode?.toUpperCase() ?? ''}"),
+                        title: Text("${itemData.cityName?.toUpperCase() ?? ''} - ${itemData.code?.toUpperCase() ?? ''}"),
                         subtitle: Text(itemData.airportName ?? ''),
                         trailing: Text(itemData.countryCode ?? ''),
                       ),
@@ -1083,9 +1083,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                         child: Center(child: Text("No Airports Found")),
                       ),
                   onSuggestionSelected: (suggestion) {
-                    destinationCode = suggestion.cityCode ?? '';
+                    destinationCode = suggestion.code ?? '';
                     destinationCountry = suggestion.countryCode ?? '';
-                    arrivalController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
+                    arrivalController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.code?.toUpperCase() ?? ''}";
                     arrival = arrivalController.text;
                     arrAirportName = suggestion.airportName ?? '';
                     showArrTypeField = true;
@@ -1115,7 +1115,7 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     final tempDptAirport = deptAirportName;
                     deptAirportName = arrAirportName;
                     arrAirportName = tempDptAirport;
-
+d
                     final tempController = departureController;
                     departureController = arrivalController;
                     arrivalController = tempController;
@@ -1239,15 +1239,15 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
     List<AirportData> filteredFlights = [];
 
     if (query.length >= 3) {
-      final cityCodeList = await airportList.where((element) => element.cityCode!.toLowerCase().contains(query.toLowerCase())).toList();
-      filteredFlights.addAll(cityCodeList);
-
-      dev.log("cityCodeList ++++$cityCodeList");
-
       final codeList = await airportList.where((element) => element.code!.toLowerCase().contains(query.toLowerCase())).toList();
       filteredFlights.addAll(codeList);
 
       dev.log("cityCodeList ++++$codeList");
+
+      final cityCodeList = await airportList.where((element) => element.cityCode!.toLowerCase().contains(query.toLowerCase())).toList();
+      filteredFlights.addAll(cityCodeList);
+
+      dev.log("cityCodeList ++++$cityCodeList");
 
       final cityNameList = airportList.where((element) => element.cityName!.toLowerCase().contains(query.toLowerCase())).toList();
       filteredFlights.addAll(cityNameList);

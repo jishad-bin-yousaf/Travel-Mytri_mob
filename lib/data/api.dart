@@ -12,7 +12,7 @@ import 'model/My Trip/my_trips.dart';
 import 'model/Profile/profile_models.dart';
 import 'model/Search/flight_search_model.dart';
 import 'model/Search/pricing_models.dart';
-import 'model/airport_list.dart';
+import 'model/utilities.dart';
 import 'package:device_info/device_info.dart';
 
 String baseUrl = "https://uattm.jameer.xyz";
@@ -258,6 +258,54 @@ class UtilitiesApi {
       final responseModel = AirportList.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
       return responseModel.objAirportList;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<List<ClsCountriesJson>?> getCountry() async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getCountry);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+
+      final result = await http.post(url, body: jsonEncode({}), headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = CountryResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel.objCountry;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<List<ClsStatesJson>?> getState({required String countryID}) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.getState);
+
+      final header = await getHeader();
+
+      print(header);
+      print(url);
+
+      final result = await http.post(url, body: jsonEncode({"country_code": countryID}), headers: header);
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      //  log(resultAsJson.toString());
+      final responseModel = StateResponse.fromJson(resultAsJson);
+      // Helper().toastMessage(responseModel.);
+      return responseModel.objState;
     } on http.ClientException catch (e) {
       log(e.message.toString() + "+++++");
     } catch (e) {

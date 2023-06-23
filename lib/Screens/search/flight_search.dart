@@ -48,7 +48,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
       log(travelType);
       airlineSearchResponse = arguments["data"] as AirlineSearchResponse;
       if (!(airlineSearchResponse.test ?? false)) {
-        oneWayDuplicateData = airlineSearchResponse.objItinList?.where((element) => element.amount != 0).toList(); // Store the original data
+        oneWayDuplicateData = airlineSearchResponse.objItinList?.where((element) => element.netAmount != 0).toList(); // Store the original data
         log(airlineSearchResponse.test.toString() + " if condition");
       }
       airlineSearchResponse.test = true;
@@ -104,7 +104,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
 
         rAirlineSearchResponse = arguments["data"];
         if (!(rAirlineSearchResponse.test ?? false)) {
-          crtDuplicateData = rAirlineSearchResponse.objItinList?.where((element) => element.amount != 0).toList(); // Store the original data
+          crtDuplicateData = rAirlineSearchResponse.objItinList?.where((element) => element.netAmount != 0).toList(); // Store the original data
           log(rAirlineSearchResponse.test.toString() + " if condition");
         }
         rAirlineSearchResponse.test = true;
@@ -238,11 +238,11 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
         irAirlineSearchResponse = arguments["data"];
 
         if (!(irAirlineSearchResponse.testO ?? false)) {
-          irOnwardWayDuplicateData = irAirlineSearchResponse.objItinList?.where((element) => element.amount != 0).toList(); // Store the original data
+          irOnwardWayDuplicateData = irAirlineSearchResponse.objItinList?.where((element) => element.netAmount != 0).toList(); // Store the original data
           //   log(airlineSearchResponse.testO.toString() + " if condition");
         }
         if (!(irAirlineSearchResponse.testR ?? false)) {
-          irReturnWayDuplicateData = irAirlineSearchResponse.objItinList?.where((element) => element.amount != 0).toList(); // Store the original data
+          irReturnWayDuplicateData = irAirlineSearchResponse.objItinListR?.where((element) => element.netAmount != 0).toList(); // Store the original data
           //   log(airlineSearchResponse.testO.toString() + " if condition");
         }
         irAirlineSearchResponse.testO = true;
@@ -322,7 +322,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                           );
                         },
                       )).then((value) {
-                        irOnwardWayDuplicateData = value;
+                        irOnwardWayDuplicateData = value ?? irAirlineSearchResponse.objItinList;
                         setState(() {});
                       });
                     },
@@ -354,7 +354,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                           );
                         },
                       )).then((value) {
-                        irReturnWayDuplicateData = value;
+                        irReturnWayDuplicateData = value ?? irAirlineSearchResponse.objItinListR;
                         setState(() {});
                       });
                     },
@@ -507,7 +507,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
 
   SizedBox fareOnDateListView(BuildContext context, List<LowestFare> data) {
     return SizedBox(
-      height: 60,
+      height: 70,
       width: MediaQuery.of(context).size.width,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -520,10 +520,11 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
               children: [
                 Text(
                   "${data[index].date}",
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   "₹${data[index].amount}",
-                  style: const TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.w700),
+                  style: const TextStyle(color: Colors.red, fontSize: 17, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -1301,39 +1302,6 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                     },
                                     label: Icon(!isSelected ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_up_outlined),
                                     icon: const Text("Flight Details"))
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
                               ],
                             ),
                           ],
@@ -1518,6 +1486,17 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                 data?.airlineName ?? "",
                                 style: const TextStyle(fontSize: 18),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 10,
+                                ),
+                              ),
+                              Text(
+                                "${data?.flightDetails ?? ""}",
+                                style: const TextStyle(fontSize: 13),
+                              ),
                             ],
                           ),
                           Row(
@@ -1562,6 +1541,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       children: [
                                         Text(
                                           data?.duration ?? '',
+                                          style: const TextStyle(fontSize: 11),
                                         ),
                                         SizedBox(
                                           width: 40,
