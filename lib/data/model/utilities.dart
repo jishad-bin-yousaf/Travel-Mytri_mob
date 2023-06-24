@@ -43,18 +43,9 @@ class ClsCountriesJson with _$ClsCountriesJson {
   const factory ClsCountriesJson({
     int? id,
     String? name,
-    String? iso3,
-    String? iso2,
-    String? numeric_code,
-    String? phone_code,
-    String? capital,
+    String? countryCode,
+    String? phoneCode,
     String? currency,
-    String? currency_name,
-    String? currency_symbol,
-    String? tld,
-    String? native,
-    String? region,
-    String? subregion,
   }) = _ClsCountriesJson;
 
   factory ClsCountriesJson.fromJson(Map<String, dynamic> json) => _$ClsCountriesJsonFromJson(json);
@@ -74,15 +65,10 @@ class StateResponse with _$StateResponse {
 @freezed
 class ClsStatesJson with _$ClsStatesJson {
   const factory ClsStatesJson({
-    int? id,
     String? name,
-    int? country_id,
-    String? country_code,
-    String? country_name,
-    String? state_code,
-    String? type,
-    String? latitude,
-    String? longitude,
+    int? countryId,
+    String? countryCode,
+    String? stateCode,
   }) = _ClsStatesJson;
 
   factory ClsStatesJson.fromJson(Map<String, dynamic> json) => _$ClsStatesJsonFromJson(json);

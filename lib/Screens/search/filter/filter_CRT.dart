@@ -32,7 +32,7 @@ class _CRTFilterState extends State<CRTFilter> {
   bool isRefundable = false;
   bool nonStop = false;
   bool oneStop = false;
-  bool twoStop = false;
+  bool moreThanOne = false;
   bool depEarlyMorning = false;
   bool depMorning = false;
   bool depAfternoon = false;
@@ -212,14 +212,14 @@ class _CRTFilterState extends State<CRTFilter> {
                     Row(
                       children: [
                         const Text(
-                          "2 stop",
+                          "1+ stop",
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Checkbox(
-                          value: twoStop,
+                          value: moreThanOne,
                           onChanged: (bool? value) {
                             setState(() {
-                              twoStop = !twoStop;
+                              moreThanOne = !moreThanOne;
                             });
                           },
                         ),
@@ -577,7 +577,7 @@ class _CRTFilterState extends State<CRTFilter> {
       filteredList = filteredList.where((item) => ((item.netAmount ?? 0) >= (startCurrentValue ?? 0) && (item.netAmount ?? 0) <= (endCurrentValue ?? 0))).toList();
     }
 
-    if (nonStop || oneStop || twoStop) {
+    if (nonStop || oneStop || moreThanOne) {
       filteredList = filteredList.where((item) {
         bool satisfiesConditions = false;
 
@@ -587,7 +587,7 @@ class _CRTFilterState extends State<CRTFilter> {
         if (oneStop && item.onwardDetails?.noofStop == 1) {
           satisfiesConditions = true;
         }
-        if (twoStop && item.onwardDetails?.noofStop == 2) {
+        if (moreThanOne && (item.onwardDetails?.noofStop ?? 0) > 1) {
           satisfiesConditions = true;
         }
         return satisfiesConditions;

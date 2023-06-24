@@ -94,6 +94,38 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
           children: [
             fareOnDateListView(context, airlineSearchResponse.objlowfareList ?? []),
             const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      oneWayDuplicateData?.sort((a, b) => (a.netAmount ?? 0).compareTo(b.netAmount ?? 0));
+                    });
+                  },
+                  icon: Icon(Icons.attach_money_outlined),
+                  label: Text("CHEAPEST"),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      oneWayDuplicateData?.sort((a, b) => (a.durationInMinutes ?? 0).compareTo(b.durationInMinutes ?? 0));
+                    });
+                  },
+                  icon: Icon(Icons.speed),
+                  label: Text("Fastest"),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      oneWayDuplicateData?.sort((a, b) => (int.tryParse(a.departureTime?.split(":")[0] ?? '') ?? 0).compareTo(int.tryParse(b.departureTime?.split(":")[0] ?? '') ?? 0));
+                    });
+                  },
+                  icon: Icon(Icons.timer),
+                  label: const Text("Earliest"),
+                ),
+              ],
+            ),
             Expanded(child: FlightFareCardListView(data: oneWayDuplicateData ?? [], travelType: travelType)),
           ],
         ),
@@ -130,19 +162,6 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     _scaffoldKey.currentState?.openDrawer();
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return CRTFilter(
-                    //       airlineList: rAirlineSearchResponse.objAvlairlineList ?? [],
-                    //       itemList: rAirlineSearchResponse.objItinList ?? [],
-                    //       maximumFare: rAirlineSearchResponse.maximumFare,
-                    //       minimumFare: rAirlineSearchResponse.minimumFare,
-                    //     );
-                    //   },
-                    // )).then((value) {
-                    //   crtDuplicateData = value;
-                    //  setState(() {});
-                    // });
                   },
                   child: Icon(Icons.filter_alt_outlined),
                 ),
@@ -229,7 +248,43 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                 ),
                 //  flightSearchAppBar(context, data),
                 body: SafeArea(
-                  child: Expanded(child: FlightFareCardListView(combainedRoundData: crtDuplicateData, travelType: travelType, internationalTrip: internationalTrip)),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                crtDuplicateData?.sort((a, b) => (a.netAmount ?? 0).compareTo(b.netAmount ?? 0));
+                              });
+                            },
+                            icon: Icon(Icons.attach_money_outlined),
+                            label: Text("CHEAPEST"),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                crtDuplicateData?.sort((a, b) => (a.onwardDetails?.durationInMinutes ?? 0).compareTo(b.onwardDetails?.durationInMinutes ?? 0));
+                              });
+                            },
+                            icon: Icon(Icons.speed),
+                            label: Text("Fastest"),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                crtDuplicateData?.sort((a, b) => (int.tryParse(a.onwardDetails?.departureTime?.split(":")[0] ?? '') ?? 0).compareTo(int.tryParse(b.onwardDetails?.departureTime?.split(":")[0] ?? '') ?? 0));
+                              });
+                            },
+                            icon: Icon(Icons.timer),
+                            label: const Text("Earliest"),
+                          ),
+                        ],
+                      ),
+                      Expanded(child: FlightFareCardListView(combainedRoundData: crtDuplicateData, travelType: travelType, internationalTrip: internationalTrip)),
+                    ],
+                  ),
                 ),
               )
             : const ErrorPage();
@@ -1320,7 +1375,7 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "₹${data?.amount ?? ''}",
+                          "₹${data?.netAmount ?? ''}",
                           style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 22),
                         ),
                         (data?.pricingList?.length ?? 0) > 1

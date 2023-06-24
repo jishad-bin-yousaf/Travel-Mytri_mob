@@ -290,7 +290,7 @@ class UtilitiesApi {
     return null;
   }
 
-  Future<List<ClsStatesJson>?> getState({required String countryID}) async {
+  Future<List<ClsStatesJson>?> getState({required String countryCode}) async {
     try {
       final url = Uri.parse(baseUrl + urls.getState);
 
@@ -299,7 +299,7 @@ class UtilitiesApi {
       print(header);
       print(url);
 
-      final result = await http.post(url, body: jsonEncode({"country_code": countryID}), headers: header);
+      final result = await http.post(url, body: jsonEncode({"countryCode": countryCode}), headers: header);
       log(result.statusCode.toString());
       final resultAsJson = jsonDecode(result.body);
       //  log(resultAsJson.toString());

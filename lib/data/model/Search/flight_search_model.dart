@@ -267,6 +267,7 @@ class ApiSearchResponse with _$ApiSearchResponse {
     String? departureTime,
     String? arrivalTime,
     String? duration,
+    int? durationInMinutes,
     String? freeBaggage,
     String? refundable,
     String? sourceAirport,

@@ -4762,6 +4762,8 @@ mixin _$ApiSearchResponse {
   set arrivalTime(String? value) => throw _privateConstructorUsedError;
   String? get duration => throw _privateConstructorUsedError;
   set duration(String? value) => throw _privateConstructorUsedError;
+  int? get durationInMinutes => throw _privateConstructorUsedError;
+  set durationInMinutes(int? value) => throw _privateConstructorUsedError;
   String? get freeBaggage => throw _privateConstructorUsedError;
   set freeBaggage(String? value) => throw _privateConstructorUsedError;
   String? get refundable => throw _privateConstructorUsedError;
@@ -4816,6 +4818,7 @@ abstract class $ApiSearchResponseCopyWith<$Res> {
       String? departureTime,
       String? arrivalTime,
       String? duration,
+      int? durationInMinutes,
       String? freeBaggage,
       String? refundable,
       String? sourceAirport,
@@ -4857,6 +4860,7 @@ class _$ApiSearchResponseCopyWithImpl<$Res, $Val extends ApiSearchResponse>
     Object? departureTime = freezed,
     Object? arrivalTime = freezed,
     Object? duration = freezed,
+    Object? durationInMinutes = freezed,
     Object? freeBaggage = freezed,
     Object? refundable = freezed,
     Object? sourceAirport = freezed,
@@ -4924,6 +4928,10 @@ class _$ApiSearchResponseCopyWithImpl<$Res, $Val extends ApiSearchResponse>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String?,
+      durationInMinutes: freezed == durationInMinutes
+          ? _value.durationInMinutes
+          : durationInMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
       freeBaggage: freezed == freeBaggage
           ? _value.freeBaggage
           : freeBaggage // ignore: cast_nullable_to_non_nullable
@@ -5002,6 +5010,7 @@ abstract class _$$_ApiSearchResponseCopyWith<$Res>
       String? departureTime,
       String? arrivalTime,
       String? duration,
+      int? durationInMinutes,
       String? freeBaggage,
       String? refundable,
       String? sourceAirport,
@@ -5041,6 +5050,7 @@ class __$$_ApiSearchResponseCopyWithImpl<$Res>
     Object? departureTime = freezed,
     Object? arrivalTime = freezed,
     Object? duration = freezed,
+    Object? durationInMinutes = freezed,
     Object? freeBaggage = freezed,
     Object? refundable = freezed,
     Object? sourceAirport = freezed,
@@ -5108,6 +5118,10 @@ class __$$_ApiSearchResponseCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String?,
+      durationInMinutes: freezed == durationInMinutes
+          ? _value.durationInMinutes
+          : durationInMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
       freeBaggage: freezed == freeBaggage
           ? _value.freeBaggage
           : freeBaggage // ignore: cast_nullable_to_non_nullable
@@ -5181,6 +5195,7 @@ class _$_ApiSearchResponse implements _ApiSearchResponse {
       this.departureTime,
       this.arrivalTime,
       this.duration,
+      this.durationInMinutes,
       this.freeBaggage,
       this.refundable,
       this.sourceAirport,
@@ -5225,6 +5240,8 @@ class _$_ApiSearchResponse implements _ApiSearchResponse {
   @override
   String? duration;
   @override
+  int? durationInMinutes;
+  @override
   String? freeBaggage;
   @override
   String? refundable;
@@ -5253,7 +5270,7 @@ class _$_ApiSearchResponse implements _ApiSearchResponse {
 
   @override
   String toString() {
-    return 'ApiSearchResponse(itinId: $itinId, fareId: $fareId, providerCode: $providerCode, airlineCode: $airlineCode, airlineName: $airlineName, flightDetails: $flightDetails, source: $source, destination: $destination, departureDate: $departureDate, arrivalDate: $arrivalDate, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, freeBaggage: $freeBaggage, refundable: $refundable, sourceAirport: $sourceAirport, destinationAirport: $destinationAirport, noofSeat: $noofSeat, amount: $amount, discount: $discount, netAmount: $netAmount, adultFare: $adultFare, noofStop: $noofStop, segmentDetails: $segmentDetails, codeshareAirlines: $codeshareAirlines, pricingList: $pricingList)';
+    return 'ApiSearchResponse(itinId: $itinId, fareId: $fareId, providerCode: $providerCode, airlineCode: $airlineCode, airlineName: $airlineName, flightDetails: $flightDetails, source: $source, destination: $destination, departureDate: $departureDate, arrivalDate: $arrivalDate, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, durationInMinutes: $durationInMinutes, freeBaggage: $freeBaggage, refundable: $refundable, sourceAirport: $sourceAirport, destinationAirport: $destinationAirport, noofSeat: $noofSeat, amount: $amount, discount: $discount, netAmount: $netAmount, adultFare: $adultFare, noofStop: $noofStop, segmentDetails: $segmentDetails, codeshareAirlines: $codeshareAirlines, pricingList: $pricingList)';
   }
 
   @JsonKey(ignore: true)
@@ -5286,6 +5303,7 @@ abstract class _ApiSearchResponse implements ApiSearchResponse {
       String? departureTime,
       String? arrivalTime,
       String? duration,
+      int? durationInMinutes,
       String? freeBaggage,
       String? refundable,
       String? sourceAirport,
@@ -5342,6 +5360,9 @@ abstract class _ApiSearchResponse implements ApiSearchResponse {
   @override
   String? get duration;
   set duration(String? value);
+  @override
+  int? get durationInMinutes;
+  set durationInMinutes(int? value);
   @override
   String? get freeBaggage;
   set freeBaggage(String? value);

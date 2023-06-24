@@ -7,7 +7,9 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/baggage.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/meals.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/passport.dart';
+import '../../../data/api.dart';
 import '../../../data/model/Search/pricing_models.dart';
+import '../../../data/model/utilities.dart';
 
 class ListOfBookingPaxDetails {
   List<BookingPaxdetails> adultPaxList;
@@ -23,29 +25,22 @@ class ListOfBookingPaxDetails {
 typedef ListCallback = void Function(String);
 
 class TavellerDetails extends StatelessWidget {
-  final List<CountryList> cntryList = [
-    CountryList(name: 'United States'),
-    CountryList(name: 'Canada'),
-    CountryList(name: 'Australia'),
-    CountryList(name: 'India'),
-    CountryList(name: 'Uae'),
-    CountryList(name: 'Germany'),
-    CountryList(name: 'France'),
-    // Add more countries as needed
-  ];
+  List<ClsCountriesJson> cntryList = [];
   final PricingResponse data;
-
   List<BookingPaxdetails> paxList = [];
   late List<BookingPaxdetails> adultPaxList;
   late List<BookingPaxdetails> childPaxList;
   late List<BookingPaxdetails> infantPaxList;
   ListOfBookingPaxDetails paxDetailsList;
 
-  TavellerDetails({required this.data, required this.paxDetailsList}) {
+  TavellerDetails({super.key, required this.data, required this.paxDetailsList}) {
     initializePaxLists();
   }
 
   void initializePaxLists() {
+    UtilitiesApi().getCountry().then((value) {
+      cntryList = value ?? [];
+    });
     adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => paxDetailsList.adultPaxList[index]);
     childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => paxDetailsList.childPaxList[index]);
     infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => paxDetailsList.infantPaxList[index]);
@@ -239,10 +234,12 @@ class TavellerDetails extends StatelessWidget {
                 TextEditingController dobController = TextEditingController();
                 TextEditingController countryOfIssueController = TextEditingController();
                 TextEditingController dateOfExpiryController = TextEditingController();
+                final nationality = cntryList.firstWhere((element) => element.countryCode == (infantPaxList[index].nationality ?? ''));
+                final cntryOfIssueCode = cntryList.firstWhere((element) => element.countryCode == (infantPaxList[index].countryofIssue ?? ''));
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                   passportNoController.text = infantPaxList[index].documentNumber ?? '';
-                  countryOfIssueController.text = infantPaxList[index].countryofIssue ?? '';
-                  nationalityController.text = infantPaxList[index].nationality ?? '';
+                  countryOfIssueController.text = cntryOfIssueCode.name ?? '';
+                  nationalityController.text = nationality.name ?? '';
                   dobController.text = infantPaxList[index].dateofBirth ?? '';
                   dateOfExpiryController.text = infantPaxList[index].dateOfExpiry ?? "";
                   return PassportDetailsPage(
@@ -252,15 +249,15 @@ class TavellerDetails extends StatelessWidget {
                     dobController: dobController,
                     nationalityController: nationalityController,
                     passportNoController: passportNoController,
+                    countryOfIssueCode: infantPaxList[index].countryofIssue ?? '',
+                    nationalityCode: infantPaxList[index].nationality ?? '',
                   );
                 })).then((value) {
                   final data = value as PassportDetails;
-                  passportNoController = data.passportNoController;
 
-                  print(passportNoController.text);
                   infantPaxList[index].documentNumber = data.passportNoController.text;
-                  infantPaxList[index].countryofIssue = data.countryOfIssueController.text;
-                  infantPaxList[index].nationality = data.nationalityController.text;
+                  infantPaxList[index].countryofIssue = data.countryOfIssueCode;
+                  infantPaxList[index].nationality = data.nationalityCode;
                   infantPaxList[index].dateofBirth = data.dobController.text;
                   infantPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
                 });
@@ -356,10 +353,13 @@ class TavellerDetails extends StatelessWidget {
                 TextEditingController dobController = TextEditingController();
                 TextEditingController countryOfIssueController = TextEditingController();
                 TextEditingController dateOfExpiryController = TextEditingController();
+                final nationality = cntryList.firstWhere((element) => element.countryCode == (childPaxList[index].nationality ?? ''));
+                final cntryOfIssueCode = cntryList.firstWhere((element) => element.countryCode == (childPaxList[index].countryofIssue ?? ''));
+
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                   passportNoController.text = childPaxList[index].documentNumber ?? '';
-                  countryOfIssueController.text = childPaxList[index].countryofIssue ?? '';
-                  nationalityController.text = childPaxList[index].nationality ?? '';
+                  countryOfIssueController.text = cntryOfIssueCode.name ?? '';
+                  nationalityController.text = nationality.name ?? '';
                   dobController.text = childPaxList[index].dateofBirth ?? '';
                   dateOfExpiryController.text = childPaxList[index].dateOfExpiry ?? "";
                   return PassportDetailsPage(
@@ -369,6 +369,8 @@ class TavellerDetails extends StatelessWidget {
                     dobController: dobController,
                     nationalityController: nationalityController,
                     passportNoController: passportNoController,
+                    countryOfIssueCode: childPaxList[index].countryofIssue ?? '',
+                    nationalityCode: childPaxList[index].nationality ?? '',
                   );
                 })).then((value) {
                   final data = value as PassportDetails;
@@ -508,10 +510,13 @@ class TavellerDetails extends StatelessWidget {
                   TextEditingController dobController = TextEditingController();
                   TextEditingController countryOfIssueController = TextEditingController();
                   TextEditingController dateOfExpiryController = TextEditingController();
+                  final nationality = cntryList.firstWhere((element) => element.countryCode == (adultPaxList[index].nationality ?? ''));
+                  final cntryOfIssueCode = cntryList.firstWhere((element) => element.countryCode == (adultPaxList[index].countryofIssue ?? ''));
+
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                     passportNoController.text = adultPaxList[index].documentNumber ?? '';
-                    countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
-                    nationalityController.text = adultPaxList[index].nationality ?? '';
+                    countryOfIssueController.text = cntryOfIssueCode.name ?? '';
+                    nationalityController.text = nationality.name ?? '';
                     dobController.text = adultPaxList[index].dateofBirth ?? '';
                     dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
                     return PassportDetailsPage(
@@ -521,6 +526,8 @@ class TavellerDetails extends StatelessWidget {
                       dobController: dobController,
                       nationalityController: nationalityController,
                       passportNoController: passportNoController,
+                      nationalityCode: adultPaxList[index].nationality ?? '',
+                      countryOfIssueCode: adultPaxList[index].countryofIssue ?? '',
                     );
                   })).then((value) {
                     final data = value as PassportDetails;
@@ -602,6 +609,8 @@ class PassportDetails {
   TextEditingController dobController = TextEditingController();
   TextEditingController countryOfIssueController = TextEditingController();
   TextEditingController dateOfExpiryController = TextEditingController();
+  String nationalityCode;
+  String countryOfIssueCode;
 
   PassportDetails({
     required this.passportNoController,
@@ -609,6 +618,8 @@ class PassportDetails {
     required this.dobController,
     required this.countryOfIssueController,
     required this.dateOfExpiryController,
+    required this.nationalityCode,
+    required this.countryOfIssueCode,
   });
 }
 

@@ -1112,10 +1112,18 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                     departure = arrival;
                     arrival = tempDept;
 
+                    final tempCode = destinationCode;
+                    destinationCode = originCode;
+                    originCode = tempCode;
+
+                    final tempCountry = destinationCountry;
+                    destinationCountry = originCountry;
+                    originCountry = tempCountry;
+
                     final tempDptAirport = deptAirportName;
                     deptAirportName = arrAirportName;
                     arrAirportName = tempDptAirport;
-d
+
                     final tempController = departureController;
                     departureController = arrivalController;
                     arrivalController = tempController;

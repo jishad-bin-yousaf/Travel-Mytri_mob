@@ -31,7 +31,7 @@ class AccountUrl {
 class UtilitiesUrl {
   String airport = "/api/Utilities/GetAirport";
   String getCountry = "/api/Utilities/GetCountry";
-  String getState = "/api/Utilities/GetState";
+  String getState = "/api/Utilities/GetStateByCountryCode";
 }
 
 class TransactionsUrl {

@@ -115,8 +115,8 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                               onSuggestionSelected: (suggestion) {
                                 countryController.text = suggestion.name ?? '';
-                                countryCode = suggestion.iso3;
-                                UtilitiesApi().getState(countryID: countryCode ?? '').then((value) {
+                                countryCode = suggestion.countryCode;
+                                UtilitiesApi().getState(countryCode: countryCode ?? '').then((value) {
                                   stateList = value ?? [];
                                 });
                               }),
@@ -145,8 +145,8 @@ class ProfileScreen extends StatelessWidget {
                                     child: Center(child: Text("No States Found")),
                                   ),
                               onSuggestionSelected: (suggestion) {
-                                countryController.text = suggestion.name ?? '';
-                                stateCode = suggestion.state_code;
+                                stateController.text = suggestion.name ?? '';
+                                stateCode = suggestion.stateCode;
                               }),
                         ),
                       ),
@@ -223,7 +223,7 @@ class ProfileScreen extends StatelessWidget {
   getCountryList(String query) {
     List<ClsCountriesJson> filteredCountries = [];
 
-    final cityCodeList = countryList.where((element) => element.name!.toLowerCase().contains(query.toLowerCase())).toList();
+    final cityCodeList = countryList.where((element) => element.name!.toLowerCase().startsWith(query.toLowerCase())).toList();
     filteredCountries.addAll(cityCodeList);
 
     log(filteredCountries.toString());
@@ -234,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
   getStateList(String query) {
     List<ClsStatesJson> filteredStates = [];
 
-    final cityCodeList = stateList.where((element) => element.name!.toLowerCase().contains(query.toLowerCase())).toList();
+    final cityCodeList = stateList.where((element) => element.name!.toLowerCase().startsWith(query.toLowerCase())).toList();
     filteredStates.addAll(cityCodeList);
 
     log(filteredStates.toString());

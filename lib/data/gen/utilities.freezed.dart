@@ -630,18 +630,9 @@ ClsCountriesJson _$ClsCountriesJsonFromJson(Map<String, dynamic> json) {
 mixin _$ClsCountriesJson {
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get iso3 => throw _privateConstructorUsedError;
-  String? get iso2 => throw _privateConstructorUsedError;
-  String? get numeric_code => throw _privateConstructorUsedError;
-  String? get phone_code => throw _privateConstructorUsedError;
-  String? get capital => throw _privateConstructorUsedError;
+  String? get countryCode => throw _privateConstructorUsedError;
+  String? get phoneCode => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
-  String? get currency_name => throw _privateConstructorUsedError;
-  String? get currency_symbol => throw _privateConstructorUsedError;
-  String? get tld => throw _privateConstructorUsedError;
-  String? get native => throw _privateConstructorUsedError;
-  String? get region => throw _privateConstructorUsedError;
-  String? get subregion => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -658,18 +649,9 @@ abstract class $ClsCountriesJsonCopyWith<$Res> {
   $Res call(
       {int? id,
       String? name,
-      String? iso3,
-      String? iso2,
-      String? numeric_code,
-      String? phone_code,
-      String? capital,
-      String? currency,
-      String? currency_name,
-      String? currency_symbol,
-      String? tld,
-      String? native,
-      String? region,
-      String? subregion});
+      String? countryCode,
+      String? phoneCode,
+      String? currency});
 }
 
 /// @nodoc
@@ -687,18 +669,9 @@ class _$ClsCountriesJsonCopyWithImpl<$Res, $Val extends ClsCountriesJson>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? iso3 = freezed,
-    Object? iso2 = freezed,
-    Object? numeric_code = freezed,
-    Object? phone_code = freezed,
-    Object? capital = freezed,
+    Object? countryCode = freezed,
+    Object? phoneCode = freezed,
     Object? currency = freezed,
-    Object? currency_name = freezed,
-    Object? currency_symbol = freezed,
-    Object? tld = freezed,
-    Object? native = freezed,
-    Object? region = freezed,
-    Object? subregion = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -709,53 +682,17 @@ class _$ClsCountriesJsonCopyWithImpl<$Res, $Val extends ClsCountriesJson>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      iso3: freezed == iso3
-          ? _value.iso3
-          : iso3 // ignore: cast_nullable_to_non_nullable
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      iso2: freezed == iso2
-          ? _value.iso2
-          : iso2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      numeric_code: freezed == numeric_code
-          ? _value.numeric_code
-          : numeric_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone_code: freezed == phone_code
-          ? _value.phone_code
-          : phone_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      capital: freezed == capital
-          ? _value.capital
-          : capital // ignore: cast_nullable_to_non_nullable
+      phoneCode: freezed == phoneCode
+          ? _value.phoneCode
+          : phoneCode // ignore: cast_nullable_to_non_nullable
               as String?,
       currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency_name: freezed == currency_name
-          ? _value.currency_name
-          : currency_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency_symbol: freezed == currency_symbol
-          ? _value.currency_symbol
-          : currency_symbol // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tld: freezed == tld
-          ? _value.tld
-          : tld // ignore: cast_nullable_to_non_nullable
-              as String?,
-      native: freezed == native
-          ? _value.native
-          : native // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subregion: freezed == subregion
-          ? _value.subregion
-          : subregion // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -772,18 +709,9 @@ abstract class _$$_ClsCountriesJsonCopyWith<$Res>
   $Res call(
       {int? id,
       String? name,
-      String? iso3,
-      String? iso2,
-      String? numeric_code,
-      String? phone_code,
-      String? capital,
-      String? currency,
-      String? currency_name,
-      String? currency_symbol,
-      String? tld,
-      String? native,
-      String? region,
-      String? subregion});
+      String? countryCode,
+      String? phoneCode,
+      String? currency});
 }
 
 /// @nodoc
@@ -799,18 +727,9 @@ class __$$_ClsCountriesJsonCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? iso3 = freezed,
-    Object? iso2 = freezed,
-    Object? numeric_code = freezed,
-    Object? phone_code = freezed,
-    Object? capital = freezed,
+    Object? countryCode = freezed,
+    Object? phoneCode = freezed,
     Object? currency = freezed,
-    Object? currency_name = freezed,
-    Object? currency_symbol = freezed,
-    Object? tld = freezed,
-    Object? native = freezed,
-    Object? region = freezed,
-    Object? subregion = freezed,
   }) {
     return _then(_$_ClsCountriesJson(
       id: freezed == id
@@ -821,53 +740,17 @@ class __$$_ClsCountriesJsonCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      iso3: freezed == iso3
-          ? _value.iso3
-          : iso3 // ignore: cast_nullable_to_non_nullable
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      iso2: freezed == iso2
-          ? _value.iso2
-          : iso2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      numeric_code: freezed == numeric_code
-          ? _value.numeric_code
-          : numeric_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone_code: freezed == phone_code
-          ? _value.phone_code
-          : phone_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      capital: freezed == capital
-          ? _value.capital
-          : capital // ignore: cast_nullable_to_non_nullable
+      phoneCode: freezed == phoneCode
+          ? _value.phoneCode
+          : phoneCode // ignore: cast_nullable_to_non_nullable
               as String?,
       currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency_name: freezed == currency_name
-          ? _value.currency_name
-          : currency_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency_symbol: freezed == currency_symbol
-          ? _value.currency_symbol
-          : currency_symbol // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tld: freezed == tld
-          ? _value.tld
-          : tld // ignore: cast_nullable_to_non_nullable
-              as String?,
-      native: freezed == native
-          ? _value.native
-          : native // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subregion: freezed == subregion
-          ? _value.subregion
-          : subregion // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -877,20 +760,7 @@ class __$$_ClsCountriesJsonCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ClsCountriesJson implements _ClsCountriesJson {
   const _$_ClsCountriesJson(
-      {this.id,
-      this.name,
-      this.iso3,
-      this.iso2,
-      this.numeric_code,
-      this.phone_code,
-      this.capital,
-      this.currency,
-      this.currency_name,
-      this.currency_symbol,
-      this.tld,
-      this.native,
-      this.region,
-      this.subregion});
+      {this.id, this.name, this.countryCode, this.phoneCode, this.currency});
 
   factory _$_ClsCountriesJson.fromJson(Map<String, dynamic> json) =>
       _$$_ClsCountriesJsonFromJson(json);
@@ -900,33 +770,15 @@ class _$_ClsCountriesJson implements _ClsCountriesJson {
   @override
   final String? name;
   @override
-  final String? iso3;
+  final String? countryCode;
   @override
-  final String? iso2;
-  @override
-  final String? numeric_code;
-  @override
-  final String? phone_code;
-  @override
-  final String? capital;
+  final String? phoneCode;
   @override
   final String? currency;
-  @override
-  final String? currency_name;
-  @override
-  final String? currency_symbol;
-  @override
-  final String? tld;
-  @override
-  final String? native;
-  @override
-  final String? region;
-  @override
-  final String? subregion;
 
   @override
   String toString() {
-    return 'ClsCountriesJson(id: $id, name: $name, iso3: $iso3, iso2: $iso2, numeric_code: $numeric_code, phone_code: $phone_code, capital: $capital, currency: $currency, currency_name: $currency_name, currency_symbol: $currency_symbol, tld: $tld, native: $native, region: $region, subregion: $subregion)';
+    return 'ClsCountriesJson(id: $id, name: $name, countryCode: $countryCode, phoneCode: $phoneCode, currency: $currency)';
   }
 
   @override
@@ -936,44 +788,18 @@ class _$_ClsCountriesJson implements _ClsCountriesJson {
             other is _$_ClsCountriesJson &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.iso3, iso3) || other.iso3 == iso3) &&
-            (identical(other.iso2, iso2) || other.iso2 == iso2) &&
-            (identical(other.numeric_code, numeric_code) ||
-                other.numeric_code == numeric_code) &&
-            (identical(other.phone_code, phone_code) ||
-                other.phone_code == phone_code) &&
-            (identical(other.capital, capital) || other.capital == capital) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode) &&
+            (identical(other.phoneCode, phoneCode) ||
+                other.phoneCode == phoneCode) &&
             (identical(other.currency, currency) ||
-                other.currency == currency) &&
-            (identical(other.currency_name, currency_name) ||
-                other.currency_name == currency_name) &&
-            (identical(other.currency_symbol, currency_symbol) ||
-                other.currency_symbol == currency_symbol) &&
-            (identical(other.tld, tld) || other.tld == tld) &&
-            (identical(other.native, native) || other.native == native) &&
-            (identical(other.region, region) || other.region == region) &&
-            (identical(other.subregion, subregion) ||
-                other.subregion == subregion));
+                other.currency == currency));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      iso3,
-      iso2,
-      numeric_code,
-      phone_code,
-      capital,
-      currency,
-      currency_name,
-      currency_symbol,
-      tld,
-      native,
-      region,
-      subregion);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, countryCode, phoneCode, currency);
 
   @JsonKey(ignore: true)
   @override
@@ -993,18 +819,9 @@ abstract class _ClsCountriesJson implements ClsCountriesJson {
   const factory _ClsCountriesJson(
       {final int? id,
       final String? name,
-      final String? iso3,
-      final String? iso2,
-      final String? numeric_code,
-      final String? phone_code,
-      final String? capital,
-      final String? currency,
-      final String? currency_name,
-      final String? currency_symbol,
-      final String? tld,
-      final String? native,
-      final String? region,
-      final String? subregion}) = _$_ClsCountriesJson;
+      final String? countryCode,
+      final String? phoneCode,
+      final String? currency}) = _$_ClsCountriesJson;
 
   factory _ClsCountriesJson.fromJson(Map<String, dynamic> json) =
       _$_ClsCountriesJson.fromJson;
@@ -1014,29 +831,11 @@ abstract class _ClsCountriesJson implements ClsCountriesJson {
   @override
   String? get name;
   @override
-  String? get iso3;
+  String? get countryCode;
   @override
-  String? get iso2;
-  @override
-  String? get numeric_code;
-  @override
-  String? get phone_code;
-  @override
-  String? get capital;
+  String? get phoneCode;
   @override
   String? get currency;
-  @override
-  String? get currency_name;
-  @override
-  String? get currency_symbol;
-  @override
-  String? get tld;
-  @override
-  String? get native;
-  @override
-  String? get region;
-  @override
-  String? get subregion;
   @override
   @JsonKey(ignore: true)
   _$$_ClsCountriesJsonCopyWith<_$_ClsCountriesJson> get copyWith =>
@@ -1234,15 +1033,10 @@ ClsStatesJson _$ClsStatesJsonFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ClsStatesJson {
-  int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  int? get country_id => throw _privateConstructorUsedError;
-  String? get country_code => throw _privateConstructorUsedError;
-  String? get country_name => throw _privateConstructorUsedError;
-  String? get state_code => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-  String? get latitude => throw _privateConstructorUsedError;
-  String? get longitude => throw _privateConstructorUsedError;
+  int? get countryId => throw _privateConstructorUsedError;
+  String? get countryCode => throw _privateConstructorUsedError;
+  String? get stateCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1257,15 +1051,7 @@ abstract class $ClsStatesJsonCopyWith<$Res> {
       _$ClsStatesJsonCopyWithImpl<$Res, ClsStatesJson>;
   @useResult
   $Res call(
-      {int? id,
-      String? name,
-      int? country_id,
-      String? country_code,
-      String? country_name,
-      String? state_code,
-      String? type,
-      String? latitude,
-      String? longitude});
+      {String? name, int? countryId, String? countryCode, String? stateCode});
 }
 
 /// @nodoc
@@ -1281,52 +1067,27 @@ class _$ClsStatesJsonCopyWithImpl<$Res, $Val extends ClsStatesJson>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
     Object? name = freezed,
-    Object? country_id = freezed,
-    Object? country_code = freezed,
-    Object? country_name = freezed,
-    Object? state_code = freezed,
-    Object? type = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? countryId = freezed,
+    Object? countryCode = freezed,
+    Object? stateCode = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      country_id: freezed == country_id
-          ? _value.country_id
-          : country_id // ignore: cast_nullable_to_non_nullable
+      countryId: freezed == countryId
+          ? _value.countryId
+          : countryId // ignore: cast_nullable_to_non_nullable
               as int?,
-      country_code: freezed == country_code
-          ? _value.country_code
-          : country_code // ignore: cast_nullable_to_non_nullable
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      country_name: freezed == country_name
-          ? _value.country_name
-          : country_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      state_code: freezed == state_code
-          ? _value.state_code
-          : state_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latitude: freezed == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as String?,
-      longitude: freezed == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
+      stateCode: freezed == stateCode
+          ? _value.stateCode
+          : stateCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -1341,15 +1102,7 @@ abstract class _$$_ClsStatesJsonCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
-      String? name,
-      int? country_id,
-      String? country_code,
-      String? country_name,
-      String? state_code,
-      String? type,
-      String? latitude,
-      String? longitude});
+      {String? name, int? countryId, String? countryCode, String? stateCode});
 }
 
 /// @nodoc
@@ -1363,52 +1116,27 @@ class __$$_ClsStatesJsonCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
     Object? name = freezed,
-    Object? country_id = freezed,
-    Object? country_code = freezed,
-    Object? country_name = freezed,
-    Object? state_code = freezed,
-    Object? type = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
+    Object? countryId = freezed,
+    Object? countryCode = freezed,
+    Object? stateCode = freezed,
   }) {
     return _then(_$_ClsStatesJson(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      country_id: freezed == country_id
-          ? _value.country_id
-          : country_id // ignore: cast_nullable_to_non_nullable
+      countryId: freezed == countryId
+          ? _value.countryId
+          : countryId // ignore: cast_nullable_to_non_nullable
               as int?,
-      country_code: freezed == country_code
-          ? _value.country_code
-          : country_code // ignore: cast_nullable_to_non_nullable
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      country_name: freezed == country_name
-          ? _value.country_name
-          : country_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      state_code: freezed == state_code
-          ? _value.state_code
-          : state_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latitude: freezed == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as String?,
-      longitude: freezed == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
+      stateCode: freezed == stateCode
+          ? _value.stateCode
+          : stateCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1418,41 +1146,23 @@ class __$$_ClsStatesJsonCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ClsStatesJson implements _ClsStatesJson {
   const _$_ClsStatesJson(
-      {this.id,
-      this.name,
-      this.country_id,
-      this.country_code,
-      this.country_name,
-      this.state_code,
-      this.type,
-      this.latitude,
-      this.longitude});
+      {this.name, this.countryId, this.countryCode, this.stateCode});
 
   factory _$_ClsStatesJson.fromJson(Map<String, dynamic> json) =>
       _$$_ClsStatesJsonFromJson(json);
 
   @override
-  final int? id;
-  @override
   final String? name;
   @override
-  final int? country_id;
+  final int? countryId;
   @override
-  final String? country_code;
+  final String? countryCode;
   @override
-  final String? country_name;
-  @override
-  final String? state_code;
-  @override
-  final String? type;
-  @override
-  final String? latitude;
-  @override
-  final String? longitude;
+  final String? stateCode;
 
   @override
   String toString() {
-    return 'ClsStatesJson(id: $id, name: $name, country_id: $country_id, country_code: $country_code, country_name: $country_name, state_code: $state_code, type: $type, latitude: $latitude, longitude: $longitude)';
+    return 'ClsStatesJson(name: $name, countryId: $countryId, countryCode: $countryCode, stateCode: $stateCode)';
   }
 
   @override
@@ -1460,27 +1170,19 @@ class _$_ClsStatesJson implements _ClsStatesJson {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ClsStatesJson &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.country_id, country_id) ||
-                other.country_id == country_id) &&
-            (identical(other.country_code, country_code) ||
-                other.country_code == country_code) &&
-            (identical(other.country_name, country_name) ||
-                other.country_name == country_name) &&
-            (identical(other.state_code, state_code) ||
-                other.state_code == state_code) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
+            (identical(other.countryId, countryId) ||
+                other.countryId == countryId) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode) &&
+            (identical(other.stateCode, stateCode) ||
+                other.stateCode == stateCode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, country_id,
-      country_code, country_name, state_code, type, latitude, longitude);
+  int get hashCode =>
+      Object.hash(runtimeType, name, countryId, countryCode, stateCode);
 
   @JsonKey(ignore: true)
   @override
@@ -1498,37 +1200,22 @@ class _$_ClsStatesJson implements _ClsStatesJson {
 
 abstract class _ClsStatesJson implements ClsStatesJson {
   const factory _ClsStatesJson(
-      {final int? id,
-      final String? name,
-      final int? country_id,
-      final String? country_code,
-      final String? country_name,
-      final String? state_code,
-      final String? type,
-      final String? latitude,
-      final String? longitude}) = _$_ClsStatesJson;
+      {final String? name,
+      final int? countryId,
+      final String? countryCode,
+      final String? stateCode}) = _$_ClsStatesJson;
 
   factory _ClsStatesJson.fromJson(Map<String, dynamic> json) =
       _$_ClsStatesJson.fromJson;
 
   @override
-  int? get id;
-  @override
   String? get name;
   @override
-  int? get country_id;
+  int? get countryId;
   @override
-  String? get country_code;
+  String? get countryCode;
   @override
-  String? get country_name;
-  @override
-  String? get state_code;
-  @override
-  String? get type;
-  @override
-  String? get latitude;
-  @override
-  String? get longitude;
+  String? get stateCode;
   @override
   @JsonKey(ignore: true)
   _$$_ClsStatesJsonCopyWith<_$_ClsStatesJson> get copyWith =>

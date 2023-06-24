@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/traveller%20details/traveller_details.dart';
 
 import '../../../Constants/colors.dart';
+import '../../../data/model/utilities.dart';
 
 class PassportDetailsPage extends StatelessWidget {
   PassportDetailsPage({
@@ -16,14 +17,19 @@ class PassportDetailsPage extends StatelessWidget {
     required this.dobController,
     required this.countryOfIssueController,
     required this.dateOfExpiryController,
+    required this.nationalityCode,
+    required this.countryOfIssueCode,
   });
 
-  List<CountryList> cntryList;
+  List<ClsCountriesJson> cntryList;
+  List<ClsCountriesJson> countryList = [];
   TextEditingController passportNoController;
   TextEditingController nationalityController;
   TextEditingController dobController;
   TextEditingController countryOfIssueController;
   TextEditingController dateOfExpiryController;
+  String nationalityCode;
+  String countryOfIssueCode;
 
   @override
   Widget build(BuildContext context) {
@@ -55,42 +61,28 @@ class PassportDetailsPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-              child: TypeAheadField<CountryList>(
-                  hideSuggestionsOnKeyboardHide: true,
+              child: TypeAheadField<ClsCountriesJson>(
+                  hideSuggestionsOnKeyboardHide: false,
                   debounceDuration: const Duration(milliseconds: 500),
-                  suggestionsCallback: (query) async => getList(query),
-                  itemBuilder: (context, itemData) => SizedBox(
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            itemData.name,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        ),
+                  suggestionsCallback: (query) async => getCountryList(query),
+                  itemBuilder: (context, itemData) => ListTile(
+                        title: Text("${itemData.name ?? ''}"),
                       ),
                   textFieldConfiguration: TextFieldConfiguration(
                     controller: nationalityController,
-                    autofocus: true,
-                    //  controller: departureController,
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    decoration: const InputDecoration(
-                      label: Text("Nationality"),
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      label: const Text("Nationality"),
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                   noItemsFoundBuilder: (context) => const SizedBox(
                         height: 80,
-                        child: Center(child: Text("No Airports Found")),
+                        child: Center(child: Text("No Countries Found")),
                       ),
                   onSuggestionSelected: (suggestion) {
-                    nationalityController.text = suggestion.name;
-                    // originCode = suggestion.cityCode ?? '';
-                    // originCountry = suggestion.countryCode ?? '';
-                    // departureController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
-                    // departure = departureController.text;
-                    // deptAirportName = suggestion.airportName ?? '';
-                    // showDepTypeField = true;
+                    nationalityController.text = suggestion.name ?? '';
+                    nationalityCode = suggestion.countryCode ?? '';
                   }),
             ),
             Padding(
@@ -117,42 +109,28 @@ class PassportDetailsPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-              child: TypeAheadField<CountryList>(
-                  hideSuggestionsOnKeyboardHide: true,
+              child: TypeAheadField<ClsCountriesJson>(
+                  hideSuggestionsOnKeyboardHide: false,
                   debounceDuration: const Duration(milliseconds: 500),
-                  suggestionsCallback: (query) async => getList(query),
-                  itemBuilder: (context, itemData) => SizedBox(
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            itemData.name,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        ),
+                  suggestionsCallback: (query) async => getCountryList(query),
+                  itemBuilder: (context, itemData) => ListTile(
+                        title: Text("${itemData.name ?? ''}"),
                       ),
                   textFieldConfiguration: TextFieldConfiguration(
                     controller: countryOfIssueController,
-                    autofocus: true,
-                    //  controller: departureController,
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    decoration: const InputDecoration(
-                      label: Text("Country of Issue"),
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      label: const Text("Country of Issue"),
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                   noItemsFoundBuilder: (context) => const SizedBox(
                         height: 80,
-                        child: Center(child: Text("Not Found")),
+                        child: Center(child: Text("No Countries Found")),
                       ),
                   onSuggestionSelected: (suggestion) {
-                    countryOfIssueController.text = suggestion.name;
-                    // originCode = suggestion.cityCode ?? '';
-                    // originCountry = suggestion.countryCode ?? '';
-                    // departureController.text = "${suggestion.cityName?.toUpperCase() ?? ''} - ${suggestion.cityCode?.toUpperCase() ?? ''}";
-                    // departure = departureController.text;
-                    // deptAirportName = suggestion.airportName ?? '';
-                    // showDepTypeField = true;
+                    countryOfIssueController.text = suggestion.name ?? '';
+                    countryOfIssueCode = suggestion.countryCode ?? '';
                   }),
             ),
             Padding(
@@ -188,6 +166,8 @@ class PassportDetailsPage extends StatelessWidget {
                         dateOfExpiryController: dateOfExpiryController,
                         dobController: dobController,
                         nationalityController: nationalityController,
+                        countryOfIssueCode: countryOfIssueCode ?? '',
+                        nationalityCode: nationalityCode ?? '',
                       ));
                 },
                 style: ElevatedButton.styleFrom(
@@ -204,12 +184,14 @@ class PassportDetailsPage extends StatelessWidget {
     );
   }
 
-  Future<List<CountryList>> getList(String query) async {
-    List<CountryList> filteredFlights = [];
+  getCountryList(String query) {
+    List<ClsCountriesJson> filteredCountries = [];
 
-    final cityCodeList = cntryList.where((element) => element.name.toLowerCase().contains(query.toLowerCase())).toList();
-    filteredFlights.addAll(cityCodeList);
-    log(filteredFlights.toString());
-    return filteredFlights;
+    final cityCodeList = cntryList.where((element) => element.name!.toLowerCase().startsWith(query.toLowerCase())).toList();
+    filteredCountries.addAll(cityCodeList);
+
+    log(filteredCountries.toString());
+
+    return filteredCountries;
   }
 }
