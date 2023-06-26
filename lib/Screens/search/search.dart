@@ -13,6 +13,90 @@ import 'package:travel_mytri_mobile_v1/data/model/utilities.dart';
 
 import '../../data/model/hive_class_functions.dart';
 
+class ModifyData {
+  bool oneWay;
+  bool roundTrip;
+  bool multiCity;
+  bool economy;
+  bool premiumEconomy;
+  bool businessClass;
+  bool firstClass;
+  DateTime departureDate;
+  String departureDateReq;
+
+  TextEditingController departureController;
+  TextEditingController arrivalController;
+  TextEditingController departureDateController;
+  TextEditingController returnDateController;
+  TextEditingController passengerController;
+  TextEditingController classController;
+
+  String deptAirportName;
+  String arrAirportName;
+  String departure;
+  String arrival;
+  String travelClass;
+  String travelType;
+  bool internationalTrip;
+
+  int adultCount;
+  int childCount;
+  int infantCount;
+  int totalPassengerCount;
+
+  String originCode;
+  String originCountry;
+
+  String destinationCode;
+  String destinationCountry;
+
+  DateTime? returnDate;
+
+  bool isLoadingPage;
+
+  String? returnDateReq;
+
+  ModifyData({
+    required this.oneWay,
+    required this.roundTrip,
+    required this.multiCity,
+    required this.economy,
+    required this.premiumEconomy,
+    required this.businessClass,
+    required this.firstClass,
+    required this.departureDate,
+    required this.departureDateReq,
+    required this.departureController,
+    required this.arrivalController,
+    required this.departureDateController,
+    required this.returnDateController,
+    required this.passengerController,
+    required this.classController,
+    required this.deptAirportName,
+    required this.arrAirportName,
+    required this.departure,
+    required this.arrival,
+    required this.travelClass,
+    required this.travelType,
+    required this.internationalTrip,
+    required this.adultCount,
+    required this.childCount,
+    required this.infantCount,
+    required this.totalPassengerCount,
+    required this.originCode,
+    required this.originCountry,
+    required this.destinationCode,
+    required this.destinationCountry,
+    required this.returnDate,
+    required this.isLoadingPage,
+    required this.returnDateReq,
+  });
+
+  // Add any additional constructors if needed
+
+  // Add any additional methods or logic as required
+}
+
 class FlightSearchScreen extends StatefulWidget {
   FlightSearchScreen({super.key});
 
@@ -29,7 +113,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       dev.log(isLogged.toString());
       isLogged = value.isUser ?? false;
       userName = value.firstName ?? "User";
-      dev.log((userName).toString() + "userDetails");
+
       setState(() {});
     });
     super.initState();
@@ -64,8 +148,11 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
             label: Text(
-              "Hi $userName !",
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
+              "Hi $userName",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
         ),
@@ -89,7 +176,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
               child: Column(
                 children: [
                   flightOrHotelSelect(context),
-                  const TripTypes(),
+                  TripTypes(isModify: false),
                 ],
               ),
             )
@@ -181,7 +268,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 }
 
 class TripTypes extends StatefulWidget {
-  const TripTypes({
+  bool isModify;
+  ModifyData? modifyData;
+
+  TripTypes({
+    required this.isModify,
+    this.modifyData,
     super.key,
   });
 
@@ -247,17 +339,53 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
     });
 
     super.initState();
-
-    passengerController.text = '1 Passenger';
-    classController.text = 'Economy';
-    //travelType = 'oneWay';
-    oneWay = true;
-    roundTrip = false;
-    multiCity = false;
-    economy = true;
-    premiumEconomy = false;
-    businessClass = false;
-    firstClass = false;
+    if (widget.isModify) {
+      final data = widget.modifyData!;
+      oneWay = data.oneWay;
+      roundTrip = data.roundTrip;
+      multiCity = data.multiCity;
+      economy = data.economy;
+      premiumEconomy = data.premiumEconomy;
+      businessClass = data.businessClass;
+      firstClass = data.firstClass;
+      departureDate = data.departureDate;
+      departureDateReq = data.departureDateReq;
+      departureController = data.departureController;
+      arrivalController = data.arrivalController;
+      departureDateController = data.departureDateController;
+      returnDateController = data.returnDateController;
+      passengerController = data.passengerController;
+      classController = data.classController;
+      deptAirportName = data.deptAirportName;
+      arrAirportName = data.arrAirportName;
+      departure = data.departure;
+      arrival = data.arrival;
+      travelClass = data.travelClass;
+      travelType = data.travelType;
+      internationalTrip = data.internationalTrip;
+      adultCount = data.adultCount;
+      childCount = data.childCount;
+      infantCount = data.infantCount;
+      totalPassengerCount = data.totalPassengerCount;
+      originCode = data.originCode;
+      originCountry = data.originCountry;
+      destinationCode = data.destinationCode;
+      destinationCountry = data.destinationCountry;
+      returnDate = data.returnDate;
+      isLoadingPage = data.isLoadingPage;
+      returnDateReq = data.returnDateReq;
+    } else {
+      passengerController.text = '1 Passenger';
+      classController.text = 'Economy';
+      //travelType = 'oneWay';
+      oneWay = true;
+      roundTrip = false;
+      multiCity = false;
+      economy = true;
+      premiumEconomy = false;
+      businessClass = false;
+      firstClass = false;
+    }
   }
 
   @override
@@ -346,7 +474,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
               searchReq.fareType = "";
               searchReq.isdirect = false;
               searchReq.objsectorlist = [];
-              /////////////////////////////////
 
               if (oneWay || roundTrip) {
                 onwardSector.origin = originCode;
@@ -355,7 +482,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                 onwardSector.destinationcountry = destinationCountry;
                 onwardSector.departureDate = departureDateReq;
                 onwardSector.tripmode = "O";
-
                 searchReq.objsectorlist?.add(onwardSector);
                 travelType = "O";
               }
@@ -403,6 +529,41 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                             "data": data,
                             "tripType": travelType,
                             "internationalTrip": internationalTrip,
+                            "ModifyData": ModifyData(
+                              oneWay: oneWay,
+                              roundTrip: roundTrip,
+                              multiCity: multiCity,
+                              economy: economy,
+                              premiumEconomy: premiumEconomy,
+                              businessClass: businessClass,
+                              firstClass: firstClass,
+                              departureDate: departureDate,
+                              departureDateReq: departureDateReq ?? '',
+                              departureController: departureController,
+                              arrivalController: arrivalController,
+                              departureDateController: departureDateController,
+                              returnDateController: returnDateController,
+                              passengerController: passengerController,
+                              classController: classController,
+                              deptAirportName: deptAirportName,
+                              arrAirportName: arrAirportName,
+                              departure: departure,
+                              arrival: arrival,
+                              travelClass: travelClass,
+                              travelType: travelType,
+                              internationalTrip: internationalTrip,
+                              adultCount: adultCount,
+                              childCount: childCount,
+                              infantCount: infantCount,
+                              totalPassengerCount: totalPassengerCount,
+                              originCode: originCode,
+                              originCountry: originCountry,
+                              destinationCode: destinationCode,
+                              destinationCountry: destinationCountry,
+                              returnDate: returnDate,
+                              isLoadingPage: isLoadingPage,
+                              returnDateReq: returnDateReq,
+                            ),
                           }).then((value) {
                             //      isLoadingPage = false;
                             //         setState(() {});
@@ -426,6 +587,41 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                             "data": data,
                             "tripType": travelType,
                             "internationalTrip": true,
+                            "ModifyData": ModifyData(
+                              oneWay: oneWay,
+                              roundTrip: roundTrip,
+                              multiCity: multiCity,
+                              economy: economy,
+                              premiumEconomy: premiumEconomy,
+                              businessClass: businessClass,
+                              firstClass: firstClass,
+                              departureDate: departureDate,
+                              departureDateReq: departureDateReq ?? '',
+                              departureController: departureController,
+                              arrivalController: arrivalController,
+                              departureDateController: departureDateController,
+                              returnDateController: returnDateController,
+                              passengerController: passengerController,
+                              classController: classController,
+                              deptAirportName: deptAirportName,
+                              arrAirportName: arrAirportName,
+                              departure: departure,
+                              arrival: arrival,
+                              travelClass: travelClass,
+                              travelType: travelType,
+                              internationalTrip: internationalTrip,
+                              adultCount: adultCount,
+                              childCount: childCount,
+                              infantCount: infantCount,
+                              totalPassengerCount: totalPassengerCount,
+                              originCode: originCode,
+                              originCountry: originCountry,
+                              destinationCode: destinationCode,
+                              destinationCountry: destinationCountry,
+                              returnDate: returnDate,
+                              isLoadingPage: isLoadingPage,
+                              returnDateReq: returnDateReq,
+                            ),
                           }).then((value) {
                             //  isLoadingPage = false;
                             //   setState(() {});
@@ -449,6 +645,41 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                             "data": data,
                             "tripType": travelType,
                             "internationalTrip": false,
+                            "ModifyData": ModifyData(
+                              oneWay: oneWay,
+                              roundTrip: roundTrip,
+                              multiCity: multiCity,
+                              economy: economy,
+                              premiumEconomy: premiumEconomy,
+                              businessClass: businessClass,
+                              firstClass: firstClass,
+                              departureDate: departureDate,
+                              departureDateReq: departureDateReq ?? '',
+                              departureController: departureController,
+                              arrivalController: arrivalController,
+                              departureDateController: departureDateController,
+                              returnDateController: returnDateController,
+                              passengerController: passengerController,
+                              classController: classController,
+                              deptAirportName: deptAirportName,
+                              arrAirportName: arrAirportName,
+                              departure: departure,
+                              arrival: arrival,
+                              travelClass: travelClass,
+                              travelType: travelType,
+                              internationalTrip: internationalTrip,
+                              adultCount: adultCount,
+                              childCount: childCount,
+                              infantCount: infantCount,
+                              totalPassengerCount: totalPassengerCount,
+                              originCode: originCode,
+                              originCountry: originCountry,
+                              destinationCode: destinationCode,
+                              destinationCountry: destinationCountry,
+                              returnDate: returnDate,
+                              isLoadingPage: isLoadingPage,
+                              returnDateReq: returnDateReq,
+                            ),
                           }).then((value) {
                             //     isLoadingPage = false;
                             //       setState(() {});

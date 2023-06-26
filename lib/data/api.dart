@@ -106,30 +106,7 @@ class AuthenticationApi {
     try {
       final url = Uri.parse(baseUrl + urls.otpSubmit);
       print({"mobileNumber": mobileNo, "otp": otp});
-      /*      var deviceInfo = DeviceInfoPlugin();
-      String deviceId = '';
-      Map<String, String> header = {};
 
-      if (Platform.isAndroid) {
-        var androidInfo = await deviceInfo.androidInfo;
-        deviceId = androidInfo.androidId;
-      } else if (Platform.isIOS) {
-        var iosInfo = await deviceInfo.iosInfo;
-        deviceId = iosInfo.identifierForVendor;
-      }
-      await getToken().then((value) => header = {
-            "Authorization": "Bearer $value",
-            "DeviceCode": "M",
-            "content-type": "application/json",
-            "os": Platform.isAndroid
-                ? "Android"
-                : Platform.isIOS
-                    ? "iOS"
-                    : "",
-            "deviceId": deviceId,
-            "appVersion": "1.0.0"
-          });
- */
       if (Platform.isAndroid) {
         log("Android");
       } else if (Platform.isIOS) {
@@ -216,36 +193,7 @@ class UtilitiesApi {
   Future<List<AirportData>?> getAirport() async {
     try {
       final url = Uri.parse(baseUrl + urls.airport);
-      /*    var deviceInfo = DeviceInfoPlugin();
-      String deviceId = '';
-      Map<String, String> header = {};
 
-      if (Platform.isAndroid) {
-        var androidInfo = await deviceInfo.androidInfo;
-        deviceId = androidInfo.androidId;
-      } else if (Platform.isIOS) {
-        var iosInfo = await deviceInfo.iosInfo;
-        deviceId = iosInfo.identifierForVendor;
-      }
-      await getToken().then((value) => header = {
-            "Authorization": "Bearer $value",
-            "DeviceCode": "M",
-            "content-type": "application/json",
-            "os": Platform.isAndroid
-                ? "Android"
-                : Platform.isIOS
-                    ? "iOS"
-                    : "",
-            "deviceId": deviceId,
-            "appVersion": "1.0.0"
-          });
-
-      if (Platform.isAndroid) {
-        log("Android");
-      } else if (Platform.isIOS) {
-        log("iOS");
-      }
- */
       final header = await getHeader();
 
       print(header);

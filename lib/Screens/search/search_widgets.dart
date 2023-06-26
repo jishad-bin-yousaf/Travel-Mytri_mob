@@ -10,7 +10,7 @@ import '../../data/model/Search/flight_search_model.dart';
 import '../../data/model/utilities.dart';
 import '../widgets/helper.dart';
 
-flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
+flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData modifyData) {
   return AppBar(
     actions: [
       IconButton(
@@ -30,7 +30,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data) {
                       Navigator.pop(context);
                     },
                   ),
-                  TripTypes(),
+                  TripTypes(isModify: true, modifyData: modifyData),
                 ]);
               },
             );

@@ -46,8 +46,11 @@ class _ScreenHomeState extends State<ScreenHome> {
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
             label: Text(
-              "Hi ${userName ?? ""} !",
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
+              "Hi ${userName ?? ""}",
+              maxLines: 1,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
         ),

@@ -70,7 +70,45 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    AuthenticationApi().noUserLogin().then((value) {
+    Future.delayed(const Duration(seconds: 2), () {
+      getToken().then((value) {
+        if ((value.token != null) && (value.token != '')) {
+          Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+        } else {
+          AuthenticationApi().noUserLogin().then((value) {
+            Token toc = Token();
+            if (value?.token != null) {
+              toc.token = value?.token ?? '';
+              setToken(toc);
+            }
+            (value?.status ?? false)
+                ? Future.delayed(const Duration(seconds: 2), () {
+                    getToken().then((value) {
+                      Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                    });
+                  }
+                    //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+                    )
+                : Future.delayed(const Duration(seconds: 2), () {
+                    getToken().then((value) {
+                      Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                    });
+                  }
+                    // Future.delayed(const Duration(seconds: 5), () {
+                    //     getToken().then((value) {
+                    //       Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+                    //     });
+                    //   }
+                    //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+                    );
+          });
+        }
+      });
+    }
+        //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+        );
+
+/*     AuthenticationApi().noUserLogin().then((value) {
       Token toc = Token();
       if (value?.token != null) {
         toc.token = value?.token ?? '';
@@ -97,6 +135,7 @@ class _SplashScreenState extends State<SplashScreen> {
               //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
               );
     });
+  */
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:travel_mytri_mobile_v1/Screens/widgets/error.dart';
 import '../../data/api.dart';
 import '../../data/model/Search/flight_search_model.dart';
 import 'filter/filter_CRT.dart';
+import 'search.dart';
 
 class ScreenFlightSearchResult extends StatefulWidget {
   ScreenFlightSearchResult({super.key});
@@ -41,6 +42,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
     // try {
     arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     travelType = arguments["tripType"];
+    ModifyData modifyData = arguments["ModifyData"];
     var internationalTrip = arguments["internationalTrip"];
     //  log(internationalTrip);
 
@@ -89,7 +91,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
             child: const Icon(Icons.filter_alt_outlined),
           ),
         ),
-        appBar: flightSearchAppBar(context, airlineSearchResponse),
+        appBar: flightSearchAppBar(context, airlineSearchResponse, modifyData),
         body: Column(
           children: [
             fareOnDateListView(context, airlineSearchResponse.objlowfareList ?? []),
@@ -170,7 +172,26 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                   actions: [
                     IconButton(
                         tooltip: "Edit",
-                        onPressed: () => Navigator.of(context).pop(),
+                        // onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            useSafeArea: true,
+                            enableDrag: true,
+                            context: context,
+                            builder: (context) {
+                              return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
+                                IconButton(
+                                  icon: Icon(Icons.close),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                TripTypes(isModify: true, modifyData: modifyData),
+                              ]);
+                            },
+                          );
+                        },
                         icon: const Icon(
                           Icons.edit_outlined,
                           size: 23,
@@ -304,7 +325,37 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
         irAirlineSearchResponse.testR = true;
         log(irAirlineSearchResponse.toString());
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                  tooltip: "Edit",
+                  // onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      enableDrag: true,
+                      context: context,
+                      builder: (context) {
+                        return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TripTypes(isModify: true, modifyData: modifyData),
+                        ]);
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.edit_outlined,
+                    size: 23,
+                  ))
+            ],
+            automaticallyImplyLeading: false,
+          ),
           body: Column(
             children: [
               Row(

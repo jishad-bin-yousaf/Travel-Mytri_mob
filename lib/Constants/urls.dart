@@ -19,6 +19,7 @@ class PricingUrls {
 
 class AuthenticationUrl {
   String authenticate = "/api/Account/Authenticate";
+  String logoutUser = "/api/Account/LogoutUser";
   String startingApi = "/api/Account/DefaultAuthenticate";
   String otpSubmit = "/api/Account/OtpSubmitForAuthentication";
 }
