@@ -64,32 +64,36 @@ class ProfileScreen extends StatelessWidget {
                     IconButton(
                         icon: const Icon(Icons.logout),
                         onPressed: () {
-                          AuthenticationApi().noUserLogin().then((value) {
-                            Token toc = Token();
-                            if (value?.token != null) {
-                              toc.token = value?.token ?? '';
-                              setToken(toc);
+                          AuthenticationApi().logOut(userId: data.userId.toString()).then((value) {
+                            if (value?.status ?? false) {
+                              AuthenticationApi().noUserLogin().then((value) {
+                                Token toc = Token();
+                                if (value?.token != null) {
+                                  toc.token = value?.token ?? '';
+                                  setToken(toc);
+                                }
+                                (value?.status ?? false)
+                                    ? Future.delayed(const Duration(seconds: 2), () {
+                                        getToken().then((value) {
+                                          Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+                                        });
+                                      }
+                                        //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+                                        )
+                                    : Future.delayed(const Duration(seconds: 2), () {
+                                        getToken().then((value) {
+                                          Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+                                        });
+                                      }
+                                        // Future.delayed(const Duration(seconds: 5), () {
+                                        //     getToken().then((value) {
+                                        //       Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+                                        //     });
+                                        //   }
+                                        //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
+                                        );
+                              });
                             }
-                            (value?.status ?? false)
-                                ? Future.delayed(const Duration(seconds: 2), () {
-                                    getToken().then((value) {
-                                      Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
-                                    });
-                                  }
-                                    //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
-                                    )
-                                : Future.delayed(const Duration(seconds: 2), () {
-                                    getToken().then((value) {
-                                      Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
-                                    });
-                                  }
-                                    // Future.delayed(const Duration(seconds: 5), () {
-                                    //     getToken().then((value) {
-                                    //       Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
-                                    //     });
-                                    //   }
-                                    //  () => Navigator.pushNamedAndRemoveUntil(context, '/FlightSearchResult', ModalRoute.withName('/FlightSearchResult')),
-                                    );
                           });
                         })
                   ],
@@ -258,6 +262,7 @@ class ProfileScreen extends StatelessWidget {
               );
             } else {
               return Scaffold(
+                  backgroundColor: Colors.grey.shade300,
                   appBar: AppBar(
                     title: Text("My Profile"),
                     centerTitle: false,

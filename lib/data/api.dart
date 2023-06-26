@@ -67,24 +67,38 @@ class AuthenticationApi {
   Future<GeneralReponseModel?> authenticate({required String mobileNo, required String appSignature}) async {
     try {
       final url = Uri.parse(baseUrl + urls.authenticate);
-
-      if (Platform.isAndroid) {
-        log("Android");
-      } else if (Platform.isIOS) {
-        log("iOS");
-      }
-
-      if (Platform.isAndroid) {
-        log("Android");
-      } else if (Platform.isIOS) {
-        log("iOS");
-      }
       final header = await getHeader();
       print(header);
       print(url);
       final result = await http.post(
         url,
         body: jsonEncode({"mobileNumber": mobileNo, "appSignatureID": appSignature}),
+        headers: header,
+      );
+      log(result.statusCode.toString());
+      final resultAsJson = jsonDecode(result.body);
+      log(resultAsJson.toString());
+      final responseModel = GeneralReponseModel.fromJson(resultAsJson);
+      print(responseModel);
+      Helper().toastMessage(responseModel.responseMessage);
+      return responseModel;
+    } on http.ClientException catch (e) {
+      log(e.message.toString() + "+++++");
+    } catch (e) {
+      log("Error :$e");
+    }
+    return null;
+  }
+
+  Future<GeneralReponseModel?> logOut({required String userId}) async {
+    try {
+      final url = Uri.parse(baseUrl + urls.logoutUser);
+      final header = await getHeader();
+      print(header);
+      print(url);
+      final result = await http.post(
+        url,
+        body: jsonEncode({"UserId": userId}),
         headers: header,
       );
       log(result.statusCode.toString());
