@@ -12,6 +12,7 @@ import '../../data/model/Profile/profile_models.dart';
 import '../../data/model/hive_class_functions.dart';
 import '../../data/model/utilities.dart';
 import '../Login/login_pop_up.dart';
+import '../widgets/login_error.dart';
 
 class ProfileScreen extends StatelessWidget {
   TextEditingController firstNameController = TextEditingController();
@@ -268,51 +269,7 @@ class ProfileScreen extends StatelessWidget {
                     centerTitle: false,
                   ),
                   bottomNavigationBar: const BottomNavigation(),
-                  body: SafeArea(
-                    child: Center(
-                      child: Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/login.png",
-                            height: 150,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text(
-                              "Login to Continue",
-                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text(
-                              "You need to login to access this page",
-                              maxLines: 2,
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                loginBottomSheet(context, MediaQuery.of(context).size.width);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(200, 50),
-                                backgroundColor: secondaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: const Text("LOGIN", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ));
+                  body: LoginErrorPage());
             }
           }
         });

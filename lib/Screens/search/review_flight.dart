@@ -48,17 +48,6 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
 
   bool travelDetails = false;
 
-  final List<CountryList> cntryList = [
-    CountryList(name: 'United States'),
-    CountryList(name: 'Canada'),
-    CountryList(name: 'Australia'),
-    CountryList(name: 'India'),
-    CountryList(name: 'Uae'),
-    CountryList(name: 'Germany'),
-    CountryList(name: 'France'),
-    // Add more countries as needed
-  ];
-
   final RepricingRequest requestingData = RepricingRequest();
 
   num totalBaggageAndMealAmount = 0;
@@ -1003,29 +992,4 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
       ],
     );
   }
-
-  Future<List<CountryList>> getList(String query) async {
-    List<CountryList> filteredFlights = [];
-
-    final cityCodeList = cntryList.where((element) => element.name.toLowerCase().contains(query.toLowerCase())).toList();
-    filteredFlights.addAll(cityCodeList);
-    log(filteredFlights.toString());
-    return filteredFlights;
-  }
-}
-
-class PassportDetails {
-  TextEditingController passportNoController = TextEditingController();
-  TextEditingController nationalityController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
-  TextEditingController countryOfIssueController = TextEditingController();
-  TextEditingController dateOfExpiryController = TextEditingController();
-
-  PassportDetails({
-    required this.passportNoController,
-    required this.nationalityController,
-    required this.dobController,
-    required this.countryOfIssueController,
-    required this.dateOfExpiryController,
-  });
 }

@@ -4,6 +4,7 @@ import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 import '../../data/model/My Trip/my_trips.dart';
+import '../widgets/login_error.dart';
 import '../widgets/print_pdf.dart';
 
 enum TripType { flights, hotels }
@@ -81,71 +82,78 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
         } else {
           // The asynchronous operation completed successfully
           final data = snapshot.data ?? AirlineTicketHistoryResponse();
-          return ListView.builder(
-            itemCount: data.objAirlineTicketHistory?.length ?? 0,
-            itemBuilder: (context, index) {
-              final value = data.objAirlineTicketHistory?[index];
-              return InkWell(
-                onTap: () {
-                  flightPopup(context, data.objAirlineTicketHistory?[index], data.statusType ?? '');
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  height: 90,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Booking ID : ${value?.bookingReferenceId}",
-                                    //   style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Text(
-                                      "PNR : ${value?.airlinePnr}",
+          if ((data.status ?? false)) {
+            return ListView.builder(
+              itemCount: data.objAirlineTicketHistory?.length ?? 0,
+              itemBuilder: (context, index) {
+                final value = data.objAirlineTicketHistory?[index];
+                return InkWell(
+                  onTap: () {
+                    flightPopup(context, data.objAirlineTicketHistory?[index], data.statusType ?? '');
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: 90,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Booking ID : ${value?.bookingReferenceId}",
                                       //   style: TextStyle(color: Colors.grey),
                                     ),
-                                  ),
-                                  Text((value?.bookingType ?? '') == "O" ? "OneWay" : "Round Trip", style: TextStyle(fontWeight: FontWeight.w500)),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(5),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width / 2.5,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(value?.departureCity ?? '', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-                                      Icon(Icons.arrow_forward),
-                                      Text(value?.arrivalCity ?? '', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-                                    ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Text(
+                                        "PNR : ${value?.airlinePnr}",
+                                        //   style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                    Text((value?.bookingType ?? '') == "O" ? "OneWay" : "Round Trip", style: TextStyle(fontWeight: FontWeight.w500)),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width / 2.5,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(value?.departureCity ?? '', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                        Icon(Icons.arrow_forward),
+                                        Text(value?.arrivalCity ?? '', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Icon(Icons.arrow_forward_ios, size: 30)
-                    ],
+                              ],
+                            ),
+                          ],
+                        ),
+                        Icon(Icons.arrow_forward_ios, size: 30)
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: Colors.grey.shade300,
+              body: LoginErrorPage(),
+            );
+          }
         }
       },
     );
