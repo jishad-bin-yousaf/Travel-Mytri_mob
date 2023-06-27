@@ -510,13 +510,11 @@ class TavellerDetails extends StatelessWidget {
                   TextEditingController dobController = TextEditingController();
                   TextEditingController countryOfIssueController = TextEditingController();
                   TextEditingController dateOfExpiryController = TextEditingController();
-                  final nationality = cntryList.firstWhere((element) => element.countryCode == (adultPaxList[index].nationality ?? ''));
-                  final cntryOfIssueCode = cntryList.firstWhere((element) => element.countryCode == (adultPaxList[index].countryofIssue ?? ''));
 
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                     passportNoController.text = adultPaxList[index].documentNumber ?? '';
-                    countryOfIssueController.text = cntryOfIssueCode.name ?? '';
-                    nationalityController.text = nationality.name ?? '';
+                    countryOfIssueController.text = adultPaxList[index].countryofIssue ?? '';
+                    nationalityController.text = adultPaxList[index].nationality ?? '';
                     dobController.text = adultPaxList[index].dateofBirth ?? '';
                     dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
                     return PassportDetailsPage(
@@ -532,10 +530,10 @@ class TavellerDetails extends StatelessWidget {
                   })).then((value) {
                     final data = value as PassportDetails;
                     passportNoController = data.passportNoController;
-                    print(passportNoController.text);
+
                     adultPaxList[index].documentNumber = data.passportNoController.text;
-                    adultPaxList[index].countryofIssue = data.countryOfIssueController.text;
-                    adultPaxList[index].nationality = data.nationalityController.text;
+                    adultPaxList[index].countryofIssue = data.countryOfIssueCode;
+                    adultPaxList[index].nationality = data.nationalityCode;
                     adultPaxList[index].dateofBirth = data.dobController.text;
                     adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
                   });

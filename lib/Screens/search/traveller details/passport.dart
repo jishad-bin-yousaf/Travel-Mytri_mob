@@ -19,7 +19,16 @@ class PassportDetailsPage extends StatelessWidget {
     required this.dateOfExpiryController,
     required this.nationalityCode,
     required this.countryOfIssueCode,
-  });
+  }) {
+    if (nationalityController.text.isNotEmpty) {
+      final nationality = cntryList.firstWhere((element) => element.countryCode == (nationalityController.text));
+      nationalityController.text = nationality.name ?? '';
+    }
+    if (countryOfIssueController.text.isNotEmpty) {
+      final cntryOfIssueCode = cntryList.firstWhere((element) => element.countryCode == (countryOfIssueController.text));
+      countryOfIssueController.text = cntryOfIssueCode.name ?? '';
+    }
+  }
 
   List<ClsCountriesJson> cntryList;
   List<ClsCountriesJson> countryList = [];
@@ -166,8 +175,8 @@ class PassportDetailsPage extends StatelessWidget {
                         dateOfExpiryController: dateOfExpiryController,
                         dobController: dobController,
                         nationalityController: nationalityController,
-                        countryOfIssueCode: countryOfIssueCode ?? '',
-                        nationalityCode: nationalityCode ?? '',
+                        countryOfIssueCode: countryOfIssueCode,
+                        nationalityCode: nationalityCode,
                       ));
                 },
                 style: ElevatedButton.styleFrom(
