@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../data/model/Search/pricing_models.dart';
 import '../widgets/print_pdf.dart';
@@ -22,10 +23,15 @@ class ConfirmationScreen extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 20),
-            Image.asset(
-              (data.status ?? false) ? "assets/icons/success.png" : "assets/icons/failed.png",
-              height: 100,
-            ),
+            (data.status ?? false)
+                ? Lottie.asset(
+                    "assets/lotties/success.json",
+                    height: 100,
+                  )
+                : Image.asset(
+                    "assets/icons/failed.png",
+                    height: 100,
+                  ),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(

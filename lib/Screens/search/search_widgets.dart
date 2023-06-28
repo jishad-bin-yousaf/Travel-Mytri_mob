@@ -72,7 +72,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
                 )
               : SizedBox(),
           Text(
-            " [\t${(data.adult ?? 0 + (data.child ?? 0) + (data.infant ?? 0))}Traveller]",
+            " [\t${((data.adult ?? 0) + (data.child ?? 0) + (data.infant ?? 0))}Traveller]",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
           ),
           Text(
