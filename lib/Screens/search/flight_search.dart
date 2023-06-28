@@ -36,7 +36,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
   List<ApiSearchResponse>? irOnwardWayDuplicateData;
   List<ApiSearchResponse>? irReturnWayDuplicateData;
   late Map<String, dynamic> arguments;
-
+  SelectedFilters? selectedFilters;
   @override
   Widget build(BuildContext context) {
     // try {
@@ -61,16 +61,18 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         drawer: FlightFilterDrawer(
+          filterSelections: selectedFilters,
           airlineList: airlineSearchResponse.objAvlairlineList ?? [],
           itemList: airlineSearchResponse.objItinList ?? [],
           maximumFare: airlineSearchResponse.maximumFare,
           minimumFare: airlineSearchResponse.minimumFare,
           // Pass the original data to the drawer
-          callBack: (filteredData) {
-            oneWayDuplicateData = filteredData;
+          callBack: (responseData) {
+            oneWayDuplicateData = responseData.datas;
+            selectedFilters = responseData.filterSelections;
             setState(() {});
-            log(filteredData.toString());
-            log(filteredData.length.toString());
+            log(responseData.datas.toString());
+            log(responseData.datas.length.toString());
             print("Working");
           },
         ),
@@ -154,10 +156,12 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                   minimumFare: rAirlineSearchResponse.minimumFare,
                   // Pass the original data to the drawer
                   callBack: (filteredData) {
-                    crtDuplicateData = filteredData;
+                    crtDuplicateData = filteredData.datas;
+                    selectedFilters = filteredData.filterSelections;
+
                     setState(() {});
-                    log(filteredData.toString());
-                    log(filteredData.length.toString());
+                    log(filteredData.datas.toString());
+                    log(filteredData.datas.length.toString());
                     print("Working");
                   },
                 ),
@@ -413,16 +417,18 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return FlightFilterDrawer(
+                            filterSelections: selectedFilters,
                             airlineList: irAirlineSearchResponse.objAvlairlineList ?? [],
                             itemList: irAirlineSearchResponse.objItinList ?? [],
                             maximumFare: irAirlineSearchResponse.maximumFare,
                             minimumFare: irAirlineSearchResponse.minimumFare,
                             // Pass the original data to the drawer
-                            callBack: (filteredData) {
-                              irOnwardWayDuplicateData = filteredData;
+                            callBack: (responseData) {
+                              irOnwardWayDuplicateData = responseData.datas;
+                              selectedFilters = responseData.filterSelections;
                               setState(() {});
-                              log(filteredData.toString());
-                              log(filteredData.length.toString());
+                              log(responseData.datas.toString());
+                              log(responseData.datas.length.toString());
                               print("Working");
                             },
                           );
@@ -445,16 +451,18 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return FlightFilterDrawer(
+                            filterSelections: selectedFilters,
                             airlineList: irAirlineSearchResponse.objAvlairlineList ?? [],
                             itemList: irAirlineSearchResponse.objItinListR ?? [],
                             maximumFare: irAirlineSearchResponse.maximumFare,
                             minimumFare: irAirlineSearchResponse.minimumFare,
                             // Pass the original data to the drawer
-                            callBack: (filteredData) {
-                              irReturnWayDuplicateData = filteredData;
+                            callBack: (responseData) {
+                              irReturnWayDuplicateData = responseData.datas;
+                              selectedFilters = responseData.filterSelections;
                               setState(() {});
-                              log(filteredData.toString());
-                              log(filteredData.length.toString());
+                              log(responseData.datas.toString());
+                              log(responseData.datas.length.toString());
                               print("Working");
                             },
                           );

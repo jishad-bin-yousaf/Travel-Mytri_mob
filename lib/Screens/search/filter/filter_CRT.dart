@@ -5,7 +5,9 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
 
-typedef ListCallback = void Function(List<RApisearchresponse>);
+import 'filter.dart';
+
+typedef ListCallback = void Function(CRTFilterResponse);
 
 class CRTFilter extends StatefulWidget {
   const CRTFilter({
@@ -24,6 +26,15 @@ class CRTFilter extends StatefulWidget {
   final ListCallback callBack;
   @override
   State<CRTFilter> createState() => _CRTFilterState();
+}
+
+class CRTFilterResponse {
+  SelectedFilters filterSelections;
+  List<RApisearchresponse> datas;
+  CRTFilterResponse({
+    required this.datas,
+    required this.filterSelections,
+  });
 }
 
 class _CRTFilterState extends State<CRTFilter> {
@@ -65,13 +76,92 @@ class _CRTFilterState extends State<CRTFilter> {
   Widget build(BuildContext context) {
     log((widget.airlineList.length).toString() + " total data length");
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {
+                startCurrentValue = (widget.minimumFare ?? 0).toDouble();
+                endCurrentValue = (widget.maximumFare ?? 0).toDouble();
+                isRefundable = false;
+                nonStop = false;
+                oneStop = false;
+                moreThanOne = false;
+                depEarlyMorning = false;
+                depMorning = false;
+                depAfternoon = false;
+                depNight = false;
+                arrEarlyMorning = false;
+                arrMorning = false;
+                arrAfternoon = false;
+                arrNight = false;
+                selectedFlights = [];
+                filterFlightCodeList = [];
+
+                priceFilter = false;
+                selectedFlights = List<bool>.filled(widget.airlineList.length, false);
+                setState(() {});
+              },
+              child: Text(
+                "Clear all ",
+                style: TextStyle(color: white),
+              ))
+        ],
+      ),
       bottomSheet: ElevatedButton(
           onPressed: () {
             filterFlights().then((value) {
-              widget.callBack(value);
+              widget.callBack(
+                CRTFilterResponse(
+                  datas: value,
+                  filterSelections: SelectedFilters(
+                    isModified: true,
+                    startCurrentValue: startCurrentValue,
+                    endCurrentValue: endCurrentValue,
+                    arrAfternoon: arrAfternoon,
+                    arrEarlyMorning: arrEarlyMorning,
+                    arrMorning: arrMorning,
+                    arrNight: arrNight,
+                    depAfternoon: depAfternoon,
+                    depEarlyMorning: depEarlyMorning,
+                    depMorning: depMorning,
+                    depNight: depNight,
+                    filterFlightCodeList: filterFlightCodeList,
+                    isRefundable: isRefundable,
+                    moreThanOne: moreThanOne,
+                    nonStop: nonStop,
+                    oneStop: oneStop,
+                    priceFilter: priceFilter,
+                    selectedFlights: selectedFlights,
+                  ),
+                ),
+              );
 
-              Navigator.pop(context, value);
+              Navigator.pop(
+                context,
+                CRTFilterResponse(
+                  datas: value,
+                  filterSelections: SelectedFilters(
+                    isModified: true,
+                    startCurrentValue: startCurrentValue,
+                    endCurrentValue: endCurrentValue,
+                    arrAfternoon: arrAfternoon,
+                    arrEarlyMorning: arrEarlyMorning,
+                    arrMorning: arrMorning,
+                    arrNight: arrNight,
+                    depAfternoon: depAfternoon,
+                    depEarlyMorning: depEarlyMorning,
+                    depMorning: depMorning,
+                    depNight: depNight,
+                    filterFlightCodeList: filterFlightCodeList,
+                    isRefundable: isRefundable,
+                    moreThanOne: moreThanOne,
+                    nonStop: nonStop,
+                    oneStop: oneStop,
+                    priceFilter: priceFilter,
+                    selectedFlights: selectedFlights,
+                  ),
+                ),
+              );
             });
           },
           style: ElevatedButton.styleFrom(

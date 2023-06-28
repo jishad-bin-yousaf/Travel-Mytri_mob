@@ -7,23 +7,75 @@ import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dar
 import '../../../Constants/colors.dart';
 
 //typedef ListCallback = void Function(List<AirlineSearchResponse>);
-typedef ListCallback = void Function(List<ApiSearchResponse>);
+typedef ListCallback = void Function(FilterResponse);
+
+class SelectedFilters {
+  double? startCurrentValue;
+  double? endCurrentValue;
+  bool isRefundable;
+  bool? isModified;
+  bool nonStop;
+  bool oneStop;
+  bool moreThanOne;
+  bool depEarlyMorning;
+  bool depMorning;
+  bool depAfternoon;
+  bool depNight;
+  bool arrEarlyMorning;
+  bool arrMorning;
+  bool arrAfternoon;
+  bool arrNight;
+  List<bool> selectedFlights;
+  List<String> filterFlightCodeList;
+
+  bool priceFilter;
+  SelectedFilters({
+    required this.startCurrentValue,
+    required this.endCurrentValue,
+    required this.arrAfternoon,
+    required this.arrEarlyMorning,
+    required this.arrMorning,
+    required this.arrNight,
+    required this.depAfternoon,
+    required this.depEarlyMorning,
+    required this.depMorning,
+    required this.depNight,
+    required this.filterFlightCodeList,
+    required this.isRefundable,
+    required this.moreThanOne,
+    required this.nonStop,
+    required this.oneStop,
+    required this.priceFilter,
+    required this.selectedFlights,
+    this.isModified,
+  });
+}
+
+class FilterResponse {
+  SelectedFilters filterSelections;
+  List<ApiSearchResponse> datas;
+  FilterResponse({
+    required this.datas,
+    required this.filterSelections,
+  });
+}
 
 class FlightFilterDrawer extends StatefulWidget {
-  const FlightFilterDrawer({
+  FlightFilterDrawer({
     Key? key,
     required this.airlineList,
     required this.itemList,
     required this.callBack,
     required this.minimumFare,
     required this.maximumFare,
+    this.filterSelections,
   }) : super(key: key);
 
   final List<AvailableAirline> airlineList;
   final List<ApiSearchResponse> itemList;
   final num? minimumFare;
   final num? maximumFare;
-
+  SelectedFilters? filterSelections;
   final ListCallback callBack;
 
   @override
@@ -53,29 +105,127 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   @override
   void initState() {
     super.initState();
-    selectedFlights = List<bool>.filled(widget.airlineList.length, false);
-  }
-
-  @override
-  void didUpdateWidget(FlightFilterDrawer oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.airlineList != oldWidget.airlineList) {
-      // Widget configuration has changed, update the selectedFlights list accordingly
+    if ((widget.filterSelections?.isModified ?? false)) {
+      startCurrentValue = widget.filterSelections?.startCurrentValue;
+      endCurrentValue = widget.filterSelections?.endCurrentValue;
+      isRefundable = widget.filterSelections?.isRefundable ?? false;
+      nonStop = widget.filterSelections?.nonStop ?? false;
+      oneStop = widget.filterSelections?.oneStop ?? false;
+      moreThanOne = widget.filterSelections?.moreThanOne ?? false;
+      depEarlyMorning = widget.filterSelections?.depEarlyMorning ?? false;
+      depMorning = widget.filterSelections?.depMorning ?? false;
+      depAfternoon = widget.filterSelections?.depAfternoon ?? false;
+      depNight = widget.filterSelections?.depNight ?? false;
+      arrEarlyMorning = widget.filterSelections?.arrEarlyMorning ?? false;
+      arrMorning = widget.filterSelections?.arrMorning ?? false;
+      arrAfternoon = widget.filterSelections?.arrAfternoon ?? false;
+      arrNight = widget.filterSelections?.arrNight ?? false;
+      selectedFlights = widget.filterSelections?.selectedFlights ?? [];
+      filterFlightCodeList = widget.filterSelections?.filterFlightCodeList ?? [];
+    } else {
       selectedFlights = List<bool>.filled(widget.airlineList.length, false);
     }
   }
+
+  // @override
+  // void didUpdateWidget(FlightFilterDrawer oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (widget.airlineList != oldWidget.airlineList) {
+  //     // Widget configuration has changed, update the selectedFlights list accordingly
+  //     selectedFlights = List<bool>.filled(widget.airlineList.length, false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     log((widget.airlineList.length).toString() + " total data length");
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {
+                startCurrentValue = (widget.minimumFare ?? 0).toDouble();
+                endCurrentValue = (widget.maximumFare ?? 0).toDouble();
+                isRefundable = false;
+                nonStop = false;
+                oneStop = false;
+                moreThanOne = false;
+                depEarlyMorning = false;
+                depMorning = false;
+                depAfternoon = false;
+                depNight = false;
+                arrEarlyMorning = false;
+                arrMorning = false;
+                arrAfternoon = false;
+                arrNight = false;
+                selectedFlights = [];
+                filterFlightCodeList = [];
+
+                priceFilter = false;
+                selectedFlights = List<bool>.filled(widget.airlineList.length, false);
+                setState(() {});
+              },
+              child: Text(
+                "Clear all ",
+                style: TextStyle(color: white),
+              ))
+        ],
+      ),
       bottomSheet: ElevatedButton(
           onPressed: () {
             filterFlights().then((value) {
-              widget.callBack(value);
+              widget.callBack(
+                FilterResponse(
+                  datas: value,
+                  filterSelections: SelectedFilters(
+                    isModified: true,
+                    startCurrentValue: startCurrentValue,
+                    endCurrentValue: endCurrentValue,
+                    arrAfternoon: arrAfternoon,
+                    arrEarlyMorning: arrEarlyMorning,
+                    arrMorning: arrMorning,
+                    arrNight: arrNight,
+                    depAfternoon: depAfternoon,
+                    depEarlyMorning: depEarlyMorning,
+                    depMorning: depMorning,
+                    depNight: depNight,
+                    filterFlightCodeList: filterFlightCodeList,
+                    isRefundable: isRefundable,
+                    moreThanOne: moreThanOne,
+                    nonStop: nonStop,
+                    oneStop: oneStop,
+                    priceFilter: priceFilter,
+                    selectedFlights: selectedFlights,
+                  ),
+                ),
+              );
 
-              Navigator.pop(context, value);
+              Navigator.pop(
+                context,
+                FilterResponse(
+                  datas: value,
+                  filterSelections: SelectedFilters(
+                    isModified: true,
+                    startCurrentValue: startCurrentValue,
+                    endCurrentValue: endCurrentValue,
+                    arrAfternoon: arrAfternoon,
+                    arrEarlyMorning: arrEarlyMorning,
+                    arrMorning: arrMorning,
+                    arrNight: arrNight,
+                    depAfternoon: depAfternoon,
+                    depEarlyMorning: depEarlyMorning,
+                    depMorning: depMorning,
+                    depNight: depNight,
+                    filterFlightCodeList: filterFlightCodeList,
+                    isRefundable: isRefundable,
+                    moreThanOne: moreThanOne,
+                    nonStop: nonStop,
+                    oneStop: oneStop,
+                    priceFilter: priceFilter,
+                    selectedFlights: selectedFlights,
+                  ),
+                ),
+              );
             });
           },
           style: ElevatedButton.styleFrom(
