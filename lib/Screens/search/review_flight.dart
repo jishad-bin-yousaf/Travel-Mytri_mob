@@ -11,8 +11,8 @@ import '../../data/model/Search/pricing_models.dart';
 import 'traveller details/traveller_details.dart';
 
 class ScreenReviewFlight extends StatefulWidget {
-  ScreenReviewFlight({super.key});
-
+  ScreenReviewFlight({super.key, required this.data});
+  PricingResponse data;
   @override
   State<ScreenReviewFlight> createState() => _ScreenReviewFlightState();
 }
@@ -58,16 +58,19 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
 
   List<RePricingPaxlist> rePricingInfList = [];
 
+  @override
+  void initState() {
+    super.initState();
+    paxDetailsList.adultPaxList = List.generate(widget.data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails());
+    paxDetailsList.childPaxList = List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails());
+    paxDetailsList.infantPaxList = List.generate(widget.data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
+  }
+
   // @override
   @override
   Widget build(BuildContext context) {
-    PricingResponse data = ModalRoute.of(context)?.settings.arguments as PricingResponse;
-    paxDetailsList.adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails());
-    paxDetailsList.childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails());
-    paxDetailsList.infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
-
     return Scaffold(
-      bottomSheet: bottomSheet(context, data),
+      bottomSheet: bottomSheet(context, widget.data),
       appBar: AppBar(
         title: const Text("Review Flight"),
         centerTitle: false,
@@ -76,8 +79,8 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
         //  physics: NeverScrollableScrollPhysics(),
         children: [
           SizedBox(
-            height: (data.objApiResponse?.objSegList?.length ?? 0) * 230,
-            child: reviewArea(data, context),
+            height: (widget.data.objApiResponse?.objSegList?.length ?? 0) * 230,
+            child: reviewArea(widget.data, context),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 12.0, bottom: 12),
@@ -95,21 +98,22 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           log(paxDetailsList.toString());
-                          return TavellerDetails(data: data, paxDetailsList: paxDetailsList);
+                          return TavellerDetails(data: widget.data, paxDetailsList: paxDetailsList);
                         },
                       )).then((value) {
                         List<BookingPaxdetails> pax = [];
                         paxDetailsList = value ??
                             ListOfBookingPaxDetails(
-                              adultPaxList: List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails()),
-                              childPaxList: List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
-                              infantPaxList: List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
+                              adultPaxList: List.generate(widget.data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails()),
+                              childPaxList: List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
+                              infantPaxList: List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
                             );
                         pax.addAll(paxDetailsList.adultPaxList);
                         pax.addAll(paxDetailsList.childPaxList);
                         pax.addAll(paxDetailsList.infantPaxList);
                         log(pax.toString());
                         bookingRequest.objPaxList = pax;
+                        totalBaggageAndMealAmount = 0;
                         for (BookingPaxdetails bookingPax in pax) {
                           if (bookingPax.objMealList != null) {
                             for (SSRMeal meal in bookingPax.objMealList!) {
@@ -120,6 +124,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                             for (SSRBaggage baggage in bookingPax.objBaggage!) {
                               totalBaggageAndMealAmount += baggage.amount ?? 0.0;
                             }
+                            setState(() {});
                           }
                         }
                       });
@@ -268,11 +273,14 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                       Icons.info_outline,
                       color: white,
                     ),
-                    icon: Text("${data.objApiResponse?.finalAmount ?? ""}", style: const TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
+                    icon: Text("${(data.objApiResponse?.finalAmount ?? 0) + totalBaggageAndMealAmount}", style: const TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
               ],
             ),
             ElevatedButton(
               onPressed: () {
+                rePricingAdtList.clear();
+                rePricingChdList.clear();
+                rePricingChdList.clear();
                 for (BookingPaxdetails bookingPax in paxDetailsList.adultPaxList) {
                   RePricingPaxlist rePricingPax = RePricingPaxlist(
                     paxKey: bookingPax.paxKey,
@@ -511,7 +519,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                 height: 70,
                 color: primaryColor,
                 child: Text(
-                  "₹ ${data.objApiResponse?.finalAmount ?? ''}",
+                  "₹ ${(data.objApiResponse?.finalAmount ?? 0) + totalBaggageAndMealAmount}",
                   //  textAlign: TextAlign.center,
                   style: const TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
                 ),
@@ -535,7 +543,7 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                         style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
                       ),
                       Text(
-                        "₹ ${data.objApiResponse?.finalAmount ?? ''}",
+                        "₹ ${(data.objApiResponse?.finalAmount ?? 0) + totalBaggageAndMealAmount}",
                         //  textAlign: TextAlign.center,
                         style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
                       ),

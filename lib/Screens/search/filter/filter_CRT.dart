@@ -10,13 +10,14 @@ import 'filter.dart';
 typedef ListCallback = void Function(CRTFilterResponse);
 
 class CRTFilter extends StatefulWidget {
-  const CRTFilter({
+  CRTFilter({
     Key? key,
     required this.airlineList,
     required this.itemList,
     required this.minimumFare,
     required this.callBack,
     required this.maximumFare,
+    this.filterSelections,
   }) : super(key: key);
 
   final List<AvailableAirline> airlineList;
@@ -24,6 +25,7 @@ class CRTFilter extends StatefulWidget {
   final num? minimumFare;
   final num? maximumFare;
   final ListCallback callBack;
+  SelectedFilters? filterSelections;
   @override
   State<CRTFilter> createState() => _CRTFilterState();
 }

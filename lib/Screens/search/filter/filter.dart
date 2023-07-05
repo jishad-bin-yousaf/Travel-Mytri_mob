@@ -52,11 +52,11 @@ class SelectedFilters {
 }
 
 class FilterResponse {
-  SelectedFilters filterSelections;
+  SelectedFilters? filterSelections;
   List<ApiSearchResponse> datas;
   FilterResponse({
     required this.datas,
-    required this.filterSelections,
+    this.filterSelections,
   });
 }
 
@@ -101,6 +101,8 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   List<String> filterFlightCodeList = [];
 
   bool priceFilter = false;
+
+  SelectedFilters? selectedFilters;
 
   @override
   void initState() {
@@ -175,55 +177,14 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
           onPressed: () {
             filterFlights().then((value) {
               widget.callBack(
-                FilterResponse(
-                  datas: value,
-                  filterSelections: SelectedFilters(
-                    isModified: true,
-                    startCurrentValue: startCurrentValue,
-                    endCurrentValue: endCurrentValue,
-                    arrAfternoon: arrAfternoon,
-                    arrEarlyMorning: arrEarlyMorning,
-                    arrMorning: arrMorning,
-                    arrNight: arrNight,
-                    depAfternoon: depAfternoon,
-                    depEarlyMorning: depEarlyMorning,
-                    depMorning: depMorning,
-                    depNight: depNight,
-                    filterFlightCodeList: filterFlightCodeList,
-                    isRefundable: isRefundable,
-                    moreThanOne: moreThanOne,
-                    nonStop: nonStop,
-                    oneStop: oneStop,
-                    priceFilter: priceFilter,
-                    selectedFlights: selectedFlights,
-                  ),
-                ),
+                FilterResponse(datas: value, filterSelections: selectedFilters),
               );
 
               Navigator.pop(
                 context,
                 FilterResponse(
                   datas: value,
-                  filterSelections: SelectedFilters(
-                    isModified: true,
-                    startCurrentValue: startCurrentValue,
-                    endCurrentValue: endCurrentValue,
-                    arrAfternoon: arrAfternoon,
-                    arrEarlyMorning: arrEarlyMorning,
-                    arrMorning: arrMorning,
-                    arrNight: arrNight,
-                    depAfternoon: depAfternoon,
-                    depEarlyMorning: depEarlyMorning,
-                    depMorning: depMorning,
-                    depNight: depNight,
-                    filterFlightCodeList: filterFlightCodeList,
-                    isRefundable: isRefundable,
-                    moreThanOne: moreThanOne,
-                    nonStop: nonStop,
-                    oneStop: oneStop,
-                    priceFilter: priceFilter,
-                    selectedFlights: selectedFlights,
-                  ),
+                  filterSelections: selectedFilters ?? widget.filterSelections,
                 ),
               );
             });
@@ -728,6 +689,26 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   }
 
   Future<List<ApiSearchResponse>> filterFlights() {
+    selectedFilters = SelectedFilters(
+      isModified: true,
+      startCurrentValue: startCurrentValue,
+      endCurrentValue: endCurrentValue,
+      arrAfternoon: arrAfternoon,
+      arrEarlyMorning: arrEarlyMorning,
+      arrMorning: arrMorning,
+      arrNight: arrNight,
+      depAfternoon: depAfternoon,
+      depEarlyMorning: depEarlyMorning,
+      depMorning: depMorning,
+      depNight: depNight,
+      filterFlightCodeList: filterFlightCodeList,
+      isRefundable: isRefundable,
+      moreThanOne: moreThanOne,
+      nonStop: nonStop,
+      oneStop: oneStop,
+      priceFilter: priceFilter,
+      selectedFlights: selectedFlights,
+    );
     List<ApiSearchResponse> data = widget.itemList; // data
     //  List<ApiSearchResponse> filteringList = List<ApiSearchResponse>.empty(growable: true);
     List<ApiSearchResponse> filteredList = widget.itemList;

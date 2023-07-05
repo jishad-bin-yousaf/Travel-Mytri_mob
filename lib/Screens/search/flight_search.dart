@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/filter/filter.dart';
+import 'package:travel_mytri_mobile_v1/Screens/search/review_flight.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/error.dart';
 
 import '../../data/api.dart';
 import '../../data/model/Search/flight_search_model.dart';
+import '../../data/model/Search/pricing_models.dart';
 import 'filter/filter_CRT.dart';
 import 'search.dart';
 
@@ -37,6 +39,8 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
   List<ApiSearchResponse>? irReturnWayDuplicateData;
   late Map<String, dynamic> arguments;
   SelectedFilters? selectedFilters;
+  SelectedFilters? irtOnwardSelectedFilters;
+  SelectedFilters? irtReturnSelectedFilters;
   @override
   Widget build(BuildContext context) {
     // try {
@@ -150,6 +154,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                 key: _scaffoldKey,
                 backgroundColor: white,
                 drawer: CRTFilter(
+                  filterSelections: selectedFilters,
                   airlineList: rAirlineSearchResponse.objAvlairlineList ?? [],
                   itemList: rAirlineSearchResponse.objItinList ?? [],
                   maximumFare: rAirlineSearchResponse.maximumFare,
@@ -185,12 +190,12 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                             context: context,
                             builder: (context) {
                               return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
-                                IconButton(
-                                  icon: Icon(Icons.close),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
+                                // IconButton(
+                                //   icon: Icon(Icons.close),
+                                //   onPressed: () {
+                                //     Navigator.pop(context);
+                                //   },
+                                // ),
                                 TripTypes(isModify: true, modifyData: modifyData),
                               ]);
                             },
@@ -342,12 +347,12 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       context: context,
                       builder: (context) {
                         return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
-                          IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          //   IconButton(
+                          //     icon: Icon(Icons.close),
+                          //     onPressed: () {
+                          //       Navigator.pop(context);
+                          //     },
+                          //   ),
                           TripTypes(isModify: true, modifyData: modifyData),
                         ]);
                       },
@@ -417,7 +422,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return FlightFilterDrawer(
-                            filterSelections: selectedFilters,
+                            filterSelections: irtOnwardSelectedFilters,
                             airlineList: irAirlineSearchResponse.objAvlairlineList ?? [],
                             itemList: irAirlineSearchResponse.objItinList ?? [],
                             maximumFare: irAirlineSearchResponse.maximumFare,
@@ -425,7 +430,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                             // Pass the original data to the drawer
                             callBack: (responseData) {
                               irOnwardWayDuplicateData = responseData.datas;
-                              selectedFilters = responseData.filterSelections;
+                              irtOnwardSelectedFilters = responseData.filterSelections;
                               setState(() {});
                               log(responseData.datas.toString());
                               log(responseData.datas.length.toString());
@@ -451,7 +456,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return FlightFilterDrawer(
-                            filterSelections: selectedFilters,
+                            filterSelections: irtReturnSelectedFilters,
                             airlineList: irAirlineSearchResponse.objAvlairlineList ?? [],
                             itemList: irAirlineSearchResponse.objItinListR ?? [],
                             maximumFare: irAirlineSearchResponse.maximumFare,
@@ -459,7 +464,7 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                             // Pass the original data to the drawer
                             callBack: (responseData) {
                               irReturnWayDuplicateData = responseData.datas;
-                              selectedFilters = responseData.filterSelections;
+                              irtReturnSelectedFilters = responseData.filterSelections;
                               setState(() {});
                               log(responseData.datas.toString());
                               log(responseData.datas.length.toString());
@@ -924,15 +929,17 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
 
                           showModalBottomSheet(
                             context: context,
+                            isScrollControlled: true,
                             builder: (context) {
                               return StatefulBuilder(builder: (context, setState) {
                                 return Container(
+                                  padding: EdgeInsets.only(top: 50),
                                   color: white,
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
-                                    child: Column(
+                                    child: ListView(
                                       children: [
-                                        Row(children: [
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                           Column(
                                             children: [
                                               Padding(
@@ -981,7 +988,8 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                                       child: Divider(thickness: 2, color: Colors.transparent),
                                                     )
                                             ],
-                                          )
+                                          ),
+                                          IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close))
                                         ]),
                                         isFlightDetails
                                             ? Column(
@@ -1016,7 +1024,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                   req.providerCodeR = indSelectedReturn.providerCode;
                   if ((indSelectedOnward.itinId != null) && (indSelectedReturn.itinId != null)) {
                     PricingApi().pricingDetails(request: req).then((value) {
-                      (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
+                      (value?.status ?? false)
+                          ? Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ScreenReviewFlight(data: value ?? PricingResponse()),
+                            ))
+                          : null;
                     });
                   }
                 },
@@ -1456,8 +1468,24 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                   const SizedBox(height: 100),
                   ElevatedButton(
                     onPressed: () {
-                      PricingApi().pricingDetails(request: PricingRequest(fareId: data?.fareId, fareIdR: 0, itinId: data?.itinId, itinIdR: 0, providerCode: data?.providerCode, providerCodeR: "")).then((value) {
-                        (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
+                      PricingApi()
+                          .pricingDetails(
+                              request: PricingRequest(
+                        fareId: data?.fareId,
+                        fareIdR: 0,
+                        itinId: data?.itinId,
+                        itinIdR: 0,
+                        providerCode: data?.providerCode,
+                        providerCodeR: "",
+                      ))
+                          .then((value) {
+                        (value?.status ?? false)
+                            ? Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenReviewFlight(
+                                  data: value ?? PricingResponse(),
+                                ),
+                              ))
+                            : null;
                       });
                     },
                     child: const Padding(
@@ -1731,7 +1759,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                           onPressed: () {
                             //combained
                             PricingApi().pricingDetails(request: PricingRequest(fareId: data?.fareId, fareIdR: 0, itinId: data?.itinId, itinIdR: 0, providerCode: data?.providerCode, providerCodeR: "")).then((value) {
-                              (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
+                              (value?.status ?? false)
+                                  ? Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ScreenReviewFlight(data: value ?? PricingResponse()),
+                                    ))
+                                  : null;
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -2164,7 +2196,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                     onPressed: () {
                       //   fareId = value?.fareId;
                       PricingApi().pricingDetails(request: PricingRequest(fareId: value?.fareId, fareIdR: 0, itinId: itinID, itinIdR: 0, providerCode: providerCode, providerCodeR: "")).then((value) {
-                        (value?.status ?? false) ? Navigator.of(context).pushNamed('/ReviewFlight', arguments: value) : null;
+                        (value?.status ?? false)
+                            ? Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenReviewFlight(data: value ?? PricingResponse()),
+                              ))
+                            : null;
                       });
                       //   Navigator.of(context).pushNamed('/ReviewFlight');
                     },

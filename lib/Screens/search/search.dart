@@ -1478,20 +1478,20 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
     List<AirportData> filteredFlights = [];
 
     if (query.length >= 3) {
-      final codeList = await airportList.where((element) => element.code!.toLowerCase().contains(query.toLowerCase())).toList();
+      final codeList = airportList.where((element) => element.code!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(codeList);
 
       dev.log("cityCodeList ++++$codeList");
 
-      final cityCodeList = await airportList.where((element) => element.cityCode!.toLowerCase().contains(query.toLowerCase())).toList();
+      final cityCodeList = airportList.where((element) => element.cityCode!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(cityCodeList);
 
       dev.log("cityCodeList ++++$cityCodeList");
 
-      final cityNameList = airportList.where((element) => element.cityName!.toLowerCase().contains(query.toLowerCase())).toList();
+      final cityNameList = airportList.where((element) => element.cityName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(cityNameList);
       dev.log("cityNameList ++++$cityNameList");
-      final airportNameList = airportList.where((element) => element.airportName!.toLowerCase().contains(query.toLowerCase())).toList();
+      final airportNameList = airportList.where((element) => element.airportName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(airportNameList);
       dev.log("airportNameList ++++$airportNameList");
     }

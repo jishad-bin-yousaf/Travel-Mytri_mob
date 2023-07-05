@@ -19,6 +19,7 @@ class PassportDetailsPage extends StatelessWidget {
     required this.dateOfExpiryController,
     required this.nationalityCode,
     required this.countryOfIssueCode,
+    required this.title,
   }) {
     if (nationalityController.text.isNotEmpty) {
       final nationality = cntryList.firstWhere((element) => element.countryCode == (nationalityController.text));
@@ -39,6 +40,7 @@ class PassportDetailsPage extends StatelessWidget {
   TextEditingController dateOfExpiryController;
   String nationalityCode;
   String countryOfIssueCode;
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,17 @@ class PassportDetailsPage extends StatelessWidget {
                 "Note : Traveller's passport should be valid for 6 months from the date of travel.",
                 maxLines: 2,
                 style: TextStyle(color: Colors.red),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+              child: Text(
+                title.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 2,
               ),
             ),
             Padding(

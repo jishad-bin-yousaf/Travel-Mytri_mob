@@ -24,12 +24,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
               context: context,
               builder: (context) {
                 return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                
                   TripTypes(isModify: true, modifyData: modifyData),
                 ]);
               },
