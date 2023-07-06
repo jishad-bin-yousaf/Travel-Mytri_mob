@@ -235,22 +235,36 @@ class ProfileScreen extends StatelessWidget {
                         ProfileApi()
                             .editProfile(
                                 request: EditProfileRequest(
-                              address: addressController.text,
-                              city: cityController.text,
-                              countryId: countryCode,
-                              email: emailIDController.text,
-                              firstName: firstNameController.text,
-                              fullName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              mobile: "",
-                              password: "",
-                              pincode: pinCodeController.text,
-                              stateId: stateCode,
-                              userId: data.userId,
-                            ))
-                            .then(
-                              (value) => (value?.status ?? false) ? Helper().toastMessage("Profile Updated Successfully") : null,
-                            );
+                          address: addressController.text,
+                          city: cityController.text,
+                          countryId: countryCode,
+                          email: emailIDController.text,
+                          firstName: firstNameController.text,
+                          fullName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          mobile: "",
+                          password: "",
+                          pincode: pinCodeController.text,
+                          stateId: stateCode,
+                          userId: data.userId,
+                        ))
+                            .then((value) async {
+                          final toc = await getToken();
+                          Token data = Token();
+                          data.firstName = value?.firstName ?? '';
+                          data.fullName = value?.fullame ?? '';
+                          data.isUser = true;
+                          data.lastName = value?.lastName ?? '';
+                          data.userId = value?.userId ?? '';
+                          data.token = toc.token ?? '';
+                          setToken(data);
+                          if (value?.status ?? false) {
+                            Helper().toastMessage("Profile Updated Successfully");
+                          } else {
+                            Helper().toastMessage("Profile Update Failed");
+                          }
+                          ;
+                        });
                       },
                       child: Text(
                         "UPDATE",

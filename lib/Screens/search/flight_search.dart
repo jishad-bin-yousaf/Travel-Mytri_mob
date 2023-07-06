@@ -364,6 +364,42 @@ class _ScreenFlightSearchResultState extends State<ScreenFlightSearchResult> {
                   ))
             ],
             automaticallyImplyLeading: false,
+            title: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        DateFormat('dd MMMM').format(irAirlineSearchResponse.departureDate!),
+                        style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
+                      ),
+                      const Text(
+                        " - ",
+                        style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        DateFormat('dd MMMM').format(irAirlineSearchResponse.returnDate!),
+                        style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    " [\t${((irAirlineSearchResponse.adult ?? 0) + (irAirlineSearchResponse.child ?? 0) + (irAirlineSearchResponse.infant ?? 0))}Traveller]",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
+                  ),
+                  Text(
+                    irAirlineSearchResponse.airlineClass ?? "",
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
           ),
           body: Column(
             children: [

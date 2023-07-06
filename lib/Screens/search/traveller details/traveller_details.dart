@@ -238,6 +238,7 @@ class TavellerDetails extends StatelessWidget {
                 dobController.text = infantPaxList[index].dateofBirth ?? '';
                 dateOfExpiryController.text = infantPaxList[index].dateOfExpiry ?? "";
                 return PassportDetailsPage(
+                  title: " ${(adultPaxList[index].title ?? "Mr")}. ${firstNameController.text} ${lastNameController.text}",
                   cntryList: cntryList,
                   countryOfIssueController: countryOfIssueController,
                   dateOfExpiryController: dateOfExpiryController,
@@ -354,6 +355,7 @@ class TavellerDetails extends StatelessWidget {
                   dobController.text = childPaxList[index].dateofBirth ?? '';
                   dateOfExpiryController.text = childPaxList[index].dateOfExpiry ?? "";
                   return PassportDetailsPage(
+                    title: " ${(adultPaxList[index].title ?? "Mr")}. ${firstNameController.text} ${lastNameController.text}",
                     cntryList: cntryList,
                     countryOfIssueController: countryOfIssueController,
                     dateOfExpiryController: dateOfExpiryController,
@@ -484,6 +486,7 @@ class TavellerDetails extends StatelessWidget {
                     dobController.text = adultPaxList[index].dateofBirth ?? '';
                     dateOfExpiryController.text = adultPaxList[index].dateOfExpiry ?? "";
                     return PassportDetailsPage(
+                      title: " ${(adultPaxList[index].title ?? "Mr")}. ${firstNameController.text} ${lastNameController.text}",
                       cntryList: cntryList,
                       countryOfIssueController: countryOfIssueController,
                       dateOfExpiryController: dateOfExpiryController,
@@ -503,14 +506,6 @@ class TavellerDetails extends StatelessWidget {
                     adultPaxList[index].dateOfExpiry = data.dateOfExpiryController.text;
                   });
                 },
-
-                // onPressed: () {
-                //   Navigator.of(context)
-                //       .push(MaterialPageRoute(
-                //         builder: (context) => PassportDetailsPage(cntryList: cntryList),
-                //       ))
-                //       .then((value) {});
-                // },
                 style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -532,7 +527,7 @@ class TavellerDetails extends StatelessWidget {
                     //   selectedIndexBag: selectedIndexBag,
                     //   selectedIndexSector: selectedIndexSector,
                     // );
-                    adultPaxList[index].objBaggage = value.baggageList;
+                    adultPaxList[index].objBaggage = value;
                   });
                 },
                 style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),

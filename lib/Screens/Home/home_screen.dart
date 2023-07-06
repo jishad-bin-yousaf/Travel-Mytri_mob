@@ -23,7 +23,7 @@ class _ScreenHomeState extends State<ScreenHome> {
       log(isLogged.toString());
       isLogged = value.isUser ?? false;
       userName = value.firstName ?? "User";
-      log((userName).toString() + "userDetails");
+      log((userName).toString() + " userDetails");
       setState(() {});
     });
     super.initState();

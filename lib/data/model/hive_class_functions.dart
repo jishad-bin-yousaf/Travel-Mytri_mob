@@ -35,24 +35,9 @@ Future<String> setToken(Token token) async {
   log(tokenDB.length.toString());
 
   try {
-    if (tokenDB.isEmpty) {
-      tokenDB.add(token);
-      log(tokenDB.length.toString());
-      log(tokenDB.values.last.token.toString());
-
-      // tokenDB.close();
-    } else {
-      log("Elseeeeeeee");
-      log("Before clr " + tokenDB.length.toString());
-      tokenDB.clear();
-      log("after clr " + tokenDB.length.toString());
-      tokenDB.add(token);
-
-      log("after add " + tokenDB.length.toString());
-      log(tokenDB.values.last.token.toString());
-      //  getToken();
-      return tokenDB.values.last.token ?? "";
-    }
+    tokenDB.put("userData", token);
+    log(tokenDB.length.toString());
+    log(tokenDB.values.last.token.toString());
   } catch (e) {
     log(e.toString());
   }
@@ -63,18 +48,18 @@ Future<Token> getToken() async {
   final tokenDB = await Hive.openBox<Token>("token_DB");
   print(tokenDB.length);
   try {
-    final token = tokenDB.values.first;
+    final token = tokenDB.get("userData");
     // log(tokenDB.values.first.token.toString());
     // tokenDB.close();
 
-    return token;
+    return token ?? Token();
   } catch (e) {
     // log(tokenDB.values.first.token.toString());
+
     tokenDB.close();
 
     log(e.toString());
+    return Token();
   }
   // tokenDB.close();
-
-  return Token();
 }

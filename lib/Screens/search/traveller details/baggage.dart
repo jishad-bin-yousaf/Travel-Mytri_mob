@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../../data/model/Search/pricing_models.dart';
@@ -30,6 +32,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
     return Scaffold(
       bottomSheet: InkWell(
           onTap: () {
+            log(baggageList.toString());
             Navigator.pop(context, baggageList);
           },
           child: Container(

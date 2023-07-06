@@ -24,7 +24,6 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
               context: context,
               builder: (context) {
                 return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
-                
                   TripTypes(isModify: true, modifyData: modifyData),
                 ]);
               },
@@ -57,6 +56,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
             ),
             Text(
               '\t${data.destination ?? "N/A"}',
+              maxLines: 2,
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
             ),
           ]),
