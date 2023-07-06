@@ -8,21 +8,34 @@ class BaggageDetailsPage extends StatefulWidget {
   BaggageDetailsPage({
     super.key,
     required this.data,
+    this.selectedList,
   });
   List<PricingBaggageSegment> data;
+  List<int>? selectedList;
   @override
   State<BaggageDetailsPage> createState() => _BaggageDetailsPageState();
+}
+
+class BaggageReturndata {
+  List<int>? selectedList;
+  List<SSRBaggage>? baggageList;
+  BaggageReturndata({
+    this.selectedList,
+    this.baggageList,
+  });
 }
 
 class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
   int? sectionIndex;
   late List<SSRBaggage> baggageList;
+  late List<int> selectedList;
   int selectedIndexBag = -1;
   int selectedIndexSector = -1;
 
   @override
   void initState() {
-    baggageList = List.generate(widget.data.length ?? 0, (index) => SSRBaggage(amount: 0, name: '', segmentCode: '', tripMode: '', key: ""));
+    baggageList = List.generate(widget.data.length, (index) => SSRBaggage(amount: 0, name: '', segmentCode: '', tripMode: '', key: ""));
+    selectedList = widget.selectedList ?? List.generate(widget.data.length, (index) => -1);
 
     super.initState();
   }
@@ -32,8 +45,8 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
     return Scaffold(
       bottomSheet: InkWell(
           onTap: () {
-            log(baggageList.toString());
-            Navigator.pop(context, baggageList);
+            log(selectedList.toString());
+            Navigator.pop(context, BaggageReturndata(baggageList: baggageList, selectedList: selectedList));
           },
           child: Container(
             color: primaryColor,
@@ -64,7 +77,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       selectedIndexSector = isSelected ? -1 : index;
-                      selectedIndexBag = -1;
+                      selectedIndexBag = selectedList[index];
                       sectionIndex = index;
                       baggageList[index].segmentCode = widget.data[index].sectorCode;
                       baggageList[index].tripMode = widget.data[index].tripMode;
@@ -102,6 +115,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
                           return InkWell(
                               onTap: () {
                                 selectedIndexBag = isSelected ? -1 : index;
+                                selectedList[sectionIndex ?? 0] = selectedIndexBag;
                                 if (!isSelected) {
                                   baggageList[sectionIndex!].name = widget.data[sectionIndex!].objbaggageList?[index].name;
                                   baggageList[sectionIndex!].amount = widget.data[sectionIndex!].objbaggageList?[index].amount;

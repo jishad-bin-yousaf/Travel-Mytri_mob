@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -22,6 +21,34 @@ class ListOfBookingPaxDetails {
   });
 }
 
+class ListOfPaxSSR {
+  List<SelectedSSR> adultSSR;
+  List<SelectedSSR> childSSR;
+
+  ListOfPaxSSR({
+    required this.adultSSR,
+    required this.childSSR,
+  });
+}
+
+class SelectedSSR {
+  List<int>? baggageSelectionList;
+  List<int>? mealSelectionList;
+  SelectedSSR({
+    this.baggageSelectionList,
+    this.mealSelectionList,
+  });
+}
+
+class TravellerDetailsReturnData {
+  ListOfBookingPaxDetails paxDetailsList;
+  ListOfPaxSSR paxSSR;
+  TravellerDetailsReturnData({
+    required this.paxDetailsList,
+    required this.paxSSR,
+  });
+}
+
 typedef ListCallback = void Function(String);
 
 class TavellerDetails extends StatelessWidget {
@@ -31,9 +58,18 @@ class TavellerDetails extends StatelessWidget {
   late List<BookingPaxdetails> adultPaxList;
   late List<BookingPaxdetails> childPaxList;
   late List<BookingPaxdetails> infantPaxList;
-  ListOfBookingPaxDetails paxDetailsList;
+  late List<SelectedSSR> adultSSR;
+  late List<SelectedSSR> childSSR;
 
-  TavellerDetails({super.key, required this.data, required this.paxDetailsList}) {
+  ListOfBookingPaxDetails paxDetailsList;
+  ListOfPaxSSR paxSSR;
+
+  TavellerDetails({
+    super.key,
+    required this.data,
+    required this.paxDetailsList,
+    required this.paxSSR,
+  }) {
     initializePaxLists();
   }
 
@@ -41,6 +77,10 @@ class TavellerDetails extends StatelessWidget {
     UtilitiesApi().getCountry().then((value) {
       cntryList = value ?? [];
     });
+
+    adultSSR = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => paxSSR.adultSSR[index]);
+    childSSR = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => paxSSR.childSSR[index]);
+
     adultPaxList = List.generate(data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => paxDetailsList.adultPaxList[index]);
     childPaxList = List.generate(data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => paxDetailsList.childPaxList[index]);
     infantPaxList = List.generate(data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => paxDetailsList.infantPaxList[index]);
@@ -61,7 +101,20 @@ class TavellerDetails extends StatelessWidget {
             paxList.addAll(childPaxList);
             paxList.addAll(infantPaxList);
             log(paxDetailsList.toString());
-            Navigator.pop(context, ListOfBookingPaxDetails(adultPaxList: adultPaxList, childPaxList: childPaxList, infantPaxList: infantPaxList));
+            Navigator.pop(
+              context,
+              TravellerDetailsReturnData(
+                paxDetailsList: ListOfBookingPaxDetails(
+                  adultPaxList: adultPaxList,
+                  childPaxList: childPaxList,
+                  infantPaxList: infantPaxList,
+                ),
+                paxSSR: ListOfPaxSSR(
+                  adultSSR: adultSSR,
+                  childSSR: childSSR,
+                ),
+              ),
+            );
           },
           child: Container(
             color: primaryColor,
@@ -389,10 +442,13 @@ class TavellerDetails extends StatelessWidget {
 
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: childSSR[index].baggageSelectionList),
                 ))
                     .then((value) {
-                  childPaxList[index].objBaggage = value as List<SSRBaggage>?;
+                  final resp = value as BaggageReturndata;
+
+                  childPaxList[index].objBaggage = resp.baggageList;
+                  childSSR[index].baggageSelectionList = resp.selectedList;
                 });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
@@ -405,10 +461,13 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => MealDetailsPage(data?.objmealseglist),
+                  builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: childSSR[index].mealSelectionList),
                 ))
                     .then((value) {
-                  childPaxList[index].objMealList = value as List<SSRMeal>?;
+                  final resp = value as MealReturndata;
+
+                  childPaxList[index].objMealList = resp.mealList;
+                  childSSR[index].mealSelectionList = resp.selectedList;
                 });
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
@@ -518,16 +577,13 @@ class TavellerDetails extends StatelessWidget {
 
                   Navigator.of(context)
                       .push(MaterialPageRoute(
-                    builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? []),
+                    builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: adultSSR[index].baggageSelectionList),
                   ))
                       .then((value) {
-                    // BaggageReturnData(
-                    // //  baggageList: baggageList,
-                    //   sectionIndex: sectionIndex,
-                    //   selectedIndexBag: selectedIndexBag,
-                    //   selectedIndexSector: selectedIndexSector,
-                    // );
-                    adultPaxList[index].objBaggage = value;
+                    final resp = value as BaggageReturndata;
+
+                    adultPaxList[index].objBaggage = resp.baggageList;
+                    adultSSR[index].baggageSelectionList = resp.selectedList;
                   });
                 },
                 style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),
@@ -542,10 +598,13 @@ class TavellerDetails extends StatelessWidget {
 
                   Navigator.of(context)
                       .push(MaterialPageRoute(
-                    builder: (context) => MealDetailsPage(data?.objmealseglist),
+                    builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: adultSSR[index].mealSelectionList),
                   ))
                       .then((value) {
-                    adultPaxList[index].objMealList = value ?? [] as List<SSRMeal>?;
+                    final resp = value as MealReturndata;
+
+                    adultPaxList[index].objMealList = resp.mealList;
+                    adultSSR[index].mealSelectionList = resp.selectedList;
                   });
                 },
                 style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(secondaryColor)),

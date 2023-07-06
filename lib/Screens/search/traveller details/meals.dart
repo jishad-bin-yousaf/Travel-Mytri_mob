@@ -3,21 +3,37 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../../data/model/Search/pricing_models.dart';
 
 class MealDetailsPage extends StatefulWidget {
-  MealDetailsPage(this.data, {super.key});
+  MealDetailsPage(
+    {
+    this.data, 
+    super.key,
+    this.selectedList,
+  });
   List<PricingMealSegment>? data;
+  List<int>? selectedList;
   @override
   State<MealDetailsPage> createState() => _MealDetailsPageState();
+}
+
+class MealReturndata {
+  List<int>? selectedList;
+  List<SSRMeal>? mealList;
+  MealReturndata({
+    this.selectedList,
+    this.mealList,
+  });
 }
 
 class _MealDetailsPageState extends State<MealDetailsPage> {
   int? sectionIndex;
   int selectedIndexMeal = -1;
   int selectedIndexSector = -1;
-  List<SSRMeal> mealList = [];
-  List<SSRMeal> mealListFinal = [];
+  late List<SSRMeal> mealList;
+  late List<int> selectedList;
 
   @override
   void initState() {
+    selectedList = widget.selectedList ?? List.generate(widget.data?.length ?? 0, (index) => -1);
     mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: '', key: ''));
 
     super.initState();
@@ -30,7 +46,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
           onTap: () {
             //    print(mealList.length);
             print(mealList);
-            Navigator.pop(context, mealList);
+            Navigator.pop(context, MealReturndata(mealList: mealList, selectedList: selectedList));
           },
           child: Container(
             color: primaryColor,
@@ -58,7 +74,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       selectedIndexSector = isSelected ? -1 : index;
-                      selectedIndexMeal = -1;
+                      selectedIndexMeal = selectedList[index];
 
                       mealList[index].segmentCode = widget.data?[index].sectorCode;
                       mealList[index].tripMode = widget.data?[index].tripMode;
@@ -97,6 +113,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                           return InkWell(
                               onTap: () {
                                 selectedIndexMeal = isSelected ? -1 : index;
+                                selectedList[sectionIndex ?? 0] = selectedIndexMeal;
                                 if (!isSelected) {
                                   mealList[sectionIndex!].name = widget.data?[sectionIndex!].objmealList?[index].name;
                                   mealList[sectionIndex!].amount = widget.data?[sectionIndex!].objmealList?[index].amount;

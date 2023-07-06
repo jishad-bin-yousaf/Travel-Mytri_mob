@@ -26,6 +26,8 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
 
   ListOfBookingPaxDetails paxDetailsList = ListOfBookingPaxDetails(adultPaxList: [], childPaxList: [], infantPaxList: []);
 
+  ListOfPaxSSR paxSSR = ListOfPaxSSR(adultSSR: [], childSSR: []);
+
   TextEditingController contactController = TextEditingController();
 
   TextEditingController alternateContactController = TextEditingController();
@@ -64,6 +66,9 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
     paxDetailsList.adultPaxList = List.generate(widget.data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails());
     paxDetailsList.childPaxList = List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails());
     paxDetailsList.infantPaxList = List.generate(widget.data.objApiResponse?.objInfPaxList?.length ?? 0, (index) => BookingPaxdetails());
+
+    paxSSR.adultSSR = List.generate(widget.data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => SelectedSSR());
+    paxSSR.childSSR = List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => SelectedSSR());
   }
 
   // @override
@@ -98,16 +103,18 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           log(paxDetailsList.toString());
-                          return TavellerDetails(data: widget.data, paxDetailsList: paxDetailsList);
+                          return TavellerDetails(data: widget.data, paxDetailsList: paxDetailsList, paxSSR: paxSSR);
                         },
-                      )).then((value) {
+                      )).then((resp) {
+                        final value = resp as TravellerDetailsReturnData;
                         List<BookingPaxdetails> pax = [];
-                        paxDetailsList = value ??
+                        paxSSR = value.paxSSR;
+                        paxDetailsList = value.paxDetailsList; /*  ??
                             ListOfBookingPaxDetails(
                               adultPaxList: List.generate(widget.data.objApiResponse?.objAdtPaxList?.length ?? 0, (index) => BookingPaxdetails()),
                               childPaxList: List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
                               infantPaxList: List.generate(widget.data.objApiResponse?.objChdPaxList?.length ?? 0, (index) => BookingPaxdetails()),
-                            );
+                            ); */
                         pax.addAll(paxDetailsList.adultPaxList);
                         pax.addAll(paxDetailsList.childPaxList);
                         pax.addAll(paxDetailsList.infantPaxList);
