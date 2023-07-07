@@ -24,6 +24,7 @@ class AirlineTicketHistory with _$AirlineTicketHistory {
     String? bookingReferenceId,
     String? airlinePnr,
     double? TotalAmount,
+    String? tripMode,
     List<AirlineTicketHistoryDetails>? objSegDetails,
     List<String>? objPaxDetails,
   }) = _AirlineTicketHistory;

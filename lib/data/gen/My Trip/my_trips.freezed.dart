@@ -255,6 +255,7 @@ mixin _$AirlineTicketHistory {
   String? get bookingReferenceId => throw _privateConstructorUsedError;
   String? get airlinePnr => throw _privateConstructorUsedError;
   double? get TotalAmount => throw _privateConstructorUsedError;
+  String? get tripMode => throw _privateConstructorUsedError;
   List<AirlineTicketHistoryDetails>? get objSegDetails =>
       throw _privateConstructorUsedError;
   List<String>? get objPaxDetails => throw _privateConstructorUsedError;
@@ -279,6 +280,7 @@ abstract class $AirlineTicketHistoryCopyWith<$Res> {
       String? bookingReferenceId,
       String? airlinePnr,
       double? TotalAmount,
+      String? tripMode,
       List<AirlineTicketHistoryDetails>? objSegDetails,
       List<String>? objPaxDetails});
 }
@@ -304,6 +306,7 @@ class _$AirlineTicketHistoryCopyWithImpl<$Res,
     Object? bookingReferenceId = freezed,
     Object? airlinePnr = freezed,
     Object? TotalAmount = freezed,
+    Object? tripMode = freezed,
     Object? objSegDetails = freezed,
     Object? objPaxDetails = freezed,
   }) {
@@ -336,6 +339,10 @@ class _$AirlineTicketHistoryCopyWithImpl<$Res,
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
               as double?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
+              as String?,
       objSegDetails: freezed == objSegDetails
           ? _value.objSegDetails
           : objSegDetails // ignore: cast_nullable_to_non_nullable
@@ -364,6 +371,7 @@ abstract class _$$_AirlineTicketHistoryCopyWith<$Res>
       String? bookingReferenceId,
       String? airlinePnr,
       double? TotalAmount,
+      String? tripMode,
       List<AirlineTicketHistoryDetails>? objSegDetails,
       List<String>? objPaxDetails});
 }
@@ -386,6 +394,7 @@ class __$$_AirlineTicketHistoryCopyWithImpl<$Res>
     Object? bookingReferenceId = freezed,
     Object? airlinePnr = freezed,
     Object? TotalAmount = freezed,
+    Object? tripMode = freezed,
     Object? objSegDetails = freezed,
     Object? objPaxDetails = freezed,
   }) {
@@ -418,6 +427,10 @@ class __$$_AirlineTicketHistoryCopyWithImpl<$Res>
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
               as double?,
+      tripMode: freezed == tripMode
+          ? _value.tripMode
+          : tripMode // ignore: cast_nullable_to_non_nullable
+              as String?,
       objSegDetails: freezed == objSegDetails
           ? _value._objSegDetails
           : objSegDetails // ignore: cast_nullable_to_non_nullable
@@ -441,6 +454,7 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
       this.bookingReferenceId,
       this.airlinePnr,
       this.TotalAmount,
+      this.tripMode,
       final List<AirlineTicketHistoryDetails>? objSegDetails,
       final List<String>? objPaxDetails})
       : _objSegDetails = objSegDetails,
@@ -463,6 +477,8 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
   final String? airlinePnr;
   @override
   final double? TotalAmount;
+  @override
+  final String? tripMode;
   final List<AirlineTicketHistoryDetails>? _objSegDetails;
   @override
   List<AirlineTicketHistoryDetails>? get objSegDetails {
@@ -485,7 +501,7 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
 
   @override
   String toString() {
-    return 'AirlineTicketHistory(ItinId: $ItinId, departureCity: $departureCity, arrivalCity: $arrivalCity, bookingType: $bookingType, bookingReferenceId: $bookingReferenceId, airlinePnr: $airlinePnr, TotalAmount: $TotalAmount, objSegDetails: $objSegDetails, objPaxDetails: $objPaxDetails)';
+    return 'AirlineTicketHistory(ItinId: $ItinId, departureCity: $departureCity, arrivalCity: $arrivalCity, bookingType: $bookingType, bookingReferenceId: $bookingReferenceId, airlinePnr: $airlinePnr, TotalAmount: $TotalAmount, tripMode: $tripMode, objSegDetails: $objSegDetails, objPaxDetails: $objPaxDetails)';
   }
 
   @override
@@ -506,6 +522,8 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
                 other.airlinePnr == airlinePnr) &&
             (identical(other.TotalAmount, TotalAmount) ||
                 other.TotalAmount == TotalAmount) &&
+            (identical(other.tripMode, tripMode) ||
+                other.tripMode == tripMode) &&
             const DeepCollectionEquality()
                 .equals(other._objSegDetails, _objSegDetails) &&
             const DeepCollectionEquality()
@@ -523,6 +541,7 @@ class _$_AirlineTicketHistory implements _AirlineTicketHistory {
       bookingReferenceId,
       airlinePnr,
       TotalAmount,
+      tripMode,
       const DeepCollectionEquality().hash(_objSegDetails),
       const DeepCollectionEquality().hash(_objPaxDetails));
 
@@ -550,6 +569,7 @@ abstract class _AirlineTicketHistory implements AirlineTicketHistory {
       final String? bookingReferenceId,
       final String? airlinePnr,
       final double? TotalAmount,
+      final String? tripMode,
       final List<AirlineTicketHistoryDetails>? objSegDetails,
       final List<String>? objPaxDetails}) = _$_AirlineTicketHistory;
 
@@ -570,6 +590,8 @@ abstract class _AirlineTicketHistory implements AirlineTicketHistory {
   String? get airlinePnr;
   @override
   double? get TotalAmount;
+  @override
+  String? get tripMode;
   @override
   List<AirlineTicketHistoryDetails>? get objSegDetails;
   @override

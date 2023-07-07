@@ -390,20 +390,48 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return isLoadingPage
-        ? Image.asset(
-            "assets/loader.gif",
-            //      "https://cdn.dribbble.com/users/328772/screenshots/10293847/media/d45c05b5e858e2508fb1a3b84f33e932.gif",
-          )
-        : Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(30),
-              children: [
-                selectTripType(),
-                multiCity ? MultiCity() : oneWayAndRoundTrip(context),
-              ],
-            ),
-          );
+    return FutureBuilder<List<AirportData>?>(
+        future: UtilitiesApi().getAirport(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Display a loading indicator while waiting for the result
+
+            return Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            // Display an error message if the asynchronous operation fails
+            return Text('Error: ${snapshot.error}  Check your Connection');
+          } else {
+            return isLoadingPage
+                ? Expanded(
+                    child: Center(
+                      child: Image.network(
+                        "https://media.tenor.com/u3KCZHV9A6AAAAAd/plane-airplane.gif",
+                      ),
+                    ),
+                  )
+                /*  Expanded(
+                    child: Center(
+                      child: Image.asset(
+                        "assets/loader.gif",
+                      ),
+                    ),
+                  ) */
+                //  Image.network("https://media.tenor.com/G7RCgbI7ypMAAAAd/airplane-dancing.gif")
+                : Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(30),
+                      children: [
+                        selectTripType(),
+                        multiCity ? MultiCity() : oneWayAndRoundTrip(context),
+                      ],
+                    ),
+                  );
+          }
+        });
   }
 
   Column oneWayAndRoundTrip(BuildContext context) {

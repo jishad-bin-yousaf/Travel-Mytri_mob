@@ -122,7 +122,7 @@ class TavellerDetails extends StatelessWidget {
             width: double.infinity,
             child: const Center(
                 child: Text(
-              "CONTINUE",
+              "Save & Continue",
               style: TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.w600),
             )),
           )),

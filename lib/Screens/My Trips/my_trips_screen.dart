@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/bottom_navigation.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
+import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 
 import '../../data/model/My Trip/my_trips.dart';
 import '../widgets/login_error.dart';
@@ -20,55 +21,82 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
     TripType.flights: 'Flights',
     TripType.hotels: 'Hotels',
   };
+
   AirlineTicketHistoryResponse data = AirlineTicketHistoryResponse();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: white,
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text("My Trips"),
-      ),
-      bottomNavigationBar: const BottomNavigation(),
-      body: Column(
-        children: [
-          flightsOrHotel(tripTypes),
-          Expanded(
-            child: DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    TabBar(
-                      labelColor: primaryColor,
-                      dividerColor: primaryColor,
-                      enableFeedback: true,
-                      unselectedLabelColor: Colors.black,
-                      tabs: [
-                        Tab(
-                          text: "Booked",
-                        ),
-                        Tab(
-                          text: "Cancelled",
-                        )
-                      ],
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          selectedTrip == TripType.flights ? flightsTabView(true) : const Center(child: Text("Sorry Hotel ippol illa")),
-                          selectedTrip == TripType.flights ? flightsTabView(false) : const Center(child: Text("Sorry Hotel ippol illa")),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
-          )
-        ],
-      ),
+    return FutureBuilder<Token>(
+      future: getToken(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Display a loading indicator while waiting for the result
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          // Display an error message if the asynchronous operation fails
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return (snapshot.data?.isUser ?? false)
+              ? Scaffold(
+                  backgroundColor: white,
+                  appBar: AppBar(
+                    centerTitle: false,
+                    title: const Text("My Trips"),
+                  ),
+                  bottomNavigationBar: const BottomNavigation(),
+                  body: Column(
+                    children: [
+                      flightsOrHotel(tripTypes),
+                      Expanded(
+                        child: DefaultTabController(
+                            length: 2,
+                            child: Column(
+                              children: [
+                                TabBar(
+                                  labelColor: primaryColor,
+                                  dividerColor: primaryColor,
+                                  enableFeedback: true,
+                                  unselectedLabelColor: Colors.black,
+                                  tabs: [
+                                    Tab(
+                                      text: "Booked",
+                                    ),
+                                    Tab(
+                                      text: "Cancelled",
+                                    )
+                                  ],
+                                ),
+                                Expanded(
+                                  child: TabBarView(
+                                    children: [
+                                      selectedTrip == TripType.flights ? flightsTabView(true) : hotelTabView(true),
+                                      selectedTrip == TripType.flights ? flightsTabView(false) : hotelTabView(false),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
+                    ],
+                  ),
+                )
+              : Scaffold(
+                  backgroundColor: Colors.grey.shade300,
+                  bottomNavigationBar: const BottomNavigation(),
+                  body: LoginErrorPage(),
+                );
+        }
+      },
     );
   }
 
-  flightsTabView(booked) {
+  Center hotelTabView(bool booked) => Center(
+          child: Image.asset(
+        "assets/images/comingsoon.gif",
+        height: 200,
+      ));
+
+  flightsTabView(bool booked) {
     return FutureBuilder<AirlineTicketHistoryResponse?>(
       future: MyTripsApi().getDetails(request: booked ? "S" : "C"),
       builder: (context, snapshot) {
@@ -82,7 +110,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
         } else {
           // The asynchronous operation completed successfully
           final data = snapshot.data ?? AirlineTicketHistoryResponse();
-          if ((data.status ?? false)) {
+          if (((data.objAirlineTicketHistory ?? []).isNotEmpty)) {
             return ListView.builder(
               itemCount: data.objAirlineTicketHistory?.length ?? 0,
               itemBuilder: (context, index) {
@@ -150,8 +178,34 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
             );
           } else {
             return Scaffold(
-              backgroundColor: Colors.grey.shade300,
-              body: LoginErrorPage(),
+              backgroundColor: Colors.grey.shade100,
+              body: Center(
+                child: Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/suitcase.png",
+                      height: 150,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text(
+                        "Looks empty!",
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        "You've no bookings. When you book a trip,\nyou will see your itinerary here.",
+                        maxLines: 2,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
         }
@@ -294,7 +348,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                     color: statusType == "S" ? Color.fromARGB(255, 23, 212, 9) : Colors.red,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                      child: Text(statusType == "S" ? "Booked" : statusType ?? '', style: TextStyle(color: white, fontWeight: FontWeight.bold)),
+                      child: Text(statusType == "S" ? "Booked" : "Cancelled", style: TextStyle(color: white, fontWeight: FontWeight.bold)),
                     ),
                   )
                 ],
@@ -323,7 +377,7 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
               ),
             ),
             SizedBox(
-              height: 185 * (dataList?.objSegDetails?.length ?? 0).toDouble(),
+              height: 175 * (dataList?.objSegDetails?.length ?? 0).toDouble(),
               child: ListView.separated(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: dataList?.objSegDetails?.length ?? 0,
@@ -331,113 +385,115 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                   final value = dataList?.objSegDetails?[i];
                   return Container(
                     //  margin: EdgeInsets.all(30),
-                    padding: EdgeInsets.all(10),
                     //   decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Column(
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Image.network(
-                                          "https://agents.alhind.com/images/logos/${value?.airlineCode ?? ''}.gif",
-                                          /*${data.airlineName}.*/
-
-                                          fit: BoxFit.fitHeight,
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return const Text("No logo");
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Text(
-                                            "${value?.airlineName ?? ""} ${value?.airlineCode ?? ""}",
-                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 15.0),
-                                    child: Text(
-                                      "Departure",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                  Text(
-                                    value?.departureDate ?? "",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    value?.departureAirportDetails ?? "",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  Text(
-                                    "Terminal ${value?.departureTerminal ?? ""}",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 70,
-                                child: Stack(
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
                                   children: [
-                                    Positioned(
-                                      left: 0,
-                                      child: Icon(
-                                        Icons.circle_outlined,
-                                        size: 15,
-                                      ),
+                                    Image.network(
+                                      "https://agents.alhind.com/images/logos/${value?.airlineCode ?? ''}.gif",
+                                      /*${data.airlineName}.*/
+
+                                      fit: BoxFit.fitHeight,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const Text("No logo");
+                                      },
                                     ),
-                                    Divider(
-                                      endIndent: 12,
-                                      indent: 12,
-                                      color: Colors.grey.shade600,
-                                      thickness: 2,
-                                    ),
-                                    Positioned(
-                                      right: 0,
-                                      child: Icon(
-                                        Icons.circle,
-                                        size: 15,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Text(
+                                        "${value?.airlineName ?? ""} ${value?.airlineCode ?? ""}",
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 15.0),
-                                    child: Text(
-                                      "Arrival",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 15.0),
+                                        child: Text(
+                                          "Departure",
+                                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      Text(
+                                        value?.departureDate ?? "",
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        value?.departureAirportDetails ?? "",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      Text(
+                                        "Terminal ${value?.departureTerminal ?? ""}",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          left: 0,
+                                          child: Icon(
+                                            Icons.circle_outlined,
+                                            size: 15,
+                                          ),
+                                        ),
+                                        Divider(
+                                          endIndent: 12,
+                                          indent: 12,
+                                          color: Colors.grey.shade600,
+                                          thickness: 2,
+                                        ),
+                                        Positioned(
+                                          right: 0,
+                                          child: Icon(
+                                            Icons.circle,
+                                            size: 15,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Text(
-                                    value?.arrivalDate ?? "",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text(
-                                      value?.arrivalAirportDetails ?? "",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Terminal ${value?.arrivalTerminal ?? ""}",
-                                    style: TextStyle(fontSize: 16),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 15.0),
+                                        child: Text(
+                                          "Arrival",
+                                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      Text(
+                                        value?.arrivalDate ?? "",
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Text(
+                                          value?.arrivalAirportDetails ?? "",
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Terminal ${value?.arrivalTerminal ?? ""}",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

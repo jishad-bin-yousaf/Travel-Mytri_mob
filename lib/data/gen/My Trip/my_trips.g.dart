@@ -37,6 +37,7 @@ _$_AirlineTicketHistory _$$_AirlineTicketHistoryFromJson(
       bookingReferenceId: json['bookingReferenceId'] as String?,
       airlinePnr: json['airlinePnr'] as String?,
       TotalAmount: (json['TotalAmount'] as num?)?.toDouble(),
+      tripMode: json['tripMode'] as String?,
       objSegDetails: (json['objSegDetails'] as List<dynamic>?)
           ?.map((e) =>
               AirlineTicketHistoryDetails.fromJson(e as Map<String, dynamic>))
@@ -56,6 +57,7 @@ Map<String, dynamic> _$$_AirlineTicketHistoryToJson(
       'bookingReferenceId': instance.bookingReferenceId,
       'airlinePnr': instance.airlinePnr,
       'TotalAmount': instance.TotalAmount,
+      'tripMode': instance.tripMode,
       'objSegDetails': instance.objSegDetails,
       'objPaxDetails': instance.objPaxDetails,
     };
