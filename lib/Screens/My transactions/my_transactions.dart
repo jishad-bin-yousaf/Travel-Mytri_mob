@@ -36,7 +36,7 @@ class MyTransactionsScreen extends StatelessWidget {
                       } else {
                         // The asynchronous operation completed successfully
                         final data = snapshot.data ?? AccountStatementResponse();
-                        if ((data.status ?? false)) {
+                        if (((data.objDaywiseStatement ?? []).isNotEmpty)) {
                           return Scaffold(
                             appBar: AppBar(
                               toolbarHeight: 80,
@@ -70,26 +70,26 @@ class MyTransactionsScreen extends StatelessWidget {
                                   Expanded(
                                       child: ListView.builder(
                                     itemCount: data.objDaywiseStatement?.length ?? 0,
-                                    itemBuilder: (context, index) {
+                                    itemBuilder: (context, dayWiseIndex) {
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              data.objDaywiseStatement?[index].date ?? '',
+                                              data.objDaywiseStatement?[dayWiseIndex].date ?? '',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                               ),
                                             ),
                                             SizedBox(
-                                                height: 73,
+                                                height: 80 * (data.objDaywiseStatement?[dayWiseIndex].objAccountStatement?.length ?? 0).toDouble(),
                                                 child: ListView.separated(
-                                                  itemCount: data.objDaywiseStatement?[index].objAccountStatement?.length ?? 0,
+                                                  itemCount: data.objDaywiseStatement?[dayWiseIndex].objAccountStatement?.length ?? 0,
                                                   physics: NeverScrollableScrollPhysics(),
                                                   itemBuilder: (context, index) {
-                                                    final value = data.objDaywiseStatement?[index].objAccountStatement?[index];
+                                                    final value = data.objDaywiseStatement?[dayWiseIndex].objAccountStatement?[index];
                                                     return ListTile(
                                                       leading: CircleAvatar(
                                                           backgroundColor: Colors.grey.shade400,
@@ -124,7 +124,35 @@ class MyTransactionsScreen extends StatelessWidget {
                                 centerTitle: false,
                               ),
                               bottomNavigationBar: const BottomNavigation(),
-                              body: LoginErrorPage());
+                              body: SafeArea(
+                                child: Center(
+                                  child: Column(
+                                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/no-data.png",
+                                        height: 200,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: Text(
+                                          "No data found!",
+                                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      // const Padding(
+                                      //   padding: EdgeInsets.all(5.0),
+                                      //   child: Text(
+                                      //     "You need to login to access this page",
+                                      //     maxLines: 2,
+                                      //     style: TextStyle(fontSize: 15),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ));
                         }
                       }
                     })

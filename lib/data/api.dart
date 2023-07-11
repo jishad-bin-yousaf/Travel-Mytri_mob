@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Transactions/transactions_model.dart';
@@ -30,6 +31,12 @@ Future<Map<String, String>> getHeader() async {
     var iosInfo = await deviceInfo.iosInfo;
     deviceId = iosInfo.identifierForVendor;
   }
+  final connectivityResult = await Connectivity().checkConnectivity();
+
+  if (connectivityResult == ConnectivityResult.none) {
+    Helper().toastMessage("No internet");
+  }
+
   await getToken().then((value) {
     if (value.token != '') {
       header = {

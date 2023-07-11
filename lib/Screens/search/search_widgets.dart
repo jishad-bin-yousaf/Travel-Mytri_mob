@@ -10,7 +10,7 @@ import '../../data/model/Search/flight_search_model.dart';
 import '../../data/model/utilities.dart';
 import '../widgets/helper.dart';
 
-flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData modifyData) {
+flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData modifyData, List<AirportData> airportList) {
   return AppBar(
     actions: [
       IconButton(
@@ -24,7 +24,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
               context: context,
               builder: (context) {
                 return Flex(direction: Axis.vertical, crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  TripTypes(isModify: true, modifyData: modifyData),
+                  TripTypes(isModify: true, modifyData: modifyData, airportList: airportList),
                 ]);
               },
             );

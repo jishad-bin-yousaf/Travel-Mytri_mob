@@ -3,12 +3,13 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import '../../../data/model/Search/pricing_models.dart';
 
 class MealDetailsPage extends StatefulWidget {
-  MealDetailsPage(
-    {
-    this.data, 
+  MealDetailsPage({
+    this.data,
     super.key,
     this.selectedList,
+    this.mealList,
   });
+  List<SSRMeal>? mealList;
   List<PricingMealSegment>? data;
   List<int>? selectedList;
   @override
@@ -34,7 +35,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
   @override
   void initState() {
     selectedList = widget.selectedList ?? List.generate(widget.data?.length ?? 0, (index) => -1);
-    mealList = List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: '', key: ''));
+    mealList = widget.mealList ?? List.generate(widget.data?.length ?? 0, (index) => SSRMeal(amount: 0, name: '', segmentCode: '', tripMode: '', key: ''));
 
     super.initState();
   }

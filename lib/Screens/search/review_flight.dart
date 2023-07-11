@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
@@ -59,6 +60,8 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
   List<RePricingPaxlist> rePricingChdList = [];
 
   List<RePricingPaxlist> rePricingInfList = [];
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -283,75 +286,90 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                     icon: Text("${(data.objApiResponse?.finalAmount ?? 0) + totalBaggageAndMealAmount}", style: const TextStyle(color: white, fontSize: 25, fontWeight: FontWeight.bold)))
               ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                rePricingAdtList.clear();
-                rePricingChdList.clear();
-                rePricingChdList.clear();
-                for (BookingPaxdetails bookingPax in paxDetailsList.adultPaxList) {
-                  RePricingPaxlist rePricingPax = RePricingPaxlist(
-                    paxKey: bookingPax.paxKey,
-                    objMealList: bookingPax.objMealList,
-                    objBaggage: bookingPax.objBaggage,
-                    //     objSeatList: bookingPax.objSeatList,
-                  );
-                  rePricingAdtList.add(rePricingPax);
-                }
-                for (BookingPaxdetails bookingPax in paxDetailsList.childPaxList) {
-                  RePricingPaxlist rePricingPax = RePricingPaxlist(
-                    paxKey: bookingPax.paxKey,
-                    objMealList: bookingPax.objMealList,
-                    objBaggage: bookingPax.objBaggage,
-                    //     objSeatList: bookingPax.objSeatList,
-                  );
-                  rePricingChdList.add(rePricingPax);
-                }
-                for (BookingPaxdetails bookingPax in paxDetailsList.infantPaxList) {
-                  RePricingPaxlist rePricingPax = RePricingPaxlist(
-                    paxKey: bookingPax.paxKey,
-                    objMealList: bookingPax.objMealList,
-                    objBaggage: bookingPax.objBaggage,
-                    //      objSeatList: bookingPax.objSeatList,
-                  );
-                  rePricingInfList.add(rePricingPax);
-                }
-                req.fareId = data.fareId;
-                req.fareIdR = data.fareIdR;
-                req.itinId = data.itinId;
-                req.itinIdR = data.itinIdR;
-                req.providerCode = data.providerCode;
-                req.providerCodeR = data.providerCodeR;
-                req.objAdtPaxList = rePricingAdtList;
-                req.objChdPaxList = rePricingChdList;
-                req.objInfPaxList = rePricingInfList;
-
-                bookingRequest.fareId = data.fareId;
-                bookingRequest.fareIdR = data.fareIdR;
-                bookingRequest.itinId = data.itinId;
-                bookingRequest.itinIdR = data.itinIdR;
-                bookingRequest.providerCode = data.providerCode;
-                bookingRequest.providerCodeR = data.providerCodeR;
-                bookingRequest.contactEmail = emailController.text;
-                bookingRequest.alternateContactNumber = alternateContactController.text;
-                bookingRequest.contactNumber = contactController.text;
-
-                PricingApi().getRepricing(req).then((value) {
-                  if ((value?.status == true) && value != null) {
-                    rePricingBottomSheet(context, value, data);
-                  } else {
-                    Helper().toastMessage("Try Again");
-                    //   Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
+            AbsorbPointer(
+              absorbing: isLoading,
+              child: ElevatedButton(
+                onPressed: () {
+                  isLoading = true;
+                  setState(() {});
+                  rePricingAdtList.clear();
+                  rePricingChdList.clear();
+                  rePricingChdList.clear();
+                  for (BookingPaxdetails bookingPax in paxDetailsList.adultPaxList) {
+                    RePricingPaxlist rePricingPax = RePricingPaxlist(
+                      paxKey: bookingPax.paxKey,
+                      objMealList: bookingPax.objMealList,
+                      objBaggage: bookingPax.objBaggage,
+                      //     objSeatList: bookingPax.objSeatList,
+                    );
+                    rePricingAdtList.add(rePricingPax);
                   }
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(150, 50),
-                backgroundColor: secondaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  for (BookingPaxdetails bookingPax in paxDetailsList.childPaxList) {
+                    RePricingPaxlist rePricingPax = RePricingPaxlist(
+                      paxKey: bookingPax.paxKey,
+                      objMealList: bookingPax.objMealList,
+                      objBaggage: bookingPax.objBaggage,
+                      //     objSeatList: bookingPax.objSeatList,
+                    );
+                    rePricingChdList.add(rePricingPax);
+                  }
+                  for (BookingPaxdetails bookingPax in paxDetailsList.infantPaxList) {
+                    RePricingPaxlist rePricingPax = RePricingPaxlist(
+                      paxKey: bookingPax.paxKey,
+                      objMealList: bookingPax.objMealList,
+                      objBaggage: bookingPax.objBaggage,
+                      //      objSeatList: bookingPax.objSeatList,
+                    );
+                    rePricingInfList.add(rePricingPax);
+                  }
+                  req.fareId = data.fareId;
+                  req.fareIdR = data.fareIdR;
+                  req.itinId = data.itinId;
+                  req.itinIdR = data.itinIdR;
+                  req.providerCode = data.providerCode;
+                  req.providerCodeR = data.providerCodeR;
+                  req.objAdtPaxList = rePricingAdtList;
+                  req.objChdPaxList = rePricingChdList;
+                  req.objInfPaxList = rePricingInfList;
+
+                  bookingRequest.fareId = data.fareId;
+                  bookingRequest.fareIdR = data.fareIdR;
+                  bookingRequest.itinId = data.itinId;
+                  bookingRequest.itinIdR = data.itinIdR;
+                  bookingRequest.providerCode = data.providerCode;
+                  bookingRequest.providerCodeR = data.providerCodeR;
+                  bookingRequest.contactEmail = emailController.text;
+                  bookingRequest.alternateContactNumber = alternateContactController.text;
+                  bookingRequest.contactNumber = contactController.text;
+
+                  Connectivity().checkConnectivity().then((connection) {
+                    if (connection == ConnectivityResult.none) {
+                      Navigator.of(context).pushNamed('/NoConnection');
+                      isLoading = false;
+                      setState(() {});
+                    } else {
+                      PricingApi().getRepricing(req).then((value) {
+                        isLoading = false;
+                        setState(() {});
+                        if ((value?.status == true) && value != null) {
+                          rePricingBottomSheet(context, value, data);
+                        } else {
+                          Helper().toastMessage("Try Again");
+                          //   Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
+                        }
+                      });
+                    }
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(150, 50),
+                  backgroundColor: secondaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
+                child: isLoading ? const CircularProgressIndicator(color: Colors.white) : const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
               ),
-              child: const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -571,138 +589,159 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
       // isScrollControlled: false,
       context: context,
       builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Fare Summary",
-                    style: TextStyle(fontSize: 23),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Fare Summary",
+                        style: TextStyle(fontSize: 23),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.close)),
+                    ],
                   ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Icons.close)),
+                  Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    height: 70,
+                    color: primaryColor,
+                    child: Text(
+                      "₹ ${data.finalAmount ?? ''}",
+                      //  textAlign: TextAlign.center,
+                      style: const TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
+                    ),
+                  ),
+                  rePricingBaseFare(data),
+                  rePricingTaxesAndFee(data),
+                  baggageAndMeal(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "You Pay",
+                        //  textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
+                      ),
+                      Text(
+                        "₹ ${data.finalAmount ?? ''}",
+                        //  textAlign: TextAlign.center,
+                        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Center(
+                      child: Text(
+                        "Are you sure you want to continue the booking?",
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          if (addGst) {
+                            bookingRequest.objGst = BookingGstDetails(
+                              address: gstAddressController.text,
+                              city: gstCityController.text,
+                              companyName: gstCompanyNameController.text,
+                              email: gstEmailController.text,
+                              gstNumber: gstNumberController.text,
+                              mobile: gstMobileController.text,
+                              pincode: int.tryParse(gstPinCodeController.text),
+                            );
+                          } else {
+                            bookingRequest.objGst = BookingGstDetails(
+                              address: "",
+                              city: "",
+                              companyName: "",
+                              email: "",
+                              gstNumber: "",
+                              mobile: "",
+                              pincode: 0,
+                            );
+                          }
+                          Connectivity().checkConnectivity().then((connection) {
+                            if (connection == ConnectivityResult.none) {
+                              Navigator.of(context).pushNamed('/NoConnection');
+                              isLoading = false;
+                              setState(() {});
+                            } else {
+                              PricingApi().bookTicket(bookingRequest).then((value) {
+                                isLoading = false;
+                                setState(() {});
+                                if (value != null) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => PaymentPage(data: value),
+                                    ),
+                                  );
+                                } else {
+                                  Helper().toastMessage("Sorry Not Booked");
+                                  //   Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
+                                }
+                              });
+                            }
+                          });
+                        },
+                        child: Container(
+                            height: 80,
+                            width: MediaQuery.of(context).size.width / 2 - 10,
+                            color: secondaryColor,
+                            child: Center(
+                                child: isLoading
+                                    ? CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : Text(
+                                        "PROCEED TO PAYMENT",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ))),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                            height: 80,
+                            width: MediaQuery.of(context).size.width / 2 - 10,
+                            color: Colors.grey,
+                            child: const Center(
+                                child: Text(
+                              "CANCEL",
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ))),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                height: 70,
-                color: primaryColor,
-                child: Text(
-                  "₹ ${data.finalAmount ?? ''}",
-                  //  textAlign: TextAlign.center,
-                  style: const TextStyle(color: white, fontWeight: FontWeight.w800, fontSize: 30),
-                ),
-              ),
-              rePricingBaseFare(data),
-              rePricingTaxesAndFee(data),
-              baggageAndMeal(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "You Pay",
-                    //  textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
-                  ),
-                  Text(
-                    "₹ ${data.finalAmount ?? ''}",
-                    //  textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    "Are you sure you want to continue the booking?",
-                    maxLines: 2,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      if (addGst) {
-                        bookingRequest.objGst = BookingGstDetails(
-                          address: gstAddressController.text,
-                          city: gstCityController.text,
-                          companyName: gstCompanyNameController.text,
-                          email: gstEmailController.text,
-                          gstNumber: gstNumberController.text,
-                          mobile: gstMobileController.text,
-                          pincode: int.tryParse(gstPinCodeController.text),
-                        );
-                      } else {
-                        bookingRequest.objGst = BookingGstDetails(
-                          address: "",
-                          city: "",
-                          companyName: "",
-                          email: "",
-                          gstNumber: "",
-                          mobile: "",
-                          pincode: 0,
-                        );
-                      }
-                      PricingApi().bookTicket(bookingRequest).then((value) {
-                        if (value != null) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => PaymentPage(data: value),
-                            ),
-                          );
-                        } else {
-                          Helper().toastMessage("Sorry Not Booked");
-                          //   Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
-                        }
-                      });
-                    },
-                    child: Container(
-                        height: 80,
-                        width: MediaQuery.of(context).size.width / 2 - 10,
-                        color: secondaryColor,
-                        child: const Center(
-                            child: Text(
-                          "PROCEED TO PAYMENT",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ))),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                        height: 80,
-                        width: MediaQuery.of(context).size.width / 2 - 10,
-                        color: Colors.grey,
-                        child: const Center(
-                            child: Text(
-                          "CANCEL",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ))),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

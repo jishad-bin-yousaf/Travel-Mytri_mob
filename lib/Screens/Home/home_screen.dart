@@ -100,7 +100,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                          child: const Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                             Icon(Icons.flight_takeoff, size: 35),
                             Text("Flights", style: TextStyle(fontSize: 18)),
                           ]),
@@ -125,7 +125,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                          child: const Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                             Icon(Icons.bed_outlined, size: 35),
                             Text("Hotels", style: TextStyle(fontSize: 18)),
                           ]),
@@ -150,7 +150,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                               Radius.circular(10),
                             ),
                           ),
-                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: const [
+                          child: const Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                             Icon(Icons.health_and_safety_outlined, size: 35),
                             Text("Insurance", style: TextStyle(fontSize: 18)),
                           ]),
@@ -175,6 +175,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                           options: CarouselOptions(
                             height: 170,
                             viewportFraction: 0.5,
+                            enlargeCenterPage: false,
+                            initialPage: 0,
                             //  enlargeCenterPage: true,
                             //     autoPlay: true,
                             //     pauseAutoPlayOnManualNavigate: true,
@@ -207,7 +209,20 @@ class _ScreenHomeState extends State<ScreenHome> {
                             ),
                           ),
                         ),
-                        CarouselSlider(
+                        SizedBox(
+                          height: 130,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                                child: Image.asset('assets/airline_deals/Air${index + 1}1.png'),
+                              );
+                            },
+                          ),
+                        ),
+                        /*       CarouselSlider(
                           options: CarouselOptions(
                             height: 130,
 
@@ -233,6 +248,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                             ),
                           ],
                         ),
+                    */
                         const Padding(
                           padding: EdgeInsets.only(
                             top: 15,
@@ -245,6 +261,89 @@ class _ScreenHomeState extends State<ScreenHome> {
                               "Discover our best hotels to stay",
                               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                             ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 230,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                          child: Image.asset('assets/hotels/Hotel${index + 1}1.png', height: 160),
+                                        ),
+                                        Positioned(
+                                          top: 5,
+                                          left: 5,
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                              color: secondaryColor,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                bottomRight: Radius.circular(10),
+                                              ),
+                                            ),
+                                            padding: const EdgeInsets.all(5),
+                                            child: const Text(
+                                              " 18% off!",
+                                              style: TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 18),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 10, bottom: 2.0),
+                                              child: Text(
+                                                "Marriott Hotel",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(Icons.location_on_outlined),
+                                                Text(
+                                                  "Kochi",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "19,983",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         ),
                         CarouselSlider(
@@ -288,14 +387,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                                       )
                                     ],
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Padding(
+                                          Padding(
                                             padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
@@ -306,7 +405,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                             ),
                                           ),
                                           Row(
-                                            children: const [
+                                            children: [
                                               Icon(Icons.location_on_outlined),
                                               Text(
                                                 "Kochi",
@@ -319,7 +418,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                           ),
                                         ],
                                       ),
-                                      const Text(
+                                      Text(
                                         "19,983",
                                         style: TextStyle(
                                           color: Colors.red,
@@ -362,14 +461,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                                       )
                                     ],
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Padding(
+                                          Padding(
                                             padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
@@ -380,7 +479,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                             ),
                                           ),
                                           Row(
-                                            children: const [
+                                            children: [
                                               Icon(Icons.location_on_outlined),
                                               Text(
                                                 "Kochi",
@@ -393,7 +492,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                           ),
                                         ],
                                       ),
-                                      const Text(
+                                      Text(
                                         "12,983",
                                         style: TextStyle(
                                           color: Colors.red,
@@ -436,14 +535,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                                       )
                                     ],
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Padding(
+                                          Padding(
                                             padding: EdgeInsets.only(top: 10, bottom: 2.0),
                                             child: Text(
                                               "Marriott Hotel",
@@ -454,7 +553,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                             ),
                                           ),
                                           Row(
-                                            children: const [
+                                            children: [
                                               Icon(Icons.location_on_outlined),
                                               Text(
                                                 "Kochi",
@@ -467,7 +566,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                           ),
                                         ],
                                       ),
-                                      const Text(
+                                      Text(
                                         "14,983",
                                         style: TextStyle(
                                           color: Colors.red,
@@ -499,9 +598,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                                     width: 1,
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: const [
+                                  children: [
                                     Text(
                                       "Assured best fares",
                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -524,9 +623,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                                     width: 1,
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: const [
+                                  children: [
                                     Text(
                                       "Easy Booking",
                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -548,9 +647,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                                     width: 1,
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: const [
+                                  children: [
                                     Text(
                                       "Safe & secure",
                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -588,6 +687,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           ),
         ],
         color: secondaryColor,
+        border: Border.all(color: Colors.grey.shade300),
         borderRadius: const BorderRadius.all(
           Radius.circular(15),
         ),
@@ -616,11 +716,11 @@ class _ScreenHomeState extends State<ScreenHome> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
@@ -640,11 +740,11 @@ class _ScreenHomeState extends State<ScreenHome> {
                         angle: 90 * 3.14 / 180, // 90 degrees in radians
                         child: Icon(Icons.airplanemode_active, color: Colors.grey.shade600),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(

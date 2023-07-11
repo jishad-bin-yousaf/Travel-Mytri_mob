@@ -141,250 +141,309 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
   @override
   Widget build(BuildContext context) {
     log((widget.airlineList.length).toString() + " total data length");
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-              onPressed: () {
-                startCurrentValue = (widget.minimumFare ?? 0).toDouble();
-                endCurrentValue = (widget.maximumFare ?? 0).toDouble();
-                isRefundable = false;
-                nonStop = false;
-                oneStop = false;
-                moreThanOne = false;
-                depEarlyMorning = false;
-                depMorning = false;
-                depAfternoon = false;
-                depNight = false;
-                arrEarlyMorning = false;
-                arrMorning = false;
-                arrAfternoon = false;
-                arrNight = false;
-                selectedFlights = [];
-                filterFlightCodeList = [];
+    return Drawer(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            TextButton(
+                onPressed: () {
+                  startCurrentValue = (widget.minimumFare ?? 0).toDouble();
+                  endCurrentValue = (widget.maximumFare ?? 0).toDouble();
+                  isRefundable = false;
+                  nonStop = false;
+                  oneStop = false;
+                  moreThanOne = false;
+                  depEarlyMorning = false;
+                  depMorning = false;
+                  depAfternoon = false;
+                  depNight = false;
+                  arrEarlyMorning = false;
+                  arrMorning = false;
+                  arrAfternoon = false;
+                  arrNight = false;
+                  selectedFlights = [];
+                  filterFlightCodeList = [];
 
-                priceFilter = false;
-                selectedFlights = List<bool>.filled(widget.airlineList.length, false);
-                setState(() {});
-              },
-              child: Text(
-                "Clear all ",
-                style: TextStyle(color: white),
-              ))
-        ],
-      ),
-      bottomSheet: ElevatedButton(
-          onPressed: () {
-            filterFlights().then((value) {
-              widget.callBack(
-                FilterResponse(datas: value, filterSelections: selectedFilters),
-              );
+                  priceFilter = false;
+                  selectedFlights = List<bool>.filled(widget.airlineList.length, false);
+                  setState(() {});
+                },
+                child: Text(
+                  "Clear all ",
+                  style: TextStyle(color: white),
+                ))
+          ],
+          automaticallyImplyLeading: false,
+        ),
+        bottomSheet: ElevatedButton(
+            onPressed: () {
+              filterFlights().then((value) {
+                widget.callBack(
+                  FilterResponse(datas: value, filterSelections: selectedFilters),
+                );
 
-              Navigator.pop(
-                context,
-                FilterResponse(
-                  datas: value,
-                  filterSelections: selectedFilters ?? widget.filterSelections,
-                ),
-              );
-            });
-          },
-          style: ElevatedButton.styleFrom(
-            fixedSize: Size(MediaQuery.of(context).size.width, 80),
-            backgroundColor: secondaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
+                Navigator.pop(
+                  context,
+                  FilterResponse(
+                    datas: value,
+                    filterSelections: selectedFilters ?? widget.filterSelections,
+                  ),
+                );
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(MediaQuery.of(context).size.width, 80),
+              backgroundColor: secondaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
             ),
-          ),
-          child: const Text("Apply Filters")),
-      body: ListView(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(30),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade500),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Airlines",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  //   height: 4 * 50,
-                  height: 200,
-                  child: ListView.builder(
-                    //  itemCount: 4,
-                    itemCount: widget.airlineList.length,
-                    itemBuilder: (context, index) {
-                      final val = widget.airlineList[index];
-                      //    bool isChecked = selectedFlight == index; // Maintain checked state for each item
-                      bool isChecked = selectedFlights[index]; // Maintain checked state for each item
+            child: const Text("Apply Filters")),
+        body: ListView(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade500),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Airlines",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    //   height: 4 * 50,
+                    height: 200,
+                    child: ListView.builder(
+                      //  itemCount: 4,
+                      itemCount: widget.airlineList.length,
+                      itemBuilder: (context, index) {
+                        final val = widget.airlineList[index];
+                        //    bool isChecked = selectedFlight == index; // Maintain checked state for each item
+                        bool isChecked = selectedFlights[index]; // Maintain checked state for each item
 
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.network(
+                                "https://agents.alhind.com/images/logos/${val.airlineCode}.gif",
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Text("No logo");
+                                },
+                              ),
+                              Text(
+                                val.airlineName ?? '',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                "${val.minAmount ?? 0}",
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              Checkbox(
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    //  widget.airlineSearchResponse.objAvlairlineList?.where((element) => element.airlineCode != "");
+                                    selectedFlights[index] = value ?? false;
+                                    if (selectedFlights[index]) {
+                                      // Add the flight to the filteredFlights list
+                                      filterFlightCodeList.add(val.airlineCode ?? "");
+                                    }
+                                    if (!selectedFlights[index]) {
+                                      // Add the flight to the filteredFlights list
+                                      filterFlightCodeList.remove(val.airlineCode);
+                                    }
+
+                                    //  selectedFlight = isChecked ? -1 : index;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade500),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Stop",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Text(
+                            "Non-stop",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          Checkbox(
+                            value: nonStop,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                nonStop = !nonStop;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            '1 stop',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          Checkbox(
+                            value: oneStop,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                oneStop = !oneStop;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "1+ stop",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          Checkbox(
+                            value: moreThanOne,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                moreThanOne = !moreThanOne;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Refundable",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  Switch(
+                    value: isRefundable,
+                    onChanged: (value) {
+                      isRefundable = !isRefundable;
+                      setState(() {});
+                    },
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Departure time",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            Image.network(
-                              "https://agents.alhind.com/images/logos/${val.airlineCode}.gif",
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Text("No logo");
-                              },
-                            ),
-                            Text(
-                              val.airlineName ?? '',
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              "${val.minAmount ?? 0}",
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Early Morning",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "12 am - 6 am",
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
                             ),
                             Checkbox(
-                              value: isChecked,
+                              value: depEarlyMorning,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  //  widget.airlineSearchResponse.objAvlairlineList?.where((element) => element.airlineCode != "");
-                                  selectedFlights[index] = value ?? false;
-                                  if (selectedFlights[index]) {
-                                    // Add the flight to the filteredFlights list
-                                    filterFlightCodeList.add(val.airlineCode ?? "");
-                                  }
-                                  if (!selectedFlights[index]) {
-                                    // Add the flight to the filteredFlights list
-                                    filterFlightCodeList.remove(val.airlineCode);
-                                  }
-
-                                  //  selectedFlight = isChecked ? -1 : index;
+                                  depEarlyMorning = !depEarlyMorning;
                                 });
                               },
                             ),
                           ],
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade500),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Stop",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          "Non-stop",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Checkbox(
-                          value: nonStop,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              nonStop = !nonStop;
-                            });
-                          },
+                        Row(
+                          children: [
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Morning",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "6 am - 12 pm",
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
+                            ),
+                            Checkbox(
+                              value: depMorning,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  depMorning = !depMorning;
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        const Text(
-                          '1 stop',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Checkbox(
-                          value: oneStop,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              oneStop = !oneStop;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          "1+ stop",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Checkbox(
-                          value: moreThanOne,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              moreThanOne = !moreThanOne;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Refundable",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
-                ),
-                Switch(
-                  value: isRefundable,
-                  onChanged: (value) {
-                    isRefundable = !isRefundable;
-                    setState(() {});
-                  },
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Departure time",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -393,20 +452,20 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Early Morning",
+                                "After noon ",
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                "12 am - 6 am",
+                                "12 pm - 6 pm",
                                 style: TextStyle(fontSize: 14),
                               )
                             ],
                           ),
                           Checkbox(
-                            value: depEarlyMorning,
+                            value: depAfternoon,
                             onChanged: (bool? value) {
                               setState(() {
-                                depEarlyMorning = !depEarlyMorning;
+                                depAfternoon = !depAfternoon;
                               });
                             },
                           ),
@@ -414,104 +473,104 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                       ),
                       Row(
                         children: [
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Morning",
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                "6 am - 12 pm",
-                                style: TextStyle(fontSize: 14),
-                              )
-                            ],
-                          ),
+                          const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(
+                              "Night",
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "6 pm - 12 am",
+                              style: TextStyle(fontSize: 14),
+                            )
+                          ]),
                           Checkbox(
-                            value: depMorning,
+                            value: depNight,
                             onChanged: (bool? value) {
                               setState(() {
-                                depMorning = !depMorning;
+                                depNight = !depNight;
                               });
                             },
                           ),
                         ],
                       ),
                     ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Arrival time",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            Text(
-                              "After noon ",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Early Morning",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "12 am - 6 am",
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
                             ),
-                            Text(
-                              "12 pm - 6 pm",
-                              style: TextStyle(fontSize: 14),
-                            )
+                            Checkbox(
+                              value: arrEarlyMorning,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  arrEarlyMorning = !arrEarlyMorning;
+                                });
+                              },
+                            ),
                           ],
                         ),
-                        Checkbox(
-                          value: depAfternoon,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              depAfternoon = !depAfternoon;
-                            });
-                          },
+                        Row(
+                          children: [
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Morning",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "6 am - 12 pm",
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
+                            ),
+                            Checkbox(
+                              value: arrMorning,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  arrMorning = !arrMorning;
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(
-                            "Night",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "6 pm - 12 am",
-                            style: TextStyle(fontSize: 14),
-                          )
-                        ]),
-                        Checkbox(
-                          value: depNight,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              depNight = !depNight;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500), borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Arrival time",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -520,20 +579,20 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Early Morning",
+                                "After noon ",
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                "12 am - 6 am",
+                                "12 pm - 6 pm",
                                 style: TextStyle(fontSize: 14),
                               )
                             ],
                           ),
                           Checkbox(
-                            value: arrEarlyMorning,
+                            value: arrAfternoon,
                             onChanged: (bool? value) {
                               setState(() {
-                                arrEarlyMorning = !arrEarlyMorning;
+                                arrAfternoon = !arrAfternoon;
                               });
                             },
                           ),
@@ -541,149 +600,94 @@ class _FlightFilterDrawerState extends State<FlightFilterDrawer> {
                       ),
                       Row(
                         children: [
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Morning",
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                "6 am - 12 pm",
-                                style: TextStyle(fontSize: 14),
-                              )
-                            ],
-                          ),
+                          const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(
+                              "Night",
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "6 pm - 12 am",
+                              style: TextStyle(fontSize: 14),
+                            )
+                          ]),
                           Checkbox(
-                            value: arrMorning,
+                            value: arrNight,
                             onChanged: (bool? value) {
                               setState(() {
-                                arrMorning = !arrMorning;
+                                arrNight = !arrNight;
                               });
                             },
                           ),
                         ],
                       ),
                     ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "After noon ",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              "12 pm - 6 pm",
-                              style: TextStyle(fontSize: 14),
-                            )
-                          ],
-                        ),
-                        Checkbox(
-                          value: arrAfternoon,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              arrAfternoon = !arrAfternoon;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(
-                            "Night",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "6 pm - 12 am",
-                            style: TextStyle(fontSize: 14),
-                          )
-                        ]),
-                        Checkbox(
-                          value: arrNight,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              arrNight = !arrNight;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-          widget.minimumFare != widget.maximumFare
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: SfRangeSlider(
-                    enableTooltip: true,
-                    showLabels: true,
-                    min: /* (widget.airlineSearchResponse.minimumFare == widget.airlineSearchResponse.maximumFare) ? 0 : */ widget.minimumFare ?? 0,
-                    max: widget.maximumFare ?? 10,
-                    values: SfRangeValues(
-                      startCurrentValue ?? widget.minimumFare ?? 0,
-                      endCurrentValue ?? widget.maximumFare ?? 10,
+            widget.minimumFare != widget.maximumFare
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: SfRangeSlider(
+                      enableTooltip: true,
+                      showLabels: true,
+                      min: /* (widget.airlineSearchResponse.minimumFare == widget.airlineSearchResponse.maximumFare) ? 0 : */ widget.minimumFare ?? 0,
+                      max: widget.maximumFare ?? 10,
+                      values: SfRangeValues(
+                        startCurrentValue ?? widget.minimumFare ?? 0,
+                        endCurrentValue ?? widget.maximumFare ?? 10,
+                      ),
+                      onChanged: (value) {
+                        priceFilter = true;
+                        startCurrentValue = value.start;
+                        endCurrentValue = value.end;
+                        setState(() {});
+                      },
                     ),
-                    onChanged: (value) {
-                      priceFilter = true;
-                      startCurrentValue = value.start;
-                      endCurrentValue = value.end;
-                      setState(() {});
-                    },
-                  ),
-                )
-              : SizedBox(),
-          widget.minimumFare != widget.maximumFare
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        "min : ${(startCurrentValue ?? widget.minimumFare ?? 0).toInt()}",
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        "max : ${(endCurrentValue ?? widget.maximumFare ?? 10).toInt()}",
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                )
-              : SizedBox(),
-          SizedBox(
-            height: 80,
-          )
-          // Padding(
-          //   padding: const EdgeInsets.all(10.0),
-          //   child: ElevatedButton(
-          //       onPressed: () {
-          //         filterFlights().then((value) {
-          //           widget.callBack(value);
+                  )
+                : SizedBox(),
+            widget.minimumFare != widget.maximumFare
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          "min : ${(startCurrentValue ?? widget.minimumFare ?? 0).toInt()}",
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "max : ${(endCurrentValue ?? widget.maximumFare ?? 10).toInt()}",
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  )
+                : SizedBox(),
+            SizedBox(
+              height: 80,
+            )
+            // Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: ElevatedButton(
+            //       onPressed: () {
+            //         filterFlights().then((value) {
+            //           widget.callBack(value);
 
-          //           Navigator.pop(context, value);
-          //         });
-          //       },
-          //       style: ElevatedButton.styleFrom(
-          //         fixedSize: Size(150, 50),
-          //         backgroundColor: secondaryColor,
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(5.0),
-          //         ),
-          //       ),
-          //       child: const Text("Apply Filters")),
-          // )
-        ],
+            //           Navigator.pop(context, value);
+            //         });
+            //       },
+            //       style: ElevatedButton.styleFrom(
+            //         fixedSize: Size(150, 50),
+            //         backgroundColor: secondaryColor,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(5.0),
+            //         ),
+            //       ),
+            //       child: const Text("Apply Filters")),
+            // )
+          ],
+        ),
       ),
     );
   }

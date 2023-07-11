@@ -442,7 +442,7 @@ class TavellerDetails extends StatelessWidget {
 
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: childSSR[index].baggageSelectionList),
+                  builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: childSSR[index].baggageSelectionList, baggageList: childPaxList[index].objBaggage),
                 ))
                     .then((value) {
                   final resp = value as BaggageReturndata;
@@ -461,7 +461,7 @@ class TavellerDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: childSSR[index].mealSelectionList),
+                  builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: childSSR[index].mealSelectionList, mealList: childPaxList[index].objMealList),
                 ))
                     .then((value) {
                   final resp = value as MealReturndata;
@@ -577,7 +577,7 @@ class TavellerDetails extends StatelessWidget {
 
                   Navigator.of(context)
                       .push(MaterialPageRoute(
-                    builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: adultSSR[index].baggageSelectionList),
+                    builder: (context) => BaggageDetailsPage(data: data?.objbaggageseglist ?? [], selectedList: adultSSR[index].baggageSelectionList, baggageList: adultPaxList[index].objBaggage),
                   ))
                       .then((value) {
                     final resp = value as BaggageReturndata;
@@ -598,7 +598,7 @@ class TavellerDetails extends StatelessWidget {
 
                   Navigator.of(context)
                       .push(MaterialPageRoute(
-                    builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: adultSSR[index].mealSelectionList),
+                    builder: (context) => MealDetailsPage(data: data?.objmealseglist, selectedList: adultSSR[index].mealSelectionList, mealList: adultPaxList[index].objMealList),
                   ))
                       .then((value) {
                     final resp = value as MealReturndata;

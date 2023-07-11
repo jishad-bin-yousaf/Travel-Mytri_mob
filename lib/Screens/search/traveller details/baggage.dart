@@ -9,9 +9,11 @@ class BaggageDetailsPage extends StatefulWidget {
     super.key,
     required this.data,
     this.selectedList,
+    this.baggageList,
   });
   List<PricingBaggageSegment> data;
   List<int>? selectedList;
+  List<SSRBaggage>? baggageList;
   @override
   State<BaggageDetailsPage> createState() => _BaggageDetailsPageState();
 }
@@ -34,7 +36,7 @@ class _BaggageDetailsPageState extends State<BaggageDetailsPage> {
 
   @override
   void initState() {
-    baggageList = List.generate(widget.data.length, (index) => SSRBaggage(amount: 0, name: '', segmentCode: '', tripMode: '', key: ""));
+    baggageList = widget.baggageList ?? List.generate(widget.data.length, (index) => SSRBaggage(amount: 0, name: '', segmentCode: '', tripMode: '', key: ""));
     selectedList = widget.selectedList ?? List.generate(widget.data.length, (index) => -1);
 
     super.initState();

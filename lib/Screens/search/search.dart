@@ -6,11 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:travel_mytri_mobile_v1/Screens/search/search_widgets.dart';
+import 'package:travel_mytri_mobile_v1/Screens/widgets/error.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dart';
 import 'package:travel_mytri_mobile_v1/data/model/utilities.dart';
-
+import 'package:connectivity/connectivity.dart';
 import '../../data/model/hive_class_functions.dart';
 
 class ModifyData {
@@ -107,6 +108,8 @@ class FlightSearchScreen extends StatefulWidget {
 class _FlightSearchScreenState extends State<FlightSearchScreen> {
   bool isLogged = false;
   String? userName = "";
+
+  List<AirportData> airportList = [];
   @override
   void initState() {
     getToken().then((value) {
@@ -121,69 +124,87 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      bottomSheet: Container(
-        color: white,
-        height: 100,
-        width: MediaQuery.of(context).size.width,
-      ),
-      appBar: AppBar(
-        elevation: 0,
-        leadingWidth: 180,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications_active,
-                size: 35,
-              )),
-          const SizedBox(width: 10),
-        ],
-        leading: Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton.icon(
-            onPressed: () {
-              //   loginBottomSheet(context, width);
-            },
-            icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
-            label: Text(
-              "Hi $userName",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
-            ),
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: const EdgeInsets.only(top: 60),
-              decoration: BoxDecoration(
+    return FutureBuilder<List<AirportData>?>(
+        future: UtilitiesApi().getAirport(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Display a loading indicator while waiting for the result
+
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            // Display an error message if the asynchronous operation fails
+            return ErrorPage();
+          } else {
+            airportList = snapshot.data ?? [];
+            return Scaffold(
+              backgroundColor: primaryColor,
+              bottomSheet: Container(
                 color: white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+              ),
+              appBar: AppBar(
+                elevation: 0,
+                leadingWidth: 180,
+                actions: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.notifications_active,
+                        size: 35,
+                      )),
+                  const SizedBox(width: 10),
+                ],
+                leading: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      //   loginBottomSheet(context, width);
+                    },
+                    icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
+                    label: Text(
+                      "Hi $userName",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Column(
-                children: [
-                  flightOrHotelSelect(context),
-                  TripTypes(isModify: false),
-                ],
+              body: SafeArea(
+                child: Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      margin: const EdgeInsets.only(top: 60),
+                      decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Column(
+                        children: [
+                          flightOrHotelSelect(context),
+                          TripTypes(isModify: false, airportList: airportList),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            );
+          }
+        });
   }
 
   Row flightOrHotelSelect(BuildContext context) {
@@ -270,9 +291,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 class TripTypes extends StatefulWidget {
   bool isModify;
   ModifyData? modifyData;
-
+  List<AirportData> airportList;
   TripTypes({
     required this.isModify,
+    required this.airportList,
     this.modifyData,
     super.key,
   });
@@ -315,7 +337,6 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   int infantCount = 0;
   int totalPassengerCount = 1;
 
-  List<AirportData> airportList = [];
   FlightSearchReqModel searchReq = FlightSearchReqModel();
   Objsectorlist onwardSector = Objsectorlist();
 
@@ -329,13 +350,16 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
   DateTime? returnDate;
 
   bool isLoadingPage = false;
-
+  String dropDownErrorData = "No Airport Found";
   String? returnDateReq;
 
   @override
   void initState() {
-    UtilitiesApi().getAirport().then((value) {
-      airportList = value ?? [];
+    Connectivity().checkConnectivity().then((value) {
+      if (value == ConnectivityResult.none) {
+        dropDownErrorData = "Check Your Internet Connection";
+        setState(() {});
+      }
     });
 
     super.initState();
@@ -390,48 +414,27 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<AirportData>?>(
-        future: UtilitiesApi().getAirport(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Display a loading indicator while waiting for the result
-
-            return Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            // Display an error message if the asynchronous operation fails
-            return Text('Error: ${snapshot.error}  Check your Connection');
-          } else {
-            return isLoadingPage
-                ? Expanded(
-                    child: Center(
-                      child: Image.network(
-                        "https://media.tenor.com/u3KCZHV9A6AAAAAd/plane-airplane.gif",
-                      ),
-                    ),
-                  )
-                /*  Expanded(
-                    child: Center(
-                      child: Image.asset(
-                        "assets/loader.gif",
-                      ),
-                    ),
-                  ) */
-                //  Image.network("https://media.tenor.com/G7RCgbI7ypMAAAAd/airplane-dancing.gif")
-                : Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.all(30),
-                      children: [
-                        selectTripType(),
-                        multiCity ? MultiCity() : oneWayAndRoundTrip(context),
-                      ],
-                    ),
-                  );
-          }
-        });
+    return isLoadingPage
+        ? Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          )
+        // Expanded(
+        //     child: Center(
+        //       child: Image.asset(
+        //         "assets/loader.gif",
+        //       ),
+        //     ),
+        //   )
+        //  Image.network("https://media.tenor.com/G7RCgbI7ypMAAAAd/airplane-dancing.gif")
+        : Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(30),
+              children: [
+                selectTripType(),
+                multiCity ? MultiCity() : oneWayAndRoundTrip(context),
+              ],
+            ),
+          );
   }
 
   Column oneWayAndRoundTrip(BuildContext context) {
@@ -442,6 +445,12 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
           padding: EdgeInsets.symmetric(vertical: 20.0),
           child: Text("\t\tWhere are you going ?", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         ),
+        widget.airportList.isEmpty
+            ? const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: Text("Something went wrong please go back and try again", style: TextStyle(fontSize: 15, color: Colors.red)),
+              )
+            : SizedBox(),
         departureAndArrival(context),
         departureAndReturnDate(context),
         Row(
@@ -490,261 +499,276 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ElevatedButton(
-            onPressed: () async {
-              searchReq.adult = adultCount;
-              searchReq.child = childCount;
-              searchReq.infant = infantCount;
-              searchReq.airlineClass = classController.text;
-              searchReq.traveltype = "";
-              searchReq.prefferedCarriers = "";
-              searchReq.prefferedProviders = "";
-              searchReq.fareType = "";
-              searchReq.isdirect = false;
-              searchReq.objsectorlist = [];
+          child: AbsorbPointer(
+            absorbing: isLoadingPage,
+            child: ElevatedButton(
+              onPressed: () async {
+                searchReq.adult = adultCount;
+                searchReq.child = childCount;
+                searchReq.infant = infantCount;
+                searchReq.airlineClass = classController.text;
+                searchReq.traveltype = "";
+                searchReq.prefferedCarriers = "";
+                searchReq.prefferedProviders = "";
+                searchReq.fareType = "";
+                searchReq.isdirect = false;
+                searchReq.objsectorlist = [];
 
-              if (oneWay || roundTrip) {
-                onwardSector.origin = originCode;
-                onwardSector.origincountry = originCountry;
-                onwardSector.destination = destinationCode;
-                onwardSector.destinationcountry = destinationCountry;
-                onwardSector.departureDate = departureDateReq;
-                onwardSector.tripmode = "O";
-                searchReq.objsectorlist?.add(onwardSector);
-                travelType = "O";
-              }
-
-              if (roundTrip) {
-                Objsectorlist returnSector = Objsectorlist();
-                returnSector.origin = destinationCode;
-                returnSector.origincountry = destinationCountry;
-                returnSector.destination = originCode;
-                returnSector.destinationcountry = originCountry;
-                returnSector.departureDate = returnDateReq;
-                returnSector.tripmode = "R";
-
-                travelType = "R";
-
-                searchReq.objsectorlist?.add(returnSector);
-              }
-
-              print(searchReq);
-              print(internationalTrip);
-              if (originCountry != "IN" || destinationCountry != "IN") {
-                searchReq.traveltype = "I";
-                internationalTrip = true;
-                print("If statement works");
-              } else {
-                searchReq.traveltype = "D";
-
-                internationalTrip = false;
-                print("else statement works");
-              }
-              print(internationalTrip);
-
-              if (showDepTypeField && showArrTypeField && departure != '' && arrival != '') {
-                isLoadingPage = true;
-                setState(() {});
-                if (oneWay) {
-                  SearchApi().oneWay(searchReq).then((value) {
-                    isLoadingPage = false;
-                    setState(() {});
-
-                    final data = value ?? AirlineSearchResponse();
-
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                            "ModifyData": ModifyData(
-                              oneWay: oneWay,
-                              roundTrip: roundTrip,
-                              multiCity: multiCity,
-                              economy: economy,
-                              premiumEconomy: premiumEconomy,
-                              businessClass: businessClass,
-                              firstClass: firstClass,
-                              departureDate: departureDate,
-                              departureDateReq: departureDateReq ?? '',
-                              departureController: departureController,
-                              arrivalController: arrivalController,
-                              departureDateController: departureDateController,
-                              returnDateController: returnDateController,
-                              passengerController: passengerController,
-                              classController: classController,
-                              deptAirportName: deptAirportName,
-                              arrAirportName: arrAirportName,
-                              departure: departure,
-                              arrival: arrival,
-                              travelClass: travelClass,
-                              travelType: travelType,
-                              internationalTrip: internationalTrip,
-                              adultCount: adultCount,
-                              childCount: childCount,
-                              infantCount: infantCount,
-                              totalPassengerCount: totalPassengerCount,
-                              originCode: originCode,
-                              originCountry: originCountry,
-                              destinationCode: destinationCode,
-                              destinationCountry: destinationCountry,
-                              returnDate: returnDate,
-                              isLoadingPage: isLoadingPage,
-                              returnDateReq: returnDateReq,
-                            ),
-                          }).then((value) {
-                            //      isLoadingPage = false;
-                            //         setState(() {});
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (roundTrip && internationalTrip) {
-                  SearchApi().combinedRoundTrip(searchReq).then((value) {
-                    isLoadingPage = false;
-                    setState(() {});
-
-                    final data = value ?? RAirlineSearchResponse();
-                    dev.log({
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": internationalTrip,
-                        }.toString() +
-                        "  => Passing combinedRoundTrip");
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": true,
-                            "ModifyData": ModifyData(
-                              oneWay: oneWay,
-                              roundTrip: roundTrip,
-                              multiCity: multiCity,
-                              economy: economy,
-                              premiumEconomy: premiumEconomy,
-                              businessClass: businessClass,
-                              firstClass: firstClass,
-                              departureDate: departureDate,
-                              departureDateReq: departureDateReq ?? '',
-                              departureController: departureController,
-                              arrivalController: arrivalController,
-                              departureDateController: departureDateController,
-                              returnDateController: returnDateController,
-                              passengerController: passengerController,
-                              classController: classController,
-                              deptAirportName: deptAirportName,
-                              arrAirportName: arrAirportName,
-                              departure: departure,
-                              arrival: arrival,
-                              travelClass: travelClass,
-                              travelType: travelType,
-                              internationalTrip: internationalTrip,
-                              adultCount: adultCount,
-                              childCount: childCount,
-                              infantCount: infantCount,
-                              totalPassengerCount: totalPassengerCount,
-                              originCode: originCode,
-                              originCountry: originCountry,
-                              destinationCode: destinationCode,
-                              destinationCountry: destinationCountry,
-                              returnDate: returnDate,
-                              isLoadingPage: isLoadingPage,
-                              returnDateReq: returnDateReq,
-                            ),
-                          }).then((value) {
-                            //  isLoadingPage = false;
-                            //   setState(() {});
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (roundTrip && internationalTrip == false) {
-                  SearchApi().individualRoundTrip(searchReq).then((value) {
-                    isLoadingPage = false;
-                    setState(() {});
-
-                    final data = value ?? IRAirlineSearchResponse();
-                    dev.log({
-                          "data": data,
-                          "tripType": travelType,
-                          "internationalTrip": internationalTrip,
-                        }.toString() +
-                        "  => Passing individualRoundTrip");
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": false,
-                            "ModifyData": ModifyData(
-                              oneWay: oneWay,
-                              roundTrip: roundTrip,
-                              multiCity: multiCity,
-                              economy: economy,
-                              premiumEconomy: premiumEconomy,
-                              businessClass: businessClass,
-                              firstClass: firstClass,
-                              departureDate: departureDate,
-                              departureDateReq: departureDateReq ?? '',
-                              departureController: departureController,
-                              arrivalController: arrivalController,
-                              departureDateController: departureDateController,
-                              returnDateController: returnDateController,
-                              passengerController: passengerController,
-                              classController: classController,
-                              deptAirportName: deptAirportName,
-                              arrAirportName: arrAirportName,
-                              departure: departure,
-                              arrival: arrival,
-                              travelClass: travelClass,
-                              travelType: travelType,
-                              internationalTrip: internationalTrip,
-                              adultCount: adultCount,
-                              childCount: childCount,
-                              infantCount: infantCount,
-                              totalPassengerCount: totalPassengerCount,
-                              originCode: originCode,
-                              originCountry: originCountry,
-                              destinationCode: destinationCode,
-                              destinationCountry: destinationCountry,
-                              returnDate: returnDate,
-                              isLoadingPage: isLoadingPage,
-                              returnDateReq: returnDateReq,
-                            ),
-                          }).then((value) {
-                            //     isLoadingPage = false;
-                            //       setState(() {});
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
-                } else if (multiCity) {
-                  SearchApi().oneWay(searchReq).then((value) {
-                    isLoadingPage = false;
-                    setState(() {});
-                    final data = value ?? AirlineSearchResponse();
-
-                    data.status != null && data.status!
-                        ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
-                            "data": data,
-                            "tripType": travelType,
-                            "internationalTrip": internationalTrip,
-                          }).then((value) {
-                            // isLoadingPage = false;
-                            // setState(() {});
-                          })
-                        : Helper().toastMessage(value?.responseMessage ?? "Try Again");
-                  });
+                if (oneWay || roundTrip) {
+                  onwardSector.origin = originCode;
+                  onwardSector.origincountry = originCountry;
+                  onwardSector.destination = destinationCode;
+                  onwardSector.destinationcountry = destinationCountry;
+                  onwardSector.departureDate = departureDateReq;
+                  onwardSector.tripmode = "O";
+                  searchReq.objsectorlist?.add(onwardSector);
+                  travelType = "O";
                 }
-              } else {
-                Helper().toastMessage("Please select Valid Airport");
-              }
-              //    Navigator.of(context).pushNamed('/FlightSearchResult');
-            },
-            style: ElevatedButton.styleFrom(
-              fixedSize: Size(MediaQuery.of(context).size.width, 50),
-              backgroundColor: secondaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+
+                if (roundTrip) {
+                  Objsectorlist returnSector = Objsectorlist();
+                  returnSector.origin = destinationCode;
+                  returnSector.origincountry = destinationCountry;
+                  returnSector.destination = originCode;
+                  returnSector.destinationcountry = originCountry;
+                  returnSector.departureDate = returnDateReq;
+                  returnSector.tripmode = "R";
+
+                  travelType = "R";
+
+                  searchReq.objsectorlist?.add(returnSector);
+                }
+
+                print(searchReq);
+                print(internationalTrip);
+                if (originCountry != "IN" || destinationCountry != "IN") {
+                  searchReq.traveltype = "I";
+                  internationalTrip = true;
+                  print("If statement works");
+                } else {
+                  searchReq.traveltype = "D";
+
+                  internationalTrip = false;
+                  print("else statement works");
+                }
+                print(internationalTrip);
+
+                if (showDepTypeField && showArrTypeField && departure != '' && arrival != '') {
+                  setState(() {});
+                  final connectivityResult = await Connectivity().checkConnectivity();
+
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.of(context).pushNamed('/NoConnection');
+                  } else {
+                    isLoadingPage = true;
+                    if (oneWay) {
+                      SearchApi().oneWay(searchReq).then((value) {
+                        isLoadingPage = false;
+                        setState(() {});
+
+                        final data = value ?? AirlineSearchResponse();
+
+                        data.status != null && data.status!
+                            ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                                "data": data,
+                                "tripType": travelType,
+                                "internationalTrip": internationalTrip,
+                                "airportList": widget.airportList,
+                                "ModifyData": ModifyData(
+                                  oneWay: oneWay,
+                                  roundTrip: roundTrip,
+                                  multiCity: multiCity,
+                                  economy: economy,
+                                  premiumEconomy: premiumEconomy,
+                                  businessClass: businessClass,
+                                  firstClass: firstClass,
+                                  departureDate: departureDate,
+                                  departureDateReq: departureDateReq ?? '',
+                                  departureController: departureController,
+                                  arrivalController: arrivalController,
+                                  departureDateController: departureDateController,
+                                  returnDateController: returnDateController,
+                                  passengerController: passengerController,
+                                  classController: classController,
+                                  deptAirportName: deptAirportName,
+                                  arrAirportName: arrAirportName,
+                                  departure: departure,
+                                  arrival: arrival,
+                                  travelClass: travelClass,
+                                  travelType: travelType,
+                                  internationalTrip: internationalTrip,
+                                  adultCount: adultCount,
+                                  childCount: childCount,
+                                  infantCount: infantCount,
+                                  totalPassengerCount: totalPassengerCount,
+                                  originCode: originCode,
+                                  originCountry: originCountry,
+                                  destinationCode: destinationCode,
+                                  destinationCountry: destinationCountry,
+                                  returnDate: returnDate,
+                                  isLoadingPage: isLoadingPage,
+                                  returnDateReq: returnDateReq,
+                                ),
+                              }).then((value) {
+                                //      isLoadingPage = false;
+                                //         setState(() {});
+                              })
+                            : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                      });
+                    } else if (roundTrip && internationalTrip) {
+                      SearchApi().combinedRoundTrip(searchReq).then((value) {
+                        isLoadingPage = false;
+                        setState(() {});
+
+                        final data = value ?? RAirlineSearchResponse();
+                        dev.log({
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": internationalTrip,
+                              "airportList": widget.airportList,
+                            }.toString() +
+                            "  => Passing combinedRoundTrip");
+                        data.status != null && data.status!
+                            ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                                "data": data,
+                                "tripType": travelType,
+                                "airportList": widget.airportList,
+                                "internationalTrip": true,
+                                "ModifyData": ModifyData(
+                                  oneWay: oneWay,
+                                  roundTrip: roundTrip,
+                                  multiCity: multiCity,
+                                  economy: economy,
+                                  premiumEconomy: premiumEconomy,
+                                  businessClass: businessClass,
+                                  firstClass: firstClass,
+                                  departureDate: departureDate,
+                                  departureDateReq: departureDateReq ?? '',
+                                  departureController: departureController,
+                                  arrivalController: arrivalController,
+                                  departureDateController: departureDateController,
+                                  returnDateController: returnDateController,
+                                  passengerController: passengerController,
+                                  classController: classController,
+                                  deptAirportName: deptAirportName,
+                                  arrAirportName: arrAirportName,
+                                  departure: departure,
+                                  arrival: arrival,
+                                  travelClass: travelClass,
+                                  travelType: travelType,
+                                  internationalTrip: internationalTrip,
+                                  adultCount: adultCount,
+                                  childCount: childCount,
+                                  infantCount: infantCount,
+                                  totalPassengerCount: totalPassengerCount,
+                                  originCode: originCode,
+                                  originCountry: originCountry,
+                                  destinationCode: destinationCode,
+                                  destinationCountry: destinationCountry,
+                                  returnDate: returnDate,
+                                  isLoadingPage: isLoadingPage,
+                                  returnDateReq: returnDateReq,
+                                ),
+                              }).then((value) {
+                                //  isLoadingPage = false;
+                                //   setState(() {});
+                              })
+                            : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                      });
+                    } else if (roundTrip && internationalTrip == false) {
+                      SearchApi().individualRoundTrip(searchReq).then((value) {
+                        isLoadingPage = false;
+                        setState(() {});
+
+                        final data = value ?? IRAirlineSearchResponse();
+                        dev.log({
+                              "data": data,
+                              "tripType": travelType,
+                              "internationalTrip": internationalTrip,
+                              "airportList": widget.airportList,
+                            }.toString() +
+                            "  => Passing individualRoundTrip");
+                        data.status != null && data.status!
+                            ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                                "data": data,
+                                "tripType": travelType,
+                                "airportList": widget.airportList,
+                                "internationalTrip": false,
+                                "ModifyData": ModifyData(
+                                  oneWay: oneWay,
+                                  roundTrip: roundTrip,
+                                  multiCity: multiCity,
+                                  economy: economy,
+                                  premiumEconomy: premiumEconomy,
+                                  businessClass: businessClass,
+                                  firstClass: firstClass,
+                                  departureDate: departureDate,
+                                  departureDateReq: departureDateReq ?? '',
+                                  departureController: departureController,
+                                  arrivalController: arrivalController,
+                                  departureDateController: departureDateController,
+                                  returnDateController: returnDateController,
+                                  passengerController: passengerController,
+                                  classController: classController,
+                                  deptAirportName: deptAirportName,
+                                  arrAirportName: arrAirportName,
+                                  departure: departure,
+                                  arrival: arrival,
+                                  travelClass: travelClass,
+                                  travelType: travelType,
+                                  internationalTrip: internationalTrip,
+                                  adultCount: adultCount,
+                                  childCount: childCount,
+                                  infantCount: infantCount,
+                                  totalPassengerCount: totalPassengerCount,
+                                  originCode: originCode,
+                                  originCountry: originCountry,
+                                  destinationCode: destinationCode,
+                                  destinationCountry: destinationCountry,
+                                  returnDate: returnDate,
+                                  isLoadingPage: isLoadingPage,
+                                  returnDateReq: returnDateReq,
+                                ),
+                              }).then((value) {
+                                //     isLoadingPage = false;
+                                //       setState(() {});
+                              })
+                            : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                      });
+                    } else if (multiCity) {
+                      SearchApi().oneWay(searchReq).then((value) {
+                        isLoadingPage = false;
+                        setState(() {});
+                        final data = value ?? AirlineSearchResponse();
+
+                        data.status != null && data.status!
+                            ? Navigator.of(context).pushNamed('/FlightSearchResult', arguments: {
+                                "data": data,
+                                "tripType": travelType,
+                                "internationalTrip": internationalTrip,
+                                "airportList": widget.airportList,
+                              }).then((value) {
+                                // isLoadingPage = false;
+                                // setState(() {});
+                              })
+                            : Helper().toastMessage(value?.responseMessage ?? "Try Again");
+                      });
+                    }
+                  }
+                } else {
+                  Helper().toastMessage("Please select Valid Airport");
+                }
+                //    Navigator.of(context).pushNamed('/FlightSearchResult');
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                backgroundColor: secondaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
+              child: const Text("SEARCH FLIGHTS", style: TextStyle(fontSize: 20)),
             ),
-            child: const Text("SEARCH FLIGHTS", style: TextStyle(fontSize: 20)),
           ),
         ),
       ],
@@ -1258,9 +1282,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    noItemsFoundBuilder: (context) => const SizedBox(
+                    noItemsFoundBuilder: (context) => SizedBox(
                           height: 80,
-                          child: Center(child: Text("No Airports Found")),
+                          child: Center(child: Text(dropDownErrorData)),
                         ),
                     onSuggestionSelected: (suggestion) {
                       originCode = suggestion.code ?? '';
@@ -1337,9 +1361,9 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
                       border: const OutlineInputBorder(),
                     ),
                   ),
-                  noItemsFoundBuilder: (context) => const SizedBox(
+                  noItemsFoundBuilder: (context) => SizedBox(
                         height: 80,
-                        child: Center(child: Text("No Airports Found")),
+                        child: Center(child: Text(dropDownErrorData)),
                       ),
                   onSuggestionSelected: (suggestion) {
                     destinationCode = suggestion.code ?? '';
@@ -1506,20 +1530,20 @@ class _TripTypesState extends State<TripTypes> with SingleTickerProviderStateMix
     List<AirportData> filteredFlights = [];
 
     if (query.length >= 3) {
-      final codeList = airportList.where((element) => element.code!.toLowerCase().contains(query.trim().toLowerCase())).toList();
+      final codeList = widget.airportList.where((element) => element.code!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(codeList);
 
       dev.log("cityCodeList ++++$codeList");
 
-      final cityCodeList = airportList.where((element) => element.cityCode!.toLowerCase().contains(query.trim().toLowerCase())).toList();
+      final cityCodeList = widget.airportList.where((element) => element.cityCode!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(cityCodeList);
 
       dev.log("cityCodeList ++++$cityCodeList");
 
-      final cityNameList = airportList.where((element) => element.cityName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
+      final cityNameList = widget.airportList.where((element) => element.cityName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(cityNameList);
       dev.log("cityNameList ++++$cityNameList");
-      final airportNameList = airportList.where((element) => element.airportName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
+      final airportNameList = widget.airportList.where((element) => element.airportName!.toLowerCase().contains(query.trim().toLowerCase())).toList();
       filteredFlights.addAll(airportNameList);
       dev.log("airportNameList ++++$airportNameList");
     }
