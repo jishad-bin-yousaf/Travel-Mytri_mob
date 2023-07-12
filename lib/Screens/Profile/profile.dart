@@ -12,6 +12,7 @@ import '../../data/model/Profile/profile_models.dart';
 import '../../data/model/hive_class_functions.dart';
 import '../../data/model/utilities.dart';
 import '../widgets/login_error.dart';
+import '../widgets/session_expired.dart';
 
 class ProfileScreen extends StatelessWidget {
   TextEditingController firstNameController = TextEditingController();
@@ -99,9 +100,12 @@ class ProfileScreen extends StatelessWidget {
                                   if (value?.status ?? false) {
                                     Helper().toastMessage("Profile Updated Successfully");
                                   } else {
-                                    Helper().toastMessage(value?.responseMessage ?? "Profile Update Failed");
+                                    (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                                        ? Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => const SessionExpiredPage(),
+                                          ))
+                                        : Helper().toastMessage(value?.responseMessage);
                                   }
-                                  ;
                                 });
                               },
                               child: Text(
@@ -287,6 +291,8 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             )),
                           );
+                        } else if ((data.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())) {
+                          return const SessionExpiredPage();
                         } else {
                           return Scaffold(
                               backgroundColor: Colors.grey.shade300,

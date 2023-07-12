@@ -7,6 +7,7 @@ import '../../data/api.dart';
 import '../../data/model/hive_class_functions.dart';
 import '../widgets/error.dart';
 import '../widgets/login_error.dart';
+import '../widgets/session_expired.dart';
 
 class MyTransactionsScreen extends StatelessWidget {
   MyTransactionsScreen({super.key});
@@ -116,6 +117,8 @@ class MyTransactionsScreen extends StatelessWidget {
                               ),
                             ),
                           );
+                        } else if ((data.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())) {
+                          return const SessionExpiredPage();
                         } else {
                           return Scaffold(
                               backgroundColor: Colors.grey.shade300,

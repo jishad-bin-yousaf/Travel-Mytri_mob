@@ -39,7 +39,7 @@ class LoginErrorPage extends StatelessWidget {
               padding: const EdgeInsets.all(30.0),
               child: ElevatedButton(
                 onPressed: () {
-                  loginBottomSheet(context, MediaQuery.of(context).size.width);
+                  loginBottomSheet(context);
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(200, 50),

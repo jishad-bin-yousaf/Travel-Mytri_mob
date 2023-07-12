@@ -8,6 +8,8 @@ part of '../model/utilities.dart';
 
 _$_AirportList _$$_AirportListFromJson(Map<String, dynamic> json) =>
     _$_AirportList(
+      status: json['status'] as bool?,
+      responseMessage: json['responseMessage'] as String?,
       objAirportList: (json['objAirportList'] as List<dynamic>?)
           ?.map((e) => AirportData.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -15,6 +17,8 @@ _$_AirportList _$$_AirportListFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AirportListToJson(_$_AirportList instance) =>
     <String, dynamic>{
+      'status': instance.status,
+      'responseMessage': instance.responseMessage,
       'objAirportList': instance.objAirportList,
     };
 

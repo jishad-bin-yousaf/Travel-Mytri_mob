@@ -212,7 +212,7 @@ class AuthenticationApi {
 
 class UtilitiesApi {
   UtilitiesUrl urls = UtilitiesUrl();
-  Future<List<AirportData>?> getAirport() async {
+  Future<AirportList?> getAirport() async {
     try {
       final url = Uri.parse(baseUrl + urls.airport);
 
@@ -227,7 +227,7 @@ class UtilitiesApi {
       //  log(resultAsJson.toString());
       final responseModel = AirportList.fromJson(resultAsJson);
       // Helper().toastMessage(responseModel.);
-      return responseModel.objAirportList;
+      return responseModel;
     } on http.ClientException catch (e) {
       log(e.message.toString() + "+++++");
     } catch (e) {

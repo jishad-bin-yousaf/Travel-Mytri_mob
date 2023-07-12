@@ -42,7 +42,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           alignment: Alignment.centerLeft,
           child: TextButton.icon(
             onPressed: () {
-              !isLogged ? loginBottomSheet(context, width) : null;
+              !isLogged ? loginBottomSheet(context) : null;
             },
             icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
             label: Text(
@@ -263,7 +263,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        /*         SizedBox(
                           height: 230,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -346,6 +346,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                             },
                           ),
                         ),
+                   */
                         CarouselSlider(
                           options: CarouselOptions(
                             viewportFraction: 0.5,

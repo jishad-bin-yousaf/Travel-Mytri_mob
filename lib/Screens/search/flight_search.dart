@@ -12,6 +12,8 @@ import '../../data/api.dart';
 import '../../data/model/Search/flight_search_model.dart';
 import '../../data/model/Search/pricing_models.dart';
 import '../../data/model/utilities.dart';
+import '../widgets/helper.dart';
+import '../widgets/session_expired.dart';
 import 'filter/filter_CRT.dart';
 import 'search.dart';
 
@@ -1125,7 +1127,11 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                             ? Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => ScreenReviewFlight(data: value ?? const PricingResponse()),
                               ))
-                            : null;
+                            : (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                                ? Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const SessionExpiredPage(),
+                                  ))
+                                : Helper().toastMessage("Something went wrong try Again!!!");
                       });
                     }
                   },
@@ -1757,7 +1763,6 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                       onPressed: () async {
                         Connectivity().checkConnectivity().then((value) {
                           if (value == ConnectivityResult.none) {
-                            log("ghjkl");
                             Navigator.of(context).pushNamed('/NoConnection');
                           } else {
                             selectedIdxBookButton = isBookLoading ? -1 : index;
@@ -1782,7 +1787,12 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                         data: value ?? const PricingResponse(),
                                       ),
                                     ))
-                                  : null;
+                                  : (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                                      ? Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => const SessionExpiredPage(),
+                                        ))
+                                      : Helper().toastMessage("Something went wrong try Again!!!");
+                              ;
                             });
                           }
                         });
@@ -2081,13 +2091,17 @@ class _FlightFareCardListViewState extends State<FlightFareCardListView> {
                                       .then((value) {
                                     selectedIdxBookButton = -1;
                                     setState(() {});
-                                    (value?.status ?? false)
+                                    ((value?.status ?? false))
                                         ? Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) => ScreenReviewFlight(
                                               data: value ?? const PricingResponse(),
                                             ),
                                           ))
-                                        : null;
+                                        : (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                                            ? Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => const SessionExpiredPage(),
+                                              ))
+                                            : Helper().toastMessage("Something went wrong try Again!!!");
                                   });
                                 }
                               });

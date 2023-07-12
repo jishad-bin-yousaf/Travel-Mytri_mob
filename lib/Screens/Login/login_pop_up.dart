@@ -7,11 +7,12 @@ import 'package:travel_mytri_mobile_v1/Constants/colors.dart';
 import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
-loginBottomSheet(BuildContext context, double width) {
+loginBottomSheet(BuildContext context) {
   TextEditingController phoneNoController = TextEditingController();
   return showModalBottomSheet(
     context: context,
     builder: (context) {
+      final double width = MediaQuery.of(context).size.width;
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 50),
         child: Column(
@@ -33,9 +34,7 @@ loginBottomSheet(BuildContext context, double width) {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 onChanged: (newValue) {
-                  phoneNoController.text.length == 10
-                      ? FocusScope.of(context).unfocus()
-                      : null;
+                  phoneNoController.text.length == 10 ? FocusScope.of(context).unfocus() : null;
                 },
                 onEditingComplete: () {
                   if ((phoneNoController.text.length != 10)) {
@@ -60,16 +59,11 @@ loginBottomSheet(BuildContext context, double width) {
                   Helper().toastMessage("Enter Valid Phone No");
                 } else {
                   String appSignatureID = '';
-                  await SmsAutoFill()
-                      .getAppSignature
-                      .then((value) => appSignatureID = value);
+                  await SmsAutoFill().getAppSignature.then((value) => appSignatureID = value);
                   log("${phoneNoController.text}, $appSignatureID");
-                  final resp = await AuthenticationApi().authenticate(
-                      mobileNo: phoneNoController.text,
-                      appSignature: appSignatureID);
+                  final resp = await AuthenticationApi().authenticate(mobileNo: phoneNoController.text, appSignature: appSignatureID);
                   if (resp?.status == true) {
-                    Navigator.of(context)
-                        .pushNamed('/otp', arguments: phoneNoController.text);
+                    Navigator.of(context).pushNamed('/otp', arguments: phoneNoController.text);
                   } else {
                     Helper().toastMessage(resp?.responseMessage);
                   }

@@ -9,6 +9,7 @@ import 'package:travel_mytri_mobile_v1/Screens/widgets/helper.dart';
 import 'package:travel_mytri_mobile_v1/data/api.dart';
 
 import '../../data/model/Search/pricing_models.dart';
+import '../widgets/session_expired.dart';
 import 'traveller details/traveller_details.dart';
 
 class ScreenReviewFlight extends StatefulWidget {
@@ -354,7 +355,11 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                         if ((value?.status == true) && value != null) {
                           rePricingBottomSheet(context, value, data);
                         } else {
-                          Helper().toastMessage("Try Again");
+                          (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                              ? Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SessionExpiredPage(),
+                                ))
+                              : Helper().toastMessage("Something went wrong try Again!!!");
                           //   Navigator.pushNamedAndRemoveUntil(context, "/flights", (route) => false);
                         }
                       });
@@ -368,7 +373,12 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                child: isLoading ? const CircularProgressIndicator(color: Colors.white) : const Text("CONTINUE", style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600)),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        "CONTINUE",
+                        style: TextStyle(color: white, fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
               ),
             ),
           ],
@@ -693,7 +703,11 @@ class _ScreenReviewFlightState extends State<ScreenReviewFlight> {
                                     ),
                                   );
                                 } else {
-                                  Helper().toastMessage("Sorry Not Booked");
+                                  (value?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                                      ? Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => const SessionExpiredPage(),
+                                        ))
+                                      : Helper().toastMessage("Something went wrong try Again!!!");
                                   //   Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
                                 }
                               });

@@ -7,6 +7,7 @@ import 'package:travel_mytri_mobile_v1/data/model/hive_class_functions.dart';
 import '../../data/model/My Trip/my_trips.dart';
 import '../widgets/login_error.dart';
 import '../widgets/print_pdf.dart';
+import '../widgets/session_expired.dart';
 
 enum TripType { flights, hotels }
 
@@ -176,6 +177,8 @@ class _ScreenMyTripsState extends State<ScreenMyTrips> {
                 );
               },
             );
+          } else if ((data.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())) {
+            return const SessionExpiredPage();
           } else {
             return Scaffold(
               backgroundColor: Colors.grey.shade100,

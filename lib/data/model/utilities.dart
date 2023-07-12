@@ -6,6 +6,8 @@ part '../gen/utilities.g.dart';
 @freezed
 class AirportList with _$AirportList {
   const factory AirportList({
+    bool? status,
+    String? responseMessage,
     List<AirportData>? objAirportList,
   }) = _AirportList;
 

@@ -20,6 +20,8 @@ AirportList _$AirportListFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AirportList {
+  bool? get status => throw _privateConstructorUsedError;
+  String? get responseMessage => throw _privateConstructorUsedError;
   List<AirportData>? get objAirportList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +36,10 @@ abstract class $AirportListCopyWith<$Res> {
           AirportList value, $Res Function(AirportList) then) =
       _$AirportListCopyWithImpl<$Res, AirportList>;
   @useResult
-  $Res call({List<AirportData>? objAirportList});
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      List<AirportData>? objAirportList});
 }
 
 /// @nodoc
@@ -50,9 +55,19 @@ class _$AirportListCopyWithImpl<$Res, $Val extends AirportList>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
     Object? objAirportList = freezed,
   }) {
     return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       objAirportList: freezed == objAirportList
           ? _value.objAirportList
           : objAirportList // ignore: cast_nullable_to_non_nullable
@@ -69,7 +84,10 @@ abstract class _$$_AirportListCopyWith<$Res>
       __$$_AirportListCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<AirportData>? objAirportList});
+  $Res call(
+      {bool? status,
+      String? responseMessage,
+      List<AirportData>? objAirportList});
 }
 
 /// @nodoc
@@ -83,9 +101,19 @@ class __$$_AirportListCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = freezed,
+    Object? responseMessage = freezed,
     Object? objAirportList = freezed,
   }) {
     return _then(_$_AirportList(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      responseMessage: freezed == responseMessage
+          ? _value.responseMessage
+          : responseMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       objAirportList: freezed == objAirportList
           ? _value._objAirportList
           : objAirportList // ignore: cast_nullable_to_non_nullable
@@ -97,12 +125,19 @@ class __$$_AirportListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AirportList implements _AirportList {
-  const _$_AirportList({final List<AirportData>? objAirportList})
+  const _$_AirportList(
+      {this.status,
+      this.responseMessage,
+      final List<AirportData>? objAirportList})
       : _objAirportList = objAirportList;
 
   factory _$_AirportList.fromJson(Map<String, dynamic> json) =>
       _$$_AirportListFromJson(json);
 
+  @override
+  final bool? status;
+  @override
+  final String? responseMessage;
   final List<AirportData>? _objAirportList;
   @override
   List<AirportData>? get objAirportList {
@@ -115,7 +150,7 @@ class _$_AirportList implements _AirportList {
 
   @override
   String toString() {
-    return 'AirportList(objAirportList: $objAirportList)';
+    return 'AirportList(status: $status, responseMessage: $responseMessage, objAirportList: $objAirportList)';
   }
 
   @override
@@ -123,14 +158,17 @@ class _$_AirportList implements _AirportList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AirportList &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.responseMessage, responseMessage) ||
+                other.responseMessage == responseMessage) &&
             const DeepCollectionEquality()
                 .equals(other._objAirportList, _objAirportList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_objAirportList));
+  int get hashCode => Object.hash(runtimeType, status, responseMessage,
+      const DeepCollectionEquality().hash(_objAirportList));
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +185,18 @@ class _$_AirportList implements _AirportList {
 }
 
 abstract class _AirportList implements AirportList {
-  const factory _AirportList({final List<AirportData>? objAirportList}) =
-      _$_AirportList;
+  const factory _AirportList(
+      {final bool? status,
+      final String? responseMessage,
+      final List<AirportData>? objAirportList}) = _$_AirportList;
 
   factory _AirportList.fromJson(Map<String, dynamic> json) =
       _$_AirportList.fromJson;
 
+  @override
+  bool? get status;
+  @override
+  String? get responseMessage;
   @override
   List<AirportData>? get objAirportList;
   @override

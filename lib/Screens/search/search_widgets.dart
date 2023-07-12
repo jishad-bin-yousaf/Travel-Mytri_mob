@@ -46,7 +46,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
         children: [
           Row(children: [
             Text(
-              '${data.origin ?? "N/A"}\t',
+              '${data.objItinList?.first.source ?? "N/A"}\t',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
             ),
             Icon(
@@ -55,7 +55,7 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
               size: 20,
             ),
             Text(
-              '\t${data.destination ?? "N/A"}',
+              '\t${data.objItinList?.first.destination ?? "N/A"}',
               maxLines: 2,
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
             ),
@@ -63,12 +63,12 @@ flightSearchAppBar(BuildContext context, AirlineSearchResponse data, ModifyData 
           data.departureDate != null
               ? Text(
                   '\t${DateFormat('dd MMMM').format(data.departureDate!)}',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),
                 )
               : SizedBox(),
           Text(
             " [\t${((data.adult ?? 0) + (data.child ?? 0) + (data.infant ?? 0))}Traveller]",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),
           ),
           Text(
             data.airlineClass ?? "Premium economy",
@@ -172,7 +172,7 @@ class _MultiCityState extends State<MultiCity> {
   @override
   void initState() {
     UtilitiesApi().getAirport().then((value) {
-      airportList = value ?? [];
+      airportList = value?.objAirportList ?? [];
     });
 
     super.initState();

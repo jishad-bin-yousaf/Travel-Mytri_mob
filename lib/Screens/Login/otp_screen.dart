@@ -151,7 +151,14 @@ class _ScreenOtpState extends State<ScreenOtp> with CodeAutoFill {
                         }
                         (value?.status ?? false)
                             ? Future.delayed(const Duration(seconds: 2), () {
-                                Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
+                                int poppedCount = 0;
+                                Navigator.popUntil(context, (route) {
+                                  poppedCount++;
+                                  return poppedCount > 2;
+                                });
+                                if (Navigator.canPop(context)) {
+                                  Navigator.pop(context);
+                                }
                               })
                             : Helper().toastMessage(value?.responseMessage ?? "Go Back & Try Again");
                       });

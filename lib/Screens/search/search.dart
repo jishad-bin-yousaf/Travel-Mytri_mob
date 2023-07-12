@@ -13,6 +13,7 @@ import 'package:travel_mytri_mobile_v1/data/model/Search/flight_search_model.dar
 import 'package:travel_mytri_mobile_v1/data/model/utilities.dart';
 import 'package:connectivity/connectivity.dart';
 import '../../data/model/hive_class_functions.dart';
+import '../widgets/session_expired.dart';
 
 class ModifyData {
   bool oneWay;
@@ -124,7 +125,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<AirportData>?>(
+    return FutureBuilder(
         future: UtilitiesApi().getAirport(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -137,72 +138,75 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             );
           } else if (snapshot.hasError) {
             // Display an error message if the asynchronous operation fails
-            return ErrorPage();
+            return const ErrorPage();
           } else {
-            airportList = snapshot.data ?? [];
-            return Scaffold(
-              backgroundColor: primaryColor,
-              bottomSheet: Container(
-                color: white,
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-              ),
-              appBar: AppBar(
-                elevation: 0,
-                leadingWidth: 180,
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.notifications_active,
-                        size: 35,
-                      )),
-                  const SizedBox(width: 10),
-                ],
-                leading: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      //   loginBottomSheet(context, width);
-                    },
-                    icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
-                    label: Text(
-                      "Hi $userName",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+            airportList = snapshot.data?.objAirportList ?? [];
+
+            return (snapshot.data?.responseMessage?.trim().toLowerCase() == ("InvalidToken").trim().toLowerCase())
+                ? const SessionExpiredPage()
+                : Scaffold(
+                    backgroundColor: primaryColor,
+                    bottomSheet: Container(
+                      color: white,
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
                     ),
-                  ),
-                ),
-              ),
-              body: SafeArea(
-                child: Stack(
-                  children: [
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      margin: const EdgeInsets.only(top: 60),
-                      decoration: BoxDecoration(
-                        color: white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
+                    appBar: AppBar(
+                      elevation: 0,
+                      leadingWidth: 180,
+                      actions: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.notifications_active,
+                              size: 35,
+                            )),
+                        const SizedBox(width: 10),
+                      ],
+                      leading: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton.icon(
+                          onPressed: () {
+                            //   loginBottomSheet(context, width);
+                          },
+                          icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
+                          label: Text(
+                            "Hi $userName",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Column(
+                    body: SafeArea(
+                      child: Stack(
                         children: [
-                          flightOrHotelSelect(context),
-                          TripTypes(isModify: false, airportList: airportList),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            margin: const EdgeInsets.only(top: 60),
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                topRight: Radius.circular(50),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Column(
+                              children: [
+                                flightOrHotelSelect(context),
+                                TripTypes(isModify: false, airportList: airportList),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
+                    ),
+                  );
           }
         });
   }
